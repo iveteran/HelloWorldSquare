@@ -1,0 +1,247 @@
+# GNU Screen configuration file
+#
+# Balaji S. Srinivasan <balajis_at_stanford_dot_edu>
+# This file can be found at http://jinome.stanford.edu/stat366/unix/.screenrc
+# Modified to play well with emacs, by moving Ctrl-A to Ctrl-T
+
+
+# Modification of original files by Sven Guckes, Sarunas Vancevicius, and Mike Perry
+# Sarunas Vancevicius original: http://www.redbrick.dcu.ie/~svan/configs/screenrc
+# Mike Perry original:  http://fscked.org/writings/225notes/unix/.screenrc
+
+#shell bash
+###shell -$SHELL  #you can change OS X default shell to bash with the command "chsh -s bash"...
+#terminfo xterm-color  #this keeps the coloring good; if the $TERM variable is not set explicitly, it is set to "screen"
+	            #while apple's default is xterm-color. This messes up the color scheme significantly...
+
+#term xterm-color  #I modified this in the /etc/bashrc file to keep syntax highlighting intact in emacs
+
+markkeys "h=^B:l=^F:$=^E"  #this should give emacs style keybindings during copy mode movement in screen
+
+autodetach           on            # default: on
+crlf                off           # default: off
+deflogin            off           # default: on
+# defsilence          off           # default: off
+hardcopy_append     on            # default: off
+# nethack             on            # default: off
+startup_message     off           # default: on
+vbell               off           # default: ???
+escape	"^Tt"  #the default of A interferes with emacs keybindings for terminal, and I never use the emacs transpose command
+###nonblock on  #means that the whole window doesn't hang if an individual doesn't
+#zombie cr #keep dead windows around till told to exit
+#verbose on #show command for windows when they're resurrected
+defutf8 on #run everything in unicode, to allow display of international characters w/o problems
+
+# ===============================================================
+# VARIABLES - Number values
+# ===============================================================
+  defscrollback       10000          # default: 100
+# msgminwait          3             # default: 1
+  silencewait         15            # default: 30
+
+# Hardstatus line at bottom of screen
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%< "
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%< %=[%c, %D, %d/%m/%y]"
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%< %=[%c:%s, %D, %d/%m/%y]"
+
+# "sorendition": set the colors for
+# the "messages" and "text marking"
+# (ie text you mark in copy mode):
+
+sorendition "+b kG"
+#sorendition 10 99 # default, blue highlighting of active, black background, white text
+
+#sorendition 02 34  # yellow on blue
+# sorendition 02 40 # green  on black
+# sorendition 02 34 # yellow on blue
+# sorendition  rw # red  on white
+# sorendition  kG # black  on bold green
+
+##setenv DISPLAY ''
+activity            "activity in %n (%t) [%w:%s]~"
+# bell:       This message *includes* a "beep" with '~'.
+bell                "bell   in %n (%t) [%w:%s]~"
+
+#Change keybindings for convenience
+bind ^Q mapdefault  #these two allow the use of a quote key (?)
+bind q mapdefault
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+#bind esc
+bind ''
+bind 'L' #don't want to use login when using screen redraw
+#make them better
+#bind '\\' quit
+#bind 'K' kill
+bind 'I' login on
+bind 'O' login off
+bind '}' history
+bind ^a
+#bindkey "^[w" command
+# Yet another hack:
+# Prepend/append register [/] to the paste if ^a^] is pressed.
+# This lets me have autoindent mode in vi.
+#register [ "\033:se noai\015a"
+#register ] "\033:se ai\015a"
+#bind ^] paste [.]
+
+# aterm bindings                                                            bindkey "Oc" next
+bindkey "Od" prev
+
+#easy switching of windows without p/n confusion, as ctrl-p and ctrl-n are frequently used in emacs but u/j are not...
+#bind '^u'
+#bind '^j'
+bind 'u' prev
+bind ^U prev
+bind 'j' next
+bind ^J next
+
+#allow use of emacs-ish keybindings to move around regions
+# Using tab to move around regions gets annoying.  These help.
+bind ^P focus up
+bind 'p' focus up
+bind ^N focus down
+bind 'n' focus down
+bind ^F focus top
+bind 'f' focus top
+bind ^B focus bottom
+bind 'b' focus bottom
+
+
+
+#bindkey ^[0 select `
+#bindkey ^[1 select 1
+#bindkey ^[2 select 2
+#bindkey ^[3 select 3
+#bindkey ^[4 select 4
+#bindkey ^[5 select 5
+#bindkey ^[6 select 6
+#bindkey ^[7 select 7
+#bindkey ^[8 select 8
+#bindkey ^[9 select 9
+
+
+#================================================
+# A bunch of hardstatus lines, Choose one that you like.
+# Taken from a bunch of config files that I could find,
+# while trying to find the *perfect* hardstatus line.
+#================================================
+
+# ===============================
+# Hardstatus Line and sorendition
+# ===============================
+# hardstatus: Always show the window list in the last line:
+# hardstatus alwayslastline "%w"
+#
+# This will show the current time and today's date in YYmmdd, too:
+#hardstatus alwayslastline " %c | %Y%m%d |  %w"
+#
+# Same as the previous - but with COLOR! :-)
+# hardstatus alwayslastline "\033[m\033[42;30m %m%d \033[m \033[42;30m%c\033[m \033[42;30m %w \033[m"
+# hardstatus alwayslastline " %m%d \033[42;30m%c\033[m \033[42;30m %w \033[m"
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+#hardstatus lastline "[%D, %d/%m/%y %C %a]  %-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+#hardstatus alwayslastline "[%D,%c]  %-Lw%{= RW}%50>%n%f* %t%{-}%+Lw%<"
+
+#caption always "%{= kc}%?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"
+#caption always '%{= wb}%50=%n%f %t%{= wb}'
+#caption always '%{= wb}%50=%n%f %t%{= wb}'
+#caption always "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+#hardstatus alwayslastline " %m%d %c \033[42;30m %w \033[m"
+
+#caption always "%>%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?%<"
+
+#[20:58:40]
+#hardstatus alwayslastline "[%c:%s, %D, %d/%m/%y] %w"
+#hardstatus alwayslastline "[%c:%s, %D, %d/%m/%y] %-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+#hardstatus alwayslastline "[%D, %d/%m/%y %C %a]  %-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+# caption always "%{kG}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kG}%?%+Lw%?"
+# caption always "%{=}%{+b kR}%H %{+b kY}%M %d %{+b kG}%2c %{+b kB}%?%-Lw%?%{+b kW}%n*%f %kt%?(%u)%?%{+bkB}%?%+Lw%? | %{kR} Load: %l %{kB}"
+
+# hardstatus alwayslastline "%H %w"
+# example by Adam Spiers <gnu-screen@adamspiers.org> :
+# *without* colors:
+# hardstatus alwayslastline "%?%-Lw%?%n*%f %t%?(%u)%?%?%+Lw%?"
+# *with* colors:
+#
+# This will show the current time and today's date in YYmmdd, too:
+# hardstatus alwayslastline " %c | %Y%m%d |  %w"
+#
+# This will show today's date in mmdd and the current time, too:
+# hardstatus alwayslastline " %m%d %c |  %w"
+#
+# hardstatus alwayslastline " [ %H ] %{wb} %c:%s | %d.%m.%Y %{wr} Load: %l %{wb} %w "
+# hardstatus alwayslastline " %H %{wb} %c:%s | %d.%m.%Y %{wr} Load: %l %{wk} %w "
+#hardstatus alwayslastline "%{bw}%1`%= %{+b ky}| %c:%s |%{+b rw} ip: %2` | vpn: %3`"
+#                                |                        |        |
+#                                heise (script in ~/bin/) |        ipadr_vpn (script in ~/bin/)
+#                                                           |
+#                                                           ipadr (script in ~/bin/)
+#
+# note: the use of ANSI color sequences is deprecated.
+#     please upgrade to (at least) screen 3.9.13
+#     so you can make use of the color letters/names!
+
+#From: www.zsh.org/mla/workers/2000/msg03990.html
+#hardstatus off
+#hardstatus string "%H - %n:%t%? - %h%?"
+#hardstatus alwayslastline "%H - %n:%t%? - %h%?"
+#hardstatus alwayslastline "%n:%h%?"  #this is window number, login@hostname, and current directory
+#hardstatus alwayslastline "%w%n:%h%?"  #this is window number, login@hostname, and current directory
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %h%?%{-}%+Lw%<"
+
+#termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
+#caption always "%?%F%{-b bc}%:%{-b bb}%?%C|%D|%M %d|%H%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f* %t%{-}%+Lw%-0<"
+#hardstatus alwayslastline "%= %-Lw *%n%h %t %+Lw %="
+hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%< "
+
+#Window numbering starts at 1, not 0
+#bind c screen 1
+#bind 0 select 10
+
+# caption description:
+# caption always "%?%F%{-b bc}%:%{-b bb}%?%C|%D|%M %d|%H%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f* %t%{-}%+Lw%-0<"
+#
+# Anything I don't describe is treated literally.
+#
+# %?        - Start of a conditional statement.
+#  %F       - Use this part of the statement if the window has focus (i.e. it
+#             is the only window or the currently active one).
+#  %{-b bc} - Turn off bold, blue foreground, cyan background.
+# %:        - else
+#  %{-b bb} - Turn off bold, blue foreground, blue background (this obscures
+#             the text on non-focused windows and just gives a blue line).
+# %?        - End conditional statement.
+#  %C       - time (hh:mm, leading space) in 12 hour format
+#  %D       - Three-letter day-of-week appreviation
+#  %M       - Three-letter month appreviation
+#  %d       - Day of the month
+#  %H       - hostname
+#  %?       - Start of conditional statement.
+# %F      - Use this part of the statement if the window has focus.
+# %{+u wb}  - underlined, white foreground, blue background
+#  %?       - End conditional (if not focused, text remaind blue on blue).
+#  %L=    - truncation/padding point.  With the 'L' qualifier, basically
+#             just acts as a reference point.  Further truncation/padding is
+#             done relative to here, not the beginning of the string
+#  %-Lw   - window list up to but not including the current window (-),
+#             show window flags (L)
+#  %45>   - truncation/padding marker; place this point about 45% of the
+#             way into the display area (45)
+#  %{+b by} - add bold (still underlined from before), blue foreground,
+#             yellow background
+#    %n   - number of the current window
+#    %f   - flags for current window
+#    %t   - title of current window
+#  %{-}   - undo last color change (so now we're back to underlined white
+#             on blue)  (technically, this is a pop; a second invocation
+#             would drop things back to unadorned blue on cyan)
+#  %+Lw   - window list from the next window on (-), show window flags (L)
+#  %-0<   - truncation/padding point.  Place this point zero spaces (0)
+#             from the right margin (-).

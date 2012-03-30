@@ -1,0 +1,199 @@
+# Diese Konfigurationsdatei ist freie Software; Sie koennen sie nach den
+# Bestimmungen der GPL Version 2 oder (wenn Sie wollen) einer beliebigen
+# spaeteren Version der, von der Free Software Foundation
+# veroeffentlichten, GNU General Public License benutzen und modifizieren.
+# Abgeleitet von Sven Guckes <guckes-screen AT math.fu-berlin.de> .screenrc
+# Bearbeitet von Kurt Gramlich <kurt.gramlich AT lugrav.de> und
+# Benedikt Wildenhain <benedikt.wildenhain  AT elug.de>
+# Aktuelle Version: http://www.benedikt-wildenhain.de/.screenrc
+
+# Hinweis: wer nicht so paranoid ist und fuer Browser + irc eigenen
+# Accounts benutzt (wegen moeglichen Exploits) muss die sudo Aufrufe
+# vorher entfernen
+
+  autodetach          on            # Standard: on
+  crlf                off           # Standard: off
+  deflogin            off           # Standard: on
+  hardcopy_append     on            # Standard: off
+  startup_message     off           # Standard: on
+  vbell               off
+  defscrollback       1000          # Standard: 100
+  silencewait         15            # Standard: 30
+
+  shell               bash
+
+  hardstatus          alwayslastline " %d-%m-%y %c | %w"
+  sorendition         02 40
+  activity            "activity in %n (%t) [%w:%s]~"
+  bell                "Stoerenfried in %n (%t) [%w:%s]~"
+  vbell_msg           " *Ruhe!* "
+  bind h hardcopy
+  bind P paste        .
+  bind ~ activity     "activity in %n (%t) [%w:%s]~"
+  bind * activity     "activity in %n (%t) [%w:%s]"
+
+  bind E screen -t 'mail'  1 mutt
+  bind G screen -t 'Google'  sudo -u insec links www.google.com
+  bind l screen -t 'lugrav'  2 sudo -u insec links http://www.lugrav.de/
+  bind e screen -t 'elug'  3 sudo -u insec  links http://www.elug.de/
+  bind m screen -t 'mc'    4 mc
+  bind V screen -t 'vim'   5 vim
+  bind T screen -t 'HeiseTicker' sudo -u insec links www.heise.de/
+
+  bind N screen -t 'Notizen' bash -c "date \"+%n--- --- --- %d-%m-%Y-%H:%M --- --- ---%n%n\" >> $HOME/.todo; vim -c %%\'$|startinsert!\' $HOME/.todo"
+
+#  encoding utf8 iso8859-15
+
+# ===============================================================
+# Befehlsuebersicht
+# ===============================================================
+#
+# acladd <usernames>
+# aclchg <username> <permbits> <list>
+# acldel <username>
+# acldel does not allow a list of usernames?
+# activity <message>
+# allpartial [on|off]
+# at [identifier][#|*|%] command [args ... ]
+# autodetach [on|off]
+# autonuke [on|off]
+# bell <message>
+# bind <key> [command [args]]
+# bindkey [-d] [-m] [-a] [[-k|-t] <string> [<cmd> <args>]
+# break [<duration>]
+# bufferfile [exchange-file]
+# c1 [on|off]
+# charset <set>
+# chdir [<directory>]
+# clear
+# colon [<prefix>]
+# The manual does not tell you what the "prefix" is for.  :-(
+# command
+# console [on|off]
+#"console on" just tells me "don't know how to grab console".  :-(
+# copy
+# "copy" enters the copy mode - one of the most useful things with screen.
+# It allows you to access the current window and its scrollback buffer,
+# search for some text and copy it to the default buffer.  You can then
+# put its contents into a file or paste it into another window.  Great!
+# copy_reg [key]
+#'copy_reg' "No longer exists, use "readreg" instead!"
+# crlf [on|off]
+#'crlf' gives no visible feedback.  Bad!
+# debug on|off
+#
+# "def" commands - they set "default values" for further windows:
+# defautonuke [on|off]
+# defc1 [on|off]
+# defcharset [<set>]
+# defescape <xy>
+# defflow on|off|auto [interrupt]
+# defgr [on|off]
+# defhstatus [<status>]
+# defkanji [jis|sjis|euc]
+# deflogin [on|off]
+# defmode <mode>
+# defmonitor [on|off]
+# defobuflimit <limit>
+# defscrollback <num>
+# defwrap [on|off]
+# defwritelock on|off|auto
+# defzombie <[keys>]
+#'defzombie' -> "unknown command 'defzombie'".  Not implemented, maybe?
+#
+# detach
+# digraph [<preset>]
+# dumptermcap
+# echo [-n] <message>
+# escape <xy>
+# exec [[fdpat] newcommand [args ...]]
+# I need some more examples for 'exec' - send them!
+#
+# flow [on|off|auto]
+# gr [on|off]
+# hardcopy
+# hardcopy_append [on|off]
+# hardcopydir <directory>
+# hardstatus [on|off]
+# height [<lines>]
+# help
+# history
+# info
+# ins_reg <[key>]
+# kanji jis|euc|sjis [jis|euc|sjis]
+# kill
+#
+# lastmsg
+# license
+# lockscreen
+# log [on|off]
+# logdir directory
+# logfile <filename>
+# login [on|off]
+#
+# mapdefault
+# mapnotnext
+# maptimeout <[timo>]
+# markkeys <string>
+# meta
+# monitor [on|off]
+# msgminwait <sec>
+# msgwait <sec>
+# multiuser [on|off]
+#
+# nethack [on|off]
+# next
+# number [<n>]
+# obuflimit [<limit>]
+# other
+#
+# partial [on|off]
+# password [<crypted_pw>]
+# paste [<registers> [<dest_reg>]]
+# pastefont [on|off]
+# pow_break
+# pow_detach
+# pow_detach_msg <message>
+# prev
+# print_cmd [<cmd>]
+# process [<key>]
+#
+# quit
+#
+# readbuf
+# redisplay
+# register key string
+# removebuf
+# reset
+# screen [-opts] [n] [cmd [args]]
+# scrollback num
+# select [n]
+# sessionname [name]
+# setenv [var [string]]
+# shell command
+# shelltitle title
+# silence [on|off|sec]
+# silencewait sec
+# sleep num
+# slowpaste usec
+# startup_message on|off
+# suspend
+# term term
+# termcap term terminal-tweaks [window-tweaks]
+# terminfo term terminal-tweaks [window-tweaks]
+# time
+# title [windowalias]
+# unsetenv var
+# vbell on|off
+# vbell_msg message
+# vbellwait sec
+# version
+# wall message ...
+# width [num]
+# windows
+# wrap [on|off]
+# writebuf
+# writelock [on|off|auto]
+# xoff
+# xon
+# zombie [key][key]
