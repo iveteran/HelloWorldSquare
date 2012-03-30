@@ -110,7 +110,11 @@ set expandtab
 " set tags file
 set tags=tags;
 set autochdir
+
 set path+=~/projects/iDirect/Core_Libs
+
+set foldcolumn=4
+set foldmethod=syntax
 
 :let Grep_Default_Filelist = '*.[chS]'
 :let Grep_Default_Filelist = '*.c *.cpp *.h *.hpp *.C *.CXX *.asm'
