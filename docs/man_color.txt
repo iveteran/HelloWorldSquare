@@ -1,0 +1,4 @@
+1) $ PAGER=most man ls
+OR
+2) alias man='man -P most'
+man yes
