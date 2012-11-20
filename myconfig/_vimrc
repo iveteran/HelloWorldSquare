@@ -111,7 +111,7 @@ set expandtab
 set tags=tags;
 set autochdir
 
-set path+=~/projects/iDirect/Core_Libs
+"set path+=~/projects/iDirect/Core_Libs
 
 set foldcolumn=4
 set foldmethod=syntax
