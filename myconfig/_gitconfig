@@ -10,7 +10,7 @@
     ci = commit
     st = status
     br = branch
-    log = "log --stat"
+    lg = "log --stat --graph"
 [diff]
 	tool = vimdiff
 [difftool]

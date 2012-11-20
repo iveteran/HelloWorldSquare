@@ -113,12 +113,6 @@ set autochdir
 
 "set path+=~/projects/iDirect/Core_Libs
 
-set foldcolumn=4
-set foldmethod=syntax
-
-:let Grep_Default_Filelist = '*.[chS]'
-:let Grep_Default_Filelist = '*.c *.cpp *.h *.hpp *.C *.CXX *.asm'
-:let Grep_Default_Options = '-in'
-:let Grep_Skip_Dirs = '.svn CVS .git'
-:let Grep_Skip_Files = '*.bak*~'
+"set foldcolumn=4
+"set foldmethod=syntax
 ":let Grep_OpenQuickfixWindow = 0
