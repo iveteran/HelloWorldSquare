@@ -1,0 +1,47 @@
+TARGET   = ../bin/my_program
+VERSION_FILE = ../include/version.h
+
+all : $(VERSION_FILE) $(TARGET)
+
+ROOT = ../..
+LIB_THIRD = $(ROOT)/../third_libs
+
+CPPFLAGS = -g -Wall -std=c++0x
+
+CXXFLAGS = -I../include 
+
+LDFLAGS = -L$(ROOT)/lib -lmylib 
+
+CXX      = g++
+RM       = rm -f
+AR		 = ar -r
+
+SRCDIRS  = .
+SRCEXTS  = .cpp
+SOURCES  = $(foreach d,$(SRCDIRS),$(wildcard $(addprefix $(d)/*,$(SRCEXTS))))
+OBJS     = $(foreach x,$(SRCEXTS), $(patsubst %$(x),%.o,$(filter %$(x),$(SOURCES))))
+DEPS     = $(patsubst %.o,%.d,$(OBJS))
+
+-include $(DEPS)
+
+.PHONY : all clean cleanall rebuild install
+
+$(VERSION_FILE):
+	@sh $(ROOT)/tools/gen_version.sh "1.0.1"
+
+$(TARGET) : $(VERSION_FILE) $(OBJS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LDFLAGS)
+
+%.d : %.cpp
+	@$(CXX) -MM -MD $(CXXFLAGS) $<
+
+%.o : %.cpp
+	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $<
+
+rebuild: clean all
+
+clean:
+	@$(RM) *.o *.d ../include/version.h
+
+cleanall: clean
+	$(RM) $(TARGET)

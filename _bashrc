@@ -1,0 +1,20 @@
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+
+alias ls='ls --color=auto'
+alias ll='ls -l -rt'
+alias l.='ls -a'
+alias grep='grep --color=auto'
+alias man='man -P less'
+alias tree='tree -C'
+
+export EDITOR='vim'
+export PAGER='less'
+export HISTTIMEFORMAT='[%F %T] '
+
+set -o vi
+source /usr/bin/virtualenvwrapper.sh
