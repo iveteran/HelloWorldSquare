@@ -1,0 +1,375 @@
+.. image:: https://travis-ci.org/mriehl/fysom.png?branch=master
+   :alt: Travis build status image
+   :align: left
+   :target: https://travis-ci.org/mriehl/fysom
+
+.. image:: https://coveralls.io/repos/mriehl/fysom/badge.png?branch=master
+    :target: https://coveralls.io/r/mriehl/fysom?branch=master
+    :alt: Coverage status
+
+.. image:: https://badge.fury.io/py/fysom.png
+    :target: https://badge.fury.io/py/fysom
+    :alt: Latest PyPI version
+
+#### 
+https://github.com/mriehl/fysom.git
+
+License
+=======
+
+MIT licensed. All credits go to Jake Gordon for the `original javascript
+implementation <https://github.com/jakesgordon/javascript-state-machine/>`_
+and to Mansour Behabadi for the `python
+port <https://github.com/oxplot/fysom>`_.
+
+Synopsis
+========
+
+This is basically Mansours' implementation with unit tests and a build process added.
+It's also on PyPi (``pip install fysom``).
+Fysom is built and tested on python 2.6 to 3.3 and PyPy.
+
+Installation
+============
+
+From your friendly neighbourhood cheeseshop
+-------------------------------------------
+
+::
+
+    pip install fysom
+
+Developer setup
+---------------
+
+This module uses `PyBuilder <http://pybuilder.github.io>`_.
+::
+
+    sudo pip install pyb_init
+    pyb-init github mriehl : fysom
+
+Running the tests
+-----------------
+
+::
+
+    pyb verify
+
+Generating and using a setup.py
+-------------------------------
+
+::
+
+    pyb
+    cd target/dist/fysom-$VERSION
+    ./setup.py bdist_rpm #build RPM
+
+Looking at the coverage
+-----------------------
+
+::
+
+    pyb
+    cat target/reports/coverage
+
+USAGE
+=====
+
+Basics
+------
+
+::
+
+    from fysom import Fysom
+
+    fsm = Fysom({ 'initial': 'green',
+                  'events': [
+                      {'name': 'warn', 'src': 'green', 'dst': 'yellow'},
+                      {'name': 'panic', 'src': 'yellow', 'dst': 'red'},
+                      {'name': 'calm', 'src': 'red', 'dst': 'yellow'},
+                      {'name': 'clear', 'src': 'yellow', 'dst': 'green'} ] })
+
+... will create an
+object with a method for each event:
+
+-  fsm.warn() - transition from 'green' to 'yellow'
+-  fsm.panic() - transition from 'yellow' to 'red'
+-  fsm.calm() - transition from 'red' to 'yellow'
+-  fsm.clear() - transition from 'yellow' to 'green'
+
+along with the following members:
+
+-  fsm.current - contains the current state
+-  fsm.isstate(s) - return True if state s is the current state
+-  fsm.can(e) - return True if event e can be fired in the current state
+-  fsm.cannot(e) - return True if event s cannot be fired in the current
+   state
+
+
+Shorter Syntax
+--------------
+
+It's possible to define event transitions as 3-tuples (event name,
+source state, destination state) rather than dictionaries.
+``Fysom`` constructor accepts also keyword arguments ``initial``,
+``events``, ``callbacks``, and ``final``.
+
+This is a shorter version of the previous example::
+
+    fsm = Fysom(initial='green',
+                events=[('warn',  'green',  'yellow'),
+                        ('panic', 'yellow', 'red'),
+                        ('calm',  'red',    'yellow'),
+                        ('clear', 'yellow', 'green')])
+
+
+Initialization
+--------------
+
+How the state machine should initialize can depend on your application
+requirements, so the library provides a number of simple options.
+
+By default, if you don't specify any initial state, the state machine
+will be in the 'none' state and you would need to provide an event to
+take it out of this state:
+::
+
+    fsm = Fysom({'events': [
+                    {'name': 'startup', 'src': 'none',  'dst': 'green'},
+                    {'name': 'panic', 'src': 'green', 'dst': 'red'},
+                    {'name': 'calm', 'src': 'red', 'dst': 'green'}]})
+    print fsm.current # "none"
+    fsm.startup()
+    print fsm.current # "green"
+
+If you specify the name of your initial event (as in all the earlier
+examples), then an implicit 'startup' event will be created for you and
+fired when the state machine is constructed:
+::
+
+    fsm = Fysom({'initial': 'green',
+                 'events': [
+                     {'name': 'panic', 'src': 'green', 'dst': 'red'},
+                     {'name': 'calm', 'src': 'red', 'dst': 'green'}]})
+    print fsm.current # "green"
+
+If your object already has a startup method, you can use a different
+name for the initial event:
+::
+
+    fsm = Fysom({'initial': {'state': 'green', 'event': 'init'},
+                 'events': [
+                     {'name': 'panic', 'src': 'green', 'dst': 'red'},
+                     {'name': 'calm',  'src': 'red', 'dst': 'green'}]})
+    print fsm.current # "green"
+
+Finally, if you want to wait to call the initial state transition event
+until a later date, you can defer it:
+::
+
+    fsm = Fysom({'initial': {'state': 'green', 'event': 'init', 'defer': True},
+                 'events': [
+                     {'name': 'panic', 'src': 'green', 'dst': 'red'},
+                     {'name': 'calm',  'src': 'red',   'dst': 'green'}]})
+    print fsm.current # "none"
+    fsm.init()
+    print fsm.current # "green"
+
+Of course, we have now come full circle, this last example pretty much
+functions the same as the first example in this section where you simply
+define your own startup event.
+
+So you have a number of choices available to you when initializing your
+state machine.
+
+You can also indicate which state should be considered final.
+This has no effect on the state machine, but lets you use a shorthand
+method is_finished() that returns true if the state machine is in
+this 'final' state:
+::
+
+    fsm = Fysom({'initial': 'green',
+                 'final': 'red',
+                 'events': [
+                     {'name': 'panic', 'src': 'green', 'dst': 'red'},
+                     {'name': 'calm',  'src': 'red',   'dst': 'green'}]})
+    print fsm.current # "green"
+    fsm.is_finished() # False
+    fsm.panic()
+    fsm.is_finished() # True
+
+
+Dynamically generated event names
+---------------------------------
+
+Sometimes you have to compute the name of an event you want to trigger on the
+fly. Instead of relying on `getattr` you can use the `trigger` method, which takes
+a string (the event name) as a parameter, followed by any arguments/keyword
+arguments you want to pass to the event method.
+This is also arguably better if you're not sure if the event exists at all
+(FysomError vs. AttributeError, see below).
+
+::
+
+    from fysom import Fysom
+
+    fsm = Fysom({ 'initial': 'green',
+                  'events': [
+                      {'name': 'warn', 'src': 'green', 'dst': 'yellow'},
+                      {'name': 'panic', 'src': 'yellow', 'dst': 'red'},
+                      {'name': 'calm', 'src': 'red', 'dst': 'yellow'},
+                      {'name': 'clear', 'src': 'yellow', 'dst': 'green'} ] })
+
+    fsm.trigger('warn', msg="danger")  # equivalent to fsm.warn(msg="danger")
+    fsm.trigger('unknown')  # FysomError, event does not exist
+    fsm.unknown()  #  AttributeError, event does not exist
+
+
+Multiple source and destination states for a single event
+---------------------------------------------------------
+::
+
+    fsm = Fysom({'initial': 'hungry',
+                 'events': [
+                     {'name': 'eat', 'src': 'hungry', 'dst': 'satisfied'},
+                     {'name': 'eat', 'src': 'satisfied', 'dst': 'full'},
+                     {'name': 'eat', 'src': 'full', 'dst': 'sick'},
+                     {'name': 'rest', 'src': ['hungry', 'satisfied', 'full', 'sick'], 'dst': 'hungry'}]})
+
+This example will create an object with 2 event methods:
+
+-  fsm.eat()
+-  fsm.rest()
+
+The rest event will always transition to the hungry state, while the eat
+event will transition to a state that is dependent on the current state.
+
+NOTE the rest event in the above example can also be specified as
+multiple events with the same name if you prefer the verbose approach.
+
+NOTE if an event can be triggered from any state, you can specify it
+using the '*' wildcard, or even by omitting the src attribute from its
+definition:
+::
+
+    fsm = Fysom({'initial': 'hungry',
+                 'events': [
+                     {'name': 'eat', 'src': 'hungry', 'dst': 'satisfied'},
+                     {'name': 'eat', 'src': 'satisfied', 'dst': 'full'},
+                     {'name': 'eat', 'src': 'full', 'dst': 'sick'},
+                     {'name': 'eat_a_lot', 'src': '*', 'dst': 'sick'},
+                     {'name': 'rest', 'dst': 'hungry'}]})
+
+NOTE if an event will not change the current state, you can specify destination
+using the '=' symbol. It's useful when using wildcard source or multiply sources:
+::
+
+    fsm = Fysom({'initial': 'hungry',
+                 'events': [
+                     {'name': 'eat', 'src': 'hungry', 'dst': 'satisfied'},
+                     {'name': 'eat', 'src': 'satisfied', 'dst': 'full'},
+                     {'name': 'eat', 'src': 'full', 'dst': 'sick'},
+                     {'name': 'eat_a_little', 'src': '*', 'dst': '='},
+                     {'name': 'eat_a_little', 'src': ['full', 'satisfied'], 'dst': '='},
+                     {'name': 'eat_a_little', 'src': 'hungry', 'dst': '='},
+                     {'name': 'rest', 'dst': 'hungry'}]})
+
+Callbacks
+---------
+
+5 callbacks are available if your state machine has methods using the
+following naming conventions:
+
+-  onbefore\_event\_ - fired before the *event*
+-  onleave\_state\_ - fired when leaving the old *state*
+-  onenter\_state\_ - fired when entering the new *state*
+-  onreenter\_state\_ - fired when reentering the old *state* (a reflexive transition i.e. src == dst)
+-  onafter\_event\_ - fired after the *event*
+
+You can affect the event in 2 ways:
+
+-  return False from an onbefore\_event\_ handler to cancel the event.
+   This will raise a fysom.Canceled exception.
+-  return False from an onleave\_state\_ handler to perform an
+   asynchronous state transition (see next section)
+
+For convenience, the 2 most useful callbacks can be shortened:
+
+-  on\_event\_ - convenience shorthand for onafter\_event\_
+-  on\_state\_ - convenience shorthand for onenter\_state\_
+
+In addition, a generic onchangestate() callback can be used to call a
+single function for all state changes.
+
+All callbacks will be passed one argument 'e' which is an object with
+following attributes:
+
+-  fsm Fysom object calling the callback
+-  event Event name
+-  src Source state
+-  dst Destination state
+-  (any other keyword arguments you passed into the original event
+   method)
+-  (any positional argument you passed in the original event method,
+   in the 'args' attribute of the event)
+
+Note that when you call an event, only one instance of 'e' argument is
+created and passed to all 4 callbacks. This allows you to preserve data
+across a state transition by storing it in 'e'. It also allows you to
+shoot yourself in the foot if you're not careful.
+
+Callbacks can be specified when the state machine is first created:
+::
+
+    def onpanic(e):
+        print 'panic! ' + e.msg
+    def oncalm(e):
+        print 'thanks to ' + e.msg + ' done by ' + e.args[0]
+    def ongreen(e):
+        print 'green'
+    def onyellow(e):
+        print 'yellow'
+    def onred(e):
+        print 'red'
+    fsm = Fysom({'initial': 'green',
+                 'events': [
+                     {'name': 'warn', 'src': 'green', 'dst': 'yellow'},
+                     {'name': 'panic', 'src': 'yellow', 'dst': 'red'},
+                     {'name': 'panic', 'src': 'green', 'dst': 'red'},
+                     {'name': 'calm', 'src': 'red', 'dst': 'yellow'},
+                     {'name': 'clear', 'src': 'yellow', 'dst': 'green'}],
+                 'callbacks': {
+                     'onpanic': onpanic,
+                     'oncalm': oncalm,
+                     'ongreen': ongreen,
+                     'onyellow': onyellow,
+                     'onred': onred }})
+
+    fsm.panic(msg='killer bees')
+    fsm.calm('bob', msg='sedatives in the honey pots')
+
+Additionally, they can be added and removed from the state machine at any time:
+::
+
+    def printstatechange(e):
+        print 'event: %s, src: %s, dst: %s' % (e.event, e.src, e.dst)
+
+    del fsm.ongreen
+    del fsm.onyellow
+    del fsm.onred
+    fsm.onchangestate = printstatechange
+
+Asynchronous state transitions
+------------------------------
+
+Sometimes, you need to execute some asynchronous code during a state
+transition and ensure the new state is not entered until you code has
+completed.
+
+A good example of this is when you run a background thread to download
+something as result of an event. You only want to transition into the
+new state after the download is complete.
+
+You can return False from your onleave\_state\_ handler and the state
+machine will be put on hold until you are ready to trigger the
+transition using the transition() method.
