@@ -1,7 +1,13 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:/usr/pgsql-9.5/bin
 
 export PATH
 
@@ -11,10 +17,16 @@ alias l.='ls -a'
 alias grep='grep --color=auto'
 alias man='man -P less'
 alias tree='tree -C'
+alias rsync='rsync -avzP'
 
 export EDITOR='vim'
 export PAGER='less'
+#export PAGER='most'
 export HISTTIMEFORMAT='[%F %T] '
 
 set -o vi
 source /usr/bin/virtualenvwrapper.sh
+
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
