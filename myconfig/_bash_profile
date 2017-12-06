@@ -23,6 +23,7 @@ export EDITOR='vim'
 export PAGER='less'
 #export PAGER='most'
 export HISTTIMEFORMAT='[%F %T] '
+export PSQL_EDITOR="vim -c 'set syntax=sql'"
 
 set -o vi
 source /usr/bin/virtualenvwrapper.sh
