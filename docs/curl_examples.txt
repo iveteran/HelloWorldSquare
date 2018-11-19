@@ -1,0 +1,92 @@
+1. (Ref: https://superuser.com/questions/149329/what-is-the-curl-command-line-syntax-to-do-a-post-request)
+
+With fields:
+
+curl --data "param1=value1&param2=value2" https://example.com/resource.cgi
+
+With fields specified individually:
+
+curl --data "param1=value1" --data "param2=value2"
+https://example.com/resource.cgi
+
+Multipart:
+
+curl --form "fileupload=@my-file.txt" https://example.com/resource.cgi
+
+Multipart with fields and a filename:
+
+curl --form "fileupload=@my-file.txt;filename=desired-filename.txt" --form
+param1=value1 --form param2=value2 https://example.com/resource.cgi
+
+Without data:
+
+curl --data '' https://example.com/resource.cgi
+
+curl -X POST https://example.com/resource.cgi
+
+curl --request POST https://example.com/resource.cgi
+
+For more information see the cURL manual. The cURL tutorial on emulating a web
+browser is helpful.
+
+With libcurl, use the curl_formadd() function to build your form before
+submitting it in the usual way. See the libcurl documentation for more
+information.
+
+For large files, consider adding parameters to show upload progress:
+
+curl --tr-encoding -X POST -v -# -o output -T filename.dat \
+  http://example.com/resource.cgi
+
+  The -o output is required, otherwise no progress bar will appear.
+
+
+
+
+2. (Ref: https://stackoverflow.com/questions/14063311/curl-post-data-binary-vs-form)
+
+ I have a simple question regarding to the usage of cURL. Didn't find much
+ during my Google search or Man page to get a clear answer.
+
+ In here talks about using either --data vs --form on sending file/attachment.
+ I'm curious to know what are the main difference and under what scenarios you
+ would pick --data-binary VS --form ?
+
+ The POST "body" can be sent via either --data (for
+ application/x-www-form-urlencoded) or --form (for multipart/form-data):
+
+ -F "foo=bar"                  # 'foo' value is 'bar'
+ -F "foo=<foovalue.txt"        # the specified file is sent as plain text
+ input
+ -F "foo=@foovalue.txt"        # the specified file is sent as an attachment
+
+ -d "foo=bar"
+ -d "foo=<foovalue.txt"
+ -d "foo=@foovalue.txt"
+ -d "@entirebody.txt"          # the specified file is used as the POST body
+
+ --data-binary "@binarybody.jpg"
+
+
+
+3. (Ref: https://stackoverflow.com/questions/7172784/how-to-post-json-data-with-curl-from-terminal-commandline-to-test-spring-rest)
+
+You need to set your content-type to application/json. But -d sends the
+Content-Type application/x-www-form-urlencoded, which is not accepted on
+Spring's side.
+
+Looking at the curl man page, I think you can use -H:
+
+-H "Content-Type: application/json"
+
+Full example:
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+    --data '{"username":"xyz","password":"xyz"}' \
+      http://localhost:3000/api/login
+
+      (-H is short for --header, -d for --data)
+
+      Note that -request POST is optional if you use -d, as the -d flag
+      implies a POST request.

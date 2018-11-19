@@ -1,0 +1,19 @@
+Host reverse-ssh-to-host
+    HostName      your_public_host
+    User          your_public_host_name
+    Port          22
+    IdentityFile  ~/.ssh/id_rsa
+    RemoteForward  2200 localhost:22
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+# autossh -M 0 -f -T -N reverse-ssh-to-host
+
+Host socks5-proxy
+    HostName      your_public_host
+    User          your_public_host_name
+    Port          22
+    IdentityFile  ~/.ssh/id_rsa
+    DynamicForward  0.0.0.0:1080
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+# autossh -M 0 -f -T -N socks5-proxy

