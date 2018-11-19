@@ -96,7 +96,16 @@ if !exists(":DiffOrig")
 endif
 
 
+set ignorecase
+set incsearch
+set smartcase
+set wildmenu
+set wildmode=longest:list,full
+set scrolloff=2
 colorscheme torte
+set number
+set linebreak
+set autoread
 set nobackup
 set ci
 set ai
