@@ -1,0 +1,18 @@
+How to Install GCC 7 on CentOS 7
+
+Interested in keeping up with the latest C++ standard, I noticed that CentOS 7.4.1708 uses gcc version 4.8.5 20150623. This version of gcc defaults to ISO/IEC 14882:1998. Updated C++ standards have been released in 2003, 2011, 2014, and 2017. Although gcc developers are still implementing the 2017 standard, it is good to use a recent version of gcc that defaults to the 2014 standard. Installing centos-release-scl and devtoolset-7-gcc-c++ packages allows me to use a recent version of gcc.
+
+To determine the default C++ standard used by g++:
+
+1. $ g++ -dM -E -x c++ /dev/null | \
+   grep -F __cplusplus
+
+I did the following to install devtoolset-7:
+
+1. # yum install centos-release-scl
+2. # yum install devtoolset-7-gcc-c++
+
+Every time I want gcc to default to using GCC 7, I run the following:
+
+1. $ scl enable devtoolset-7 bash
+
