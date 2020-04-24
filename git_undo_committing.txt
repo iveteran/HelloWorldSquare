@@ -1,0 +1,7 @@
+# https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-local-commits-in-git
+
+$ git commit -m "Something terribly misguided"             # (1)
+$ git reset HEAD~                                          # (2)
+<< edit files as necessary >>                              # (3)
+$ git add ...                                              # (4)
+$ git commit -c ORIG_HEAD                                  # (5)
