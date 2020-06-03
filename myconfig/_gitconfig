@@ -1,8 +1,8 @@
 [user]
-	name = iveteran
-	email = iveteran.yuu@gmail.com
+    name = yuu
+    email = yuu@matrix.works
 [color]
-	ui = true
+    ui = true
 [alias]
     co = checkout
     ci = commit
@@ -10,6 +10,6 @@
     br = branch
     lg = "log --stat --graph"
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [difftool]
-	prompt = false
+    prompt = false
