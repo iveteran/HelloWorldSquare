@@ -1,0 +1,12 @@
+https://www.tecmint.com/optimize-and-compress-jpeg-or-png-batch-images-linux-commandline/
+https://net2.com/how-to-compress-jpeg-or-png-images-in-linux-using-the-terminal/
+
+dnf install jpegoptim
+jpegoptim filename.jpeg
+jpegoptim --size=250k tecmint.jpeg
+jpegoptim *.JPG
+
+dnf install optipng
+optipng filename.png
+optipng *.png
+man optipng

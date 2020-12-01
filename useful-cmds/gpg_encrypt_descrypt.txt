@@ -1,0 +1,2 @@
+gpg -c myfile
+gpg -d myfile.gpg > myfile

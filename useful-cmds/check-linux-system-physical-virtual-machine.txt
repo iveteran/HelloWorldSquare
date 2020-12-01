@@ -1,0 +1,9 @@
+dmesg
+lshw
+dmidecode
+hostnamectl 
+systemd-detect-virt
+virt-what
+
+https://www.ostechnix.com/check-linux-system-physical-virtual-machine/
+https://unix.stackexchange.com/questions/3685/find-out-if-the-os-is-running-in-a-virtual-environment

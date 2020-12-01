@@ -1,0 +1,1 @@
+dig txt iveteran.me  # 查询DNS的txt记录，txt记录可用于邮件服务器的spf设置

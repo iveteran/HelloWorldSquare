@@ -1,0 +1,5 @@
+timedatectl status
+timedatectl set-ntp true
+
+ntptime
+ntpdate -qu ntp.ubuntu.com

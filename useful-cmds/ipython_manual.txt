@@ -1,0 +1,8 @@
+# run as vi mode
+ipython --TerminalInteractiveShell.editing_mode=vi
+
+# create default profile
+python profile create 
+
+# set vi mode in profile
+c.TerminalInteractiveShell.editing_mode = 'vi'
