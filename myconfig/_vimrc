@@ -117,7 +117,7 @@ set softtabstop=4
 set expandtab
 
 " set tags file
-set tags=tags;
+set tags=tags;,TAGS;
 set autochdir
 
 "set path+=~/projects/iDirect/Core_Libs

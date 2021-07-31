@@ -15,9 +15,11 @@ alias ls='ls --color=auto'
 alias ll='ls -l -rt'
 alias l.='ls -a'
 alias grep='grep --color=auto'
+alias diff='diff --color'
 alias man='man -P less'
 alias tree='tree -C'
 alias rsync='rsync -avzP'
+alias pls='sudo $(fc -ln -1)'
 
 export EDITOR='vim'
 export PAGER='less'
@@ -26,6 +28,8 @@ export HISTTIMEFORMAT='[%F %T] '
 export PSQL_EDITOR="vim -c 'set syntax=sql'"
 
 set -o vi
+stty -ixon  # Enable searching history in Bash forward after backward with CTRL-S
+
 source /usr/bin/virtualenvwrapper.sh
 
 if [ -f /etc/bash_completion ]; then
