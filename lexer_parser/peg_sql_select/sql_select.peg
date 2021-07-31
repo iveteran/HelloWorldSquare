@@ -1,0 +1,35 @@
+// refer: https://zhuanlan.zhihu.com/p/49833910
+
+start
+= selectStatements:selectStatement* 
+{ 
+  return selectStatements.join("\n")
+}
+
+selectStatement
+= select _ colunm_clause:colunm_clause _ from _ table_name:table_name __ ';'{ return `column_name=${colunm_clause}, table_name=${table_name}`}
+
+colunm_clause
+= column_name
+/ '*'
+
+column_name
+= name:ident_part+ {return name.join("")}
+
+table_name
+= name:ident_part+ {return name.join("")}
+
+ident_part
+= [A-Za-z0-9]
+
+select
+= 'select'i
+
+from
+= 'from'i
+
+__ = whitespace*
+_ = whitespace+
+
+whitespace
+= [ \t\r\n];
