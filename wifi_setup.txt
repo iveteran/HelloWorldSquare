@@ -1,0 +1,19 @@
+# refs: 1) https://wiki.debian.org/WiFi/HowToUse
+#       2) https://linuxhint.com/3-ways-to-connect-to-wifi-from-the-command-line-on-debian/
+
+1) apt install iw
+2) iw eth0 scan | grep -i ssid
+
+3) apt install network-manager
+4) a) nmcli d wifi connect WIFI_HOTSPOT password WIFI_PASSWORD
+   b) OR nmtui
+
+###########################
+
+nmcli dev wifi hotspot ifname wlp4s0 ssid test password "test1234"
+
+
+##########################
+
+debian network setup manual:
+https://www.debian.org/doc/manuals/debian-reference/ch05.en.html
