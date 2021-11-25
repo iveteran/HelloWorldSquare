@@ -1,0 +1,15 @@
+[Unit]
+Description=AutoSSH service for remote tunnel
+After=sshd.target
+
+[Service]
+User=yuu
+Type=simple
+Environment="AUTOSSH_GATETIME=0"
+ExecStart=/usr/bin/autossh -o "PubkeyAuthentication=yes" -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -M 0 -CTNR 1024:localhost:22 -p 24 yuu@matrixworks.cn
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

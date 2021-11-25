@@ -1,0 +1,25 @@
+Host reverse-ssh-to-host
+    HostName      your_public_host
+    User          your_public_host_name
+    Port          22
+    IdentityFile  ~/.ssh/id_rsa
+    RemoteForward  2200 localhost:22
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+# complete this config and run following command:
+# autossh -M 0 -f -T -N reverse-ssh-to-host
+
+Host socks5-proxy
+    HostName      your_public_host
+    User          your_public_host_name
+    Port          22
+    IdentityFile  ~/.ssh/id_rsa
+    DynamicForward  0.0.0.0:1080
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+# complete this config and run following command:
+# autossh -M 0 -f -T -N socks5-proxy
+
+# copy this file to ~/.ssh/config
+# NOTE: 1) need change GatewayPorts to yes at /etc/ssh/sshd_config on your_public_host
+#       2) use ssh-copy-id your_public_host to enable login to your_public_host by ssh public key(not by user password)
