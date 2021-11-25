@@ -1,0 +1,7 @@
+1) list remotes:
+  $ git remote -v
+  > origin  https://github.com/USERNAME/REPOSITORY.git (fetch)
+  > origin  https://github.com/USERNAME/REPOSITORY.git (push)
+
+2) switch remote url from https to ssh
+  $ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git

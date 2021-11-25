@@ -1,0 +1,23 @@
+1) First Time Setup
+  The "count=" variable below should create a 500MB file, but you might want to
+  play around with the value on your system to see.
+
+  $ dd if=/dev/zero of=/opt/yuu/encrypted_file bs=1048576 count=500
+  $ mknod /dev/loop0 b 7 0
+  $ losetup /dev/loop0 /opt/yuu/encrypted_file
+  $ cryptsetup luksFormat -c aes-plain /dev/loop0
+  $ cryptsetup luksOpen /dev/loop0 encrypted_file
+  $ cryptsetup status encrypted_file
+  $ mkfs.ext4 /dev/mapper/encrypted_file
+  $ mkdir /opt/yuu/enc_mnt
+  $ mount /dev/mapper/encrypted_file /opt/yuu/enc_mnt
+
+2) Mount Existing
+  $ mknod /dev/loop0 b 7 0
+  $ losetup /dev/loop0 /opt/yuu/encrypted_file
+  $ cryptsetup luksOpen /dev/loop0 encrypted_file
+  $ mount /dev/mapper/encrypted_file /opt/yuu/enc_mnt
+
+3) To Unmount and close
+  $ umount /opt/yuu/enc_mnt
+  $ cryptsetup luksClose encrypted_file

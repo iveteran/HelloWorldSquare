@@ -1,0 +1,46 @@
+# ref: 1) https://devconnected.com/how-to-encrypt-partition-on-linux/
+       2) https://linuxconfig.org/partition-encryption
+
+LUKS(Linux Unified Key System)
+
+1) Create New Partition on disk
+   $ fdisk -l
+   $ sudo fdisk /dev/sdb
+
+2) Format Disk Partition as LUKS
+   $ sudo apt-get install cryptsetup 
+   $ sudo cryptsetup luksFormat /dev/sdb1
+   $ lsblk -f
+
+3) Create ext4 Filesystem on Partition
+   $ sudo cryptsetup luksOpen /dev/sdb1 cryptpart
+   $ sudo mkfs.ext4 /dev/mapper/cryptpart
+   $ sudo mount /dev/mapper/cryptpart /mnt
+
+4) Modify crypttab and fstab files
+   $ sudo nano /etc/crypttab, like below:
+     # Content of the crypttab file
+     cryptpart    UUID=<partition_uuid>    none    luks
+
+   $ sudo blkid | grep -i luks
+   $ sudo nano /etc/fstab
+
+5) Verify encrypted device mounting on boot
+   $ sudo reboot
+   $ lsblk -f | grep sdb1 -A 2 
+
+6) Create Keys For Encrypted Partition
+   $ echo "supersecretpass" > volume-key
+   $ sudo mv volume-key /boot/
+   $ sudo chown root:root /boot/volume-key
+   $ sudo chmod 0402 /boot/volume-key
+
+7) Add Key to LUKS Volume
+  $ sudo cryptsetup luksAddKey /dev/sdb1 /boot/volume-key
+  $ sudo cryptsetup luksDump /dev/sdb1
+  $ sudo nano /etc/crypttab
+    # Content of the crypttab file
+    cryptpart    UUID=<partition_uuid>    /boot/volume-key    luks
+
+8) Backup header of LUKS
+  $ sudo cryptsetup luksHeaderBackup /dev/sdb1 --header-backup-file luks_header_backup.bin
