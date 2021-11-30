@@ -1,0 +1,9 @@
+# /etc/openvpn/client/client.ovpn
+
+key-direction 1
+
+<tls-auth>
+-----BEGIN OpenVPN Static key V1-----
+. . .
+-----END OpenVPN Static key V1-----
+</tls-auth>

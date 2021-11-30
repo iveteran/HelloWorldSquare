@@ -1,0 +1,5 @@
+Openvpn supports the inline xml-syntax directives:
+<ca></ca>
+<cert></cert>
+<key></key>
+<tls-auth></tls-auth>
