@@ -1,0 +1,81 @@
+### npm常用命令
+
+Ref:
+*[npm详细教程](https://www.jianshu.com/p/60ac7fe6edce)*
+*[npm scripts 使用指南](http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)*
+
+## 软件包安装
+npm install <包>      # 本地安装
+npm install <包> -g   # 全局安装
+
+## 查看包安装的位置
+npm prefix
+npm prefix -g
+
+## 创建全局链接
+npm link <包>
+
+## 列出各命令
+npm -l
+
+## 查看安装包信息
+npm ls     # 全局安装信息
+npm ls -g  # 列出当前项目中的包
+
+## 列出npm的配置
+npm config list      # 列出基本信息
+npm config list -l   # 列出所有
+
+## 更改npm的配置
+npm config set <key> <value>
+npm config set prefix <目录>  # 更改包安装的位置
+
+## 编辑配置
+npm config edit [-g]
+
+## 设置环境变量
+npm set
+
+## 列出bin目录
+npm bin
+
+## 创建Node.js项目，生成package.json
+npm init [-y]
+
+## 发布包
+npm adduser    # 创建帐号
+npm whoami     # 测试是否取得帐号
+npm publish    # 发布
+npm unpublish  # 取消发布
+
+
+## 运行脚本
+npm run <cmd>
+
+会运行package.json中scripts中命令:
+"scripts": {
+  "lint": "jshint **.js",
+  "test": "mocha test/"
+}
+
+start和test可以省略'run':
+npm run start -> npm start
+npm run test -> npm test
+
+## 环境变量
+npm run env
+
+## npx命令
+npx能智能的识别模块，如果模块存在，就使用。如果不存在，就临时下载，用完就删除。
+npx运行的时候，会到node_modules/.bin路径和环境变量$PATH里面，检查命令是否存在。
+由于npx 会检查环境变量$PATH，所以系统命令也可以调用
+例：
+npx mocha --version
+npx ls  # 等同于ls
+npx http-server
+
+使用不同的 Node.js 版本运行代码
+npx node@10 -v   # v10.18.1
+npx node@12 -v   # v12.14.1
+
+ref: *[npx 使用教程](https://www.ruanyifeng.com/blog/2019/02/npx.html)*
