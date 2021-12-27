@@ -20,6 +20,7 @@ alias man='man -P less'
 alias tree='tree -C'
 alias rsync='rsync -avzP'
 alias pls='sudo $(fc -ln -1)'
+alias sudo='sudo env PATH=$PATH'
 
 export EDITOR='vim'
 export PAGER='less'
