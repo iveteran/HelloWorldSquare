@@ -1,0 +1,22 @@
+
+How to use OpenVPN without login and password
+
+📅 2016-Feb-26 ⬩ ✍️ Ashwin Nanjappa ⬩ 🏷️ openvpn ⬩ 📚 Archive
+
+It can be cumbersome to type in the login and password every time you connect
+using OpenVPN. It has a feature named auth-user-pass where you can provide the
+login and password in a file.
+
+Put your login and password in a file, one on each line.
+
+If you are using a OpenVPN config file to connect, indicate the above
+file in it:
+
+auth-user-pass /path/to/file
+
+You can also provide this at the command by passing it to the
+--auth-user-pass option.
+
+Tried with: OpenVPN 2.3.7 and Ubuntu 15.10
+
+Ref: https://codeyarns.com/tech/2016-02-26-how-to-use-openvpn-without-login-and-password.html

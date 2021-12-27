@@ -1,0 +1,57 @@
+Routing all client traffic (including web-traffic) through the VPN
+Overview
+
+By default, when an OpenVPN client is active, only network traffic to and from
+the OpenVPN server site will pass over the VPN. General web browsing, for
+example, will be accomplished with direct connections that bypass the VPN.
+
+In certain cases this behavior might not be desirable -- you might want a VPN
+client to tunnel all network traffic through the VPN, including general
+internet web browsing. While this type of VPN configuration will exact a
+performance penalty on the client, it gives the VPN administrator more control
+over security policies when a client is simultaneously connected to both the
+public internet and the VPN at the same time.
+Implementation
+
+Add the following directive to the server configuration file:
+
+push "redirect-gateway def1"
+
+If your VPN setup is over a wireless network, where all clients and the
+server are on the same wireless subnet, add the local flag:
+
+ $ push "redirect-gateway local def1"
+
+Pushing the redirect-gateway option to clients will cause all IP
+network traffic originating on client machines to pass through the
+OpenVPN server. The server will need to be configured to deal with
+this traffic somehow, such as by NATing it to the internet, or routing
+it through the server site's HTTP proxy.
+
+On Linux, you could use a command such as this to NAT the VPN client
+traffic to the internet:
+
+ $ iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j
+MASQUERADE
+
+This command assumes that the VPN subnet is 10.8.0.0/24 (taken
+from the server directive in the OpenVPN server configuration) and
+that the local ethernet interface is eth0.
+
+When redirect-gateway is used, OpenVPN clients will route DNS
+queries through the VPN, and the VPN server will need handle them.
+This can be accomplished by pushing a DNS server address to
+connecting clients which will replace their normal DNS server
+settings during the time that the VPN is active. For example:
+
+ $ push "dhcp-option DNS 10.8.0.1"
+
+will configure Windows clients (or non-Windows clients with
+some extra server-side scripting) to use 10.8.0.1 as their DNS
+server. Any address which is reachable from clients may be
+used as the DNS server address.
+
+
+Refs: 
+1) https://openvpn.net/community-resources/how-to/
+2) https://openvpn.net/community-resources/reference-manual-for-openvpn-2-0/
