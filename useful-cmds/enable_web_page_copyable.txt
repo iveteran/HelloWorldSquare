@@ -1,0 +1,2 @@
+1) Open debug console of Browser
+2) Run: javascript:document.body.contentEditable=true
