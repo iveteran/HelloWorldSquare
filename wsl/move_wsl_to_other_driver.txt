@@ -1,0 +1,8 @@
+wsl --list --verbose
+mkdir d:\backuplinux
+wsl --export Debian d:\backuplinux\Debian.tar
+wsl --unregister Debian
+mkdir d:\vm\wsl
+wsl --import Debian d:\vm\wsl\Debian d:\backuplinux\Debian.tar
+cd %userprofile%\AppData\Local\Microsoft\WindowsApps    **(this is not needed if in path)**
+debian.exe config --default-user yourloginname
