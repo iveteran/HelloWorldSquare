@@ -1,0 +1,4 @@
+Debian: 1) $ apt install texlive texlive-lang-chinese
+     OR 2) $ apt install texlive-full
+
+OR download and install by manual https://tug.org/texlive/
