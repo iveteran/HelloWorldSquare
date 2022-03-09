@@ -1,0 +1,12 @@
+linux socat创建简单的tun隧道(VPN)
+
+收录于 2021-09-13 19:45:31
+(Ref: https://www.1024sou.com/article/12709.html)
+
+1) 服务端运行(host1, 使用tcp:3443作为VPN的服务端):
+  $ sudo socat  -d -d tcp-LISTEN:3443,reuseaddr TUN:10.0.10.1/24,up
+
+2) 客户端运行(host2):
+  $ sudo socat tcp: host1:3443 TUN:10.0.10.2/24,up
+
+然后两台电脑就可以使用10.0.10.1与10.0.10.2互通了

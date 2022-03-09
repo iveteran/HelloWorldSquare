@@ -1,0 +1,4 @@
+fork 服务
+将一个使用标准输入输出的单进程程序变为一个使用 fork 方法的多进程服务，非常方便
+
+$ socat TCP-LISTEN:1234,reuseaddr,fork EXEC:./helloworld

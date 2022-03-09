@@ -1,0 +1,5 @@
+1) ssh -N -D 10002 localhost
+
+2) socat -d -d tcp-listen:4433,fork,reuseaddr tcp:localhost:10002
+   OR via openssl
+   socat -d -d openssl-listen:4433,reuseaddr,fork,cert=my_cert.pem,cafile=my_cert.crt tcp:localhost:10002

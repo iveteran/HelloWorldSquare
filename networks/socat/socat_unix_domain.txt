@@ -1,0 +1,13 @@
+本地域套接字
+
+监听一个 Unix Socket
+socat unix-listen:/tmp/unix.socket -
+
+向本地 Unix Socket 发送数据
+echo "test" | socat - unix-connect:/tmp/unix.sock
+
+监听本地 Unix Datagram Socket
+socat unix-recvfrom:/tmp/unix.dg.sock -
+
+向本地 Unix Datagram Socket 发送数据
+echo "test" | socat - unix-sendto:/tmp/unix.dg.sock

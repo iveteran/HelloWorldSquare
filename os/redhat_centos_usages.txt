@@ -1,0 +1,10 @@
+1) Removing Old/Unused Kernels on CentOS/RHEL
+  $ yum install yum-utils
+  $ package-cleanup --oldkernels --count=2
+
+2) Removing Old/Unused Kernels on Fedora
+  $ dnf remove $(dnf repoquery --installonly --latest-limit 2 -q)
+
+  Another alternative way to remove old kernels automatically is setting the
+  kernel limit in yum.conf file as shown:
+  installonly_limit=2     #set kernel count

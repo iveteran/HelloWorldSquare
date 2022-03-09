@@ -1,0 +1,25 @@
+通过openssl来加密传输过程
+
+证书生成
+
+FILENAME=my_cert
+openssl genrsa -out $FILENAME.key 2048
+openssl req -new -key $FILENAME.key -x509 -days 3653 -out $FILENAME.crt
+cat $FILENAME.key $FILENAME.crt > $FILENAME.pem
+
+在当前目录下生成 $FILENAME.pem $FILENAME.crt
+
+服务端
+  $ socat openssl-listen:4433,reuseaddr,cert=my_cert.pem,cafile=my_cert.crt system:bash,pty,stderr
+
+本地
+  $ socat readline openssl:localhost:4433,cert=my_cert.pem,cafile=my_cert.crt
+
+--------------------------------
+
+不验证证书:
+服务端
+  $ socat openssl-listen:4433,reuseaddr,cert=my_cert.pem,verify=0 system:bash,pty,stderr
+
+本地
+  $ socat readline openssl:localhost:4433,verify=0

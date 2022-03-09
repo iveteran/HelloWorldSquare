@@ -1,0 +1,9 @@
+端口转发
+
+转发 TCP
+监听 192.168.1.252 网卡的 15672 端口，并将请求转发至 172.17.0.15 的 15672 端口
+socat -d -d -lf /var/log/socat.log TCP4-LISTEN:15672,bind=192.168.1.252,reuseaddr,fork TCP4:172.17.0.15:15672
+
+转发 UDP
+转发 UDP 和 TCP 类似，只要把 TCP4 改成 UDP4 就行了
+socat -d -d -lf /var/log/socat.log UDP4-LISTEN:123,bind=192.168.1.252,reuseaddr,fork UDP4:172.17.0.15:123

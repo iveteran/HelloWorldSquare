@@ -1,0 +1,45 @@
+socat命令学习
+
+(Ref: https://www.jianshu.com/p/54005e3095f3)
+
+socat是强大易用的工具，可以实现任意socket的转换。
+
+使用
+socat [options] <address> <address>
+
+options可以查看help。
+
+address有一下几种形式：
+
+- STDIN STDOUT ：表示标准输入输出，可以就用一个横杠代替
+/var/log/syslog :
+也可以是任意路径，如果是相对路径要使用./，打开一个文件作为数据流。
+TCP:127.0.0.1:1080 : 建立一个TCP连接作为数据流，TCP也可以替换为UDP
+TCP-LISTEN:12345 : 建立TCP监听端口，TCP也可以替换为UDP
+EXEC:/bin/bash : 执行一个程序作为数据流。
+场景一
+本地有个文件，我想显示在终端中
+
+socat - /etc/sysctl.conf
+
+场景二
+有个TCP连接会连上来，我想看看会获得什么数据。
+socat TCP-LISTEN:12345 -
+
+场景三
+我是黑客，我想在目标机上弄一个shell代理
+socat TCP-LISTEN:12345 EXEC:/bin/bash
+
+场景四
+本地有一个UNIX DOMAIN域套接字，我想把他转成TCP
+SOCKET供局域网内的机器使用，怎么办？
+
+socat TCP-LISTEN:12345,reuseaddr,fork
+UNIX-CONNECT:/data/deCOREIDPS/unix.domain
+
+当有多个tcp连上来那就fork一个去连域套接字
+
+场景五
+将本地的80端口转到远程去
+
+socat TCP-LISTEN:80,fork TCP:www.baidu.com:80

@@ -1,0 +1,5 @@
+$ openssl pkcs12 -export -out cert.p12 -in cert.pem -inkey key.pem
+
+$ openssl pkcs12 -export -out cert.p12 -in cert.pem -inkey key.pem -passout pass: -nokeys
+
+$ openssl pkcs12 -export -out cert.p12 -in cert.pem -inkey key.pem -passout pass: 123
