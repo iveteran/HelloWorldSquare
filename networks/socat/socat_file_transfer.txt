@@ -1,0 +1,9 @@
+文件传送
+将文件 demo.tar.gz 使用 2000 端口从 192.168.1.252 传到
+192.168.1.253，文件传输完毕后会自动退出。
+
+1) 在 192.168.1.252 上执行
+  $ socat -u open:demo.tar.gz tcp-listen:2000,reuseaddr
+
+2) 在 192.168.1.253 上执行
+  $ socat -u tcp:192.168.1.252:2000 open:demo.tar.gz,create
