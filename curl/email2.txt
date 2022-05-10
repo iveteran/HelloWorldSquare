@@ -1,0 +1,9 @@
+To: test001 <test001@matrix.works>
+From: Yu <yu@iveteran.me>
+Subject: A test email that sending via cUrl
+Date: Tue, 10 May 2022 11:45:16 +0800
+
+Hi Guys,
+Welcome to this example email. What a lovely day.
+
+Have fun with CURL
