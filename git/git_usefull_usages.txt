@@ -1,0 +1,2 @@
+1) Changing the Most Recent Commit Message
+git commit --amend -m "New commit message"
