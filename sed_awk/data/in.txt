@@ -1,0 +1,2 @@
+PHP is a server-side scripting language.
+PHP is an open-source language and PHP is case-sensitive. PHP is platform-independent.

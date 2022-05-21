@@ -1,0 +1,4 @@
+1001    CSE     GPA-3.63
+1002    CSE     GPA-3.24
+1023    CSE     GPA-3.11
+1067    CSE     GPA-3.84

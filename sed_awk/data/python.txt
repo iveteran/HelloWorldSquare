@@ -1,0 +1,3 @@
+Python is a very popular language.
+Python is easy to use. Python is easy to learn.
+Python is a cross-platform language
