@@ -1,2 +1,5 @@
 1) Changing the Most Recent Commit Message
 git commit --amend -m "New commit message"
+
+2) Git Pull with Submodule
+git pull --recurse-submodules
