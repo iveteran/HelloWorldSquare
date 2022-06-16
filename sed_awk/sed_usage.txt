@@ -19,7 +19,6 @@ With sed you can do all of the following:
 
 2. Making Substitutions
 
-  $ sed -n '/^And /p' coleridge.txt
   $ sed -n 's/day/week/gp' coleridge.txt
   $ sed -n 's/day/week/gip' coleridge.txt
   $ sed -n 's/[Dd]ay/week/gp' coleridge.txt
