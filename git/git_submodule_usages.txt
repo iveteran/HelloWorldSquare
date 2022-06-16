@@ -1,0 +1,23 @@
+Git Tools - Submodules
+
+Ref: https://git-scm.com/book/en/v2/Git-Tools-Submodules
+
+1) Cloning a Project with Submodules
+  $ git clone https://github.com/chaconinc/MainProject
+  $ git submodule init
+  $ git submodule update
+  OR:
+  $ git clone --recurse-submodules https://github.com/chaconinc/MainProject
+
+The DbConnector directory is there, but empty. You must run two commands: git
+submodule init to initialize your local configuration file, and git submodule
+update to fetch all the data from that project and check out the appropriate
+commit listed in your superproject:
+
+2) Pulling Upstream Changes from the Project Remote
+  $ git submodule update --init --recursive
+
+If you already cloned the project and forgot --recurse-submodules, you can
+combine the git submodule init and git submodule update steps by running git
+submodule update --init. To also initialize, fetch and checkout any nested
+submodules, you can use the foolproof git submodule update --init --recursive.
