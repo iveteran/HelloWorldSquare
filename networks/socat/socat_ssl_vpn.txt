@@ -1,0 +1,9 @@
+CREATING A SSL VPN WITH SOCAT
+
+(Ref: https://www.cybrary.it/blog/0p3n/creating-ssl-vpn-socat/)
+
+VPN Server:
+sudo socat -d -d OPENSSL-LISTEN:4443,cert=server.pem,cafile=client.crt,reuseaddr,fork TUN:10.2.0.1/24,up
+
+VPN Client:
+sudo socat -d -d OPENSSL:192.168.2.10:4443,cert=client.pem,cafile=server.crt TUN:10.2.0.2/24,up

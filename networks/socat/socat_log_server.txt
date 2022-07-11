@@ -1,0 +1,10 @@
+简单的基于网络的消息收集器(日志服务)
+
+$ socat -u TCP4-LISTEN:3334,reuseaddr,fork OPEN:/tmp/test.log,create,append
+
+在此示例中，当客户端连接到 3334 端口时，将生成一个新的子进程。
+客户端发送的所有数据都将附加到文件 /tmp/test.log。 如果文件不存在，则 socat
+会创建它。 选项 reuseaddr 允许立即重启服务器进程。
+
+作者：舌尖上的大胖
+链接：https://www.jianshu.com/p/09fe6cb8f10c

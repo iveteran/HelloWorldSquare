@@ -1,0 +1,42 @@
+How to Use the sed Command on Linux
+
+[Ref] https://www.howtogeek.com/666395/how-to-use-the-sed-command-on-linux/
+
+With sed you can do all of the following:
+  1) Select text
+  2) Substitute text
+  3) Add lines to text
+  4) Delete lines from text
+  5) Modify (or preserve) an original file
+
+1. Selecting Text
+
+  $ sed -n '1,4p' coleridge.txt
+  $ sed -n '6,9p' coleridge.txt
+  $ sed -n -e '1,4p' -e '31,34p' coleridge.txt
+  $ sed -n '1~2p' coleridge.txt
+  $ sed -n '/^And /p' coleridge.txt
+
+2. Making Substitutions
+
+  $ sed -n 's/day/week/gp' coleridge.txt
+  $ sed -n 's/day/week/gip' coleridge.txt
+  $ sed -n 's/[Dd]ay/week/gp' coleridge.txt
+  $ sed -n '1,4 s/  */ /gp' coleridge.txt
+  $ sed -n '1,4 s/ */ /gp' coleridge.txt
+  $ sed -n -e 's/motion/flutter/gip' -e 's/ocean/gutter/gip' coleridge.txt
+  $ sed -n 's/motion/flutter/gip;s/ocean/gutter/gip' coleridge.txt
+  $ sed -n '/after/ s/[Dd]ay/week/gp' coleridge.txt
+
+3. Inserting Lines and Text
+
+  $ sed '/He/a --> Inserted!' geeks.txt
+  $ sed '/He/i --> Inserted!' geeks.txt
+  $ sed 's/.*/--> Inserted &/' geeks.txt
+  $ sed 'G' geeks.txt
+
+4. Deleting Lines
+
+  $ sed '3d' geeks.txt
+  $ sed '4,5d' geeks.txt
+  $ sed '6,7!d' geeks.txt

@@ -1,0 +1,3 @@
+HDD       100
+Monitor   80
+Mouse     10

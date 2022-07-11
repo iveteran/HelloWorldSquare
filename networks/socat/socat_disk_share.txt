@@ -1,0 +1,2 @@
+将 U 盘进行网络共享
+ $ socat -d -d /dev/ttyUSB1,raw,nonblock,ignoreeof,cr,echo=0 TCP4-LISTEN:5555,reuseaddr

@@ -1,0 +1,4 @@
+监听一个 UDP 端口
+  $ socat udp-listen:23456 -
+向一个 UDP 端口送数据
+  $ echo "test" | socat - udp-connect:127.0.0.1:23456

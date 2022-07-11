@@ -1,0 +1,11 @@
+建立一个正向 Shell
+
+服务端
+在服务端 7005 端口建立一个 Shell。
+  $ socat TCP-LISTEN:7005,fork,reuseaddr EXEC:/bin/bash,pty,stderr
+  或者
+  $ socat TCP-LISTEN:7005,fork,reuseaddr system:bash,pty,stderr
+
+客户端
+连接到服务器的 7005 端口，即可获得一个 Shell。readline 是 GNU 的命令行编辑器，具有历史功能。
+  $ socat readline tcp:127.0.0.1:7005

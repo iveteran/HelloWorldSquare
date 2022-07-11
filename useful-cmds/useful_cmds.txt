@@ -1,3 +1,4 @@
-nmcli
+nmcli  # network manager client
 resolvectl
 diff -bur --color dir1 dir2
+lsblk # show disk info

@@ -1,0 +1,158 @@
+50 `sed` Command Examples
+[Ref] https://linuxhint.com/50_sed_command_examples/
+
+0. Syntax:
+  $ sed [options]…  [script] [file]
+
+1. Basic text substitution using 'sed'
+  $ sed 's/Sunday/Sunday is holiday/' data/weekday.txt
+
+2. Replace all instances of a text in a particular line of a file using 'g' option
+  $ sed '2 s/Python/perl/g' data/python.txt
+
+3. Replace the second occurrence only of a match on each line
+  $ sed 's/Python/perl/g2' data/python.txt
+
+4. Replace the last occurrence only of a match on each line
+  $ sed 's/\(.*\)Programming/\1Scripting/' data/lang.txt
+
+5. Replace the first match in a file with new text
+  $ sed '1 s/Python/perl/' data/python.txt
+
+6. Replace the last match in a file with new text
+  $ sed -e '$s/Python/Bash/' data/python.txt
+
+7. Escaping backslash in replace commands to manage search and replace of file paths
+   Here using ; replace of default /
+  $ echo /home/ubuntu/code/perl/add.pl | sed 's;/;\\/;g'
+
+8. Replace all files full path with just the filename no directory
+  $ echo "/home/ubuntu/temp/myfile.txt" | sed 's/.*\///'
+
+9. Substitute text but only if some other text is found in the string
+  $ sed -e '/CSE/ s/Count/100/; /EEE/ s/Count/70/;' data/dept.txt
+
+10. Substitute text but only if some other text is not found in the string
+  $ sed -e '/CSE/! s/Count/80/;' data/dept.txt
+
+11. Add string before and after the matching pattern using '\1'
+  $ echo "Bash language" | sed  's/\(Bash\)/Learn \1 programming/'
+
+12. Delete matching lines
+  $ sed '/OS/d' data/os.txt
+
+13. Delete matching line and 2 lines after matching line
+  $ sed '/Linux/,+2d' data/os.txt
+
+14. Delete all spaces at end of the line of text
+  $ sed 's/[[:blank:]]*$//' data/os.txt
+
+15. Delete all lines that have a match two times on the line
+  $ sed  's/php/dl/i2;t' data/input.txt | sed '/dl/d'
+
+16. Delete all lines that have only white-space
+  $ sed '/^$/d' data/input.txt
+
+17. Delete all non-printable characters
+  $ tab=$'\t'
+  $ echo Hello"$tab"World
+  $ echo Hello"$tab"World | sed 's/[^[:print:]]//g'
+
+18. If there is a match in line append something to end of line
+  $ sed '/Windows/ s/$/ 10/' data/os.txt
+
+19. If there is a match in the line insert a line before the text
+  $ sed '/PHP is platform-independent/ s/^/PHP is an interpreted language.\n/' data/input.txt
+
+20. If there is a match in the line insert a line after that line
+  $ sed 's/Linux/&\nUbuntu/' data/os.txt
+
+21. If there is not a match append something to the end of line
+  $ sed '/Linux/! s/$/ Operating System/' data/os.txt
+
+22. If there is not a match delete the line
+  $ sed '/Linux/!d' data/os.txt
+
+23. Duplicate matched text after adding a space after the text
+  $ sed -e 's/to/& to/g' data/python.txt
+
+24. Replace one list of strings with the new string
+  $ sed `cat data/list1.txt | awk '{print "-e s/"$1"/"$3"/"}'`<<<"` cat data/list2.txt`"
+
+25. Replace the matched string with a string that contains newlines
+  $ echo "Bash Perl Python Java PHP ASP" | sed 's/Python/Added Text\n/'
+
+26. Remove newlines from file and insert a comma at end of each line
+  $ sed -z 's/\n/,/g' data/os.txt
+
+27. Remove commas and add newline to split the text into multiple lines
+  $ echo "Kaniz Fatema,30th,batch" | sed "s/,/\n/g"
+
+28. Find case insensitive match and delete line
+  $ sed '/linux/Id' data/os.txt
+
+29. Find case insensitive match and replace with new text
+  $ echo "I like bash programming " | sed 's/Bash/PHP/i'
+
+30. Find case insensitive match and replace with all uppercase of the same text
+  $ sed 's/\(linux\)/\U\1/Ig' data/os.txt
+
+31. Find case insensitive match and replace with all lowercase of same text
+  $ sed 's/\(linux\)/\L\1/Ig' data/os.txt
+
+32. Replace all uppercase characters of the text with lowercase characters
+  $ sed  's/\(.*\)/\L\1/' data/os.txt
+
+33. Search for number in line and append any currency symbol before the number
+  $ sed 's/\([0-9]\)/$\1/' data/items.txt
+
+34. Add commas to numbers that have more than 3 digits
+  $ echo "5098673" | sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'
+
+35. Replaces tab character with 4 space characters
+  $ echo -e "1\t2\t3" | sed $'s/\t/    /g'
+
+36. Replaces 4 consecutive space characters with tab character
+  $ echo -e "1    2" | sed $'s/    /\t/g'
+
+37. Truncate all lines to first 80 characters
+  $ sed 's/\(^.\{1,80\}\).*/\1/' data/in.txt
+
+38. Search for a string regex and append some standard text after it
+  $ echo "hello, how are you?" | sed 's/\(hello\)/\1 John/'
+
+39. Search for string regex and append some text after the second match in each line
+  $ sed 's/\(PHP\)/\1 (New Text added)/2' data/input.txt
+
+40. Running multi-line `sed` scripts from a file
+  $ sed -f data/sedcmd data/input.txt
+
+41. Match a multi-line pattern and replace with new multi-line text
+  $ sed '$!N;s/Linux\nAndoid/Ubuntu\nAndoid Lollipop/;P;D' data/os.txt
+
+42. Replace order of two words in a text that match a pattern
+  $ echo "perl python" | sed -e 's/\([^ ]*\) *\([^ ]*\)/\2 \1/'
+
+43. Execute multiple `sed` commands from the command-line
+  $ echo "Ubuntu Centos Debian" | sed -e 's/Ubuntu/Kubuntu/; s/Centos/Fedora/'
+
+44. Combine `sed` with other commands
+  $ cat data/os.txt | sed 's/Linux/Fedora/'| sed 's/windows/Windows 10/i'
+
+45. Insert empty line in a file
+  $ sed G data/stdlist
+
+46. Replace all alpha-numeric characters by space in each line of a file.
+  $ sed 's/[A-Za-z0-9]//g' data/stdlist
+
+47. Use ‘&’ to print matched string
+  $ sed -n 's/^L/Matched String is - &/p' data/os.txt
+
+48. Switch pair of words in a file
+  $ sed  's/\([^ ]*\) *\([^ ]*\)/\2 \1/' data/course.txt
+
+49. Capitalize the first character of each word
+  $ echo "I like bash programming" | sed 's/\([a-z]\)\([a-zA-Z0-9]*\)/\u\1\2/g'
+
+50. Print line numbers of the file
+  $ sed '=' data/os.txt
