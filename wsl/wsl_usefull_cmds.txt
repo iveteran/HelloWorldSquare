@@ -1,1 +1,7 @@
 Ref: https://docs.microsoft.com/zh-cn/windows/wsl/basic-commands
+
+Windows访问WSL文件系统:
+\\wsl$
+
+WSL访问Windows文件系统:
+ls /mnt/c, ls /mnt/d, ...
