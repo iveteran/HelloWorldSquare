@@ -48,3 +48,9 @@ git_branch() {
 #export PS1="\u@\h \W [\$(git symbolic-ref --short HEAD 2>/dev/null)]\$ " # 显示原来的颜色
 #export PS1="\[\033[95m\]\u@\h \[\033[32m\]\W\[\033[33m\] (\$(git symbolic-ref --short HEAD 2>/dev/null))\[\033[00m\]\$ " # 加了颜色,但不在git的目录中会显示空括号
 export PS1="\[\033[95m\]\u@\h \[\033[32m\]\W\[\033[33m\] \$(git_branch)\[\033[00m\]\$ "
+
+# Enable use GUI apps on WSL by VcXsrv for Windows 10
+# Refers:
+#   1) https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242
+#   2) https://sourceforge.net/projects/vcxsrv/
+#export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
