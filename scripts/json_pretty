@@ -1,0 +1,11 @@
+#!/bin/sh
+
+python -m json.tool $1
+
+# NOTE:
+# vi /usr/lib64/pythonX.X/json/tool.py
+# 1) 在json.dump调用增加参数ensure_ascii=False, 如：
+#    json.dump(obj, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+#    改为：json.dump(obj, outfile, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': '))
+# 2) 如果要支持显示emoji，将outfile.write('\n')
+#    改为：outfile.write(codecs.encode(s, 'utf-8')) # 此未测试
