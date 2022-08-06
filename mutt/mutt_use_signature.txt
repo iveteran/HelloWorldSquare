@@ -1,0 +1,18 @@
+How to set-up your signature in mutt:
+(Source: https://gdtechdiaries.wordpress.com/2018/08/29/learn-how-to-install-and-configure-mutt/)
+
+1. Create a new file in the following directory, hit the command:
+
+$ touch ~/.config/mutt/sig
+
+2. Open sig file using any editor (For my case it’s VIM), and add your
+signature in it.
+
+$ vim ~/.config/mutt/sig
+
+3. Append following lines in the muttrc configuration file:
+
+set signature="~/.config/mutt/sig"
+
+And you are done, whenever you’ll compose or reply a mail, this signature will
+appear at bottom.
