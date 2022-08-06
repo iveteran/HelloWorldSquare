@@ -1,0 +1,2 @@
+pass - the standard unix password manager
+Source: https://www.passwordstore.org/
