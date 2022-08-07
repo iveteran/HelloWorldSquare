@@ -1,0 +1,19 @@
+1. Configuration
+An example configuration for using GnuPG in mutt can be found in /usr/share/doc/mutt/samples/gpg.rc. In general the contents of this file to your mutt configuration will suffice. From the shell you can add the contents of this file to you .muttrc with the following command:
+
+$ cp /usr/share/doc/mutt/samples/gpg.rc ~/.config/mutt/
+Or cp /etc/neomutt/gpg.rc ~/.config/neomutt/
+
+Add below line to ~/.config/neomutt/neomuttrc
+ source ~/.config/neomutt/gpg.rc
+
+There are some handy parameters that you can additionally set. For example, if you always want to sign e-mails, add the following line to your mutt configuration:
+
+ set crypt_autosign = yes
+            
+Another handy option is crypt_replyencrypt, which will automatically encrypt replies to messages that were encrypted. To enable this, add the following line to your mutt configuration:
+
+  set crypt_replyencrypt = yes
+
+2. Usage
+If you have set some of the automatical options, like crypt_autosign GnuPG usage of mutt is mostly automatic. If not, you can press the <p> key during the final step of sending an e-mail. In the bottom of the screen various GnuPG/PGP options will appear, which you can access via the letters that are enclosed in parentheses. For example, <s> signs e-mails, and <e> encrypts an e-mail. You can always clear any GnuPG option you set by pressing <p> and then <c>.
