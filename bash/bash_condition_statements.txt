@@ -1,0 +1,34 @@
+If Else and Case Statements
+Ref: [https://linuxhandbook.com/if-else-bash/]
+
+1. Using if statement
+if [ condition ]; then
+  your code
+else
+  your anothe code
+fi
+
+Pay attention to white space!
+There must be a space between the opening and closing brackets and the
+condition you write. Otherwise, the shell will complain of error.
+There must be space before and after the conditional operator (=, ==, <= etc).
+Otherwise, you'll see an error like "unary operator expected".
+
+2. Using Case statement
+case "variable" in
+  "pattern1" )
+    Command … ;;
+  "pattern2" )
+    Command … ;;
+  "pattern2" )
+    Command … ;;
+esac
+
+Pay attention!
+The patterns are always followed by a blank space and ).
+Commands are always followed by double semicolon ;;. White space is not
+mandatory before it.
+Case statements end with esac (reverse of case).
+
+3. Bash if else statement in one line
+if [ $(whoami) = 'root' ]; then echo "root"; else echo "not root"; fi

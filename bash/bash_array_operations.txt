@@ -1,0 +1,31 @@
+1. Accessing array elements in bash
+$ files=("f1.txt" "f2.txt" "f3.txt" "f4.txt" "f5.txt")
+
+1) Print an element of array
+$ echo ${files[1]}
+f2.txt
+
+2) Print all elements of array
+$ echo ${files[*]}
+f1.txt f2.txt f3.txt f4.txt f5.txt
+
+3) Print size of the array
+$ echo ${#files[@]}
+5
+
+4. Adding array elements in bash
+$ distros=("Ubuntu" "Red Hat" "Fedora")
+$ distros+=("Kali")
+$ echo ${distros[*]}
+Ubuntu Red Hat Fedora Kali
+
+5. Deleting array elements in bash
+num=(1 2 3 4 5)
+
+1) deleting an element
+$ unset num[2]
+$ echo ${num[*]}
+1 2 4 5
+
+2) deleting all elements
+$ unset num

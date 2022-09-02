@@ -1,0 +1,56 @@
+Loops in Bash
+Ref: [https://linuxhandbook.com/bash-loops/]
+
+1. C-style For Loops
+for ((initialize ; condition ; increment)); do
+  [COMMANDS]
+done
+eg:
+for ((i = 0 ; i < 10 ; i++)); do
+  echo "Hello Friend"
+done
+
+2. List/Range For Loops
+for item in [LIST]; do
+  [COMMANDS]
+done
+eg #1:
+for i in {1..10}; do
+  echo "Hello Friend"
+done
+eg #2:
+for i in /var/*; do
+  echo $i 
+done
+
+3. While Loops
+while [ condition ]; do
+  [COMMANDS]
+done
+eg:
+num=1
+while [ $num -le 10 ]; do
+  echo $(($num * 3))
+  num=$(($num+1))
+done
+
+4. Until Loops
+until [ condition ]; do
+  [COMMANDS]
+done
+eg:
+num=1
+until [ $num -gt 10 ]; do
+  echo $(($num * 3))
+  num=$(($num+1))
+done
+
+5. Infinite Loops
+1) method 1
+for ((;;)); do
+  [COMMANDS]
+done 
+2) method 2
+while [ true ]; do
+  [COMMANDS]
+done
