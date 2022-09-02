@@ -1,0 +1,30 @@
+Send an email with mutt console
+
+In this example, following command will send a test Email to john@tecmint.com.
+The "-s" option is used to specify Subject of the mail.
+
+[root@tecmint ~]#  mutt -s "Test Email" john@tecmint.com
+
+When you enter the above command in the terminal, it opens up with an
+interface and confirms the recipient address and subject of the mail and opens
+up the interface, here you can make changes to recipient mail address.
+
+Change recipient email address pressing t.
+Change Cc address with c.
+Attach files as attachments with a.
+Quit from the interface with q.
+Send that email by pressing y.
+
+Note: When you press "y" it shows the status below that mutt is sending mail.
+
+##########################
+
+Send an email with mutt command line
+
+Add Carbon copy(Cc) and Blind Carbon copy(Bcc):
+$ mutt -s "Subject of mail" -c <email add for CC> -b <email-add for BCC> mail address of recipient
+$ mutt -s "Test Email" -c tecmint.com@gmail.com  -b root@server1.tecmint.com john@server1.tecmint.com
+
+Send Emails with Attachments:
+$ mutt -s "Subject of Mail" -a <path of  attachment file> -c <email address of CC>  mail address of recipient
+$ mutt -s "Site Backup" -a /backups/backup.tar  -c tarunika@centos58server.ex

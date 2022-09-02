@@ -1,0 +1,7 @@
+1) add below config to ~/.Xresources
+  ! Use a truetype font and size.
+  xterm*faceName: Monospace
+  xterm*faceSize: 14
+
+2) run below command
+  xrdb -merge ~/.Xresources

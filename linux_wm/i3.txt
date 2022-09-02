@@ -1,8 +1,10 @@
 1) $ sudo apt install i3  # install window manager i3, or instead of lxde/lxqt etc.
-2) $ sudo apt install i3blocks rofi feh
+2) $ sudo apt install i3blocks rofi feh xss-lock/xautolock i3lock-fancy
 3) Setup
-  $ a) cp /etc/i3/config ~/.config/i3/config
-  $    vim ~/.config/i3/config # to change mod key, font of i3bar
-  $ b) sudo vim /etc/xdg/termit/rc.lua # to change font size of terminal Termit
-  $ c) cp /etc/i3status/config ~/.config/i3status/config
-  $ d) feh --bg-scale /path/to/image.png  # setting wallpaper
+  a) cp /etc/i3/config ~/.config/i3/config
+     vim ~/.config/i3/config # to change mod key, font of i3bar
+  b) sudo vim /etc/xdg/termit/rc.lua # to change font size of terminal Termit
+  c) cp /etc/i3status/config ~/.config/i3status/config
+  d) feh --bg-scale /path/to/image.png  # setting wallpaper
+
+  e) i3lock-fancy, add export LANG='en_US' to ~/.bash_profile, refer: https://kewth.github.io/2019/10/01/i3lock/

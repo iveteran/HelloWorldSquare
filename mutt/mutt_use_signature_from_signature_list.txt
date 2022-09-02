@@ -1,0 +1,41 @@
+How to choose & insert signatures from a list of signatures
+(Source: https://gdtechdiaries.wordpress.com/2018/08/29/learn-how-to-install-and-configure-mutt/)
+
+I have usually seen my mentor (@hsrai) sending different signatures while
+replying to a mail and I was amazed that how he did so because I am sure that
+he is not going to always create a new signature, there must be an automated
+script. Now I got the method (hope so 😉 )and I am also going to let you all
+know, how you all can also do so.
+
+ 
+ 1. First of all you need to comment out the signature part from the .muttrc
+ configuration file.
+
+ 2. Now add some more signatures into the signature file, all starting with a
+ sigdash. (And also add something in that signature, that makes it different
+ from others eg- LOST66 or Quote13)
+
+ eg- My Signature File LINK(https://pastebin.com/embed_js/UyeNbvmh)
+
+ (If you don’t know what is Sigdash, follow this LINK HERE: http://www.guckes.net/mail/sig.etiquette.html)
+
+ 3. Now when you are in VIM typing a mail, Just go to the command line mode in
+ VIM and run below command-
+
+ read !agrep -d "^– $" 'QUOTE 10' ~/.mutt/sig
+
+ Use option "-d" which tells agrep that the next "word" is the pattern that
+ describes the "delimiter".
+
+ A '^' ("caret") denotes the start-of-line, and a '$' ("dollar") denotes the
+ end-of-line. Therefore a line that contains only dash-dash-space is described
+ with ^– $.
+
+ As you can see, agrep has now extracted the lines between two sigdashes lines
+ which contains the word "QUOTE 10". Please note that the first delimiter
+ (sigdashes) are also in the output.
+
+ (I know this is not an automated script but yes it still reduces much of the
+ human effort. I'll try more to automate it.)
+
+ 4. And you are done.
