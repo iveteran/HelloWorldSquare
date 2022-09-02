@@ -1,0 +1,144 @@
+FFMPEG命令入门到提高
+Ref: [https://zhuanlan.zhihu.com/p/117523405]
+
+ffmpeg命令提取音视频数据
+
+保留封装格式
+ffmpeg -i test.mp4 -acodec copy -vn audio.mp4
+ffmpeg -i test.mp4 -vcodec copy -an video.mp4
+
+提取视频
+保留编码格式：ffmpeg -i test.mp4 -vcodec copy -an test_copy.h264
+强制格式：ffmpeg -i test.mp4 -vcodec libx264 -an test.h264
+
+提取音频
+保留编码格式：ffmpeg -i test.mp4 -acodec copy -vn test.aac
+强制格式：ffmpeg -i test.mp4 -acodec libmp3lame -vn test.
+
+-------------------------------
+
+ffmpeg命令转封装
+
+保持编码格式：
+ffmpeg -i test.mp4 -vcodec copy -acodec copy test_copy.ts
+ffmpeg -i test.mp4 -codec copy test_copy2.ts
+
+改变编码格式：
+ffmpeg -i test.mp4 -vcodec libx265 -acodec libmp3lame out_h265_mp3.mkv
+
+修改帧率：
+ffmpeg -i test.mp4 -r 15 -codec copy output.mp4 (错误命令)
+ffmpeg -i test.mp4 -r 15 output2.mp4
+
+修改视频码率：
+ffmpeg -i test.mp4 -b 400k output_b.mkv （此时音频也被重新编码）
+
+修改视频码率：
+ffmpeg -i test.mp4 -b:v 400k output_bv.mkv
+
+修改音频码率：
+ffmpeg -i test.mp4 -b:a 192k output_ba.mp4
+如果不想重新编码video，需要加上-vcodec copy
+
+修改音视频码率：
+ffmpeg -i test.mp4 -b:v 400k -b:a 192k output_bva.mp4
+
+修改视频分辨率：
+ffmpeg -i test.mp4 -s 480x270 output_480x270.mp4
+
+修改音频采样率:
+ffmpeg -i test.mp4 -ar 44100 output_44100hz.mp4
+
+-------------------------------
+
+ffmpeg命令过滤器
+生成测试文件
+
+找三个不同的视频每个视频截取10秒内容
+ffmpeg -i 沙海02.mp4 -ss 00:05:00 -t 10 -codec copy 1.mp4
+ffmpeg -i 复仇者联盟3.mp4 -ss 00:05:00 -t 10 -codec copy 2.mp4
+ffmpeg -i 红海行动.mp4 -ss 00:05:00 -t 10 -codec copy 3.mp4
+
+如果音视频格式不统一则强制统一为 -vcodec libx264 -acodec aac
+
+将上述1.mp4/2.mp4/3.mp4转成ts格式
+ffmpeg -i 1.mp4 -codec copy -vbsf h264_mp4toannexb 1.ts
+ffmpeg -i 2.mp4 -codec copy -vbsf h264_mp4toannexb 2.ts
+ffmpeg -i 3.mp4 -codec copy -vbsf h264_mp4toannexb 3.ts
+
+转成flv格式
+ffmpeg -i 1.mp4 -codec copy 1.flv
+ffmpeg -i 2.mp4 -codec copy 2.flv
+ffmpeg -i 3.mp4 -codec copy 3.flv
+
+分离某些封装格式（例如MP4/FLV/MKV等）中的H.264的时候，需要首先写入SPS和PPS，否则会导致分离出来的数据没有SPS、PPS而无法播放。H.264码流的SPS和PPS信息存储在AVCodecContext结构体的extradata中。需要使用ffmpeg中名称为“h264_mp4toannexb”的bitstream filter处理
+
+开始拼接文件
+
+以MP4格式进行拼接
+方法1：ffmpeg -i "concat:1.mp4|2.mp4|3.mp4" -codec copy out_mp4.mp4
+方法2：ffmpeg -f concat -i mp4list.txt -codec copy out_mp42.mp4
+
+以TS格式进行拼接
+方法1：ffmpeg -i "concat:1.ts|2.ts|3.ts" -codec copy out_ts.mp4
+方法2：ffmpeg -f concat -i tslist.txt -codec copy out_ts2.mp4
+
+以FLV格式进行拼接
+方法1：ffmpeg -i "concat:1.flv|2.flv|3.flv" -codec copy out_flv.mp4
+方法2：ffmpeg -f concat -i flvlist.txt -codec copy out_flv2.mp4
+
+方法1只适用部分封装格式，比如TS
+
+建议：
+（1）使用方法2进行拼接
+（2）转成TS格式再进行拼接
+
+测试不同编码拼接
+
+修改音频编码
+ffmpeg -i 2.mp4 -vcodec copy -acodec ac3 -vbsf h264_mp4toannexb 2.ts
+ffmpeg -i "concat:1.ts|2.ts|3.ts" -codec copy out1.mp4 结果第二段没有声音
+
+修改音频采样率
+ffmpeg -i 2.mp4 -vcodec copy -acodec aac -ar 96000 -vbsf h264_mp4toannexb 2.ts
+ffmpeg -i "concat:1.ts|2.ts|3.ts" -codec copy out2.mp4 第二段播放异常
+
+修改视频编码格式
+ffmpeg -i 1.mp4 -acodec copy -vcodec libx265 1.ts
+ffmpeg -i "concat:1.ts|2.ts|3.ts" -codec copy out3.mp4
+
+修改视频分辨率
+ffmpeg -i 1.mp4 -acodec copy -vcodec libx264 -s 800x472 -vbsf h264_mp4toannexb 1.ts
+ffmpeg -i "concat:1.ts|2.ts|3.ts" -codec copy out4.mp4
+
+注意：
+把每个视频封装格式也统一为ts，拼接输出的时候再输出你需要的封装格式，比如MP4
+视频分辨率可以不同，但是编码格式需要统一
+音频编码格式需要统一，音频参数(采样率/声道等)也需要统一
+
+-------------------------------
+
+fmpeg命令图片与视频互转
+
+截取一张图片
+ffmpeg -i test.mp4 -y -f image2 -ss 00:00:02 -vframes 1 -s 640x360 test.jpg
+ffmpeg -i test.mp4 -y -f image2 -ss 00:00:02 -vframes 1 -s 640x360 test.bmp
+-i 输入
+-y 覆盖
+-f 格式 image2 一种格式
+-ss 起始值
+-vframes 帧 如果大于1 那么 输出加%03d test%03d.jpg
+-s 格式大小size
+
+转换视频为图片（每帧一张图):　　
+ffmpeg -i test.mp4 -t 5 -s 640x360 -r 15 frame%03d.jpg
+
+图片转换为视频:　　
+ffmpeg -f image2 -i frame%03d.jpg -r 25 video.mp4
+
+从视频中生成GIF图片
+ffmpeg -i test.mp4 -t 5 -r 1 image1.gif
+ffmpeg -i test.mp4 -t 5 -r 25 -s 640x360 image2.gif
+
+将GIF转化为视频
+ffmpeg -f gif -i image2.gif image2.mp4
