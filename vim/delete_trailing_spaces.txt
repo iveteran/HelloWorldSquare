@@ -1,0 +1,16 @@
+Delete trailing spaces with the following command
+
+:%s/\s\+$//e
+
+This command is explained as follows:
+
+enter Command mode with :
+do this to the entire file with % (default would be for the current line)
+  substitute action s
+  / start of the search pattern
+  \s whitespace character
+  \+ escaped + sign, one or more spaces should be matched
+  before the line end $
+  / end of the search pattern, beginning of replacement pattern
+  / end of the replacement pattern. Basically, replace with nothing.
+  e suppress error messages if no match found

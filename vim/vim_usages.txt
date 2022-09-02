@@ -1,0 +1,8 @@
+1) Open file by match file name
+:e *match_string <TAB>
+
+2) Add something to end of line with multiple lines
+  Method A:
+   :'<,'>s/$/<something>/g
+  Method B:
+   Ctrl-v $A <something>
