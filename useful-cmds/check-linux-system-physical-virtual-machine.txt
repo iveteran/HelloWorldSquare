@@ -1,8 +1,24 @@
+/proc/cpuinfo
+  egrep -o '(vmx|svm)' /proc/cpuinfo | sort | uniq
+
 dmesg
+  dmesg | grep "Hypervisor detected"
+  dmesg | grep -i kvm
+
 lshw
+  lshw -class system
+
 dmidecode
+ 1) dmidecode -s system-manufacturer
+ 2) dmidecode | grep Product
+ 3) dmidecode -s system-product-name
+ 4) dmidecode | egrep -i 'manufacturer|product'
+ 5) dmidecode | egrep -i 'vendor'
+
 hostnamectl 
+
 systemd-detect-virt
+
 virt-what
 
 https://www.ostechnix.com/check-linux-system-physical-virtual-machine/
