@@ -1,0 +1,18 @@
+添加软字幕
+ffmpeg -i test_1280x720_3.mp4 -i test_1280x720_3.srt -c copy output.mkv
+
+添加硬字幕
+ffmpeg -i test_1280x720_3.mkv -vf subtitles=test_1280x720_3.srt out.mp4
+
+字幕格式转换
+ffmpeg -i test_1280x720_3.srt test_1280x720_3_1.vtt
+ffmpeg -i test_1280x720_3.srt test_1280x720_3_1.ass
+
+tips：
+软字幕只有部分容器格式比如(mkv)才支持，MP4/MOV等不支持，而且也只有部分播放器支持软字幕或者外挂字幕(如VLC播放器)
+
+如果ffmpeg要实现添加字幕的功能需要在编译时开启--enable-filter=subtitles --enable-libass
+--enable-filter=subtitles 代表开启字幕滤镜
+--enable-libass 则是字幕滤镜需要依赖的外部库，所以编译时还需要指定该外部库的路径(如x264的编译一样)
+
+Ref: [https://www.jianshu.com/p/f33910818a1c]
