@@ -1,0 +1,50 @@
+1) systeminfo
+  Show System Information
+
+2) shutdown
+  Create Shutdown Shortcuts for Windows
+  eg:
+  shutdown /s /t 0: Performs a regular shut down.
+  shutdown /r /t 0: Restart the computer.
+  shutdown /r /o: Restarts the computer into advanced options.
+
+3) ipconfig
+  a) View DNS cache
+    ipconfig /displaydns
+  b) Flush Your DNS Resolver Cache
+    ipconfig /flushdns
+
+4) netstat -an
+  List Network Connections and Ports
+
+5) nslookup
+  Find the IP Address Associated With a Domain
+
+6) powercfg
+ Check your laptop’s battery health
+ eg:
+ powercfg /batteryreport /output “D:\battery_report.html”
+
+7) Hide Folders
+  Hide: attrib +h +s +r filename
+  Unhide: attrib -h -s -r filename
+
+8) Opening CMD Shortcut
+ 在文件浏览器的路径导航中输入"cmd"或"powershell"可以打开Windows 命令行程序并进入到文件浏览器打开的目录
+
+9) tree
+  Save folder trees to disk
+  eg:
+  tree d:\tools > d:\tools_tree.txt
+
+10) tasklist
+  tasklist | findstr /I chrome
+
+11) taskkill
+  taskkill PID
+
+12) Running PowerShell as Administrator with the Command Line
+  Start-Process powershell -Verb runAs
+
+13) Open Task Scheduler
+  taskschd.msc

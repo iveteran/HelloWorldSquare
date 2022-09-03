@@ -1,0 +1,990 @@
+Windows CMD commands: an overview
+
+Ref: [https://www.ionos.com/digitalguide/server/know-how/windows-cmd-commands/]
+
+There are almost 300 commands for Windows and its predecessor, MS-DOS. Over the decades, some commands have been kept around, some have only recently been added with newer versions of Windows, and others have been removed or replaced. In our comprehensive list, we explain what the different commands mean and on which Windows versions they run. This way, you can quickly look up whether the CMD commands that you know still function with Windows 10. To make it more clear, we’ve divided the Windows command prompt commands into four categories: basics, files, system, and network.
+
+ Note
+The information on the functionality of various Windows versions should only be understood as orientation information. For the individual commands, it’s not only which Windows version you’re using that’s important, but also which edition (Home, Pro, Server). In some cases, you have to adjust certain settings beforehand so that the commands are effective. You also will need access rights as an administrator for some CMD commands.
+
+** Basics **
+
+*bitsadmin*
+  [10/8/7/Vista]
+  Creates and monitors downloads and uploads.
+
+*break*
+  [All Win/DOS]
+  Interrupts Ctrl + C checking in DOS, allowing you to stop processes in the old operating system.
+  Only available for compatibility reasons in Windows.
+
+*call*
+  [All Win/DOS]
+  Calls a batch file within another batch file. The command has no effect if entered directly into CMD instead of in a batch file.
+
+*cd*
+  [All Win/DOS]
+  Displays the current directory and lets you switch to other directories.
+  With the parameter /D plus drive and path specification, you can also switch drives.
+  Use cd.. to switch to a higher directory (has the same function as the chdir command).
+
+*chcp*
+  [All Win/DOS]
+  Changes the current code page (character set table) or shows the page count of the current code page.
+
+*chdir*
+  [All Win/DOS]
+  Displays the current directory and lets you switch to other directories.
+  With the parameter /D plus drive and path specification, you can also switch drives.
+  Use chdir.. to switch to a higher directory (has the same function as the cd command).
+
+*choice*
+  [All Win (not XP)/DOS]
+  Creates a selection list: typical example is the selection of yes (Y) or no (N), which is created with /C YN.
+  With the parameter /M you can add an explanatory message for the user.
+
+*clip*
+  [10/8/7/Vista]
+  Forwards the result of a command to the clipboard.
+  For example, you can copy the directory structure (dir	clip) or the content of a file (clip < filename) to the clipboard.
+
+*cls*
+  [All Win/DOS]
+  Clears the content of the screen.
+
+*cmd*
+  [10/8/7/Vista/XP]
+  Starts CMD.EXE.
+
+*color*
+  [10/8/7/Vista/XP]
+  Changes the background (first value) and text color (second value) of the command prompt.
+  The color lies between 0 (black) and F (white).
+
+*command*
+  [32-bit/DOS]
+  Starts CMD.COM.
+
+*date*
+  [All Win/DOS]
+  Displays the current date and allows you to change it.
+  With the parameter /T the date is shown without the option to change.
+
+*dir*
+  [All Win/DOS]
+  Displays all folders and files within the current directory.
+  You can restrict the output by attributes (/A), simplify the list (/B), or display all subdirectories and their files (/S).
+
+*doskey*
+  [All Win/DOS]
+  Creates macros, recalls commands, and edits command input.
+
+*echo*
+  [All Win/DOS]
+  Displays a message and is mainly used within scripts and batch files.
+
+*exit*
+  [All Win/DOS]
+  Ends CMD.EXE or CMD.COM.
+
+*find*
+  [All Win/DOS]
+  Searches through a file or multiple files for a particular character sequence.
+  If you only want to know how frequently the word or phrase occurs, use the /C parameter.
+  With the extension /I the command ignores upper- and lower-case in the search.
+
+*findstr*
+  [10/8/7/Vista/XP]
+  Finds character sequences in one or multiple files.
+  It gives you more options when compared to the find command:
+  you can search for files that contain various terms or with /C search for an exact word order.
+
+*help*
+  [All Win/DOS]
+  Displays help text for a specific command (you can also use the /? command).
+
+*logoff*
+  [10/8/7/Vista/XP]
+  Logs the user out of Windows. Also allows you to end sessions on servers.
+
+*lpq*
+  Displays the status of a printer queue for computers that use a “line Printer Daemon” (LPD).
+  (To use the command in Windows 10, 8, 7, or Vista, the LPD print service and the LPR port monitor have to be enabled first).
+
+*lpr*
+  [All Win]
+  Sends a file to a computer that uses a line printer daemon (LPD).
+  To use the command in Windows 10, 8, 7, or Vista, the LPD print service and LPR port monitor have to be enabled first.
+
+*md*
+  [All Win/DOS]
+  Creates a new directory on the specified path.
+  If directories don’t already exist on the path, md creates them automatically
+  (you can also use the mkdir command).
+
+*mkdir*
+  [All Win/DOS]
+  Creates a new directory on the specified path.
+  If directories don’t already exist on the path, mkdir creates them automatically
+  (you can also use the md command).
+
+*more*
+  [All Win/DOS]
+  Outputs the content of a file (for example, a text file) by the page.
+  You can also use the command to split the output of another command into pages.
+
+*msg*
+  [10/8/7/Vista/XP]
+  Sends a message to another user.
+  You can write the username into the command or create files in which usernames are saved.
+  The files can then be included in the command with @filename.
+
+*path*
+  [All Win/DOS]
+  Creates and displays the path for searching executable files.
+
+*pause*
+  [All Win/DOS]
+  Pauses execution in batch files and scripts.
+  The user is then prompted in a message to continue by pressing a key.
+
+*popd*
+  [10/8/7/Vista]
+  Changes to the folder saved by the pushd command.
+  The command is mainly part of batch files and scripts.
+
+*print*
+  [All Win/DOS]
+  Prints a text file. The device to be used for printing has to be specified.
+
+*prompt*
+  [All Win/DOS]
+  Changes the display of the command prompt.
+
+*pushd*
+  [10/8/7/Vista/XP]
+  Saves a specific path into a script or batch file.
+  You can change to this directory with popd.
+
+*rd*
+  [All Win/DOS]
+  Deletes a directory.
+  This must not contain any files, even hidden ones.
+  You can delete an entire directory tree with the /S parameter
+  (you can also use the rmdir command).
+
+*rem*
+  [All Win/DOS]
+  Writes comments in batch and script files that aren’t taken into account when executing.
+
+*rmdir*
+  [All Win/DOS]
+  Deletes a directory.
+  This must not contain any files, even hidden ones.
+  You can delete an entire directory tree with the /S parameter
+  (you can also use the rd command).
+
+*runas*
+  [10/8/7/Vista/XP]
+  Allows a user to run commands with the rights of another user.
+  For example, you can run a command as an administrator from a normal user account as long as you know the password.
+
+*schtasks*
+  [10/8/7/Vista/XP]
+  Sets the execution of specified programs and commands for a specified point in time.
+  You can create, delete, change, and display all scheduled tasks.
+
+*set*
+  [All Win/DOS]
+  Displays environmental variables of CMD.EXE and lets you configure them.
+
+*shift*
+  [All Win/DOS]
+  Moves variables within batch files and scripts.
+
+*shutdown*
+  [10/8/7/Vista/XP]
+  Shuts down the computer (/s), triggers a restart (/r), or logs the user out (/l).
+  A graphical user interface is displayed if you enter the parameter /I as the first option in the command.
+
+*sort*
+  [All Win/DOS]
+  Lists out data (from a file or command) and outputs it again sorted – directly in the command prompt, in a new file, or in another output.
+
+*start*
+  [All Win]
+  Opens a new command prompt window in which you can run a specific program or command.
+
+*subst*
+  [All Win/DOS]
+  Assigns a drive letter to a path to create a virtual drive.
+
+*taskkill*
+  [10/8/7/Vista]
+  Ends one or more running tasks.
+  You either have to specify the process ID (PID) or image name.
+
+*tasklist*
+  [10/8/7/Vista/XP]
+  Lists all running processes – also on remote computers, if desired.
+  The process ID also has to be specified, which is required for the taskkill command, for example.
+
+*time*
+  [All Win/DOS]
+  Displays the current time and allows it to be changed.
+  If the parameter /T is entered, the command prompt only shows the time and offers no option to directly change it.
+
+*timeout*
+  [10/8/7/Vista]
+  Stops a process for a specified time.
+  The command Is used in batch files and scripts.
+  If you use the /NOBREAK parameter, the command ignores any keyboard input.
+
+*title*
+  [All Win/DOS]
+  Changes the title of the command prompt.
+  Spaces are allowed, but not all special characters such as a slash,
+  for example, because they may be interpreted as instructions for a parameter.
+
+*tree*
+  [All Win/DOS]
+  Graphically displays the directory structure of a drive or path.
+  With the /F parameter, all files in the folders are also listed out.
+  /A also ensures that only ASCII characters are used for the graphical representation.
+  The command takes into account all subdirectories starting from the given path.
+  If you don’t enter a path, the current folder is used as the output.
+
+*type*
+  [All Win/DOS]
+  Displays the content of a text file.
+
+*tzutil*
+  [Win 10/8/7]
+  Displays the currently set time zone (/g) or changes it (/s).
+  The parameter /l helps determine the valid time zones.
+
+*ver*
+  [All Win/DOS]
+  Displays the current version number of Windows or MS-DOS.
+
+
+** Files **
+
+*append*
+  [32-bit/DOS]
+  Sets the path in which files will be searched for.
+
+*assoc*
+  [10/8/7/Vista/XP]
+  Changes the program that’s linked with a particular file ending.
+
+*attrib*
+  [All Win/DOS]
+  Changes attributes of specified files.
+  With the parameter +R you can protect a file from changes.
+
+*cipher*
+  [10/8/7/Vista/XP]
+  Displays and changes the encryption status of files and directories on NTFS partitions.
+
+*comp*
+  [10/8/7/Vista/XP]
+  Compares the content of two files or two file sets.
+  The results can be displayed as a decimal value (/D) or with ASCII characters (/A).
+
+*compact*
+  [10/8/7/Vista/XP]
+  Displays and changes the compression status of files and directories on NTFS partitions.
+
+*copy*
+  [All Win/DOS]
+  Copies a file or multiple files to another location.
+  It’s also possible to connect several files to one. You can use the asterisk as a wild card.
+
+*cscript*
+  [All Win/DOS]
+  Runs scripts over the Microsoft Script Host.
+  You can enable additional debugging with the /D option.
+
+*del*
+  [All Win/DOS]
+  Deletes a file or multiple files.
+  If you also want to delete all files from subfolders, you can do this with the /S parameter.
+  Read-only files can be deleted with /F
+  (you can also use the erase command).
+
+*endlocal*
+  [10/8/7/Vista/XP]
+  Ends the valid range of changes to batch files or scripts.
+  After the command, changes are applied to the entire system again (localization is started with setlocal).
+
+*erase*
+  [All Win/DOS]
+  Function is the same as del.
+
+*expand*
+  [All Win (not 64-bit XP)/DOS]
+  Extracts files and folders stored in CAB files.
+
+*fc*
+  [All Win/DOS]
+  Compares two individual files or two sets of files with one another and displays the differences.
+
+*for*
+  [All Win/DOS]
+  Sets a specific command that should be run for each individual file in a file set.
+  This command is usually used in batch and script files.
+
+*forfiles*
+  [10/8/7/Vista]
+  Selects one or more files and runs a command that refers to these files.
+  Usually used for batch and script files.
+
+*ftype*
+  [10/8/7/Vista/XP]
+  Specifies a program for opening a specific file type.
+
+*goto*
+  [All Win/DOS]
+  Skips the execution within a batch program to a specific line (marker).
+
+*if*
+  [All Win/DOS]
+  Represents a conditional statement and executes expressions within batch files only under certain conditions.
+  Can be extended by not if commands are only not to be executed under certain conditions.
+
+*makecab*
+  [10/8/7/Vista/XP]
+  Compresses files without loss in CAB format
+
+*mklink*
+  [10/8/7/Vista]
+  Creates a symbolic link to a file.
+  With /D you can also create connections to directories.
+  Create a fixed connection instead of a symbolic connection with /H.
+
+*move*
+  [All Win/DOS]
+  Moves a file or multiple files from one directory to another.
+  The command can also change the names of directories.
+  By default, the command overwrites other files with the same name when moving files to the destination.
+  To prevent this use the /-Y parameter.
+
+*openfiles*
+  [10/8/7/Vista/XP]
+  Displays and separates open system files and folders.
+
+*recover*
+  [10/8/7/Vista/XP]
+  Restores readable files that were on a defective data drive.
+
+*ren*
+  [All Win/DOS]
+  Changes the name of a particular file.
+  Directory and drive cannot be changed this way
+  (or use the rename command).
+
+*rename*
+  [All Win/DOS]
+  Function is the same as ren.
+
+*replace*
+  [All Win/DOS]
+  Replaces the selected file or files with one or more other files.
+  With /S files in subfolders are also replaced.
+  With the addition /U files are only replaced if another version is more current.
+  The parameter /A allows users to add new files to the target directory at the same time.
+  This parameter is not compatible with /S and /U.
+
+*robocopy*
+  [10/8/7/Vista]
+  Allows so-called robust file copying.
+  This is an extended version of copy and xcopy.
+  With robocopy it’s possible to successfully transfer data even if there are interruptions in the network.
+  There are a total of 72 parameters with which the copy command can be modified.
+
+*setlocal*
+  [10/8/7/Vista/XP]
+  Limits the valid range of changes to batch files or scripts.
+  After the command, changes only apply to these files (localization is started with endlocal).
+
+*sxstrace*
+  [10/8/7/Vista]
+  Starts the WinSxs Tracing Utility, a tool for programming diagnostics.
+
+*takeown*
+  [10/8/7/Vista]
+  Restores administrator access rights to a file that have been lost when reassigning a user.
+
+*verify*
+  [All Win/DOS]
+  When enabled, checks whether files are written correctly on a data drive.
+  The check is disabled in the standard settings.
+
+*where*
+  [10/8/7/Vista]
+  Finds files that match a particular search topic.
+  The placeholders * and ? can be used within the topic.
+
+*xcopy*
+  [All Win/DOS]
+  Copies files and entire directory structures.
+  In this way, the command offers various additional options.
+  For example, it can be specified that only files younger than a specific date (/D) should be copied.
+  It can also be specified that read-only files are overwritten (/R).
+
+
+** System **
+
+*at*
+  [10/8/7/Vista/XP]
+  Starts commands and programs at a particular time.
+  With the parameter /every:date[,…] you can also set regular appointments.
+
+*auditpol*
+  [10/8/7/Vista]
+  Displays current monitoring policies.
+
+*bcdboot*
+  [10/8/7]
+  Creates and repairs start files.
+
+*bcdedit*
+  [10/8/7/Vista]
+  Allows users to make changes to start configuration data storage
+  (the command is a new version of bootcfq).
+
+*bdehdcfg*
+  [10/8/7]
+  Prepares a hard drive for BitLocker Drive Encryption.
+
+*bootcfg*
+  [10/8/7/Vista/XP]
+  Creates, edits, or displays the content of boot.ini
+  (although it’s still included in the Windows 7 CMD, it has lost its function since boot.ini is no longer used for startup options,
+   instead you should use bcdedit).
+
+*bootsect*
+  [10/8/7/Vista]
+  Modifies the master boot code sot that it’s compatible with the Windows Boot Manager or NT Loader
+  (can only be started via system restore in Windows 7 and Vista).
+
+*cacls*
+  [10/8/7/Vista/XP]
+  Edits and displays the access control list.
+  This sets access rights (outdated – replaced by icacls in newer Windows versions).
+
+*chkdsk*
+  [All Win/DOS]
+  Checks and repairs (with the parameter /R) a data drive.
+
+*chkntfs*
+  [10/8/7/Vista/XP]
+  Changes or displays the data driver check at startup.
+
+*cmdkey*
+  [10/8/7/Vista]
+  Can display (/list), create (/add), or delete (/delete) login information.
+
+*convert*
+  [10/8/7/Vista/XP]
+  Converts partitions from FAT/FAT32 to NTFS.
+
+*defrag*
+  [All Win/DOS]
+  Defragments all or only specified drives.
+  Use /U to observe the progress.
+  To get an evaluation statistic after the defragmentation, use the parameter /V.
+
+*diskpart*
+  [10/8/7/Vista/XP]
+  Manages, creates, and deletes partitions from the hard drive.
+
+*diskperf*
+  [10/8/7/Vista]
+  Allows users to remotely control the disk performance counter.
+
+*diskraid*
+  [10/8/7/Vista]
+  Manages RAID systems.
+
+*dism*
+  [10/8/7]
+  Manages and integrates Windows images.
+
+*dispdiag*
+  [10/8/7/Vista]
+  Creates a file in the current directory in which you’ll find information about your display.
+
+*driverquery*
+  [10/8/7/Vista/XP]
+  Creates a list with all installed drivers.
+
+*esentutl*
+  [10/8/7/Vista/XP]
+  Manages databases within the extensible storage engine.
+
+*eventcreate*
+  [10/8/7/Vista/XP]
+  Creates an entry (ID and message) in an event log.
+
+*fltmc*
+  [10/8/7/Vista/XP]
+  Allows users to manage and display filter drivers.
+
+*fondue*
+  [10/8]
+  Installs additional Windows features.
+  The command is an abbreviation for the underlying tool: Features on Demand User Experience Tool.
+
+*format*
+  [All Win/DOS]
+  Formats a drive to the file system specified by the user.
+
+*fsutil*
+  [10/8/7/Vista/XP]
+  Provides numerous features related to the file system, such as disk removal.
+
+*hwrcomp*
+  [10/8/7]
+  Compiles self-created dictionaries for handwriting recognition.
+
+*hwrreg*
+  [10/8/7]
+  Installs a compiled dictionary for handwriting recognition.
+
+*icacls*
+  [10/8/7/Vista]
+  Edits and displays the access control list.
+  This sets access rights. An outdated version of this command is cacls.
+
+*ktmutil*
+  [10/8/7/Vista]
+  Starts the kernel transaction manager.
+
+*label*
+  [All Win/DOS]
+  Changes or deletes a drive’s label.
+
+*licensingdiag*
+  [10/8]
+  Creates an XML and a CAB file that contain information on the Windows product license.
+
+*lodctr*
+  [All Win]
+  Updates all registry entries that have to do with performance indicators.
+
+*logman*
+  [10/8/7/Vista/XP]
+  Creates and manages event trace sessions and performance logs.
+
+*manage-bde*
+  [10/8/7]
+  Configures drive encryption with BitLocker.
+  Use -on to encrypt a drive. Use -off to decrypt it again and end BitLocker protection.
+
+*mode*
+  [All Win/DOS]
+  Configures system devices – primarily on the COM or LPT port.
+
+*mofcomp*
+  [All Win]
+  Analyzes files in managed object format (MOF) and adds the classes and instances to the WMI repository.
+
+*mountvol*
+  [10/8/7/Vista/XP]
+  Creates and deletes mount points for drives and displays them.
+
+*msiexec*
+  [10/8/7/Vista/XP]
+  Starts the Windows installer, with which Windows can be installed and configured.
+
+*muiunattend*
+  [10/8/7/Vista]
+  Starts an automatic setup process for the multilingual user interface (MUI).
+
+*netcfg*
+  [10/8/7/Vista]
+  Installs the minimal operating system Microsoft Windows PE.
+
+*pkgmgr*
+  [10/8/7/Vista]
+  Installs, uninstalls, and configures packages and functions for Windows.
+
+*pnpunattend*
+  [10]
+  Automates the installation of device drivers.
+
+*pnputil*
+  [10/8/7/Vista]
+  Installs plug-and-play devices from the command prompt.
+
+*powercfg*
+  [10/8/7/Vista/XP]
+  Allows the user to change the computer’s energy options and control energy conservation plans.
+
+*pwlauncher*
+  [10/8]
+  Configures the startup options for Windows To Go with which you can boot Windows from a USB drive.
+
+*qprocess*
+  [10/8/7/Vista]
+  Provides information on running processes.
+
+*query*
+  [10/8/7/Vista]
+  Displays the status of a particular service.
+
+*quser*
+  [10/8/7/Vista]
+  Provides information on the currently logged-in users.
+
+*reagentc*
+  [10/8/7]
+  Configures the Windows recovery environment, with which you can repair the installation of the operating system.
+
+*reg*
+  [10/8/7/Vista/XP]
+  Manages the registry of the command prompt. Users can create new keys (reg add) or delete them (reg delete).
+
+*regini*
+  [10/8/7/Vista/XP]
+  Changes registry authorizations.
+
+*register-cimprovider*
+  [10/8]
+  Registers a common information model provider (CIM provider) in Windows.
+
+*regsvr32*
+  [10/8/7/Vista/XP]
+  Registers a DLL file in the registry.
+
+*relog*
+  [10/8/7/Vista/XP]
+  Creates new performance indicator protocols from the data in the existing protocols.
+
+*repair-bde8*
+  [10/8/7]
+  Repairs and decrypts defective drives that are encrypted with BitLocker.
+  The files should be saved on a replacement drive.
+
+*reset*
+  [10/8/7/Vista/XP]
+  Resets a session. You can also use the rwinsta command.
+
+*rwinsta*
+  [10/8/7/Vista/XP]
+  Command has the same function as reset.
+
+*sc*
+  [10/8/7/Vista/XP]
+  Manages services by connecting to the Service Controller.
+
+*sdbinst*
+  [10/8/7/Vista/XP]
+  Applies user-defined database files (SDB).
+
+*secedit*
+  [10/8/7/Vista/XP]
+  Analyzes the security settings by comparing the current configurations with templates.
+  Settings can also be configured, imported, and exported with this command.
+
+*setx*
+  [10/8/7/Vista]
+  Creates or changes environmental variable in the user of system environment.
+
+*sfc*
+  [10/8/7/Vista/XP]
+  Checks all important and protected system files.
+  Incorrect versions are replaced by correct ones.
+
+*systeminfo*
+  [10/8/7/Vista/XP]
+  Displays information about the Windows installation, including all installed service packages.
+  The information can be obtained from the local system as well as a remote computer.
+
+*tpmvscmgr*
+  [10/8]
+  Creates and deletes TPM virtual smart cards.
+  These are virtual smartcards encrypted on the basis of the Trusted Platform Model.
+
+*tracerpt*
+  [10/8/7/Vista/XP]
+  Processes logs or real-time data generated during the tracing of computer programs.
+
+*typeperf*
+  [10/8/7/Vista/XP]
+  Displays performance counter data or writes it into a file.
+
+*unlodctr*
+  [10/8/7/Vista/XP]
+  Deletes names as well as descriptions for extensible performance counters in the Windows registry.
+
+*vaultcmd*
+  [10/8/7]
+  Creates, deletes, and displays saved registration information.
+
+*vssadmin*
+  [10/8/7/Vista/XP]
+  Manages the volume shadow copy services that can be used to store different versions (snapshots) of drives.
+
+*wbadmin*
+  [10/8/7/Vista]
+  Creates backups of the operating system and delivers information to the created backup copies.
+
+*wevtutil*
+  Manages event logs and event log files.
+
+*whoami*
+  [10/8/7/Vista]
+  Provides information about the current user.
+  With the /GROUP parameter you can obtain additional information about group membership.
+
+*winmgmt*
+  [All Win]
+  Manages WMI repositories. Backups (/backup) are possible with the command, for example.
+
+*winsat*
+  [10/8/7/Vista]
+  Evaluates various system factors – for example, processor performance or graphical capabilities.
+
+*wmic*
+  [10/8/7/Vista/XP]
+  Starts the Windows Management Instrumentation in the command prompt.
+  Various Windows settings can be changed here – both locally and on remote computers.
+
+*xwizard*
+  [10/8/7]
+  Registers Windows data in the form of XML files.
+
+** Network **
+
+*arp*
+  [All Win]
+  Displays and edits entries in the Address Resolution Protocol cache.
+
+*certreq*
+  [10/8/7/Vista]
+  Manages and creates certificate registration requirements for certification authorities.
+
+*certutil*
+  [10/8/7/Vista]
+  Manages services related to certificate authentication.
+
+*change*
+  [10/8/7/Vista]
+  Changes the settings of a terminal server and can be used together with the parameters logon, port, or user
+  (replaces the commands chglogon, chgport, and chgusr).
+
+*checknetisolation*
+  [10/8]
+  Checks the network capability of apps from the Windows Store.
+
+*chglogon*
+  [10/8/7/Vista]
+  Enables, disables, or adjusts logins for terminal server sessions.
+
+*chgport*
+  [10/8/7/Vista]
+  Displays or changes the COM pin assignment of terminal servers for DOS compatibility.
+
+*chgusr*
+  [10/8/7/Vista]
+  Changes the installation mode of a terminal server.
+
+*cmstp*
+  [10/8/7/Vista/XP]
+  Installs or uninstalls profiles for the connection manager.
+
+*djoin*
+  [10/8/7/Vista]
+  Creates a new computer account in the Active Directory Domain Services (AD DS).
+
+*finger*
+  [10/8/7/Vista/XP]
+  Provides information about users on remote devices using the Finger service.
+
+*ftp*
+  [All Win/DOS]
+  Transfers data to an FTP server or from this to a PC.
+  The command offers additional options: For example, you can activate debugging with -d.
+
+*getmac*
+  [10/8/7/Vista/XP]
+  Displays the MAC address of all network adapters.
+  The format of the output (Table, List, CSV) is set with /FO. With /S you can use the command on remote systems as well.
+
+*gpresult*
+  [10/8/7/Vista/XP]
+  Displays information on the Group Policy.
+
+*gpupdate*
+  [10/8/7/Vista/XP]
+  Updates information on the Group Policy.
+
+*hostname*
+  [10/8/7/Vista/XP]
+  Outputs the name of the current host.
+
+*ipconfig*
+  [All Win/DOS]
+  Provides information on the IP of each used network adapter.
+  The command can also be used to release (/release) or renew (/renew) addresses. With /flushdns you can clear the DNS cache.
+
+*irftp*
+  [10/8/7/Vista]
+  Transfers files via infrared connection, if one is available.
+
+*iscsicli*
+  [10/8/7/Vista]
+  Manages iSCSI, which enables connections via the SCSI protocol.
+
+*klist*
+  [10/8/7]
+  Displays all tickets authenticated by the Kerberos service. Also enables the command to delete tickets (purge).
+
+*ksetup*
+  [10/8/7]
+  Configures a connection to a Kerberos server.
+
+*mount*
+  [10/7/Vista]
+  Enables network sharing under the Network File System. (To use the command, enable NFS services).
+
+*mrinfo*
+  [10/8/7/Vista/XP]
+  Provides information on the router.
+
+*nbtstat*
+  [10]
+  Displays statistics and information on the TCP/IP connections on remote computers.
+
+*net*
+  [All Win]
+  Configures and displays network settings.
+
+*netsh*
+  [10/8/7/Vista/XP]
+  Starts the network shell, which allows for network settings to be changed on local and remote computers.
+
+*netstat*
+  [All Win]
+  Displays statistics and information on TCP/IP connections on the local computer.
+
+*nfsadmin*
+  [7/Vista]
+  Manages NFS servers and clients (to be able to use the command, you first have to enable NFS services in Windows).
+
+*nltest*
+  [10/8/7]
+  Displays information related to secure channels in the Active Directory Domain Services (AD DS) and tests the connections.
+
+*nslookup*
+  [10]
+  Sends a DNS query to a specific IP or host name on the preconfigured DNS server.
+  You can also specify another DNS server.
+
+*pathping*
+  [10/8/7/Vista/XP]
+  Provides information on forwarding and package loss when sending over a network and also specifies the latency.
+
+*ping*
+  [All Win]
+  Sends an internet control message protocol echo request to a specific host to check if it’s accessible.
+  The duration of the echo can also be specified.
+  Ping signals can be sent continuously with -t.
+  To display statistics on this action, press Ctrl + Brk.
+  Cancel the process with Ctrl + C.
+
+*qappsrv*
+  [10/8/7/Vista/XP]
+  Displays all available remote computers in the network.
+
+*qwinsta*
+  [10/8/7/Vista]
+  Displays information on the open remote desktop sessions.
+
+*rasautou*
+  [10/8/7/Vista/XP]
+  Manages autodial addresses.
+
+*rasdial*
+  [10/8/7/Vista/XP]
+  Starts and ends network connections for Microsoft clients.
+
+*route*
+  [All Win]
+  Displays routing tables and makes it possible to change, add, or delete entries.
+
+*rpcping*
+  [10/8/7/Vista]
+  Sends a ping via remote procedure call (RPC) and checks whether a connection is possible.
+
+*setspn*
+  [10/8/7]
+  Creates, deletes, and changes SPNs.
+  These are unique identifiers for services on a network that uses Kerberos authentication.
+
+*tcmsetup*
+  [10/8/7/Vista/XP]
+  Enables or disables a client for the Telephony Application Programming Interface (TAPI), a programming interface for telephone applications.
+
+*telnet*
+  [All Win/DOS]
+  Enables communication with another computer that also uses the telnet protocol.
+
+*tftp*
+  [10/8/7/Vista/XP]
+  Enables a file exchange between the local computer and a server that supports the Trivial File Transfer Protocol (TFTP).
+  To use the command, the TFTP client first needs to be enabled in the system settings.
+
+*tlntadmn*
+  [8/7/Vista/XP]
+  Manages a telnet server on a local or remote computer
+  (to be able to use the command, the telnet server functions first have to be enabled in the system settings).
+
+*tracert*
+  [All Win]
+  Tracks a data package on the way through the network to a server.
+  It doesn’t only check whether the package arrives and how long it takes, but also records how many hops the package makes on the way.
+  All packages have a set time-to-live (TTL), which is increased gradually with the command.
+
+*tscon*
+  [10/8/7/Vista/XP]
+  Connects the current local user session with a session on a remote computer.
+
+*tsdiscon*
+  [10/8/7/VistaXP]
+  Ends the connection between a local user session and a session on a remote computer.
+
+*tskill*
+  [10/8/7/Vista/XP]
+  Ends a process on a remote computer.
+
+*w32tm*
+  [10/8/7/Vista/XP]
+  Manages the Windows time service that synchronizes dates and times on all computers that share an AD DS domain.
+
+*waitfor*
+  [10/8/7/Vista]
+  Sends or waits on a single.
+  If the signal is only supposed to be sent to specified computers in a domain instead of all, use the /S parameter.
+  Computers within a network are synchronized with one another through this command.
+
+*wecutil*
+  [10/8/7/Vista]
+  Creates and managements subscriptions for events.
+  These are forwarded from remote event sources that support the WS management protocol.
+
+*winrm*
+  [10/8/7/Vista]
+  Manages secure connections between local and remote computers via the WS management protocol.
+
+*winrs*
+  [10/8/7/Vista]
+  Enables access to the command line of a remote computer via a secure connection to implement changes.
+  If you want to disable encryption, use -un.
+
+*wsmanhttpconfig*
+  [10/8/7/Vista]
+  Manages functions of the Windows Remote Management (winrm).

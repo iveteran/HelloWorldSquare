@@ -1,0 +1,47 @@
+Win + A           打开操作栏
+Win + B           聚焦通知区域
+Win + D           显示桌面
+Win + E           打开资源管理器
+Win + F           搜索文件或文件夹。
+Win + G           打开录屏
+Win + H           开启在线语音识别功能
+Win + I           打开设置
+Win + L           锁定屏幕
+Win + K           打开连接功能
+Win + P           打开投影选项
+Win + Q/S         打开搜索框
+Win + R           打开运行窗口
+Win + U           打开轻松访问中心
+Win + W           打开Windows INK工作区
+Win + V           打开剪切板
+Win + X           打开Windows移动中心
+
+Win + 数字键      快速打开底部任务栏的软件
+Win + ALT + 数字  让位于任务栏指定位置（按下的数字作为序号）的程序，显示跳转清单。
+Win + Tab         打开任务视图
+Win + Shift + S   截图
+Win + "+/-"       放大/缩小屏幕
+Win + ↑           最大化窗口
+Win + ↓           小化窗口
+Win + ←           最大化到窗口左侧的屏幕上
+Win + →           最大化窗口到右侧的屏幕上
+Win + Home        最小化所有其它窗口，除了当前激活窗口
+Win + M           最小化所有窗口。
+Win + SHIFT + M   还原最小化窗口到桌面上。
+Win + Pause       显示系统属性对话框。
+Win + ALT + D     显示日期时间
+Win + 逗号        临时查看桌面
+Win + 空格        语言切换
+Win + .           以打开表情符号面板
+
+Shift + F10       可以出现多功能版的右键菜单, 等同于按住shift+鼠标右键的功能
+
+Ctrl + W          关闭当前窗口
+Ctrl + L          可以把光标定位到资源管理器或浏览器的地址
+Alt + Enter       选中文件后，查看文件属性，（Alt+鼠标双击也行）
+
+Alt + Space + N   最小化当前窗口
+Alt + Space + X   最大化当前窗口
+
+Ctrl + Shift + Esc    打开任务管理器
+Ctrl + Shift + N      新建文件夹 
