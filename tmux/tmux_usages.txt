@@ -1,0 +1,3 @@
+reload config file:
+method a) tmux source-file ~/.tmux.conf
+method b) Prefix + : source-file ~/.tmux.conf
