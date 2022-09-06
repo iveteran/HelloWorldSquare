@@ -1,0 +1,95 @@
+session 操作
+--------------------------------
+tmux ls：列出session
+tmux attach -t 0：attach 到 session 0
+tmux attach
+tmux a
+
+tmux kill-session -t 0
+tmux rename-session -t 0 <new-name>
+
+Ctrl+b d：          分离当前会话
+Ctrl+b s：          列出所有会话
+Ctrl+b $：          重命名当前会话
+Ctrl+b (：          切换到上一个会话
+Ctrl+b )：          切换到下一个会话
+================================
+
+窗口(window)操作
+--------------------------------
+Ctrl+b c：          创建一个新窗口，状态栏会显示多个窗口的信息
+Ctrl+b p：          切换到上一个窗口（按照状态栏上的顺序）
+Ctrl+b n：          切换到下一个窗口
+Ctrl+b <number>：   切换到指定编号的窗口，其中的<number>是状态栏上的窗口编号
+Ctrl+b w：          从列表中选择窗口
+Ctrl+b ,：          窗口重命名
+================================
+
+窗格(pane)操作（在一个窗口内）
+--------------------------------
+# Ctrl+b %：        划分左右两个窗格; 注: 已用"|"代替
+# Ctrl+b "：        划分上下两个窗格; 注: 已用"-"代替
+# Ctrl+b x：        关闭当前窗格;  注: 已用"q"代替，"x"用于锁屏
+# Ctrl+b q：        显示窗格编号; 注: 已用于关闭当前窗格
+Ctrl+b <arrow key>：光标切换到其他窗格
+Ctrl+b {：          当前窗格与上一个窗格交换位置
+Ctrl+b }：          当前窗格与下一个窗格交换位置
+Ctrl+b !：          将当前窗格拆分为一个独立窗口
+Ctrl+b z：          当前窗格全屏显示，再使用一次会变回原来大小
+Ctrl+b Ctrl+<arrow key>：按箭头方向调整窗格大小
+Ctrl+b ;：          光标切换到上一个窗格
+Ctrl+b o：          光标切换到下一个窗格
+Ctrl+b Ctrl+o：     所有窗格向前移动一个位置，第一个窗格变成最后一个窗格
+Ctrl+b Alt+o：      所有窗格向后移动一个位置，最后一个窗格变成第一个窗格
+Ctrl+Space:         切换不同的窗格布局
+================================
+
+缓冲区(buffer)操作
+--------------------------------
+Ctrl+b :set mode-keys vi
+或 Ctrl+b :setw -g mode-keys vi
+
+Ctrl+b [:           进入复制模式，空格标记复制开始，回车结束复制。
+Ctrl+b ]:           粘贴最后一个缓冲区内容
+Ctrl+b =:           选择性粘贴缓冲区
+
+q: Quit mode
+g: Go to top line
+G: Go to bottom line
+Up:   Scroll up
+Down: Scroll down
+h: Move cursor left
+j: Move cursor down
+k: Move cursor up
+l: Move cursor right
+w: Move cursor forward one word at a time
+b: Move cursor backward one word at a time
+/: Search forward
+?: Search backward
+n: Next keyword occurance
+N: Previous keyword occurance
+Space:  Start selection
+Esc:    Clear selection
+Enter:  Copy selection
+
+:show-buffer          Display buffer_0 contents
+:capture-pane         Copy entire visible contents of pane to a buffer
+:list-buffers         Show all buffers
+:choose-buffer        Show all buffers and paste selected
+:save-buffer buf.txt  Save buffer_0 contents to buf.txt
+:delete-buffer -b 1   Delete buffer_1
+================================
+
+其它设置
+--------------------------------
+set -g OPTION       Set OPTION for all sessions
+setw -g OPTION      Set OPTION for all windows
+set mouse on        Enable mouse mode
+Ctrl+b t                        显示时间
+Ctrl+b ? (Ctrl+b :list-keys)    快捷键帮助
+Ctrl+b :list-commands           tmux内置命令帮助
+================================
+
+Reference
+https://www.cnblogs.com/tengzijian/p/tmux-shortcut-cheetsheet.html
+http://www.ruanyifeng.com/blog/2019/10/tmux.html
