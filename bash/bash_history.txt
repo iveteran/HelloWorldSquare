@@ -1,0 +1,32 @@
+How to Use Your Bash History in the Linux or macOS Terminal
+Ref: [https://www.howtogeek.com/howto/44997/how-to-use-bash-history-to-improve-your-command-line-productivity/]
+
+1. Rerun the Previous Command and Modify It
+  $ ^abc^xyz, ^abc^xyz:p
+
+2. Rerun or print the last history command
+  $ !!
+  $ !!:p
+
+3. Rerun or print the NUM history command
+  $ ![NUM]
+  $ !-[NUM]
+  $ ![NUM]:p
+
+4. To search for a command in your history and run or print it
+  $ !text
+  $ !text:p
+  $ !?search?
+
+5. Use arguments from previous commands
+  $ Command !$
+
+6. Expand the first argument on the line, rather than the last
+  $ Command !^
+
+7. To fill in all the arguments used in the previous command
+  $ command !*
+
+8. command !abc:[NUM ARG]
+
+9. command !abc:*
