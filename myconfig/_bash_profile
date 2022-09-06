@@ -25,7 +25,12 @@ alias sudo='sudo env PATH=$PATH'
 export EDITOR='vim'
 export PAGER='less'
 #export PAGER='most'
+#
 export HISTTIMEFORMAT='[%F %T] '
+#export HISTCONTROL=ignorespace
+#export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoreboth # both ignore space and dups
+
 export PSQL_EDITOR="vim -c 'set syntax=sql'"
 
 set -o vi

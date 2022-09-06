@@ -48,3 +48,7 @@
 
 13) Open Task Scheduler
   taskschd.msc
+
+14) Get-FileHash
+  Supports SHA1, SHA256, SHA384, SHA512, MACTripleDES, MD5, and RIPEMD160 hash value
+  (checksum) of files
