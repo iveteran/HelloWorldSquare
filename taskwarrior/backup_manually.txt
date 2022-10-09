@@ -1,0 +1,2 @@
+$ cd ~/.task
+$ tar czf task-backup-$(date +'%Y%m%d').tar.gz *
