@@ -1,0 +1,6 @@
+1) not pushed recent commit
+git commit --amend -m "New commit message"
+
+2) pushed recent commit
+git commit --amend -m "New commit message."
+git push --force <remoteName> <branchName>
