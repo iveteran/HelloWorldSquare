@@ -1,0 +1,7 @@
+Remove file by inode
+This can remove files with names that contains spaces, and special characters
+
+1) To list files with inode
+  $ ls -li
+2) To find file by inode and delete it
+  $ find . -inum <inode> -delete
