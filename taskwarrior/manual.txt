@@ -1,0 +1,44 @@
+1. 添加
+  task add <任务名> [pro:工程名] [tag:标签名或简写为+][due:到期时间] [pri:优先级] [dep:依赖任务id]
+  []表示可选，其中优先级有H、M、L（高中低）
+
+2. 开始/停止/结束/删除
+  task <id> start/stop/done/del
+
+3. 修改
+  task <id> mod [命令:参数]
+  比如 task 1 mod pro:test 把id为1的 工程修改为 test
+
+4. 注释
+  task <id> annotate <注释>  # 添加
+  task <id> denotate <注释>  # 删除
+
+5. 统计:
+  task stats
+  task sum|summary
+  task ghistory
+  task calendar
+  task burndown.daily
+
+6. 列出
+  task
+  task ready
+  task next
+  task list
+  task ls
+  task long
+  task info [id]
+  task timesheet  # 列出完成的
+  task completed  # 列出完成的
+  task active     # 列出活动的
+
+  task pro        # 列出项目
+  task tag        # 列出tag
+
+7. 配置
+  task show
+  task config <options>
+
+8. 帮助
+  task help
+  man task
