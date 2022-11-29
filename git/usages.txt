@@ -1,0 +1,1 @@
+git log --abbrev-commit --pretty=oneline
