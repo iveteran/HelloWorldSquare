@@ -1,0 +1,12 @@
+Convert Tabs To Spaces In a File
+[Ref: https://www.cyberciti.biz/faq/bash-shell-convert-tabs-to-spaces-in-a-file/]
+
+expand input.file > output.file
+expand data.txt > output.txt
+expand -t 2 data.txt > output.txt
+
+The -t option can be used to set comma separated list of explicit tab
+positions. You can use the unexpand command convert spaces to tabs. See man
+page for more info:
+man expand
+man unexpand
