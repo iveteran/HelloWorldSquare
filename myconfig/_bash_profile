@@ -7,6 +7,8 @@ fi
 
 # User specific environment and startup programs
 
+export LANG='en_US.UTF-8'
+
 PATH=$PATH:$HOME/.local/bin:$HOME/bin:/usr/pgsql-9.5/bin
 
 export PATH
@@ -18,6 +20,7 @@ alias grep='grep --color=auto'
 alias diff='diff --color'
 alias man='man -P less'
 alias tree='tree -C'
+alias cat='cat -v'
 alias rsync='rsync -avzP'
 alias pls='sudo $(fc -ln -1)'
 alias sudo='sudo env PATH=$PATH'
