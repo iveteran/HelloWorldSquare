@@ -1,0 +1,31 @@
+# vim: filetype=muttrc
+unmailboxes *
+
+set my_user = "yu@matrix.works"
+set my_pass = ""
+
+# in/out mail servers
+set realname = "Yu"
+#set imap_pass = $my_pass  # use gpg encrypted password
+set smtp_url = smtps://$my_user@iveteran.me:465
+#set smtp_pass = $my_pass  # use gpg encrypted password
+set folder = imaps://$my_user@iveteran.me:993
+set spoolfile = "+INBOX"
+
+set from = $my_user
+set envelope_from
+set use_from = "yes"
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+set mail_check = 6
+
+# Allow Mutt to open a new IMAP connection automatically.
+unset imap_passive
+
+# Keep the IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 300
+
+## Hook -- IMPORTANT!
+#account-hook $folder "set imap_pass=$my_pass"  # use gpg encrypted password
+source "gpg -d ~/.config/neomutt/.yu_password.gpg |"
