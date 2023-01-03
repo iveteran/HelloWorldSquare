@@ -8,3 +8,8 @@
   d) feh --bg-scale /path/to/image.png  # setting wallpaper
 
   e) i3lock-fancy, add export LANG='en_US' to ~/.bash_profile, refer: https://kewth.github.io/2019/10/01/i3lock/
+
+4) Install emoji fonts
+  #sudo apt install xfonts-efont-unicode
+  sudo apt install fonts-symbola
+  #sudo apt install ttf-ancient-fonts-symbola
