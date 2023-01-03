@@ -1,0 +1,13 @@
+// Refs:
+//   https://github.com/davatorium/rofi
+//   https://wiki.archlinux.org/title/Rofi
+
+configuration {
+  modi: "drun";
+  width: 25%;
+  lines: 4;
+  show-icons: true;
+}
+
+// use command rofi-theme-selector to select theme, MUST run on desktop
+@theme "/usr/share/rofi/themes/glue_pro_blue.rasi"
