@@ -137,13 +137,13 @@ bindsym $mod+minus scratchpad show
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $term "1: term 🧑‍💻"
-set $web "2: web 🌐"
-set $files "3: files 📂"
-set $kitty "4: kitty 🐱"
+set $kitty "2: kitty 🐱"
+set $web "3: web 🌐"
+set $files "4: files 📂"
 #set $term "1: term "
-#set $web "2: web "
-#set $files "3: files "
-#set $kitty "4: kitty"
+#set $kitty "2: kitty"
+#set $web "3: web "
+#set $files "4: files "
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -153,9 +153,9 @@ set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $term
-bindsym $mod+2 workspace number $web
-bindsym $mod+3 workspace number $files
-bindsym $mod+4 workspace number $kitty
+bindsym $mod+2 workspace number $kitty
+bindsym $mod+3 workspace number $web
+bindsym $mod+4 workspace number $files
 bindsym $mod+5 workspace number $ws5
 bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
@@ -165,9 +165,9 @@ bindsym $mod+0 workspace number $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $term
-bindsym $mod+Shift+2 move container to workspace number $web
-bindsym $mod+Shift+3 move container to workspace number $files
-bindsym $mod+Shift+4 move container to workspace number $kitty
+bindsym $mod+Shift+2 move container to workspace number $kitty
+bindsym $mod+Shift+3 move container to workspace number $web
+bindsym $mod+Shift+4 move container to workspace number $files
 bindsym $mod+Shift+5 move container to workspace number $ws5
 bindsym $mod+Shift+6 move container to workspace number $ws6
 bindsym $mod+Shift+7 move container to workspace number $ws7
