@@ -1,14 +1,14 @@
 " Ref: https://jdhao.github.io/2019/11/03/vim_custom_statusline/
 
 let g:currentmode={
-      \ 'n'  : 'NORMAL ',
-      \ 'v'  : 'VISUAL ',
-      \ 'V'  : 'V·Line ',
-      \ "\<C-V>" : 'V·Block ',
-      \ 'i'  : 'INSERT ',
-      \ 'R'  : 'REPLACE ',
-      \ 'Rv' : 'V·Replace ',
-      \ 'c'  : 'Command ',
+      \ 'n'  : 'NORMAL',
+      \ 'v'  : 'VISUAL',
+      \ 'V'  : 'V·Line',
+      \ "\<C-V>" : 'V·Block',
+      \ 'i'  : 'INSERT',
+      \ 'R'  : 'REPLACE',
+      \ 'Rv' : 'V·Replace',
+      \ 'c'  : 'Command',
       \}
 
 " define highlight statusline groups
@@ -24,7 +24,7 @@ highlight statusline ctermfg=black
 set statusline=
 "set statusline+=%1*  " equal to below line
 set statusline+=%#User1#
-set statusline+=\ %{g:currentmode[mode()]}
+set statusline+=\ %{g:currentmode[mode()]}\ 
 set statusline+=%*
 set statusline+=\ %f%m%r%h%w  " %f: filename, %m: modified flag, %r: readonly flag, %h: help buffer flag, %w: preview window flag
 set statusline+=%= " Separation point between left and right aligned items
