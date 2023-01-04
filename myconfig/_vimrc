@@ -117,18 +117,6 @@ set smarttab
 set expandtab
 "set cuc
 
-set laststatus=2
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-set statusline+=%f%m%r%h%w  " %f: filename, %m: modified flag, %r: readonly flag, %h: help buffer flag, %w: preview window flag
-set statusline+=%= " Separation point between left and right aligned items
-set statusline+=[FORMAT=%{&ff}] " file format
-set statusline+=[ENCODING=%{&fileencoding?&fileencoding:&encoding}]
-set statusline+=[TYPE=%Y] " file type
-set statusline+=[ASCII=\%03.3b]
-set statusline+=[HEX=\%02.2B]
-set statusline+=[POS=%l,%v][%p%%]
-set statusline+=[LEN=%L]
-
 " set tags file
 set tags=tags;,TAGS;
 set autochdir
@@ -138,3 +126,6 @@ set autochdir
 "set foldcolumn=4
 "set foldmethod=syntax
 ":let Grep_OpenQuickfixWindow = 0
+
+set laststatus=2
+so ~/.vimrc.statusline
