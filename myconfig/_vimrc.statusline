@@ -13,11 +13,13 @@ let g:currentmode={
 
 " define highlight statusline groups
 hi User1 ctermfg=0 ctermbg=red
-hi User2 ctermfg=0 ctermbg=lightgreen
+"hi User1 ctermfg=0 ctermbg=brown
+hi User2 ctermfg=0 ctermbg=magenta
 hi User3 ctermfg=0 ctermbg=blue
-hi User4 ctermfg=0 ctermbg=magenta
+hi User4 ctermfg=0 ctermbg=lightgreen
 hi User5 ctermfg=0 ctermbg=yellow
-highlight statusline ctermfg=black
+"highlight statusline ctermfg=black
+highlight statusline ctermfg=240
 
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
@@ -37,4 +39,4 @@ set statusline+=%#User3#
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}[%{&ff}]\  " filetype encoding[format]
 "set statusline+=%4*  " equal to below line
 set statusline+=%#User4#
-set statusline+=\ %l:%v\ %P\/%L\  " line:column percent total
+set statusline+=\ %l,%v\ %P\/%L\  " line:column percent total
