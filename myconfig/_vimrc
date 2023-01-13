@@ -104,6 +104,11 @@ set wildmode=longest:list,full
 set scrolloff=2
 set background=dark
 colorscheme torte
+" More 3rd colorschems: https://vimcolorschemes.com/
+"colorscheme PaperColor " https://github.com/NLKNguyen/papercolor-theme.git
+"colorscheme gruvbox " https://github.com/morhetz/gruvbox.git
+"colorscheme deus " https://github.com/ajmwagar/vim-deus.git
+"colorscheme sonokai " https://github.com/sainnhe/sonokai.git
 hi Normal ctermbg=0  " Make the background color same as terminal's
 set number
 set linebreak
