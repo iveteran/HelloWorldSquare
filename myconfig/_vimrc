@@ -102,7 +102,9 @@ set smartcase
 set wildmenu
 set wildmode=longest:list,full
 set scrolloff=2
+set background=dark
 colorscheme torte
+hi Normal ctermbg=0  " Make the background color same as terminal's
 set number
 set linebreak
 set autoread
