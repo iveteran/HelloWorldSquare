@@ -1,0 +1,5 @@
+! Map super_R to ctrl
+! xmodmap -e "remove mod4 = Super_R"
+! xmodmap -e "add control = Super_R"
+remove mod4 = Super_R
+add control = Super_R

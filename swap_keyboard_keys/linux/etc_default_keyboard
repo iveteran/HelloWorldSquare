@@ -1,0 +1,13 @@
+# KEYBOARD CONFIGURATION FILE
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="pc105"
+XKBLAYOUT="us"
+XKBVARIANT=""
+#XKBOPTIONS=""
+#
+# grep alt /usr/share/X11/xkb/rules/evdev.lst | grep win
+XKBOPTIONS="altwin:ctrl_rwin" # Ctrl is mapped to Right Win and the usual Ctrl
+
+BACKSPACE="guess"
