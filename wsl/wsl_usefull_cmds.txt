@@ -1,7 +1,25 @@
 Ref: https://docs.microsoft.com/zh-cn/windows/wsl/basic-commands
+     https://learn.microsoft.com/zh-cn/windows/wsl/wsl-config
 
 Windows访问WSL文件系统:
 \\wsl$
 
 WSL访问Windows文件系统:
 ls /mnt/c, ls /mnt/d, ...
+
+使用指定用户登入WSL:
+c:\ wsl -u <username>
+c:\ wsl -d <distroname> -u <username>
+
+设置WSL的默认登入用户:
+to create or edit a /etc/wsl.conf in the instance with the following setting:
+[user]
+default=<username>
+
+开启systemd
+在/etc/wsl.conf增加如下：
+[boot]
+systemd=true
+
+检查是否支持systemd
+systemctl list-unit-files --type=service这将显示服务的状态
