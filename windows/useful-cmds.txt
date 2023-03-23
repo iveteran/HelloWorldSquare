@@ -52,3 +52,9 @@
 14) Get-FileHash
   Supports SHA1, SHA256, SHA384, SHA512, MACTripleDES, MD5, and RIPEMD160 hash value
   (checksum) of files
+
+15) %temp%
+  打开用户临时文件的文件夹
+
+16) mrt
+  恶意软件扫描程序
