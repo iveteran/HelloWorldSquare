@@ -1,1 +1,1 @@
-This is Hello World Plaza!
+This is Hello World Square!
