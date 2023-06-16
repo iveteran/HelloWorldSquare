@@ -52,7 +52,9 @@ export PSQL_EDITOR="vim -c 'set syntax=sql'"
 set -o vi
 stty -ixon  # Enable searching history in Bash forward after backward with CTRL-S
 
-source /usr/bin/virtualenvwrapper.sh
+if [ -f /usr/bin/virtualenvwrapper.sh]; then
+    . /usr/bin/virtualenvwrapper.sh
+fi
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
