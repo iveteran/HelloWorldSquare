@@ -1,0 +1,58 @@
+Ref: https://vitux.com/editing-pictures-on-linux-command-line-with-imagemagick/
+     https://www.cnblogs.com/lfri/p/11601211.html
+
+1. Get image info
+# identify image.png
+# identify -ping image.png
+# identify -verbose image.png
+
+2. Color list
+# identify -list color
+
+3. Resize image
+# convert image.png -resize 60% new_image.png   宽高为原来的60%
+# convert image.png -resize 200% new_image.png  宽高为原来的2倍
+# convert image.png -resize 60x80% new_image.png    宽为原来的60%，高为原来的80%
+# convert image.png -resize 60%x80% new_image.png   宽为原来的60%，高为原来的80%
+# convert -resize 100 image.png new_image.png   宽设为100
+# convert -resize x200 image.png new_image.png  高设为200
+
+4. Convert file type
+# convert image.png image.jpg
+
+5. Flip image
+# convert -flip image.png new_image.png
+
+6. convert colored image to black and white
+# convert -type image.png new_image.png
+
+7. add border to image
+# convert -bordercolor red -border 3 image.png new_image.png
+# convert -bordercolor red -border 5% image.png new_image.png
+
+8. negate image
+# convert -negate image.png new_image.png
+
+9. convert images to PDF file
+# convert 1.png 2.png file.pdf
+
+10. merge images to GIF
+# convert 1.png 2.png output.gif
+# convert *.png output.gif
+
+11. 移除图片内嵌的所有配置文件
+# convert -strip image.jpg
+
+12. 裁剪图片
+# convert img1.jpg -crop 500x500 dest.jpg  # 裁剪出大小为500x500的小图片
+# convert img1.jpg -crop 600x450+300+600 dest.jpg  # 裁剪出大小为600x450的小图片，开始坐标为300, 600
+
+13. 压缩图片
+# convert -quality 80 image.jpg new_image.jpg  # 图片的质量为原来的80%
+
+14. 生成图片
+# 图片大小为300x40，背景色为#2d3a4b，填充文字为www.matrixworks.cn，文字大小为30，文字字体为Helvetica，文字在图片的中间
+# convert -size 300x40 -gravity Center -background '#2d3a4b' -fill white -pointsize 30 -font Helvetica label:'www.matrixworks.cn' image.png
+
+15. show image
+# display image.png
