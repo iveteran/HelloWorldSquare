@@ -1,0 +1,1 @@
+ ffmpeg -i input.mp4 -i watermark.png -filter_complex "overlay=150:100" output.mp4
