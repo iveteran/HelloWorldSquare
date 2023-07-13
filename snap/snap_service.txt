@@ -1,0 +1,3 @@
+snap services
+snap start <service_name>
+snap stop <service_name>
