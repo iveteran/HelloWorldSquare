@@ -1,6 +1,6 @@
 [user]
-    name = yuu
-    email = yuu@matrix.works
+    name = Yu
+    email = yu@matrix.works
 [color]
     ui = true
 [alias]
@@ -8,8 +8,23 @@
     ci = commit
     st = status
     br = branch
+    df = diff
     lg = "log --stat --graph"
 [diff]
     tool = vimdiff
+    submodule = log
 [difftool]
     prompt = false
+[push]
+    default = matching
+[filter "media"]
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
+[http]
+    #proxy = socks5://127.0.0.1:1081
+[https]
+    #proxy = socks5://127.0.0.1:1081
+[pull]
+    rebase = false
+[core]
+    quotepath = false
