@@ -1,0 +1,2 @@
+在/etc/docker/daemon.json添加：
+"data-root": "/opt/vms/docker"

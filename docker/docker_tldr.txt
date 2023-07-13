@@ -1,0 +1,143 @@
+Docker 容器使用
+
+容器使用
+
+获取镜像
+$ docker pull ubuntu
+
+启动容器
+$ docker run -i -t ubuntu /bin/bash
+参数说明：
+-i: 交互式操作。
+-t: 终端。
+root@ed09e4490c57:/# exit
+
+$ docker ps -a
+$ docker start b750bbbcfd88 
+
+后台运行
+在大部分的场景下，我们希望 docker 的服务是在后台运行的，我们可以过 -d
+指定容器的运行模式。
+
+$ docker run -itd --name ubuntu-test ubuntu /bin/bash
+注：加了 -d 参数默认不会进入容器，想要进入容器需要使用指令 docker
+exec（下面会介绍到）。
+
+停止一个容器
+停止容器的命令如下：
+$ docker stop <容器 ID>
+
+停止的容器可以通过 docker restart 重启：
+$ docker restart <容器 ID>
+
+
+进入容器
+在使用 -d
+参数时，容器启动后会进入后台。此时想要进入容器，可以通过以下指令进入：
+
+docker attach
+docker exec：推荐大家使用 docker exec
+命令，因为此命令会退出容器终端，但不会导致容器的停止。
+
+attach 命令
+$ docker attach 1e560fca3906 
+注意： 如果从这个容器退出，会导致容器的停止。
+
+exec 命令
+下面演示了使用 docker exec 命令。
+$ docker exec -it 243c32535da7 /bin/bash
+
+
+导出和导入容器
+导出容器
+如果要导出本地某个容器，可以使用 docker export 命令。
+$ docker export 1e560fca3906 > ubuntu.tar
+导出容器 1e560fca3906 快照到本地文件 ubuntu.tar。
+
+
+这样将导出容器快照到本地文件。
+导入容器快照
+可以使用 docker import 从容器快照文件中再导入为镜像，以下实例将快照文件
+ubuntu.tar 导入到镜像 test/ubuntu:v1:
+
+$ cat docker/ubuntu.tar | docker import - test/ubuntu:v1
+此外，也可以通过指定 URL 或者某个目录来导入，例如：
+
+$ docker import http://example.com/exampleimage.tgz example/imagerepo
+删除容器
+删除容器使用 docker rm 命令：
+
+$ docker rm -f 1e560fca3906
+下面的命令可以清理掉所有处于终止状态的容器。
+
+$ docker container prune
+运行一个 web 应用
+前面我们运行的容器并没有一些什么特别的用处。
+
+接下来让我们尝试使用 docker 构建一个 web 应用程序。
+
+我们将在docker容器中运行一个 Python Flask 应用来运行一个web应用。
+
+$ docker pull training/webapp  # 载入镜像
+$ docker run -d -P training/webapp python app.py
+
+参数说明:
+-d:让容器在后台运行。
+-P:将容器内部使用的网络端口随机映射到我们使用的主机上。
+
+查看 WEB 应用容器
+使用 docker ps 来查看我们正在运行的容器：
+
+我们也可以通过 -p 参数来设置不一样的端口：
+$ docker run -d -p 5000:5000 training/webapp python app.py
+
+docker ps查看正在运行的容器
+$ docker ps
+
+docker ps查看所有容器
+$ docker ps -a
+
+$ docker port bf08b7f2cd89
+$ docker port wizardly_chandrasekhar
+
+查看容器应用程序日志
+$ docker logs -f bf08b7f2cd89
+
+查看容器应用程序进程
+$ docker top wizardly_chandrasekhar
+
+查看容器的底层信息
+$ docker inspect wizardly_chandrasekhar
+
+移除WEB应用容器
+$ docker rm wizardly_chandrasekhar  
+
+
+列出镜像列表
+$ docker images
+
+查找镜像
+$ docker search httpd
+
+运行镜像
+$ docker run httpd
+
+删除镜像
+$ docker rmi hello-world
+
+创建镜像
+当我们从 docker 镜像仓库中下载的镜像不能满足我们的需求时，我们可以通过以下两种方式对镜像进行更改。
+1、从已经创建的容器中更新镜像，并且提交这个镜像
+2、使用 Dockerfile 指令来创建一个新的镜像
+
+更新镜像
+在运行的容器内使用 apt-get update 等命令进行更新。
+
+提交容器副本
+$ docker commit -m="has update" -a="runoob" e218edb10161 runoob/ubuntu:v2
+
+构建镜像
+使用命令 docker build 和 Dockerfile 文件构建镜像
+
+设置镜像标签
+$ docker tag 860c279d2fec runoob/centos:dev
