@@ -1,0 +1,59 @@
+# run commands:
+lxc exec <instance_name> -- <command>
+
+# login with root:
+sudo lxc exec <instance_name> -- bash
+
+# login with user yuu:
+sudo lxc exec <instance_name> -- su --login yuu
+
+# access the console
+lxc console <instance_name>
+lxc console <instance_name> --show-log
+
+lxc start <instance_name> --console
+lxc start <instance_name> --console=vga
+
+# Edit instance files
+lxc file edit <instance_name>/<path_to_file>
+
+# Delete files from the instance
+lxc file delete <instance_name>/<path_to_file>
+
+# Pull files from the instance to the local machine
+lxc file pull <instance_name>/<path_to_file> <local_file_path>
+
+# Pull a directory with all contents
+lxc file pull -r <instance_name>/<path_to_directory> <local_location>
+
+# Push files from the local machine to the instance
+lxc file push <local_file_path> <instance_name>/<path_to_file>
+
+# Push a directory with all contents
+lxc file push -r <local_location> <instance_name>/<path_to_directory>
+
+# Mount a file system from the instance, NOTE: depend on sshfs
+lxc file mount <instance_name>/<path_to_directory> <local_location>
+
+# Rename instances and snapshots
+lxc rename [<remote>:]<instance>[/<snapshot>] <instance>[/<snapshot>] [flags]
+
+lxc profile list
+lxc profile show default
+lxc profile copy default my_demo
+lxc profile edit my_demo
+
+lxc image list
+lxc image list images: debian amd64  # search images for debian and amd64
+lxc image show <image_name|finger_print>
+lxc image info <image_name|finger_print>
+
+# list instances
+lxc list
+
+lxc info <instance_name>
+
+# launch instance
+lxc launch ubuntu:22.04 u1
+lxc launch images:centos/8 c1
+lxc launch my-server:SHA256 a1

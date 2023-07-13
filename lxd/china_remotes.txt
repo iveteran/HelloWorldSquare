@@ -1,0 +1,3 @@
+# 清华大学源
+# lxc remote add tuna-images https://mirrors.tuna.tsinghua.edu.cn/lxc-images/ --protocol=simplestreams --public
+# lxc image list tuna-images:

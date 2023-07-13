@@ -1,0 +1,14 @@
+At Host add following firewall rules:
+
+# Disable LXD’s firewall rules
+lxc network set <network_bridge> ipv6.firewall false
+lxc network set <network_bridge> ipv4.firewall false
+
+# For CentOS:
+sudo firewall-cmd --zone=trusted --change-interface=lxdbr0 --permanent
+sudo firewall-cmd --reload
+
+# For Debian:
+sudo ufw allow in on lxdbr0
+sudo ufw route allow in on lxdbr0
+sudo ufw route allow out on lxdbr0
