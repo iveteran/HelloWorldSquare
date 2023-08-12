@@ -3,7 +3,7 @@ import requests
 import os,json
 
 # 设置 API 密钥和 API URL
-apikey = "sk-RJqGQyLC0htwxsxxJmnST2BlbkFJlwGUvfRsPLGvK1ymG522"  #
+apikey = "xxxx"  #
 url = "https://api.openai.com/v1/chat/completions"
 
 # 设置请求头

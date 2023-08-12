@@ -3,7 +3,7 @@ import openai
 
 prompt = "2+2=?"
 # 设置 API 密钥
-apikey = "sk-RJqGQyLC0htwxsxxJmnST2BlbkFJlwGUvfRsPLGvK1ymG522"  #
+apikey = "xxxx"  #
 
 # 调用 ChatGPT
 response = openai.ChatCompletion.create(
