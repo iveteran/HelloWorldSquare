@@ -1,0 +1,2 @@
+1) minimal to install Debian
+2) install kde-plasma for commands: apt install kde-plasma-desktop plasma-nm slim

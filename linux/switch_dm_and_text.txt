@@ -1,0 +1,12 @@
+Disable/Enable X server(Display Manager) autostart (Debian)
+
+Method #1:
+systemctl set-default multi-user.target  <-- disable
+systemctl set-default graphical.target   <-- enable
+
+Method #2:
+systemctl disable *dm  <-- gdm/kdm/sddm/lightdm etc.
+
+Method #3:
+Edit /etc/default/grub, set GRUB_CMDLINE_LINUX_DEFAULT='text'
+Uncomment the line: #GRUB_TERMINAL=console

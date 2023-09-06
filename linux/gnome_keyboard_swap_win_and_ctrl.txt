@@ -1,0 +1,11 @@
+
+Go into System -> Preferences -> Keyboard
+
+Click on the "Layouts" tab and then click the "Layout Options" button.
+
+Click on "Alt/Win key behavior"
+
+Select "Control is mapped to Win keys (and the usual ctrl key).
+
+from http://ubuntuforums.org/showthread.php?t=1293081
+

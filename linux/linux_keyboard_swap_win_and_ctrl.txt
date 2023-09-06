@@ -1,0 +1,29 @@
+How to swap the Ctrl and Cmd keys when using Ubuntu.
+UbuntuSwapCtrlCmdKeys.md
+
+If you're looking to swap the Ctrl + Cmd keys in Ubuntu 16.04 either just
+because, or because you're using VirtualBox with an Ubuntu guest and an OSX
+host, then the answer you're looking for is here. Courtesy of Joel Koh.
+Source
+
+http://askubuntu.com/questions/131900/how-do-i-switch-the-command-key-and-control-key-on-a-macbook-pro
+
+Instructions
+
+1) Launch terminal
+2) Edit X Keyboard Extension
+   nano /usr/share/X11/xkb/symbols/pc
+
+3) Make the following changes. Ensure your file looks like this:
+   key <LCTL> {    [ Super_L       ]   };
+   key <LWIN> {    [ Control_L     ]   };
+   key <RCTL> {    [ Super_R       ]   };
+   key <RWIN> {    [ Control_R     ]   };
+
+4) Clear xkb's cache
+   rm -rf /var/lib/xkb/*
+
+(Conditional) If the keys are not swapped after step 4,
+restart your computer. It worked for me after this.
+
+Hope it helps, good luck!
