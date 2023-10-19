@@ -1,0 +1,8 @@
+1.查看当前默认启动界面命令：
+systemctl get-default
+ 
+2.修改默认启动界面为图形界面
+systemctl set-default graphical.target
+ 
+3.修改默认启动界面为命令界面
+systemctl set-default multi-user.target

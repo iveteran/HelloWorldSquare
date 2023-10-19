@@ -22,6 +22,8 @@
     smudge = git-media-smudge %f
 [http]
     #proxy = socks5://127.0.0.1:1081
+    #[https://github.com]  # only github.com
+        #proxy = socks5://127.0.0.1:1081
 [https]
     #proxy = socks5://127.0.0.1:1081
 [pull]

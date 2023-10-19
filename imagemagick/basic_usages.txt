@@ -14,6 +14,7 @@ Ref: https://vitux.com/editing-pictures-on-linux-command-line-with-imagemagick/
 # convert image.png -resize 200% new_image.png  宽高为原来的2倍
 # convert image.png -resize 60x80% new_image.png    宽为原来的60%，高为原来的80%
 # convert image.png -resize 60%x80% new_image.png   宽为原来的60%，高为原来的80%
+# convert image.png -resize 8x8 new_image.png   大小为8x8
 # convert -resize 100 image.png new_image.png   宽设为100
 # convert -resize x200 image.png new_image.png  高设为200
 
