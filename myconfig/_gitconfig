@@ -26,6 +26,8 @@
         #proxy = socks5://127.0.0.1:1081
 [https]
     #proxy = socks5://127.0.0.1:1081
+[git]
+    proxy = socks5://127.0.0.1:7891
 [pull]
     rebase = false
 [core]
