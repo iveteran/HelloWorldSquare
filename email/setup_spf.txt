@@ -1,0 +1,41 @@
+1) Refs: https://zhuanlan.zhihu.com/p/447782132
+
+我们将首先采用 SPF，因为它是列表中最简单和最古老的项目。SPF 使用 DNS 记录来定义可以将电子邮件作为域发送的服务器 IP 地址。
+
+SPF 记录通常如下所示：
+
+v=spf1 ip4:123.123.123.123 ~all
+如果此记录设置为example.com，则只有 的服务器123.123.123.123才能发送带有FROM: user@example.com标题的电子邮件。在~all不包括除列表中的所有其他IP地址。
+
+SPF 由接收电子邮件服务器强制执行。它将检查发送服务器的 IP 地址、电子邮件FROM标题中的域以及该域的 SPF DNS 记录中允许的发件人列表。如果发送服务器的 IP 不在列表中，则传递将失败。
+
+SPF 区分“软”和“硬”失败。~all在您的标题中写入表示遇到未经授权的发件人时软失败；-all指示接收服务器使用硬故障。
+
+在硬故障情况下，电子邮件将被完全丢弃。软失败可能允许将电子邮件传送到收件人的垃圾文件夹。现在 DMARC 已广泛使用，我们将在下面看到，通常建议使用~all（软失败）。这避免了对合法电子邮件的误报，将更多控制权交给 DMARC，并有助于在后期验证阶段进行调试。
+
+设置 SPF
+为您的域配置 SPF 很容易。前往您域的控制面板，找到设置 DNS 记录的部分，然后添加新TXT记录。写入一个有效的 SPF 字符串作为值并保存您的记录。
+
+SPF 记录支持多种白名单令牌：
+
+ip4:123.123.123.123 – 允许指定的 IPv4 地址。
+ip6:abcd:1234:90ab:cdef:5678:90de:fabc – 允许指定的 IPv6 地址。
+a:example.com – 允许 DNSA记录给出的 IP 地址example.com。
+mx:example.com – 允许由 DNSMX记录之一给出的 IP 地址example.com。
+include:example.com – 查询该域的 SPF 记录，除直接定义外，还使用其白名单。简化流行的第三方电子邮件服务的集成。
+redirect:example.com – 忽略其他令牌并使用example.com.
+
+您可以通过向标头添加多个令牌来组合多个来源：
+v=spf1 ip4:123.123.123.123 include:example.com ~all
+
+2) Ref:
+https://learn.microsoft.com/zh-cn/microsoft-365/security/office-365-security/email-authentication-anti-spoofing?view=o365-worldwide
+
+格式:
+v=spf1 [<ip4>|<ip6>:<IPAddress1> <ip4>|<ip6>:<IPAddress2>... <ip4>|<ip6>:<AddressN>] [include:<DomainName1> include:<DomainName1>... include:<DomainNameN>] <enforcement rule>
+
+例子:
+v=spf1 ip4:192.168.0.1 ip4:192.168.0.2 include:spf.protection.outlook.com -all
+
+# 查询DNS的txt记录，txt记录可用于邮件服务器的spf设置
+dig txt iveteran.me

@@ -1,0 +1,15 @@
+Refs:
+  1) https://learn.microsoft.com/zh-cn/microsoft-365/security/office-365-security/email-authentication-dmarc-configure?view=o365-worldwide
+  2) https://support.google.com/a/answer/2466563?hl=en&ref_topic=2759254&sjid=8043596655281309718-AP
+  3) https://zhuanlan.zhihu.com/p/447782132
+
+Add a DNS txt record:
+  type: TXT
+  name: _dmarc
+  value: v=DMARC1; p=none; rua=mailto:admin@yourdomain.com
+
+example:
+v=DMARC1; p=reject; rua=mailto:postmaster@yourdomain.com, mailto:dmarc@yourdomain.com; pct=100; adkim=s; aspf=s
+
+# 查询email服务的DMARC
+dig txt _dmarc.yourdomain.com
