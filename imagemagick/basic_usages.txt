@@ -57,3 +57,19 @@ Ref: https://vitux.com/editing-pictures-on-linux-command-line-with-imagemagick/
 
 15. show image
 # display image.png
+
+16. 提取alpha通道
+convert "rgba.png" -alpha extract "result.png"
+
+17. 提取rgb通道
+convert rose.png -fx R channel_red.gif
+convert rose.png -fx G channel_green.gif
+convert rose.png -fx B channel_blue.gif
+
+18. 合并rgb通道图片
+convert separate_red.gif separate_green.gif separate_blue.gif \
+           -combine -set colorspace sRGB rose_combined.gif
+
+19. 增加alpha通道，alpha值为25%
+convert input.png -alpha on -channel A -evaluate set 25% +channel output.png
+在线工具：https://onlinepngtools.com/change-png-opacity
