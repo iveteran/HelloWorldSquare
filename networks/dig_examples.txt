@@ -1,1 +1,14 @@
-dig txt iveteran.me  # 查询DNS的txt记录，txt记录可用于邮件服务器的spf设置
+dig @1.1.1.1 iveteran.me  # 指定域名服务器(1.1.1.1)查询
+dig a iveteran.me       # 查询域名的ip地址，a参数可省略
+dig aaaa iveteran.me    # 查询域名的ip v6地址
+dig mx iveteran.me      # 查询email的MX记录
+dig ns iveteran.me      # 查询域名的域名服务地址(name service)
+dig +trace iveteran.me  # 查询DNS查询链
+dig -x 172.105.241.213  # 根据IP反向查询域名
+
+dig txt iveteran.me                     # 查询DNS的txt记录，txt记录可用于邮件服务器的spf设置
+dig txt default._domainkey.iveteran.me  # 查询email服务的DKIM，其中"default"是根据DKIM服务器设置而定
+dig txt _dmarc.iveteran.me              # 查询email服务的DMARC
+
+host iveteran.me
+host 172.105.241.213
