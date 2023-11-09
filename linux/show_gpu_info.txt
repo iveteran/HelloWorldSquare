@@ -1,0 +1,8 @@
+lshw -C display
+
+AMD/ATI:
+1) radeontop
+
+NVIDIA:
+1) nvidia-smi
+2) gpustat

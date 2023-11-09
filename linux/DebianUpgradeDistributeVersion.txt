@@ -1,0 +1,3 @@
+How To Upgrade To Debian 12 Bookworm From Debian 11 Bullseye
+
+https://ostechnix.com/upgrade-to-debian-12-from-debian-11/
