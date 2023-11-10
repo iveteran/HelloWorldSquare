@@ -6,7 +6,11 @@
 # /etc/environment and /etc/default/locale to initialise the
 # locale and the user environment properly.
 
-# NOTE: Put this file to $HOME
+# NOTE: Put this file to $HOME or /etc/xrdp/startwm.sh
+
+# supports multiple login, 避免在用户已经登入linux桌面的情况下再Windows rdp登录黑屏
+unset DBUS_SESSION_BUS_ADDRESS
+unset XDG_RUNTIME_DIR
 
 if test -r /etc/profile; then
 	. /etc/profile
