@@ -1,0 +1,11 @@
+Method 1:
+export http_proxy=http://127.0.0.1:7890
+
+Method 2:
+create below lines to /etc/environment.d/apt.conf:
+Acquire::http::proxy "http://127.0.0.1:7890/";
+Acquire::ftp::proxy "ftp://127.0.0.1:7890/";
+Acquire::https::proxy "https://117.0.0.1:7890/";
+
+Method 3:
+sudo apt-get -o Acquire::http::proxy="http://127.0.0.1:7890/" update
