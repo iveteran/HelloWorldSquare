@@ -1,0 +1,1 @@
+xwininfo -root -children | grep $(printf '%x\n' $(xdotool getwindowfocus)) | grep -oEi '"[^"]+"' | head -1
