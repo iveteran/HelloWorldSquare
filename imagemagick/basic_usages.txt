@@ -73,3 +73,10 @@ convert separate_red.gif separate_green.gif separate_blue.gif \
 19. 增加alpha通道，alpha值为25%
 convert input.png -alpha on -channel A -evaluate set 25% +channel output.png
 在线工具：https://onlinepngtools.com/change-png-opacity
+
+20. 截图
+1) 截取整个屏幕
+import -window root screenshot-imagemagick.png
+
+2) 区域的截图，通过鼠标画区域
+import screenshot-imagemagic.png
