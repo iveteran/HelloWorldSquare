@@ -1,0 +1,46 @@
+Ref: https://blog.csdn.net/chan1987818/article/details/128219230
+
+FFmpeg推流
+注意：在推流之前先运行rtsp-simple-server
+
+UDP推流
+ffmpeg -re -i input.mp4 -c copy -f rtsp rtsp://127.0.0.1:8554/stream
+
+TCP推流
+ffmpeg -re -i input.mp4 -c copy -rtsp_transport tcp -f rtsp rtsp://127.0.0.1:8554/stream
+
+循环推流
+ffmpeg -re -i input.mp4 -stream_loop -1 -c copy -f rtsp rtsp://127.0.0.1:8554/stream
+其中：
+-re 为以流的方式读取；
+-stream_loop 为循环读取视频源的次数，-1为无限循环；
+-i 为输入的文件；
+-f 为格式化输出到哪里；
+
+按文件列表推流
+ffmpeg -re -f concat -safe 0 -i playlist.txt -vcodec copy -acodec copy -f flv "rtmp://rtmp地址/你的直播码"
+playlist.txt的格式如下：
+file 'input1.mp4'
+file 'input2.mp4'
+file 'input3.mp4'
+
+读取摄像头视频
+ffmpeg -i /dev/video0 -an -f flv rtmp://192.168.137.33/live
+ffmpeg -f dshow -i video="Logitech Webcam C930e" -vcodec libx264 \
+  -preset:v ultrafast -tune:v zerolatency -rtsp_transport tcp -f rtsp rtsp://127.0.0.1/test
+
+拉流
+ffplay/VLC拉流显示
+ffplay rtsp://127.0.0.1:8554/stream
+
+FFmpeg拉流保存成视频
+ffmpeg -stimeout 30000000 -i rtsp://127.0.0.1:8554/stream -c copy output.mp4
+-stimeout 30000000 为等待RTSP 流连接的时间，单位为us微秒，30000000 为等待 30 秒，
+如果连接失败则退出。特别注意该字段要放在rtsp地址之前，否者无效。
+
+流转发
+ffmpeg -f flv -listen 1 -i rtmp://localhost:1935/live/app -c copy rtsp://YOUR_RTSP_HOST
+-listen 1 makes FFmpeg act as a RTMP server when used with RTMP protocol
+Use rtmp://localhost:1935/live/app as the RTMP server url on the source
+You can set any playpath rtmp://localhost:1935/any/thing and any port
+The main advantage with this way is simplicity, the disadvantage is server stops if source stopped or had encoding errors

@@ -1,0 +1,23 @@
+Ref: https://www.cnblogs.com/1175429393wljblog/p/15165295.html
+
+# 视频录制（依次设置：分辨率 帧率 像素格式）
+ffmpeg -video_size 1024x768 -framerate 30 -f x11grab -i :0.0+100,200 v-out.mp4
+
+# 使用ALSA同时录制声音
+ffmpeg -video_size 1024x768 -framerate 30 -f x11grab -i :0.0+100,200 -f alsa -ac 2 -i hw:0 av-out.mkv
+
+# 使用Pulse声音输入设备
+ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :0.0 -f pulse -ac 2 -i default av-out.mkv
+
+# 先录制未压缩的音视频，最后再进行音视频编码压缩
+ffmpeg -framerate 25 -video_size 1024x768 -f x11grab -i :0.0+100,200 -f alsa \
+-ac 2 -i pulse -vcodec libx264 -crf 0 -preset ultrafast -acodec pcm_s16le \
+output.mkv ffmpeg -i output.mkv -acodec ... -vcodec ... final.mkv
+
+# 无损格式录制
+# “-qp 0″是x264无损编码模式，“-preset ultrafast”表示最快的速度编码。
+ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -i :0.0 -c:v libx264 -qp 0 -preset ultrafast -f pulse -ac 2 -i default capture.mkv
+
+# 音频录制
+ffmpeg -f alsa -i hw:0 audio-out.wav  # hw:0 中的0指定声卡，可通过aplay -L查看
+ffmpeg -f pulse -i default audio-out.wav
