@@ -13,3 +13,6 @@ ethtool –S ethX    # 查询ethX网口收发包统计
 ip link
 
 nmcli device
+
+# networks traffic/speed monitor
+iftop, bmon

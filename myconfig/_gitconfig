@@ -9,6 +9,7 @@
     st = status
     br = branch
     df = diff
+    dfc = "diff --cached"
     lg = "log --stat --graph"
 [diff]
     tool = vimdiff
