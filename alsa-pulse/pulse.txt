@@ -1,0 +1,22 @@
+Ref: https://blog.csdn.net/qq_42138566/article/details/108626378
+
+系统内的配置文件在于 
+/etc/pulse/
+
+主要通过工具
+paplay - Playback a WAV file via a PulseAudio sink.
+pacat - Cat raw audio data to a PulseAudio sink.
+parec - Cat raw audio data from a PulseAudio source.
+pacmd - Connect to PulseAudio's built-in command line control interface.
+pactl - Send a control command to a PulseAudio server.
+padsp - /dev/dsp wrapper to transparently support OSS applications.
+pax11publish - Store/retrieve PulseAudio default server/sink/source settings in the X11 root window.
+
+pactl set-sink-volume 0 +3%
+pactl set-sink-volume 0 -3%
+pactl set-sink-mute 0 toggle
+
+pulseaudio -k
+pulseaudio --start
+
+pulsemixer

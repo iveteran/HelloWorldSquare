@@ -1,0 +1,34 @@
+Ref: https://zhuanlan.zhihu.com/p/58834651
+
+ALSA提供了一个alsa-utils包，其含有arecord、aplay等工具来查看音频设备信息。
+其它工具包：alsa-tools alsa-tools-gui alsamixergui
+
+# 测试声音播放
+speaker-test
+speaker-test -t sine -f 1000 -l 1
+
+# 查看设备列表
+aplay -L
+aplay -l
+arecord -l
+
+# 播放aplay
+aplay audio.wav
+aplay test.wav -D plughw:CARD=PCH,DEV=0
+
+# 录制arecord，如下录制10秒
+arecord -d 10 -r 48000 -c 2 -f S16_LE audio.wav
+arecord -d 10 -f dat audio.wav
+
+arecord -f cd -d 5 -c 4 -D hw:1,0 > audio.pcm
+-f 表示音频格式。cd (16 bit little endian, 44100, stereo)
+-d 录制几秒
+-c 几个通道，如录制4个麦的麦克风阵列：-c 4
+-D 使用ALSA的哪个设备：-D hw:1,0表示使用card 0下的device 0设备
+-r 采样率 16000是16KHz采样
+
+# 边录音，边播放
+arecord -v -f dat - | aplay -v -Vstereo -
+
+# 混音控制
+alsamixer
