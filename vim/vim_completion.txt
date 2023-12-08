@@ -1,0 +1,31 @@
+Built-in auto-completion support
+Since version 8.2 of Vim, there has been built-in support for auto-completion.
+
+Method 1: Basic auto-complete
+Start typing something and then press the Ctrl + n key combination (<C-n>) to get Vim's auto-completion suggestion. If there is only one match, Vim will auto-complete it for you as soon as you press the Ctrl + n key combination. Otherwise, Vim will open a list of matching suggestions in a pop-up window.
+
+If there is a large list of keywords, use the Ctrl + p key combination (<C-p>) to select in reverse order (from bottom to top).
+
+Following is a tiny demo:
+
+Basic auto-completion in Vim
+This suggestion is based on the contents of the file you are editing. So if you use any new keywords, the auto-completion will not work. Do note that if you include files, those will be used for auto-completion.
+
+Method 2: Slightly better auto-complete with Omni completion
+The previous completion method that we looked at was rather basic. It only completes based on whatever text exists in the files that you are editing. That's a basic type of auto-complete and is hardly ever useful.
+
+Vim has Omni-completion for a somewhat intermediate use of auto-completion. To enable that, add the following lines to your ~/.vimrc file:
+
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+To invoke Omni completion, press the Ctrl + x key combination (<C-x>) and then press one of the following key combinations to get the desired result:
+
+<Ctrl + ]>: Tags file completion
+<Ctrl + d>: Definition completion
+<Ctrl + f>: Filename completion (based on files in $PWD)
+<Ctrl + i>: Path pattern completion
+<Ctrl + k>: Dictionary completion
+<Ctrl + l>: Whole line completion
+<Ctrl + n>: Keyword local completion
+<Ctrl + o>: Omni completion completion
+<Ctrl + v>: Command line completion
