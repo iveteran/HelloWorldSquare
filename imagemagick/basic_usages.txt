@@ -80,3 +80,36 @@ import -window root screenshot-imagemagick.png
 
 2) 区域的截图，通过鼠标画区域
 import screenshot-imagemagic.png
+
+21. 绘制图形
+Ref: https://www.netingcn.com/imagemagick-convert-draw.html
+1) 绘制文字
+convert -size 512x50 xc:gray -gravity southeast -fill red -pointsize 24 \
+    -draw "text 20,5 'hello netingcn.com!'" draw_text.png
+
+2) 绘制直线
+convert -size 512x50 xc:gray -stroke white -strokewidth 4 \
+    -draw "line 10,25 500,25" line.png
+
+3) 绘制一个矩形
+convert -size 150x150 xc:gray -stroke red -strokewidth 2 -fill white \
+    -draw "Rectangle 10,10 140,140" rect-1.png
+带圆角矩形
+convert -size 150x150 xc:gray -stroke red -strokewidth 2 -fill white \
+    -draw "roundRectangle 10,10 140,140 8,8" rect-2.png
+
+4) 绘制圆
+convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white \
+    -draw "circle 70,70 5,70" draw_circle.png
+
+5) 绘制圆，以绘制椭圆的方式
+convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white \
+    -draw "ellipse 70,70 65,65 0,360" draw_ellipse-1.png
+
+6) 绘制椭圆
+convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white \
+    -draw "ellipse 70,70 60,30 0,360" draw_ellipse-2.png
+
+7) 绘制椭圆圆弧
+convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white \
+    -draw "ellipse 70,70 60,30 90,270" draw_ellipse-3.png
