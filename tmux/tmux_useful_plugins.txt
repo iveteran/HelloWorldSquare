@@ -1,0 +1,15 @@
+
+Ref: https://www.jianshu.com/p/f4b2288058fc
+
+Tmux Cheat Sheet: 一个Tmux命令速查表，可以帮助您快速了解和记忆Tmux命令，并加快您在Tmux中的工作效率。
+Tmux Plugin Manager: 一个Tmux插件管理器，可以帮助您更轻松地管理和安装Tmux插件，以增强Tmux的功能和使用体验。
+Tmux Resurrect: 一个Tmux插件，可以帮助您在断电或崩溃后自动保存和恢复Tmux会话，以避免数据丢失和重新启动Tmux的麻烦。
+Tmuxinator: 一个Tmux会话管理器，可以帮助您更轻松地创建、启动和管理Tmux会话，并快速切换不同的会话和窗口。
+Teamocil: 一个Tmux会话和窗口布局管理器，可以帮助您更轻松地创建、保存和恢复Tmux会话和窗口布局，以提高您的工作效率。
+Tmux Themes: 一个Tmux主题集合，可以帮助您自定义Tmux的外观和感觉，并使其与您的个人偏好和风格匹配。
+Tmuxinator Completion: 一个Tmuxinator的自动补全插件，可以帮助您更快速地输入Tmuxinator命令和参数，以提高您的工作效率。
+Vim Tmux Navigator: 一个Vim和Tmux的集成插件，可以帮助您更轻松地在Vim和Tmux之间切换，并提高您的工作效率。
+Tmuxifier: 一个Tmux会话和窗口布局管理器，可以帮助您更轻松地创建、保存和恢复Tmux会话和窗口布局，以提高您的工作效率。
+Tmux Copycat: 一个Tmux插件，可以帮助您更快速地搜索和复制Tmux中的文本内容，并提高您的工作效率。
+Tmux-Sensible: 一个Tmux插件，可以帮助您自动应用一些最佳实践和常见配置，以提高您的Tmux使用体验和效率。
+Tmux-Resizer: 一个Tmux插件，可以帮助您更轻松地调整Tmux窗格的大小和位置，以提高您的工作效率。
