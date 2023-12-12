@@ -1,5 +1,7 @@
 Ref: https://vitux.com/editing-pictures-on-linux-command-line-with-imagemagick/
      https://www.cnblogs.com/lfri/p/11601211.html
+     https://cn.linux-console.net/?p=8653
+     https://ohmyweekly.github.io/notes/imagemagick-drawing/
 
 1. Get image info
 # identify image.png
@@ -113,3 +115,13 @@ convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white \
 7) 绘制椭圆圆弧
 convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white \
     -draw "ellipse 70,70 60,30 90,270" draw_ellipse-3.png
+
+22. 列出字体相关属性列表
+convert -list font
+convert -list style
+convert -list color
+convert -list gravity
+convert -list weight
+
+23. 给图片加背景色
+convert input.png -background white -flatten output.png

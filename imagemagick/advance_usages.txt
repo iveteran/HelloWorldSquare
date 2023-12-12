@@ -1,0 +1,76 @@
+ImageMagick教程
+
+1. 拼图
+1) montage ./*.png -tile 50x20 -geometry 32x32  icons.png
+2) convert image1.png image2.png image3.png -gravity south +append result.png
+-tile x轴50个 y轴20个
+-geometry 32x32 长宽各32
+
+2. 图片指定区域变色
+指定区域尺寸和起始坐标（50x60+20+10）、区域颜色（rgb(255,0,0)）、着色程度（20%）
+1) convert old.png -region 50x60+20+10 -fill "rgb(255,0,0)" -colorize 20% new.png
+2) convert old.jpg -region 150x100+20+10 -fill "rgb(255,0,0)" -colorize 20% new.png
+
+3. 图片指定区域变色（放大或缩小区域）
+指定区域尺寸和起始坐标（50x60+20+10）、尺寸（120%）、区域颜色（rgb(255,0,0)）、着色程度（20%）
+convert old.png -region 50x60+20+10 -resize 120% -fill "rgb(255,0,0)" -colorize 20% new.png
+
+4. 替换相同颜色的区域（指定颜色）
+指定颜色差异程度（10%），替换颜色（黑色），被替换颜色（白色）。将整张图片中的指定颜色全部替换
+convert old.jpg -alpha set -channel RGBA -fuzz 10% -fill "rgb(0,0,0)" -opaque "rgb(255,255,255)" new.png
+
+5. 替换不同颜色的区域（指定颜色）
+指定颜色差异程度（50%），替换颜色（白色），指定颜色（蓝色）。将整张图片中除指定颜色外的颜色全部替换
+convert old.jpg -alpha set -channel RGBA -fuzz 50% -fill "rgb(255,255,255)" +opaque "rgb(0,0,255)" new.png
+
+6. 替换相同颜色的区域（指定坐标）
+指定颜色差异程度（10%），替换颜色（红色），指定坐标（180,150）。将整张图片中与指定位置颜色相同的颜色全部替换
+convert old.jpg -alpha set -channel RGBA -fuzz 10% -fill "rgb(255,0,0)" -draw "color 180,150 replace" new.png
+
+7. 替换相同颜色的连通区域（指定坐标）
+指定颜色差异程度（10%），替换颜色（红色），指定坐标（180,150）。将图片连通区域中与指定位置颜色相同的颜色全部替换
+convert old.jpg -alpha set -channel RGBA -fuzz 10% -fill "rgb(255,0,0)" -draw "color 180,150 replace" new.png
+
+8. 图像边缘突出显示
+指定探测半径（5），对图像中类似边缘的像素进行探测。使边缘突显出来，易于观察
+convert old.png -edge 5 new.png
+
+9. 图像边缘探测
+指定探测半径（5）
+convert old.jpg -background white -flatten -colorspace gray -negate -edge 5 \
+  -negate -normalize -threshold 50% -despeckle -blur 0x.5 -contrast-stretch 0x50% new.png
+
+10. 合并图片
+1) composite -gravity north src.jpg coverback.jpg dest.jpg
+2) convert image.png -compose over overlay.png -composite newimage.png
+3) convert image.png -define png:format=png32  image32.png
+4) convert image32.png -channel alpha -fx "0.5" imagealpha.png
+其中src.jpg为前景图片
+coverback.jpg为背景图片
+dest.jpg为叠加后的结果
+
+11. 生成ico
+convert logo.png -background none favicon.ico
+
+12. 获取图片信息
+1) identify image.png
+2) identify -format "%wx%h" image.png  //只获取宽高
+
+13. 放大缩小
+1) convert image.png -resize 200x200 resize.png
+2) convert image.png -resize 50% resize.png
+3) convert image.png -sample 50% sample.png   //用来生成缩略图最合适
+4) convert image.png -sample 10% -sample 1000% sample.png //处理马赛克
+
+14. 裁剪 -crop
+1) convert image.png -crop 100x100+50+50 crop.png //从（50，50）位置开始，裁剪一个100X100大小的图片
+2) convert image.png -crop 100x100 crop.png
+3) convert image.png -gravity northeast -crop 100x100+0+0 crop.png
+-gravity即指定坐标原点
+northwest：左上角
+north：上边中间
+northeast：右上角
+east：右边中间
+
+15. 旋转 -rotate
+convert image.png -rotate 45 rotate.png
