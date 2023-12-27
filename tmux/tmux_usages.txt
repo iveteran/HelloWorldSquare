@@ -4,9 +4,15 @@ method b) Prefix + : source-file ~/.tmux.conf
 
 2. 列出所有快捷键，及其对应的 Tmux 命令
 $ tmux list-keys
+$ tmux lsk
 
 3. 列出所有 Tmux 命令及其参数
 $ tmux list-commands
+$ tmux lscm
 
 4. 列出当前所有 Tmux 会话的信息
 $ tmux info
+$ tmux ls
+
+5. 列出Window
+$ tmux lsw

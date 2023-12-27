@@ -1,0 +1,97 @@
+tmuxifier简介和使用
+tmuxifier是基于bash的tmux会话管理工具。
+
+Github: https://github.com/jimeh/tmuxifier
+
+◆ tmuxifier命令
+tmuxifier在安装和配置文成后，直接是shell命令：
+
+usage: tmuxifier <command> [<args>]
+
+Some useful tmuxifier commands are:
+   <command>      <alias>
+   load-session   s        Load the specified session layout.
+   load-window    w        Load the specified window layout into current session.
+   list           l        List all session and window layouts.
+   list-sessions  ls       List session layouts.
+   list-windows   lw       List window layouts.
+   new-session    ns       Create new session layout and open it with $EDITOR.
+   new-window     nw       Create new window layout and open it with $EDITOR.
+   edit-session   es       Edit specified session layout with $EDITOR.
+   edit-window    ew       Edit specified window layout with $EDITOR.
+   commands                List all tmuxifier commands (including internal).
+   version                 Print Tmuxifier version.
+   help                    Show this message.
+
+See 'tmuxifier help <command>' for information on a specific command.
+tmuxifier结合session/window配置文件可以很灵活的运用在终端shell和tmux服务中。
+
+◆ tmuxifier的会话和窗口配置
+tmuxifier通过layouts配置文件来保存session和window在tmux服务终端的行为状态。
+
+layouts配置文件默认保存在tmuxifier_home下的layouts目录中。
+
+可以使用TMUXIFIER_LAYOUT_PATH进行指定该目录：
+
+export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
+layouts可以使用如下命令创建：
+
+tmuxifier ns SESSION-NAME
+tmuxifier nw WINDOW-NAME
+执行命令后，tmuxifier会通过shell环境变量EDITOR设置的命令打开layouts模版配置文件提供编辑。EDITOR可以指定为vim等：export EDITOR=vim
+
+创建的layouts配置文件为shell脚本文件保指定的layouts目录中，会在tmuxifier的load的命令中被source执行。 - session的layouts配置文件为：SESSION-HOME.session.sh - window的layouts配置文件为：WINDOW-NAME.window.sh
+
+最后，用于创建layouts配置文件的模版文件在tmuxifier_home下的templates目录中，可以预先编辑session.sh和window.sh这两个模版文件来定制模版。
+
+tmux + tmuxifier 打造Linux终端工具
+我通过tmux+tmuxifier打造的终端工具是这样的：
+
+远程机器连接管理 - 使用tmuxifier配置线上服务器的session和window的layout。 - session主要用于在本地shell终端中一次性打开整个项目的所有服务器，以方便进行快速操作和切换机器。 - window主要用于在tmux服务终端切分pane或新建window时快速连接远程机子，我session的配置都会基于加载window的配置。
+
+日常使用
+- 平常远程机子操作都在tmux终端中进行，所有工作会话窗口都在tmux中进行管理。 - 本地shell终端可以随时退出和连接tmux服务，也可以多个终端同时连接tmux服务中，甚至是连到同个window或pane。 - 使用tmuxifier命令来管理和连接远程机子终端。session用来批量开启远程机器终端，window用来辅助在tmux终端中快速连接服务器。
+
+layout templates
+
+session.sh
+
+# Set a custom session root path. Default is `$HOME`.
+# Must be called before `initialize_session`.
+#session_root "~/Projects/{{SESSION_NAME}}"
+
+if initialize_session "{{SESSION_NAME}}"; then
+
+  # 创建新window并替换local shell的方式
+  #new_window "hdfs79_132" "ssh 219.153.36.79"
+
+  # 读取window方式连接服务器配置方式
+  new_window "tmux_local"
+  load_window "WINDOW_NAME1"
+
+  new_window "tmux_local"
+  load_window "WINDOW_NAME2"
+
+  select_window 1
+fi
+finalize_and_go_to_session
+window.sh
+
+# Set window root path. Default is `$session_root`.
+# Must be called before `new_window`.
+#window_root "~/Projects/{{WINDOW_NAME}}"
+
+tmuxifier-tmux rename-window "{{WINDOW_NAME}}"
+# 在当前pane中执行 用于创建链接,前面添加exec可替换当前shell
+tmuxifier-tmux send-keys "ssh IP"
+tmuxifier-tmux send-keys "C-m"
+
+# Split window into panes.
+#split_v 20
+#split_h 50
+
+# ----- Set active pane. -----
+#select_pane 0
+注意：这样配置的layout只能这么用，不然在tmux服务终端中执行可能会有问题：
+tmuxifier s session-name命令只能在本地终端中使用,加载命令时，如果已有同名tmux session则跳转至该名称的session中而不是创建新的session。
+tmuxifier w window-name命令只能在tmux终端中使用。
