@@ -1,0 +1,26 @@
+Ref:
+  https://www.runoob.com/svg/svg-path.html
+  https://juejin.cn/post/6970637003142463519
+  https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Paths
+
+下面的命令可用于路径数据：
+
+M = moveto
+L = lineto
+H = horizontal lineto
+V = vertical lineto
+C = curveto
+S = smooth curveto
+Q = quadratic Bézier curve
+T = smooth quadratic Bézier curveto
+A = elliptical Arc
+Z = closepath
+
+A(Arc)路径参数：
+A rx ry x-axis-rotation large-arc-flag sweep-flag x y
+椭圆弧顾名思义有长轴和短轴，
+rx, ry: 表示长轴半径和短轴半径
+x-axis-rotation: 是x轴旋转角度
+large-arc-flag: 决定弧线是大于还是小于180度，0表示小角度弧，1表示大角度弧
+sweep-flag: 表示弧线的方向，0表示从起点到终点沿逆时针画弧，1表示从起点到终点沿顺时针画弧
+x,y: 结束点
