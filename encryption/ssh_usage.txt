@@ -1,0 +1,3 @@
+# clear cached key
+ssh-add -D    #delete identities
+ssh-agent -k  #kill ssh-agent

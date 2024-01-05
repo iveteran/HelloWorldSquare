@@ -1,0 +1,6 @@
+# Ref: https://asciinema.org/
+
+sudo apt install asciinema
+
+asciinema rec demo.cast
+asciinema play demo.cast

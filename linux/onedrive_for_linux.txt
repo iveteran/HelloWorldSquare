@@ -1,0 +1,10 @@
+sudo apt remove onedrive
+sudo add-apt-repository --remove ppa:yann1ck/onedrive
+
+
+2) OneDrive service running as a non-root user via systemd (with notifications enabled) (Arch, Ubuntu, Debian, OpenSuSE, Fedora)
+
+systemctl --user enable onedrive
+systemctl --user start onedrive
+
+journalctl --user-unit=onedrive -f

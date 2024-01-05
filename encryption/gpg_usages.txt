@@ -1,0 +1,23 @@
+gpgconf OR gpgconf --list-components
+gpgconf --list-options gpg-agent
+
+# clear cached key
+gpg-connect-agent reloadagent /bye
+
+# disables the entry prompt
+  --pinentry-mode=loopback
+The full command would be:
+gpg --pinentry-mode=loopback --passphrase  "PASSWORD" -d -o "PATH\TO\OUTPUT" "PATH\TO\FILE.gpg"
+
+# change pin entry (method 1)
+update-alternatives --config pinentry
+
+# change the pinentry permanently (method 2)
+  1) append the following to your ~/.gnupg/gpg-agent.conf:
+     pinentry-program /usr/bin/pinentry-tty
+  2) Tell the GPG agent to reload configuration:
+     gpg-connect-agent reloadagent /bye
+
+# env
+export GPG_TTY=$(tty)
+export GPGKEY="xxxxxx"
