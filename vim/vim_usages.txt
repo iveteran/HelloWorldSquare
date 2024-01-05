@@ -6,3 +6,10 @@
    :'<,'>s/$/<something>/g
   Method B:
    Ctrl-v $A <something>
+
+3) remove the last character in each line
+   Ref: https://stackoverflow.com/questions/36264659/how-do-i-delete-the-last-character-in-each-line-using-vim
+   method A:
+    :%normal $x
+   Method B:
+    :%s/.\{1}$//

@@ -10,7 +10,7 @@ fi
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin:/usr/pgsql-9.5/bin
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin
 
 export PATH
 
@@ -26,6 +26,8 @@ alias rsync='rsync -avzP'
 alias pls='sudo $(fc -ln -1)'
 alias sudo='sudo env PATH=$PATH'
 alias bat='batcat'
+alias apt-search="apt search --names-only"
+alias chrome-proxy="google-chrome --proxy-server='127.0.0.1:7891'"
 
 # Aliases to optn Tmux with session name
 alias tls='tmux ls'
@@ -36,6 +38,11 @@ alias tmatrix='tmux attach -t Matrix || tmux new -s Matrix'
 # Aliases to open Tmux popup window, Tmux version >= 3.2
 alias p='tmux popup -w 80% -h 80%'
 alias pp='tmux popup -w 80% -h 80%  "tmux attach -t popup || tmux new -s popup"'
+
+# Tmuxifier
+# git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
+export PATH=$HOME/.tmuxifier/bin:$PATH
+eval "$(tmuxifier init -)"
 
 export EDITOR='vim'
 export PSQL_EDITOR="vim -c 'set syntax=sql'"
@@ -77,6 +84,7 @@ export PS1="[\[\033[95m\]\u@\h \[\033[32m\]\W\[\033[33m\] \$(git_branch)\[\033[0
 #   1) https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242
 #   2) https://sourceforge.net/projects/vcxsrv/
 #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
+export DISPLAY=":0"
 
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
@@ -88,3 +96,6 @@ fi
 export GOPROXY=https://jp.iveteran.me:4433,direct
 # # 还可以设置不走 proxy 的私有仓库或组，多个用逗号相隔（可选）
 # export GOPRIVATE=git.mycompany.com,github.com/my/private
+
+#
+export GPG_TTY=$(tty)
