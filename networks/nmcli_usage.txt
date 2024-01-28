@@ -9,3 +9,6 @@ nmtui
 # up/down interface
 nmcli connection up "DEVICE NAME"
 nmcli connection down "DEVICE NAME"
+
+# show password
+nmcli connection show "YuuSE Old" | grep -i psk
