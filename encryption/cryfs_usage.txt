@@ -1,0 +1,6 @@
+CryFS: A cryptographic filesystem for the cloud
+Refer: https://www.cryfs.org/tutorial
+
+cryfs dropbox/basedir mountdir  # if the directory does not exist will be create
+echo "My secret file content" > mountdir/my_secret_file
+cryfs-unmount mountdir

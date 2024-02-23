@@ -1,0 +1,34 @@
+sudo apt install keepassxc
+keepassxc-cli open /path/to/my-database.kdbx
+
+my-database> ls
+login.example.com
+foobar.com
+
+my-databae> ls -R
+login.example.com
+  myname@example.com
+foobar.com
+  myname@foobar.com
+
+my-database> show foobar.com/myname@foobar.com
+Title: myname
+UserName: myname
+Password: PROTECTED
+URL: http://www.foobar.com
+Maximum depth of replacement has been reached. Entry uuid: {54bc4d00-8e51-4d44-b20d-a82d2a2f2add}
+Notes: {c9868f02-efbb-4dc9-8249-be3aef7bc9f2}
+Uuid: {54bc4d00-8e51-4d44-b20d-a82d2a2f2add}
+Tags:
+
+my-database> show -s foobar.com/myname@foobar.com
+Title: myname
+UserName: myname
+Password: this-is-password
+URL: http://www.foobar.com
+Maximum depth of replacement has been reached. Entry uuid: {54bc4d00-8e51-4d44-b20d-a82d2a2f2add}
+Notes: {c9868f02-efbb-4dc9-8249-be3aef7bc9f2}
+Uuid: {54bc4d00-8e51-4d44-b20d-a82d2a2f2add}
+Tags:
+
+my-database> quit

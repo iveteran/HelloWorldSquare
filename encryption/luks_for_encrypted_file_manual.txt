@@ -2,22 +2,32 @@
   The "count=" variable below should create a 500MB file, but you might want to
   play around with the value on your system to see.
 
-  $ dd if=/dev/zero of=/opt/yuu/encrypted_file bs=1048576 count=500
-  $ mknod /dev/loop0 b 7 0
-  $ losetup /dev/loop0 /opt/yuu/encrypted_file
-  $ cryptsetup luksFormat -c aes-plain /dev/loop0
-  $ cryptsetup luksOpen /dev/loop0 encrypted_file
-  $ cryptsetup status encrypted_file
-  $ mkfs.ext4 /dev/mapper/encrypted_file
+  $ dd if=/dev/zero of=/opt/yuu/vmail_encrypted_file bs=1048576 count=500
+  $ mknod /dev/loop-luks b 7 0
+  $ losetup /dev/loop-luks /opt/yuu/vmail_encrypted_file
+  $ losetup -l # list, to show result of previous command
+  $ cryptsetup luksFormat -c aes-plain /dev/loop-luks
+  $ cryptsetup luksOpen /dev/loop-luks vmail_encrypted_file
+  $ cryptsetup status vmail_encrypted_file
+  $ mkfs.ext4 /dev/mapper/vmail_encrypted_file
   $ mkdir /opt/yuu/enc_mnt
-  $ mount /dev/mapper/encrypted_file /opt/yuu/enc_mnt
+  $ mount /dev/mapper/vmail_encrypted_file /opt/yuu/enc_mnt
+
+1.1) Create key file (optional)
+  $ dd if=/dev/random bs=32 count=1 of=vmail-volume-key
+  $ sudo chmod 0400 vmail-volume-key
+  $ sudo cryptsetup luksAddKey /dev/loop-luks vmail-volume-key
+  $ sudo cryptsetup luksDump /dev/loop-luks > vmail-volume-key.dump
 
 2) Mount Existing
-  $ mknod /dev/loop0 b 7 0
-  $ losetup /dev/loop0 /opt/yuu/encrypted_file
-  $ cryptsetup luksOpen /dev/loop0 encrypted_file
-  $ mount /dev/mapper/encrypted_file /opt/yuu/enc_mnt
+  $ mknod /dev/loop-luks b 7 0
+  $ losetup /dev/loop-luks /opt/yuu/vmail_encrypted_file  # attach to loop device
+  $ cryptsetup luksOpen /dev/loop-luks vmail_encrypted_file  # by password
+  OR cryptsetup luksOpen /dev/loop-luks vmail_encrypted_file --key-file vmail-volume-key  # by key file
+  $ mount /dev/mapper/vmail_encrypted_file /opt/yuu/enc_mnt
 
 3) To Unmount and close
   $ umount /opt/yuu/enc_mnt
-  $ cryptsetup luksClose encrypted_file
+  $ cryptsetup luksClose vmail_encrypted_file
+  $ losetup -d /dev/loop-luks  # detach from loop device
+  $ rmnod /dev/loop-luks

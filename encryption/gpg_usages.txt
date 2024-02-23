@@ -21,3 +21,12 @@ update-alternatives --config pinentry
 # env
 export GPG_TTY=$(tty)
 export GPGKEY="xxxxxx"
+
+# upload public key to openpgp
+gpg --export YOU@example.com | curl -T - https://keys.openpgp.org
+
+# Trust in a key's owner
+gpg --edit-key bob@example.com
+Command> trust
+...
+Command> quit

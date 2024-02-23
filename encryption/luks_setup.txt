@@ -36,7 +36,7 @@ LUKS(Linux Unified Key System)
    $ echo "supersecretpass" > volume-key
    $ sudo mv volume-key /root/
    $ sudo chown root:root /root/volume-key
-   $ sudo chmod 0402 /root/volume-key
+   $ sudo chmod 0400 /root/volume-key
 
 7) Add Key to LUKS Volume
   $ sudo cryptsetup luksAddKey /dev/sdb1 /root/volume-key
