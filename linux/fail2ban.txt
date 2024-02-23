@@ -1,0 +1,16 @@
+Refers:
+    https://www.linode.com/docs/guides/using-fail2ban-to-secure-your-server-a-tutorial/
+    https://www.the-art-of-web.com/system/fail2ban-filters/
+
+sudo systemctl status fail2ban
+sudo fail2ban-client status
+sudo fail2ban-client status sshd
+sudo iptables -L | grep -i f2b
+sudo iptables -L f2b-sshd -v -n --line-numbers
+sudo fail2ban-client set ssh unbanip 192.168.1.115
+
+sudo fail2ban-regex -v systemd-journal sshd
+sudo fail2ban-regex -v systemd-journal 'sshd[mode=aggressive]'
+sudo journalctl _SYSTEMD_UNIT=sshd.service + _COMM=sshd
+
+sudo journalctl -r _SYSTEMD_UNIT=postfix.service + SYSLOG_IDENTIFIER=postfix/smtpd

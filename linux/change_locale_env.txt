@@ -1,0 +1,7 @@
+sudo localectl set-locale variable_name=value
+
+# For example, set LANG=en_US.UTF-8.
+sudo localectl set-locale LANG=en_US.UTF-8
+
+# Show locale environment variables
+locale

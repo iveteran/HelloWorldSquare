@@ -1,0 +1,22 @@
+EXPANDING A LUKS ENCRYPTED DISK IMAGE
+Refer: https://shaakunthala.wordpress.com/2017/11/28/expanding-a-luks-encrypted-disk-image/
+
+1. Safety first! Unmount, luksClose and then backup your image file.
+$ sudo umount /dev/mapper/myluksvol1 && sudo cryptsetup luksClose myluksvol1
+$ cp /home/shaakunthala/luksvolume1 /home/shaakunthala/luksvolume1.bak
+
+2. Now, make more room in the container.
+$ dd if=/dev/zero of=/home/shaakunthala/luksvolume1 bs=1M count=1024 oflag=append conv=notrunc
+Yesterday we created a 512 MB disk image, now let’s add one more gigabyte. Conv and oflag options tell dd not to overwrite or truncate the image but append zero data.
+
+3. Open the encrypted volume.
+$ sudo cryptsetup luksOpen /home/shaakunthala/luksvolume1 myluksvol1
+
+4. Repair ext4 file system to make sure it’s clean and then resize to claim ‘unallocated’ 1 GB.
+$ sudo fsck -fvy /dev/mapper/myluksvol1
+$ sudo resize2fs /dev/mapper/myluksvol1
+$ sudo fsck -fvy /dev/mapper/myluksvol1 # One last sanity check
+
+5. Now, if there are no errors the filesystem has successfully grown to the maximum available size of the encrypted partition.
+$ sudo mount /dev/mapper/myluksvol1 /mnt
+$ df -h /mnt

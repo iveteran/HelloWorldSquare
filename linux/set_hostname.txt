@@ -1,0 +1,19 @@
+3 Methods To Change the Hostname of Your Linux Machine
+(refer: https://www.linuxbabe.com/linux-server/change-hostname-linux-machine)
+
+# Show host name
+$ hostname
+$ hostnamectl
+
+# Method 1: Change some configure files
+1) /etc/hostname
+> YOUR-HOSTNAME
+2) /etc/hosts
+> 127.0.1.1  YOUR-HOSTNAME
+
+# Method 2: Change Hostname with hostnamectl
+sudo hostnamectl set-hostname <newhostname>
+
+# Method3: Change Hostname Temporarily
+To temporarily change hostname (lost after reboot), use hostname command:
+sudo hostname <new-hostname>

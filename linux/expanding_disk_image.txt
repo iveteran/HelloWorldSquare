@@ -1,0 +1,20 @@
+Refer: https://copyprogramming.com/howto/can-i-expand-the-size-of-a-file-based-disk-image
+
+Indeed, this can be achieved as it functions akin to a partition. I attempted the following approach, and it proved effective.
+
+Make the original file, mount it, check, unmount it
+$ dd if=/dev/zero of=test.file bs=1M count=102400 
+$ mkfs.ext3 test.file 
+$ mount test.file /mnt -o loop
+$ df -h
+$ umount /mnt
+
+Grow it
+$ dd if=/dev/zero count=102400 >> test.file
+$ mount test.file /mnt -o loop
+$ df -h
+$ resize2fs /dev/loop0
+$ df -h
+Shrinking a file may work similarly, but it is invariably more challenging than expanding it. Of course, it must be done when the block device is not mounted.
+
+Check out this resource that discusses the utilization of qemu-nbd to mount qcow2 disk images.

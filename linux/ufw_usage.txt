@@ -1,0 +1,36 @@
+sudo ufw status numbered verbose
+sudo ufw delete NUM
+
+1) Block an IP
+sudo ufw insert 1 deny from 178.137.80.191 comment 'block spammer'
+sudo ufw reload
+
+2) Block an IP (method 2)
+Edit /etc/ufw/before.rules，Add below two lines
+# Block spammers
+-A ufw-before-input -s 178.137.80.191 -j DROP
+
+3) Blocking multiple IP address and subnets (CIDRs)
+# add subnet/CIDR too #
+IPS="192.168.2.50 1.2.3.4 123.1.2.3 142.1.2.3 202.54.1.5/29"
+for i in $IPS
+do
+    sudo ufw insert 1 deny from "$i" comment "IP and subnet blocked"
+done
+
+4) Blocking multiple ID address and subnets (CIDRs) (method 2)
+cat > blocked.ip.list
+Append both IPs and sub/nets:
+# block list created by nixCraft
+203.1.5.6
+204.5.1.7
+45.146.164.157
+2620:149:e0:6002::1f1
+185.38.40.66
+185.220.101.0/24
+
+Run it as as follows using bash while loop:
+while IFS= read -r block
+do
+   sudo ufw insert 1 deny from "$block"
+done < "blocked.ip.list"

@@ -1,0 +1,68 @@
+30+ firewalld command examples [Rules Cheat Sheet]
+Refer: https://www.golinuxcloud.com/firewalld-cheat-sheet/
+
+firewall-cmd --list-all
+
+firewall-cmd --permanent --zone=public --add-service=smtps
+firewall-cmd --permanent --zone=drop --add-source=93.174.93.228
+
+firewall-cmd --permanent --zone=public --add-port=5223/tcp
+firewall-cmd --list-ports
+
+firewall-cmd --reload
+
+# Get services
+firewall-cmd --get-services
+# related files: /usr/lib/firewalld/services(system), /etc/firewalld/services(custom)
+
+# Create service, e.g.: oracle db
+cat /etc/firewalld/services/oracledb.xml
+<?xml version="1.0" encoding="utf-8"?>
+  <service>
+    <short>OracleDB</short>
+    <description>
+      Oracle Database firewalld service. It allows connections to
+      the Oracle Database service. You will need to deploy Oracle Database in
+      this machine and enable it for this option to be useful.
+    </description>
+  <port protocol="tcp" port="1521"/>
+</service>
+firewall-cmd --reload
+firewall-cmd --add-service oracledb
+firewall-cmd --list-services
+
+# add/list service
+firewall-cmd --add-service=vnc-server
+firewall-cmd --list-services
+firewall-cmd --list-services --zone=public
+
+# Show rules of all zones
+firewall-cmd --list-all-zones
+
+# List available zones
+firewall-cmd --get-zones
+
+# Get/set default zone
+firewall-cmd --get-default-zone
+firewall-cmd --set-default-zone=work
+
+# Show rules of specific zone (list block IPs)
+firewall-cmd --list-all --zone=drop
+firewall-cmd --info-zone=drop
+
+# Assign a zone to specific interface
+firewall-cmd --zone=public --change-interface=eth1 --permanent
+
+# Get all active zones
+firewall-cmd --get-active-zones
+
+# Create new zone and add an interface to this zone
+firewall-cmd --permanent --new-zone=mytest
+
+# Check interface is mapped to which zone
+firewall-cmd --get-zone-of-interface=enp0s8
+
+# Drop all INPUT and FORWARD packets only
+firewall-cmd --zone=public --add-port=22/tcp --permanent
+firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 1 -o ethX -j ACCEPT
+firewall-cmd --set-default-zone=drop

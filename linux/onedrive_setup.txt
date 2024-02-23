@@ -1,0 +1,37 @@
+Install
+apt install onedrive
+
+https://github.com/abraunegg/onedrive/blob/master/docs/INSTALL.md
+https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md#distribution-debian-12
+https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account
+
+Configure Directory/Files
+Edit ~/.config/onedrive/config, add or uncomment below lines:
+skip_dir = "Desktop"
+skip_dir = "Pictures/Camera Roll"
+skip_dir = "Secret|Videos|Movies|Music"
+log_dir = "/var/log/onedrive/"
+
+Login Microsoft Account
+[user@hostname ~]$ onedrive
+Authorize this app visiting:
+https://.....
+Enter the response uri:
+
+Login Example:
+[user@hostname ~]$ onedrive
+Authorize this app visiting:
+https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=22c49a0d-d21c-4792-aed1-8f163c982546&scope=Files.ReadWrite%20Files.ReadWrite.all%20Sites.ReadWrite.All%20offline_access&response_type=code&redirect_uri=https://login.microsoftonline.com/common/oauth2/nativeclient
+
+Enter the response uri: https://login.microsoftonline.com/common/oauth2/nativeclient?code=<redacted>
+Application has been successfully authorised, however no additional command switches were provided.
+Please use 'onedrive --help' for further assistance in regards to running this application.
+
+Test
+onedrive --synchronize --verbose --dry-run
+
+Frequently-used commands:
+onedrive --synchronize
+onedrive --monitor
+onedrive --display-config
+onedrive --help

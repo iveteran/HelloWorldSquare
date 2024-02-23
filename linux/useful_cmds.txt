@@ -3,3 +3,6 @@
 
 3) show screen resolution
 $ xrandr
+
+4) Reload a Linux user's group assignments without logging out
+  su - $USER

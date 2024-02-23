@@ -1,1 +1,4 @@
 xwininfo -root -children | grep $(printf '%x\n' $(xdotool getwindowfocus)) | grep -oEi '"[^"]+"' | head -1
+
+# mount Plasma Vault on console
+cryfs "/home/yuu/.local/share/plasma-vault/[name of vault].enc" "~/Vaults/[name of vault]/"
