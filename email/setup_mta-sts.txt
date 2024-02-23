@@ -1,0 +1,19 @@
+如何设置 MTA-STS 和 TLS 报告来发现并修复电子邮件安全问题
+(refer: https://dmarcly.com/blog/zh-CN/how-to-set-up-mta-sts-and-tls-reporting)
+
+1. 保证Postfix，Apache已经配置SSL
+
+2. 在DNS配置中增加如下三个记录(其中UNIQUE-ID自己生成):
+txt	    _mta-sts	v=STSv1; id=UNIQUE-ID
+txt	    _smtp._tls	v=TLSRPTv1; rua=mailto:postmaster@yourdomain.com
+cname	mta-sts	    your-email-server.com.
+
+3. 在Apache root目录下创建.well-known/mta-stm.txt，内容如下：
+version: STSv1
+mode: testing
+mx: your-email-server.com
+max_age: 86400
+
+4. 测试，浏览如上创建的文件
+1) https://mta-sts.your-domain/.well-known/mta-sts.txt
+2) 发送一封邮件到check@dmarcly.com，此邮箱会返回一个报告

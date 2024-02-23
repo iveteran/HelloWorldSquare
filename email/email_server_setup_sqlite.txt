@@ -1,0 +1,76 @@
+1. Building the SQLite Database
+In order to use the SQLite function, you need a SQLite database. First using SQLite3 run
+
+sqlite3 /etc/postfix/postfix.sqlite
+To create the database, then you can copy and past the following scheme into the new database.
+
+CREATE TABLE alias (
+  address varchar(255) NOT NULL,
+  goto text NOT NULL,
+  domain varchar(255) NOT NULL,
+  created datetime NOT NULL default '0000-00-00 00:00:00',
+  modified datetime NOT NULL default '0000-00-00 00:00:00',
+  active tinyint(1) NOT NULL default '1');
+
+CREATE TABLE domain (
+  domain varchar(255) NOT NULL,
+  description varchar(255) NOT NULL,
+  aliases int(10) NOT NULL default '0',
+  mailboxes int(10) NOT NULL default '0',
+  maxquota bigint(20) NOT NULL default '0',
+  quota bigint(20) NOT NULL default '0',
+  transport varchar(255) NOT NULL,
+  backupmx tinyint(1) NOT NULL default '0',
+  created datetime NOT NULL default '0000-00-00 00:00:00',
+  modified datetime NOT NULL default '0000-00-00 00:00:00',
+  active tinyint(1) NOT NULL default '1' );
+
+CREATE TABLE mailbox (
+  username varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  maildir varchar(255) NOT NULL,
+  quota bigint(20) NOT NULL default '0',
+  domain varchar(255) NOT NULL,
+  created datetime NOT NULL default '0000-00-00 00:00:00',
+  modified datetime NOT NULL default '0000-00-00 00:00:00',
+  local_part varchar(255) NOT NULL,
+  active tinyint(1) NOT NULL default '1');
+Then close the database
+
+.quit
+
+2. Configuring Postfix with SQLite
+Now add the maps to you config.
+
+/etc/postfix/main.cf
+relay_domains = sqlite:/etc/postfix/sqlite_relay_domains_maps.cf
+relay_recipient_maps = sqlite:/etc/postfix/sqlite_relay_recipient_maps.cf
+virtual_alias_maps = sqlite:/etc/postfix/sqlite_virtual_alias_maps.cf
+virtual_mailbox_domains = sqlite:/etc/postfix/sqlite_virtual_domains_maps.cf
+virtual_mailbox_maps = sqlite:/etc/postfix/sqlite_virtual_mailbox_maps.cf
+
+virtual_mailbox_base = /var/spool/virtualmailboxes
+virtual_minimum_uid= 1000
+virtual_uid_maps = static:1000
+virtual_gid_maps = static:1000
+
+sqlite_relay_domains_maps.cf
+dbpath = /etc/postfix/postfix.sqlite
+query = SELECT domain FROM domain WHERE domain='%s' AND backupmx = '1' AND active = '1'
+
+sqlite_relay_recipient_maps.cf
+dbpath = /etc/postfix/postfix.sqlite
+query = SELECT goto FROM alias WHERE address='%s' AND active = 1
+
+sqlite_virtual_alias_maps.cf
+dbpath = /etc/postfix/postfix.sqlite
+query = SELECT goto FROM alias WHERE address='%s' AND active = '1'
+
+sqlite_virtual_domains_maps.cf
+dbpath = /etc/postfix/postfix.sqlite
+query = SELECT domain FROM domain WHERE domain='%s' AND backupmx = '0' AND active = '1'
+
+sqlite_virtual_mailbox_maps.cf
+dbpath = /etc/postfix/postfix.sqlite
+query = SELECT maildir FROM mailbox WHERE username='%s' AND active = '1'

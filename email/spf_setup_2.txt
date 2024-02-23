@@ -1,0 +1,12 @@
+在/usr/lib/python3/dist-packages/spf_engine/__init__.py的177行加入如下代码：
+178         elif mfrom_policy == 'Cerberus':
+179             # Supports to reject mail if sender's domain has no SPF record
+180             # /etc/postfix-policyd-spf-python/policyd-spf.conf -> Mail_From_reject = Cerberus
+181             # https://serverfault.com/questions/818367/postfix-policyd-spf-reject-none
+182             try:
+183                 unused_results.remove('Fail')
+184                 actions['reject'].append('Fail')
+185                 unused_results.remove('Softfail')
+186                 actions['reject'].append('Softfail')
+188                 actions['reject'].append('None')
+190                 if debugLevel >= 2: syslog.syslog('Configuration File parsing error: Mail_From_reject: Cerberus')  

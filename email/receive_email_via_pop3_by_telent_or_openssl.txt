@@ -1,0 +1,48 @@
+Refers:
+  https://kewl.lu/articles/pop3/
+  https://community.progress.com/s/article/POP3-commands-by-telnet-1307739576862
+
+Here are the POP3 commands, followed by an example showing an actual live session.
+USER - Your POP3 user name
+PASS - Your password
+STAT - Responds with number of messages in maildrop and size of mail drop in octets.
+LIST msg - If an argument is entered information on that message is returned.
+           If no argument is entered then information on all messages are listed.
+           Useful if you need to know number and size of messages in mail drop.
+RETR msg - Message is listed.
+DELE msg - Message is marked for deletion.
+Remember to use the QUIT command when finished so messages are deleted.
+NOOP - Does nothing, simply returns a positive response.
+RSET - If messages have been marked for deletion they are unmarked.
+TOP msg n - Returns header information for message and returns the number of lines of the message body represented by n.
+UIDL msg - Returns message number and a Unique message ID Listing.
+If the POP3 session is terminated for other reasons no update takes place and messages marked for deletion are not deleted.
+
+例：
+$ telnet pop3.example.com 110 (或 openssl s_client -quiet -4 -connect pop3.example.com:995)
++OK Dovecot (Debian) ready.
+USER yourname@example.com
++OK
+PASS xxxxxxxx
++OK Logged in.
+STAT
++OK 17 63218
+LIST
++OK 6 messages:
+1 6808
+2 6807
+3 519
+4 759
+5 2730
+6 521
+RETR 1
++OK 1273 octets
+< the POP3 server sends the entire message here >
+.
+TOP 1 5
++OK 1273 octets
+< the POP3 server sends the headers of the message, a blank line, and the first 5 lines of the body of the message >
+.
+QUIT
+OK Logging out.
+closed

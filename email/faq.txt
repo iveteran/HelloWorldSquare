@@ -1,0 +1,89 @@
+问题：postfix/submission/smtpd[1638464]: warning: SASL: Connect to Dovecot auth socket '/var/spool/postfix/private/auth' failed: No such file or directory
+解决：修改/etc/postfix/master.cf，将smtp, submission, submissions中的chroot改为n
+参考：https://serverfault.com/questions/999450/postfix-warning-sasl-connect-to-var-spool-postfix-private-auth-failed-no-suc
+
+问题：mail/dovecot - stats-writer failed: Permission denied
+解决：在/etc/dovecot/conf.d/10-master.conf添加：
+    service stats {
+        unix_listener stats-reader {
+            group = mail
+            mode = 0666
+        }
+        unix_listener stats-writer
+            group = mail
+            mode = 0666
+        } 
+    }
+参考：https://forums.freebsd.org/threads/mail-dovecot-stats-writer-failed-permission-denied.69723/
+      https://serverfault.com/questions/1118068/dovecot-postfix-ldaroot-error-net-connect-unix-run-dovecot-stats-writer
+
+问题：NOQUEUE: reject: RCPT from unknown[112.97.56.30]: 454 4.7.1 <xxxxxx@qq.com>: Relay access denied; from=<yu@goe.works> to=<xxxxxxx@qq.com> proto=ESMTP helo=<[172.20.10.11]>
+解决：查看/etc/postfix/master.cf，smtp是否开启:
+      smtp      inet  n       -       n       -       -       smtpd
+
+问题：访问postfixadmin页面出现ERROR: the templates_c directory doesn't exist or isn't writeable for the webserver
+解决：
+1) 检查目录/var/www/html/postfixadmin-3.3.13/templates_c/是否存在以及读写权限
+2) 检查SELinux权限，是否为：unconfined_u:object_r:httpd_sys_rw_content_t:s0
+ls -lZ /var/www/html/postfixadmin-3.3.13/templates_c
+如不是使用如下命令修改(读写：httpd_sys_rw_content_t)：
+sudo chcon -R unconfined_u:object_r:httpd_sys_rw_content_t:s0 /var/www/html/postfixadmin-3.3.13/templates_c/
+参考：
+https://www.serverlab.ca/tutorials/linux/web-servers-linux/configuring-selinux-policies-for-apache-web-servers/
+
+问题：postfixadmin/setup.php页面出现:
+Errors (MUST be fixed)
+⛔Password Hashing - attempted to use configured encrypt backend (dovecot:CRAM-MD5) triggered an error: /usr/bin/doveadm pw failed, see error log for details
+⛔You will have problems logging into PostfixAdmin.
+⛔Check out our Dovecot documentation at https://github.com/postfixadmin/postfixadmin/blob/master/DOCUMENTS/DOVECOT.txt, specifically around '3. Permissions'.
+----
+/var/log/audit/audit.log如下
+----
+sudo ausearch -m AVC:
+time->Thu Jan 25 12:15:54 2024
+type=PROCTITLE msg=audit(1706156154.874:21881): proctitle=2F7573722F62696E2F646F766561646D007077002D73004352414D2D4D4435
+type=SYSCALL msg=audit(1706156154.874:21881): arch=c000003e syscall=21 success=no exit=-13 a0=56274b368f70 a1=4 a2=56274b360618 a3=0 items=0 ppid=691 pid=855302 auid=4294967295 uid=48 gid=48 euid=48 suid=48 fsuid=48 egid=48 sgid=48 fsgid=48 tty=(none) ses=4294967295 comm="doveadm" exe="/usr/bin/doveadm" subj=system_u:system_r:httpd_t:s0 key=(null)
+type=AVC msg=audit(1706156154.874:21881): avc:  denied  { read } for  pid=855302 comm="doveadm" name="dovecot.conf" dev="sda" ino=137669 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:dovecot_etc_t:s0 tclass=file permissive=0
+----
+time->Thu Jan 25 12:15:54 2024
+type=PROCTITLE msg=audit(1706156154.874:21882): proctitle=2F7573722F62696E2F646F766561646D007077002D73004352414D2D4D4435
+type=SYSCALL msg=audit(1706156154.874:21882): arch=c000003e syscall=262 success=no exit=-13 a0=ffffff9c a1=56274b368f70 a2=7ffffb5bff90 a3=0 items=0 ppid=691 pid=855302 auid=4294967295 uid=48 gid=48 euid=48 suid=48 fsuid=48 egid=48 sgid=48 fsgid=48 tty=(none) ses=4294967295 comm="doveadm" exe="/usr/bin/doveadm" subj=system_u:system_r:httpd_t:s0 key=(null)
+type=AVC msg=audit(1706156154.874:21882): avc:  denied  { getattr } for  pid=855302 comm="doveadm" path="/etc/dovecot/dovecot.conf" dev="sda" ino=137669 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:dovecot_etc_t:s0 tclass=file permissive=0
+----
+time->Thu Jan 25 12:55:28 2024
+type=PROCTITLE msg=audit(1706158528.502:21939): proctitle=2F7573722F62696E2F646F7665636F6E66002D6600736572766963653D646F766561646D002D63002F6574632F646F7665636F742F646F7665636F742E636F6E66002D6D00646F766561646D002D6D0073736C002D65002F7573722F62696E2F646F766561646D007077002D73004352414D2D4D4435
+type=SYSCALL msg=audit(1706158528.502:21939): arch=c000003e syscall=257 success=no exit=-13 a0=ffffff9c a1=555df42fa160 a2=0 a3=0 items=0 ppid=677 pid=873867 auid=4294967295 uid=48 gid=48 euid=48 suid=48 fsuid=48 egid=48 sgid=48 fsgid=48 tty=(none) ses=4294967295 comm="doveconf" exe="/usr/bin/doveconf" subj=system_u:system_r:httpd_t:s0 key=(null)
+type=AVC msg=audit(1706158528.502:21939): avc:  denied  { open } for  pid=873867 comm="doveconf" path="/etc/dovecot/dovecot.conf" dev="sda" ino=137669 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:dovecot_etc_t:s0 tclass=file permissive=0
+...
+sudo ausearch -m AVC | audit2why
+(sudo audit2allow -a -w)
+type=AVC msg=audit(1706088770.016:21292): avc:  denied  { read } for  pid=399327 comm="doveconf" name="dovecot.conf" dev="sda" ino=137669 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:dovecot_etc_t:s0 tclass=file permissive=1
+type=AVC msg=audit(1706088770.013:21291): avc:  denied  { getattr } for  pid=399327 comm="doveadm" path="/etc/dovecot/dovecot.conf" dev="sda" ino=137669 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:dovecot_etc_t:s0 tclass=file permissive=1
+type=AVC msg=audit(1706088770.016:21292): avc:  denied  { open } for  pid=399327 comm="doveconf" path="/etc/dovecot/dovecot.conf" dev="sda" ino=137669 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:dovecot_etc_t:s0 tclass=file permissive=1
+...
+解决：
+sudo grep doveadm /var/log/audit/audit.log | audit2allow -M  doveadm
+sudo semodule -i doveadm.pp
+sudo grep doveconf /var/log/audit/audit.log | audit2allow -M doveconf
+sudo semodule -i doveconf.pp
+参考：
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-fixing_problems-allowing_access_audit2allow
+
+问题：sudo ausearch -m AVC
+time->Wed Jan 24 18:29:50 2024
+type=PROCTITLE msg=audit(1706092190.316:21467): proctitle=7068702D66706D3A20706F6F6C20777777
+type=SYSCALL msg=audit(1706092190.316:21467): arch=c000003e syscall=21 success=no exit=-13 a0=7f4a516026e0 a1=2 a2=7f4a516026e0 a3=0 items=0 ppid=622 pid=680 auid=4294967295 uid=48 gid=48 eui
+d=48 suid=48 fsuid=48 egid=48 sgid=48 fsgid=48 tty=(none) ses=4294967295 comm="php-fpm" exe="/usr/sbin/php-fpm" subj=system_u:system_r:httpd_t:s0 key=(null)
+type=AVC msg=audit(1706092190.316:21467): avc:  denied  { write } for  pid=680 comm="php-fpm" name="www-error.log" dev="sda" ino=142599 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u
+:object_r:httpd_log_t:s0 tclass=file permissive=0
+解决：
+sudo ausearch -c 'php-fpm' --raw | audit2allow -M phpfpm
+sudo semodule -i phpfpm.pp
+或：
+chmod 774 /var/log/php-fpm/www-error.log
+chgrp apache /var/log/php-fpm/www-error.log
+或：
+在/etc/php-fpm.d/www.conf中注释如下行：
+;php_admin_value[error_log] = /var/log/php-fpm/www-error.log
+参考:
+https://github.com/postfixadmin/postfixadmin/issues/601

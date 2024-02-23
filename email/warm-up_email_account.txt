@@ -1,0 +1,94 @@
+Warm-up your account manually
+(refer: https://www.saleshandy.com/blog/warmup-email-account/)
+
+What is email warm-up?
+
+The email warm-up is a way you establish a reputation for a new email account and increase the email sending limit.
+The warm-up process includes sending emails from a new email account, starting with a smaller number, and gradually increasing the number of emails each day.
+When a user creates a new email account, the email service provider gives daily sending limits. However, a fresh account can’t use it entirely.
+For example, Google provides 2000 emails/day for a G Suite account. But from day one, you can’t send it all; you get a smaller limit.
+To use it to its full potential, you have to build a good reputation, which can be done by email warm-up.
+Ideally, it takes 8-12 weeks to accomplish maximum deliverability. Depending on email volume and the engagement in the warm-up process, the email gets ready faster. The email warm-up may take a longer time than anticipated if the recipient’s engagement level is too low.
+
+Why is email warm-up important?
+
+Email warm-up is a process required to build a reputation and have a higher delivery rate. It is essential when you are planning to run a massive cold email outreach with a new account to ensure emails land in inbox.
+In a cold email campaign(sequence), the first thing you need is to reach the recipient’s inbox. Once you are there, having a good engagement will build a more significant relationship.
+If the email is very well warmed before sending cold emails, it will avoid the spam filter, get delivered in the inbox, and have a higher open rate.
+So without any further ado, let’s dive deep and find out how to warm-up an email account before sending cold emails that make your email account more efficient, increase your sender reputation, and improve your email deliverability.
+
+Step 1: Authenticate your account
+Step 2: Send individual emails
+Step 3: Maintain conversation threads
+Step 4: Subscribe to newsletters
+Step 5: Maintain time gap between two consecutive emails
+Step 6: Set up a personalized test campaign
+Step 7: Best bonus practices
+
+1. Authenticate your account
+With a new email account, the first thing required is account authentication. Authentication makes your account guarded against the spam filters and makes your emails delivered right to the inbox.
+
+There are four essential email authentications:
+
+1) SPF
+SPF (Sender Policy Framework) is an authentication technique that creates a record in your DNS (Domain Name System), which lists down all the servers that are authorized to send emails on behalf of a domain. Whenever the recipient’s ESP finds an SPF Authentication from the sender side, it provides a clean chit to the sender’s domain.
+
+2) DKIM
+DKIM (Domain Keys Identified Mail) is an authentication method that adds a digital signature with your domain, which prevents email spoofing and makes your email reach the right place.
+
+3) DMARC
+DMARC (Domain-based Message Authentication, Reporting & Conformance) records to use your SPF and DKIM records to assure the receiver’s ESP that no deceitful activities are associated with the email.
+
+4) Custom Domain
+Adding a custom domain to your emails, make your links, and documents look more authentic by providing it with your domain. This makes the sender, as well as the ESP, assure that the links and documents are from an authentic source.
+
+2. Send individual emails
+The email warm-up process starts by sending manual emails to your friends and colleagues to build a conversation. 
+In the beginning, you should send 10-20 individual emails from the new email account. Make sure the initial emails have a consistent engagement, which is going to help you increase the volume of the emails.
+With the increase in conversation, your email service provider gets assured about your authentic activities and gradually makes your email account ready for email campaigns. 
+During this manual process, make sure you are sending emails to various email services like Yahoo, Outlook, iCloud, Godaddy, Zoho, Aol, Exchange, and Yandex. This will help you build a good reputation at all the top email services provider’s spam filters. 
+
+PS: Write a personalized subject line in the manual process to get a better response.
+
+3. Maintain conversation threads
+Email accounts are not meant just to send messages; you should get some responses.
+To achieve maximum deliverability, creating engagement in your warm-up emails is essential. So, start the conversation by sending emails from your other email accounts and reply to those emails from the new one. 
+Here having some regular conversations is vital as it’s a continuous process of 8-12 weeks. So if possible, add your new email address on your website for inbound emails and swiftly reply to those to have a better conversation rate.  
+This simple process assures the email service provider about your authentic email activities. The continuous email conversation increases your email sending quota and gradually makes your account eligible for sending mass emails.
+
+4. Subscribe to newsletters
+If you are in sales, marketing, recruitment, or any other profession, there would be a lot of publications sending out weekly newsletters.
+Go out and subscribe to a minimum of 10-15 newsletters. Every newsletter needs a confirmation, get back to your inbox and confirm every subscription.
+It will validate your account and will increase the email inflow. Regularly receiving emails is equally important than sending to warm your new email account.
+
+5. Maintain time gap between two consecutive emails
+Every email service provider has distinct algorithms to check how the emails are sent and received.
+So make those algorithms know that you are not a robot, and avoid sending too many emails at once. If you send a lot of emails continuously, it will affect your domain reputation. 
+The best way to avoid it is to keep a time interval of a few seconds between two emails while you are warming up your new account.
+Avoid sending too many emails at one go; such activities trigger spam filters, which may lead to blocking your account temporarily or permanently.
+
+6. Set up a personalized test campaign
+After you have completed 12 weeks of manual warm-up, your account will get ready to send cold emails. You can pick a tool like Saleshandy to send your cold email.
+However, it’s good to start small and simple. Begin the first campaign(sequence) with a small list of 20-30 trusted recipients with friends and colleagues added so that you get a response.
+
+1) Personalize your email
+When your primary goal is warming up your email account, you need to make your recipients open your email and reply to it. Personalizing your email will do the trick for you. 
+Using Saleshandy, write a personalized email and sound like a human. Along with that, create a personalized subject line to have the best open rate. The personalized message is critical to increasing the number of replies.
+send personalized cold emails
+
+2) Avoid spammy content
+Including spam content in your emails makes your account more vulnerable to spam filters. Avoid using words like FREE, GRAB, 50%, etc. in your emails, which attracts the attention of spam filters. 
+Avoid content that creates an adverse effect on your sender’s reputation. Keep the content clean, simple, and plain with a limited number of links to get the best delivery. 
+
+3) Add unsubscribe link
+Even though you are sending a test campaign(sequence) to a small list, it’s advisable to include an unsubscribe link in your email.
+While warming up your email account, you should limit every possibility that the recipient gets to spam your emails. Even a single spam report against a new account can negatively affect your reputation.
+Adding an unsubscribe link in your emails allows your recipients to choose if they want to receive your emails or not. This feature not only makes your recipients happy but also keeps your emails away from SPAM filters.
+
+7. Best bonus practices
+Following the above best practices to warm-up an email account before sending cold emails will help you activate your account’s large list of cold email campaigns.
+Below, we are listing some other bonus tips that will be helpful to you for maintaining your sender reputation and email deliverability. 
+1) Write like a real human
+2) Use limited links in your email content
+3) Choose your email service provider wisely according to your need
+4) Use limited media files like images, videos, and GIF.

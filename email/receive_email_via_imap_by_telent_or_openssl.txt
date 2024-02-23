@@ -1,0 +1,59 @@
+Refer: https://www.mybluelinux.com/test-imap-with-telnet/
+注意：指令开始要加a<NUM>，如a1, a2, ...等
+
+IMAP commands generally look like this:
+# Command Input :
+<RandomStringID> <command> [<arg1><arg2>…]
+# IMAP server answer:
+<RandomStringID> OK <ANSWER DETAIL>
+
+Here are some useful imap commands:
+LOGIN [id] [username] [password]
+LIST [id] [flags] [folder separator] [search term]
+STATUS [id] [mailbox] [flags]
+SELECT [id] [mailbox]
+FETCH [id] [first]:[last] flags
+FETCH [id] [mail number] body[header]
+FETCH [id] [mail number] body[text]
+LOGOUT
+
+例：
+$ telnet imap.example.com 143 (或 openssl s_client -quiet -4 -connect imap.example.com:993)
+Trying 192.0.2.2...
+Connected to imapserver.example.com.
+Escape character is '^]'.
+* OK Dovecot ready.
+a1 LOGIN MyUsername MyPassword
+a1 OK Logged in.
+a2 LIST "" "*"
+* LIST (\HasNoChildren \UnMarked \Sent) "." Sent
+* LIST (\HasNoChildren \UnMarked \Drafts) "." Drafts
+* LIST (\HasNoChildren) "." "INBOX"
+a2 OK List completed.
+a3 EXAMINE INBOX
+* FLAGS (\Answered \Flagged \Deleted \Seen \Draft)
+* OK [PERMANENTFLAGS ()] Read-only mailbox.
+* 1 EXISTS
+* 1 RECENT
+* OK [UNSEEN 1] First unseen.
+* OK [UIDVALIDITY 1257842737] UIDs valid
+* OK [UIDNEXT 2] Predicted next UID
+a3 OK [READ-ONLY] Select completed.
+a4 FETCH 1 BODY[]
+* 1 FETCH (BODY[] {405}
+Return-Path: sender@example.com
+Received: from client.example.com ([192.0.2.1])
+        by mx1.example.com with ESMTP
+        id <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+        for <recipient@example.com>; Tue, 20 Jan 2004 22:34:24 +0200
+From: sender@example.com
+Subject: Test message
+To: recipient@example.com
+Message-Id: <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+
+This is a test message.
+)
+a4 OK Fetch completed.
+a5 LOGOUT
+* BYE Logging out
+a5 OK Logout completed.

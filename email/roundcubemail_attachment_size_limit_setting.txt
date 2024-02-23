@@ -1,0 +1,6 @@
+1) php -i| egrep "upload_max_filesize|post_max_size"
+2) /etc/php.ini
+  post_max_size = 48M
+  upload_max_filesize = 20M
+3) Restart Apache(httpd)
+Ref: https://www.linuxquestions.org/questions/linux-newbie-8/roundcube-webmail-attach-size-limit-4175652736/

@@ -1,0 +1,49 @@
+# For Debian
+1. Enable ssl module
+sudo a2enmod ssl
+sudo a2enmod rewrite
+
+To show all modules:
+apachectl -M (Debian etc.)
+
+2. Change certificate path, /etc/apache2/sites-available/default-ssl.conf
+<VirtualHost *:443>
+    # ...
+    SSLCertificateFile /home/acme/iveteran.me.cert.pem
+    SSLCertificateKeyFile /home/acme/iveteran.me.key.pem
+    # ...
+<VirtualHost>
+
+3. Redirecting to HTTPS, /etc/apache2/sites-available/000-default.conf
+<VirtualHost *:80>
+    # ...
+    RewriteEngine on
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]
+    # ...
+<VirtualHost> 
+
+# For CentOS
+1. Install mod_ssl
+sudo dnf install mod_ssl
+
+To show ssl modules:
+httpd -M | grep ssl (CentOS etc.)
+
+2. Change certificate path, /etc/httpd/conf.d/ssl.conf
+SSLCertificateFile /home/acme/iveteran.me.cert.pem
+SSLCertificateKeyFile /home/acme/iveteran.me.key.pem
+
+3. (CentOS) Let SELinux allow Apache to access /home/acme
+# Refer: https://www.serverlab.ca/tutorials/linux/web-servers-linux/configuring-selinux-policies-for-apache-web-servers/
+sudo semanage fcontext -a -t httpd_sys_content_t "/home/acme(/.*)?"  # add policy
+semanage fcontext -l | grep http_ | grep acme # show policy of added
+sudo restorecon -Rv /home/acme  # reload policy
+ls -lZ /home/acme  # show result
+matchpathcon /var/www/html /home/acme  # another method to show files/directories policy
+
+4. (SELinux)与Apache相关的SELinux policy，只能侦听端口如下的:
+sudo semanage port -l | grep "\<http_port_t\>"
+http_port_t                    tcp      80, 81, 443, 488, 8008, 8009, 8443, 9000
+或者增加policy:
+sudo semanage port -m -t http_port_t -p tcp PORT

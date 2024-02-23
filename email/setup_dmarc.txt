@@ -2,14 +2,56 @@ Refs:
   1) https://learn.microsoft.com/zh-cn/microsoft-365/security/office-365-security/email-authentication-dmarc-configure?view=o365-worldwide
   2) https://support.google.com/a/answer/2466563?hl=en&ref_topic=2759254&sjid=8043596655281309718-AP
   3) https://zhuanlan.zhihu.com/p/447782132
+  4) https://www.linuxbabe.com/mail-server/create-dmarc-record
 
 Add a DNS txt record:
   type: TXT
   name: _dmarc
-  value: v=DMARC1; p=none; rua=mailto:admin@yourdomain.com
+  value: v=DMARC1; p=none; pct=100; fo=1; rua=mailto:admin@yourdomain.com
 
 example:
 v=DMARC1; p=reject; rua=mailto:postmaster@yourdomain.com, mailto:dmarc@yourdomain.com; pct=100; adkim=s; aspf=s
 
 # 查询email服务的DMARC
 dig txt _dmarc.yourdomain.com
+
+OpenDMARC:
+refer: https://www.linuxbabe.com/mail-server/opendmarc-postfix-ubuntu
+
+# Install
+sudo apt install opendmarc (Debian)
+sudo dnf install opendmarc (CentOS)
+
+sudo systemctl status opendmarc
+
+# Check DMARC of domain:
+$ opendmarc-check goe.works
+DMARC record for goe.works:
+        Sample percentage: 100
+        DKIM alignment: relaxed
+        SPF alignment: relaxed
+        Domain policy: none
+        Subdomain policy: unspecified
+        Aggregate report URIs:
+                mailto:yu@goe.works
+        Failure report URIs:
+                (none)
+
+# Add option(local:opendmarc/opendmarc.sock) to Postfix configure file:
+/etc/postfix/main.cf
+# make sure opendmarc.sock behind of opendkim.sock
+smtpd_milters = local:opendkim/opendkim.sock,local:opendmarc/opendmarc.sock
+
+# Some examples of top sites:
+$ dig +short txt _dmarc.paypal.com
+"v=DMARC1; p=reject; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com"
+$ dig +short txt _dmarc.meta.com
+"v=DMARC1; p=reject; pct=100; rua=mailto:a@dmarc.facebookmail.com; ruf=mailto:fb-dmarc@datafeeds.phishlabs.com;"
+$ dig +short txt _dmarc.yahoo.com
+"v=DMARC1; p=reject; pct=100; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com;"
+$ dig +short txt _dmarc.google.com
+"v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com"
+$ dig +short txt _dmarc.outlook.com
+"v=DMARC1; p=none; sp=quarantine; pct=100; rua=mailto:rua@dmarc.microsoft; ruf=mailto:ruf@dmarc.microsoft; fo=1"
+$ dig +short txt _dmarc.x.com
+"v=DMARC1; p=none; rua=mailto:caf935f12c8645b2921b0749d1fcd49e@dmarc-reports.cloudflare.net"

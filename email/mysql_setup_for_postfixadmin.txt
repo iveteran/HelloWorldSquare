@@ -1,0 +1,14 @@
+sudo mysql -u root # I had to use "sudo" since it was a new installation
+
+mysql> USE mysql;
+mysql> CREATE USER 'YOUR_SYSTEM_USER'@'localhost' IDENTIFIED BY 'YOUR_PASSWD';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'YOUR_SYSTEM_USER'@'localhost';
+mysql> UPDATE user SET plugin='auth_socket' WHERE User='YOUR_SYSTEM_USER';
+mysql> FLUSH PRIVILEGES;
+mysql> exit;
+
+mysql -uroot -p'123456' -e "create user 'postfix'@'localhost' identified by 'YOUR_PASSWD';"
+mysql -uroot -p'123456' -e "create database postfix default character set utf8 collate utf8_bin;"
+mysql -uroot -p'123456' -e "grant all on postfix.* to 'postfix'@'%' identified by 'postfix';"
+mysql -uroot -p'123456' -e "delete from user where user='';"
+mysql -uroot -p'123456' -e "flush privileges;"

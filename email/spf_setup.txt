@@ -1,0 +1,53 @@
+How to set up SPF checking in Postfix
+Configure Postfix to check SPF records and fight e-mail spoofing.
+Refer: https://beamtic.com/enable-postfix-spf-checking
+
+By. Jacob
+Edited: 2023-05-21 14:50
+
+Add DNS txt record:
+txt	@	v=spf1 a mx ~all
+
+Postfix does not typically check SPF records automatically, so this is something you need to manually configure – luckily it takes very few steps to do so on an Ubuntu server.
+policyd-spf is a Phython-based service for checking SPF records. You will need to install it before you carry on to configure your Postfix server.
+
+1. Install the policyd-spf package:
+sudo apt install postfix-policyd-spf-python
+(CentOS) sudo dnf install pypolicyd-spf
+Note. There is also a perl package, postfix-policyd-spf-perl, if you prefer, but in this tutorial I will use the Python package.
+
+2. Edit your master.cf file. E.g:
+nano /etc/postfix/master.cf
+Then add the following two lines at the bottom:
+
+policyd-spf  unix  -       n       n       -       0       spawn
+    user=policyd-spf argv=/usr/bin/policyd-spf
+
+(CentOS)
+policyd-spf  unix  -       n       n       -       0       spawn
+    user=policyd-spf argv=/usr/libexec/postfix/policyd-spf
+
+3. Edit the /etc/postfix/main.cf file.
+You can go ahead and add policyd-spf_time_limit = 3600 – this option controls the timeout for policyd process.
+This edit will depend on your existing configuration; your smtpd_recipient_restrictions needs to have check_policy_service added to it, so it will probably end up looking like this:
+
+policyd-spf_time_limit = 3600
+smtpd_recipient_restrictions =
+  permit_sasl_authenticated,
+  permit_mynetworks,
+  reject_unauth_destination,
+  check_policy_service unix:private/policyd-spf
+
+4. Restart Postfix to make your changes go into effect.
+systemctl restart postfix
+You should now be done with the configuration.
+
+Verify that your setup is working
+You can verify that Postfix is checking SPF records correctly by examining your /var/log/mail.log file. E.g. grep is perfect for searching through log files:
+OR sudo journalctl | grep 'Received-SPF'
+
+grep -R "Received-SPF" /var/log/
+This should result in something like:
+
+May 19 11:32:17 ip-172-31-1-1 policyd-spf[113343]: prepend Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=x.x.x.x; helo=example.com; envelope-from=user@example.com; receiver=<UNKNOWN>
+

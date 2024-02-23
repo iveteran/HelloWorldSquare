@@ -1,0 +1,121 @@
+伪装发送者测试SPF
+
+1. 用不存在的域名和发送者邮箱
+$ ping faker.me
+ping: faker.me: No address associated with hostname
+---
+$ openssl s_client -quiet -starttls smtp -connect mail.goe.works:587
+helo faker.me
+250 mail.goe.works
+mail from:abc@faker.me
+250 2.1.0 Ok
+rcpt to:yu@goe.works   
+450 4.1.8 <abc@faker.me>: Sender address rejected: Domain not found
+
+2. 用他人的域名和发送者邮箱
+$ dig +short txt faker.com
+"v=spf1 -all"
+---
+$ openssl s_client -quiet -starttls smtp -connect mail.goe.works:587
+helo faker.com 
+250 mail.goe.works
+mail from:yu@faker.com
+250 2.1.0 Ok
+rcpt to:yusen@goe.works
+550 5.7.23 <yusen@goe.works>: Recipient address rejected: Message rejected due to: SPF fail - not authorized. Please see http://www.openspf.net/Why?s=mfrom;id=yu@yusen.com;ip=2408:8456:3a00:ea44:ee9e:6a41:8ad3:bb15;r=goe.works
+data
+554 5.5.1 Error: no valid recipients
+quit
+221 2.0.0 Bye
+closed
+
+2. 用他人的邮件服务域名和发送者邮箱, spf设置为softfail(~all)
+$ dig +short txt matrix.works
+"v=spf1 a mx ~all"
+----
+$ openssl s_client -quiet -starttls smtp -connect mail.goe.works:587
+helo mail.matrix.works
+250 mail.goe.works
+mail from:yu@matrix.works
+250 2.1.0 Ok
+rcpt to:yusen@goe.works
+250 2.1.5 Ok
+data
+354 End data with <CR><LF>.<CR><LF>
+this mail are sent from telnet/openssl client, it is not authorized for sender.
+.
+250 2.0.0 Ok: queued as DBBE521AC8
+quit
+221 2.0.0 Bye
+
+3. 用他人的邮件服务域名和发送者邮箱, spf设置严格模式fail(-all)
+$ dig +short txt matrix.works
+"v=spf1 a mx -all"
+----
+helo matrix.works
+250 mail.goe.works
+mail from:yu@matrix.works
+250 2.1.0 Ok
+rcpt to:yusen@goe.works
+550 5.7.23 <yusen@goe.works>: Recipient address rejected: Message rejected due to: SPF fail - not authorized. Please see http://www.openspf.net/Why?s=helo;id=matrix.works;ip=2408:8456:3a00:ea44:ee9e:6a41:8ad3:bb15;r=goe.works
+
+
+4. 用他人的邮件服务域名和不存在的发送者邮箱
+$ dig +short txt matrix.works
+"v=spf1 a mx ~all"
+----
+$ openssl s_client -quiet -starttls smtp -connect mail.goe.works:587
+helo mail.matrix.works
+250 mail.goe.works
+mail from:abc@matrix.works
+250 2.1.0 Ok
+rcpt to:yusen@goe.works
+250 2.1.5 Ok
+data
+354 End data with <CR><LF>.<CR><LF>
+this is a faker message
+.
+250 2.0.0 Ok: queued as A808D21AC8
+
+
+5. 用不存在的邮件服务(域名存在)和发送者邮箱
+$ dig +short txt yusen.me
+<<EMPTY>>
+----
+$ openssl s_client -quiet -starttls smtp -connect mail.goe.works:587
+helo mail.yusen.me
+250 mail.goe.works
+mail from:abc@yusen.me
+250 2.1.0 Ok
+rcpt to:yusen@goe.works
+250 2.1.5 Ok
+data
+354 End data with <CR><LF>.<CR><LF>
+from: Abc<abc@yusen.me>
+to: yu<yusen@goe.works>
+subject: this is fake message
+some text here.
+.
+250 2.0.0 Ok: queued as AC42C21AC8
+quit
+221 2.0.0 Bye
+
+6. PTR(Reverse DNS), 发者送IP没有PTR记录
+$ curl ifconfig.me
+2408:8456:3a00:ea44:ee9e:6a41:8ad3:bb15
+$ dig +short -x 2408:8456:3a00:ea44:ee9e:6a41:8ad3:bb15
+<<EMPTY>>
+$ openssl s_client -quiet -starttls smtp -connect mail.goe.works:587
+helo matrix.works
+250 mail.goe.works
+mail from:yu@matrix.works
+250 2.1.0 Ok
+rctp to:yusen@goe.works
+500 5.5.2 Error: command not recognized
+rcpt to:yusen@goe.works
+450 4.7.1 Client host rejected: cannot find your reverse hostname, [2408:8456:3a00:ea44:ee9e:6a41:8ad3:bb15]
+
+相关配置(/etc/postfix/main.cf)：
+smtpd_sender_restrictions =
+   reject_unknown_reverse_client_hostname
+   # ...

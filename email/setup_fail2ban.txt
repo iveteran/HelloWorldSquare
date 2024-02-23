@@ -1,0 +1,38 @@
+** For Debian 12 **
+
+1) Edit /etc/fail2ban/filter.d/common.conf:
+[lt_short]
+# Common (short) line prefix for logtype "journal" (corresponds output of formatJournalEntry):
+#__prefix_line = \s*(?:<__hostname>\s+)?(?:<_daemon><__pid_re>?:?\s+)?(?:<__kernel_prefix>\s+)?
+__prefix_line = .*(?:<__hostname>\s+)?(?:<_daemon><__pid_re>?:?\s+)?(?:<__kernel_prefix>\s+)?
+...
+
+
+2) Edit /etc/fail2ban/jail.local:
+ignoreip = 127.0.0.1/8 ::1 
+destemail = postmaster@goe.works
+sender = fail2ban@goe.works
+
+[postfix-sasl]
+
+enabled = true
+filter   = postfix[mode=auth]
+port     = smtp,465,submission,imap,imaps,pop3,pop3s
+# You might consider monitoring /var/log/mail.warn instead if you are
+# running postfix since it would provide the same log lines at the
+# "warn" level but overall at the smaller filesize.
+logpath  = %(postfix_log)s
+#backend  = %(postfix_backend)s
+backend = systemd
+journalmatch = SYSLOG_IDENTIFIER=postfix/smtpd
+bantime = 1d
+
+3) Test
+sudo fail2ban-regex -v --journalmatch='SYSLOG_IDENTIFIER="postfix/smtpd"' systemd-journal postfix[mode=auth]
+
+4) Apply changes
+#sudo systemctl restart fail2ban
+#sudo systemctl status fail2ban
+sudo fail2ban-client reload
+sudo fail2ban-client status postfix-sasl
+sudo iptables -L f2b-postfix-sasl -v -n --line-numbers

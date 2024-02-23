@@ -1,0 +1,7 @@
+# Debian: apt install pflogsumm
+sudo journalctl | pflogsumm -d yesterday
+
+# CentOS: dnf install postfix-perl-scripts
+sudo pflogsumm -d yesterday /var/log/maillog
+
+pflogsumm -d yesterday /var/log/maillog --problems-first --rej-add-from --verbose-msg-detail -q | mutt -s "Postfix log summary `date +%F`" admin@matrix.works

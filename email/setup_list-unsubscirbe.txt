@@ -1,0 +1,13 @@
+How it works: unsubscribe implementation methods 
+(Refer: https://mailtrap.io/blog/list-unsubscribe-header/)
+
+To implement the opt-out option in your email header, your email server must first be configured.
+For example, this is how to add the list-unsubscribe header to all outgoing emails using Postfix:
+in /etc/postfix/main.cf, set header_checks to:
+header_checks = regexp:/etc/postfix/list_unsub_header 
+
+create a list_unsub_header file in /etc/postfix/ and add the following:
+/^Content-Transfer-Encoding:/i PREPEND List-Unsubscribe: mailto:<sender-email-address>?subject=unsubscribe>"
+
+Restart Postfix it with:
+sudo systemctl restart postfix

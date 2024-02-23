@@ -1,0 +1,6 @@
+1) postconf | grep message_size_limit
+2) postconf -e message_size_limit=51200000
+   postconf -e virtual_mailbox_limit=XXXX (optionally, if you are using a virtual mailbox configuration)
+3) systemctl restart postfix
+Ref: https://electrictoolbox.com/postfix-email-size-limit/
+     https://serverfault.com/questions/327416/changing-the-maximum-mail-size-in-postfix

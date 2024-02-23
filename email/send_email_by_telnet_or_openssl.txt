@@ -1,0 +1,57 @@
+$ telnet smtp.163.com 25 (openssl s_client -quiet -starttls smtp -connect smtp.163.com:587)
+Trying 123.125.50.134...
+Connected to smtp.163.com.
+Escape character is '^]'.
+220 163.com Anti-spam GT for Coremail System (163com[20141201])
+HELO mail.example.com  # 检测邮件服务是否可用(可选)
+250 OK
+EHLO mail.example.com  # 显示邮件服务的相关信息(可选)
+250-mail.goe.works
+250-PIPELINING
+250-SIZE 51200000
+250-VRFY
+250-ETRN
+250-AUTH PLAIN LOGIN CRAM-MD5
+250-AUTH=PLAIN LOGIN CRAM-MD5
+250-ENHANCEDSTATUSCODES
+250-8BITMIME
+250-DSN
+250-SMTPUTF8
+250 CHUNKING
+AUTH LOGIN         # 开始用户认证/登入
+334 dXNlcm5hbWU6
+ZGV2b3BzYWRtaW4=   # 用户名base64编码，用户名带@后续部分，如:yu@example.com
+334 UGFzc3dvcmQ6
+xxxxxxxxxxxxxxxx   # 密码的base64编码   
+235 Authentication successful
+MAIL FROM:<devopsadmin@163.com>   # 设置邮件发送者
+250 Mail OK
+RCPT TO:<liumiaocn@outlook.com>   # 设置邮件接收者
+250 Mail OK
+DATA                              # 邮件数据开始指令
+354 End data with <CR><LF>.<CR><LF>
+FROM: devopsadmin@163.com
+To: liumiaocn@outlook.com
+Subject: confirm information
+Hi, Michael
+
+I got your message.
+Looking forward to meeting you.
+
+Thanks & Best Regards.
+.                                 # 邮件数据结束指令，单独一行
+250 Mail OK queued as smtp4,DtGowAAHhSrBwV5bL3XJAA--.5571S2 1532936690  # 发送成功
+Connection closed by foreign host.
+
+
+---------------- base64 encodec/decodec ----------------
+
+$ echo -n "devopsadmin" | base64
+ZGV2b3BzYWRtaW4=
+$ echo "ZGV2b3BzYWRtaW4=" | base64 -d
+devopsadmin
+
+$ echo "devopsadmin" | base64
+ZGV2b3BzYWRtaW4K
+$ echo "ZGV2b3BzYWRtaW4K" | base64 -d
+devopsadmin

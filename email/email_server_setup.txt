@@ -1,0 +1,539 @@
+Refers:
+1) https://www.ilanni.com/?cat=936
+2) https://ubuntu.com/server/docs/mail-postfix
+3) https://postfix-configuration.readthedocs.io/en/latest/index.html
+4) https://www.postfix.org/SASL_README.html
+5) https://doc.dovecot.org/
+6) https://www.sidn.nl/en/news-and-blogs/hands-on-implementing-spf-dkim-and-dmarc-in-postfix
+
+DNS设置
+1) DNS主机
+e.g.: a	    @	x.x.x.x
+2) CNAME
+e.g.: cname	mail	iveteran.me.
+2) MX记录
+e.g.: mx	@	mail.iveteran.me.
+3) SPF记录
+# e.g.: txt	@	v=spf1 mx:mail.iveteran.me ip4:x.x.x.x ~all
+e.g.: txt	@	v=spf1 a mx ~all
+4) DMAC记录
+e.g.: txt	_dmarc	v=DMARC1; p=none; rua=mailto:yuu@iveteran.me
+5) DKIM记录
+e.g.: txt	default._domainkey	v=DKIM1;k=rsa;p=DKIM-GENERATED-PUBLIC-KEY
+6) 反向DNS(DNS PTR)
+Linode: setting location: Dashboard -> Linodes(enter a host) -> Network (tab)
+-> IP Addresses -> Edit RDNS (IPv4 and IPv6)
+
+主机名修改
+hostname mail.iveteran.me
+modify /etc/hostname to mail.iveteran.me
+modify /etc/mailname to iveteran.me
+
+创建邮件专用用户
+groupadd -g 5000 vmail
+useradd -g vmail -u 5000 -s /sbin/nologin vmail
+mkdir /home/vmail
+chown -R vmail:vmail /home/vmail
+chmod g+rx /home/vmail
+usermod -aG vmail apache (CentOS) 或 usermod -aG acme www-data (Debian)
+usermod -aG vmail postfix
+usermod -aG vmail dovecot
+
+防火墙设置(CentOS)
+firewall-cmd --permanent --zone=public --add-port=24/tcp
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --permanent --zone=public --add-service=smtp
+firewall-cmd --permanent --zone=public --add-service=smtps
+firewall-cmd --permanent --zone=public --add-service=smtp-submission
+firewall-cmd --permanent --zone=public --add-service=pop3
+firewall-cmd --permanent --zone=public --add-service=pop3s
+firewall-cmd --permanent --zone=public --add-service=imap
+firewall-cmd --permanent --zone=public --add-service=imaps
+
+防火墙设置(Debian)
+sudo apt install ufw
+sudo  ufw enable
+sudo  ufw status verbose
+sudo ufw allow openssh
+sudo ufw allow 24/tcp comment 'replacement port of sshd'
+sudo ufw allow www
+sudo ufw allow https
+sudo ufw allow "Postfix"
+sudo ufw allow "Postfix SMTPS"
+sudo ufw allow "Postfix Submission"
+#sudo ufw allow imaps
+#sudo ufw allow pop3s
+sudo ufw allow "Dovecot Secure IMAP"
+sudo ufw allow "Dovecot Secure POP3"
+
+软件列表:
+postfix (邮件发送服务器)
+postfix是一个电子邮件服务器，它为了改良sendmail邮件服务器而产生的
+
+dovecot (邮件接收服务器)
+dovecot是一个开源的IMAP和POP3邮件服务器，支持Linux/Unix系统
+dovecot可以被其他具有相同功能的软件替代，比如：cyrus-imapd/cyrus-pop3d
+
+cyrus-sasl (SMTP认证服务器)
+cyrus-sasl(Simple Authentication Security Layer)简单认证安全层, SASL主要是用于SMTP认证。而cyrus-sasl在OS里面，saslauthd是其守护进程。
+
+postfixadmin
+基于web的postfix邮件发送服务器的管理工具
+用于管理postfix的虚拟域名和邮件用户，前提是这些数据是存储在mysql或者是PostgreSQL数据库
+
+roundcubemail
+roundcubemail是一个基于浏览器、支持多国语言的IMAP客户端
+
+安装(Debian)
+sudo apt install sasl2-bin
+sudo apt install postfix
+sudo apt install postfix-sqlite
+sudo apt install postfixadmin
+sudo apt install dovecot-core
+sudo apt install dovecot-pop3d
+sudo apt install dovecot-imapd
+sudo apt install dovecot-lmtpd
+sudo apt install dovecot-ldap
+#sudo apt install dovecot-sqlite
+sudo apt install dovecot-mysql
+sudo apt install dovecot-imapd
+sudo apt install dovecot-pop3d
+sudo apt install sqlite3
+sudo apt install mariadb-server mariadb-client
+
+安装(CentOS)
+sudo dnf install cyrus-sasl
+sudo dnf install cyrus-sasl-plain
+sudo dnf install postfix
+sudo dnf install postfix-mysql
+sudo dnf install dovecot
+sudo dnf install dovecot-mysql
+
+配置
+sasl2
+Ref: https://www.postfix.org/SASL_README.html
+1) 列出支持的认证方式：saslauthd -v
+2) 配置文件：/etc/default/saslauthd, 增加或修改如下：
+> START=yes
+#> MECHANISMS="shadow"
+3) 重启saslauthd
+sudo systemctl stop saslauthd
+sudo systemctl start saslauthd
+或 手动运行: sudo saslauthd -a shadow -O "-c -m /var/run/saslauthd"
+4) 测试
+sudo testsaslauthd -u yuu -p xxxx
+
+postfix
+1) 显示所有配置: postconf -d, 显示版本：postconf -d | grep mail_version
+2) 生成saslauth配置文件: /etc/postfix/sasl/smtpd.conf
+> pwcheck_method: saslauthd
+> mech_list: plain login
+> log_level: 3
+> saslauthd_path:/var/run/saslauthd/mux
+3) /etc/postfix/main.cf:
+myhostname = mail.iveteran.me
+mydomain = iveteran.me
+myorigin = $mydomain
+inet_interfaces = all
+mydestination = $myhostname, localhost.$mydomain, localhost
+local_recipient_maps =
+
+#启用SMTP认证
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = /var/spool/postfix/private/auth
+smtpd_sasl_application_name = smtpd
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_local_domain = $myhostname
+broken_sasl_auth_clients = yes
+smtpd_recipient_restrictions = permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination,reject_unknown_sender_domain
+smtpd_sasl_security_restrictions = permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
+smtpd_client_restrictions = permit_sasl_authenticated
+smtpd_sasl_security_options = noanonymous
+proxy_read_maps = $local_recipient_maps $mydestination $virtual_alias_maps $virtual_alias_domains $virtual_mailbox_maps $virtual_mailbox_domains $relay_recipient_maps $relay_domains $canonical_maps $sender_canonical_maps $recipient_canonical_maps $relocated_maps $transport_maps $mynetworks $virtual_mailbox_limit_maps
+
+#启用虚拟用户
+#virtual_mailbox_base = /home/vmail
+virtual_mailbox_base = /home/vmail/maildir
+virtual_mailbox_domains = proxy:mysql:/etc/postfix/sql/mysql_virtual_domains_maps.cf
+virtual_alias_maps =
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_maps.cf,
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_maps.cf,
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf
+virtual_mailbox_maps =
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_mailbox_maps.cf,
+   proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_mailbox_maps.cf
+virtual_uid_maps = static:5000
+virtual_gid_maps = static:5000
+virtual_transport = dovecot
+dovecot_destination_recipient_limit = 1
+
+# 禁用VRFY命令，vrfy用于检测邮箱账号是否存在: vrfy username
+disable_vrfy_command = yes
+
+# 默认延迟发送速率
+default_destination_rate_delay = 2s
+# 默认最大收件人数量
+default_destination_recipient_limit = 50
+
+/etc/postfix/master.cf，注意：第三行开始要有两个空格
+> smtp      inet  n       -       n       -       -       smtpd
+> dovecot   unix  -       n       n       -       -       pipe
+>   flags=DRhu user=vmail:vmail argv=/usr/libexec/dovecot/dovecot-lda -f ${sender} -d ${recipient}  # CentOS
+>   # flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -f ${sender} -d ${user}@${nexthop}  # Debian
+
+4) 显示日志
+journalctl -t postfix/smtpd -t postfix/smtp
+a) smtpd is for incoming emails (the d stands for daemon which clients talk to),
+b) smtp for outgoing emails, and
+c) by specifying both, you see both in a combined log view.
+更多日志
+a) 增加smtpd_tls_loglevel = 4
+b) Increase daemon verbosity
+/etc/postfix/master.cf and adding a -v after the entry. For example, edit the smtp entry:
+smtp      unix  -       -       -       -       -       smtp -v
+5) 测试
+postmap -q iveteran.me mysql:/etc/postfix/sql/mysql_virtual_domains_maps.cf
+postmap -q yuu@iveteran.me mysql:/etc/postfix/sql/mysql_virtual_mailbox_maps.cf
+
+7) 测试发信，在邮件服务器本机测试，否则会出现错误: 454 4.7.1 <xxxxx@iveteran.me>: Relay access denied
+telnet mail.iveteran.me 25 (smtp)
+mail from:admin@iveteran.me
+rcpt to:xxxx@iveteran.me
+data
+.
+quit
+
+dovecot
+1) 显示所有配置: doveconf -n
+2) 修改如下文件
+a) /etc/dovecot/dovecot.conf
+passdb {
+  driver = sql
+  args = /etc/dovecot/dovecot-sql.conf.ext
+}
+userdb {
+  driver = static
+  #args = uid=5000 gid=5000 home=/home/vmail/%d/%n
+  args = uid=5000 gid=5000 home=/home/vmail/maildir/%d/%n
+}
+#调试日志
+auth_debug_passwords=yes
+mail_debug=yes
+auth_verbose=yes
+auth_verbose_passwords=plain
+
+Log SASL debug info
+/etc/dovecot/conf.d/10-logging.conf
+auth_debug=yes
+auth_debug_passwords=yes
+
+b) /etc/dovecot/conf.d/10-auth.conf
+disable_plaintext_auth = no
+auth_mechanisms = plain login cram-md5
+
+c) /etc/dovecot/conf.d/10-mail.conf
+mail_location = maildir:/home/vmail/maildir/%d/%n/Maildir
+
+d) /etc/dovecot/conf.d/10-ssl.conf
+ssl = no
+
+e) /etc/dovecot/conf.d/10-master.conf
+service auth {
+  # ...
+  unix_listener auth-userdb {
+    mode = 0600
+    user = vmail
+    group = vmail
+  }
+  # Postfix smtp-auth
+  unix_listener /var/spool/postfix/private/auth {
+    mode = 0666
+    user = postfix
+  }
+  # ...
+}
+
+f) /etc/dovecot/conf.d/15-lda.conf
+postmaster_address = postmaster@example.com
+
+g) 创建/etc/dovecot/dovecot-sql.conf.ext
+driver = mysql
+connect = host=localhost dbname=postfix user=postfix password=postfix
+default_pass_scheme = MD5-CRYPT
+password_query = SELECT username AS user,password FROM mailbox WHERE username='%u' AND active='1'
+user_query = SELECT maildir, 5000 AS uid, 5000 AS gid, CONCAT('dict:storage=',floor(quota/1000),'proxy::quota') as quota FROM mailbox WHERE username='%u' AND active='1'
+
+3) 显示日志
+journalctl -t dovecot
+
+4) 测试收信端口连接
+telnet yourdomain.tld 110 (pop3)
+telnet yourdomain.tld 143 (imap)
+
+postfixadmin (CentOS)
+tar xf postfixadmin-VERSION.tar.gz
+mv postfixadmin-VERSION /var/www/html/postfixadmin-VERSION
+chown -R apache:apache /var/www/html/postfixadmin-VERSION
+chmod -R 755 /var/www/html/postfixadmin-VERSION
+cd /var/www/html/
+ln -s postfixadmin-VERSION/public postfixadmin
+或修改/etc/httpd/conf/httpd.conf
+<IfModule alias_module>
+ Alias /postfixadmin /var/www/html/postfixadmin-VERSION/public
+</IfModule alias_module>
+
+sudo chown -R apache:apache /var/www/html/postfixadmin-VERSION
+SELinux:
+sudo semanage fcontext -m -t httpd_sys_content_t "postfixadmin-VERSION(/.*)?"
+sudo restorecon -Rv postfixadmin-VERSION
+
+(CentOS) 创建postfix用户和数据库，见mysql_setup_for_postfixadmin.txt
+
+postfixadmin (Debian)
+sudo apt install postfixadmin  # Debian下安装时会引导创建对应的数据库和用户
+add configure file: /etc/apache2/conf-enabled/postfixadmin.conf, the content is:
+Alias /postfixadmin /usr/share/postfixadmin/public
+
+sudo chown -R www-data:www-data /usr/share/postfixadmin/
+
+cd /usr/share/postfixadmin/(Debian)或/var/www/html/postfixadmin-VERSION(CentOS)
+创建config.local.php:
+<?php
+$CONF['database_type'] = 'mysqli';
+$CONF['database_user'] = 'postfix';
+$CONF['database_password'] = 'PASSWORD-HERE';
+$CONF['database_name'] = 'postfix';
+
+$CONF['aliases'] = '1024';
+$CONF['mailboxes'] = '1024';
+$CONF['maxquota'] = '1024';
+$CONF['domain_quota_default'] = '2048';
+
+$CONF['encrypt'] = 'dovecot:CRAM-MD5';
+
+$CONF['configured'] = true;
+
+$CONF['setup_password'] = 'changeme';
+
+$CONF['footer_text'] = 'Return to YOUR-DOMAIN-NAME.com';
+$CONF['footer_link'] = 'https://YOUR-DOMAIN-NAME.com';
+?>
+在浏览器打开http://yourdomain.tld/postfixadmin/setup.php，按提示进行设置
+
+集成apache
+add configure file: /etc/apache2/conf-enabled/postfixadmin.conf, the content is:
+Alias /postfixadmin /usr/share/postfixadmin/public
+apache日志:
+sudo tail -f /var/log/apache2/error.log
+sudo tail -f /var/log/apache2/access.log
+
+PHP配置
+(Debian 12) /etc/php/8.2/cli/php.ini, /etc/php/8.2/apache2/php.ini
+(CentOS) /etc/php.ini
+date.timezone = Asia/Chongqing
+
+SSL证书，详见acme相关说明
+1. 生成证书
+1) 新建acme用户和用户组
+$ useradd acme --shell /bin/nologin
+2) 下载acme和安装
+$ git clone https://github.com/acmesh-official/acme.sh.git
+cd ./acme.sh
+./acme.sh --install -m my@example.com
+source ~/.bashrc
+3) 在DNS服务商(GoDaddy, Cloudflare等)申请API Key，设置API Key要环境变量，GoDaddy为例:
+$ export GD_Key="xxxxx"
+$ export GD_Secret="xxxxxx"
+4) 生成证书
+$ acme.sh --issue --dns dns_gd -d example.com -d *.example.com
+5) 授权acme用户组可读取证书, 将apache,postfix,dovecot加入acme用户组
+$ chmod g+rx /home/acme
+$ usermod -aG acme apache (CentOS) 或 usermod -aG acme www-data (Debian)
+$ usermod -aG acme postfix
+$ usermod -aG acme dovecot
+
+5) (CentOS) Let SELinux allow Apache to access /home/acme
+# Refer: https://www.serverlab.ca/tutorials/linux/web-servers-linux/configuring-selinux-policies-for-apache-web-servers/
+#sudo chcon -R -t httpd_sys_content_t /home/acme
+sudo semanage fcontext -a -t httpd_sys_content_t "/home/acme(/.*)?"  # add policy
+semanage fcontext -l | grep http_ | grep acme # show policy of added
+sudo restorecon -Rv /home/acme  # reload policy
+ls -lZ /home/acme  # show result
+
+2. postfix支持SSL(支持smtps)
+1) 建立证书的链接
+cd /etc/postfix/ssl
+ln -s /home/acme/example.com.cert.pem mail.cert
+ln -s /home/acme/example.com.key.pem mail.key
+2) 配置, 在/etc/postfix/main.cf加入如下:
+> # SSL
+> smtpd_tls_auth_only = no
+> smtp_use_tls = yes
+> smtpd_use_tls = yes
+> smtp_tls_note_starttls_offer = yes
+> smtpd_tls_key_file = /etc/postfix/ssl/mail.key
+> smtpd_tls_cert_file = /etc/postfix/ssl/mail.cert
+> #smtpd_tls_CAfile = /etc/postfix/ssl/cacert.pem
+> smtpd_tls_loglevel = 1
+> smtpd_tls_received_header = yes
+> smtpd_tls_session_cache_timeout = 3600s
+> tls_random_source = dev:/dev/urandom
+3) 配置StartTLS，在/etc/postfix/master.cf添加或取消注释:
+submission      inet n       -       n       -       -       smtpd
+  -o syslog_name=postfix/submission
+  -o smtpd_tls_security_level=encrypt
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_tls_auth_only=yes
+submissions     inet  n       -       n       -       -       smtpd
+  -o syslog_name=postfix/submissions
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+4) 测试连接
+openssl s_client -quiet -connect yourdomain.tld:465 (smtps/submission)
+openssl s_client -starttls smtp -connect yourdomain.tld:587 (starttls/submissions)
+openssl s_client -starttls smtp -connect yourdomain.tld:25 (starttls)
+
+3. dovecot支持证书(支持pop3s,imaps)
+1) 建立证书的链接
+cd /etc/dovecot/ssl
+ln -s /home/acme/example.com.cert.pem mail.cert
+ln -s /home/acme/example.com.key.pem mail.key
+2) 配置，在/etc/dovecot/conf.d/10-ssl.conf加入或修改:
+> ssl = yes
+> ssl_cert = </etc/dovecot/ssl/mail.cert
+> ssl_key = </etc/dovecot/ssl/mail.key
+3) 测试连接
+openssl s_client -quiet -connect yourdomain.tld:993 (imaps)
+openssl s_client -quiet -connect yourdomain.tld:995 (pop3s)
+
+4. apache支持https
+详见apache_enable_https.txt
+
+Problem & solution:
+1) [autoindex:error] [pid 312646:tid 312692] [client 51.158.154.217:36972]
+AH01276: Cannot serve directory /var/www/html/: No matching DirectoryIndex (index.html,index.php) found,
+and server-generated directory index forbidden by Options directive
+Solutions:
+a) 在/etc/httpd/conf/httpd.conf, 添加index.php
+<IfModule dir_module>
+ DirectoryIndex index.html index.php
+</IfModule>
+b) 在/var/www/html/中添加index.html
+
+5. 关闭非加密端口，(也可通过防火墙控制)
+#1) postfix(smtp): 在/etc/postfix/master.cf中注释掉：
+#smtp      inet  n       -       n       -       -       smtpd  # 注：不能关闭否则会发信和收信失败
+#2) dovecot(pop3,imap)，在/etc/dovecot/conf.d/10-master.conf设置如下:
+#service pop3-login {
+#    inet_listener pop3 {
+#        port = 0  # 设置为0
+#    }
+#}
+#service imap-login {
+#    inet_listener imap {
+#        port = 0  # 设置为0
+#    }
+#}
+
+Webmail (Roundcube)
+(Debian 12):
+sudo apt install roundcube  # Debian下安装时会引导创建对应的数据库和用户
+sudo apt install php-curl
+sudo apt install php-ldap
+sudo apt install php-zip
+sudo apt install php-net-ldap3
+
+CentOS Stream 9:
+wget https://github.com/roundcube/roundcubemail/releases/download/1.6.6/roundcubemail-1.6.6-complete.tar.gz
+tar xvf roundcubemail-1.6.6-complete.tar.gz
+sudo mv roundcubemail-1.6.6 /var/www/html
+cd /var/www/html
+sudo chown -R apache:apache roundcubemail-1.6.6
+
+SELinux policy:
+sudo semanage fcontext -m -t httpd_sys_content_t "/var/www/html/roundcube-VERSION(/.*)?"
+sudo restorecon -Rv /var/www/html/roundcubemail-VERSION/
+sudo setsebool -P nis_enabled 1
+sudo setsebool -P httpd_read_user_content 1
+sudo setsebool -P httpd_can_network_connect 1
+sudo setsebool -P httpd_can_sendmail 1
+
+sudo ln -s roundcubemail-1.6.6/public_html webmail
+
+# dependency
+sudo dnf info php-intl
+
+add user(roundcube) and database(roundcube) for roundcube
+$ mariadb -u SUPER_USER -p
+MariaDB> CREATE USER roundcube@localhost IDENTIFIED BY 'newpasswd';
+MariaDB> CREATE DATABASE roundcube DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+MariaDB> GRANT ALL ON roundcube.* TO 'roundcube'@'localhost';
+
+(Debian) Add below line to /etc/roundcube/apache.conf:
+Alias /webmail /var/lib/roundcube/public_html
+
+(Debian)
+问题：Apache日志报错：AH00037: Symbolic link not allowed or link target not accessible: ...
+解决：
+/etc/apache2/conf-available/roundcube.conf相关修改为如下：
+<Directory /var/lib/roundcube/public_html/>
+  Options +FollowSymLinks
+  AllowOverride None
+  # ...
+</Directory>
+或/var/lib/roundcube/.htaccess相关修改为：
+<IfModule mod_rewrite.c>
+# Options +SymLinksIfOwnerMatch  # 注释掉此行，因为Roundcube的skins和plugins会引用/usr/share/javascript中文件，而这些文件是root的，不是www-data用户的
+# ...
+</IfModule>
+
+修改配置/etc/roundcube/config.inc.php:
+$config['smtp_host'] = 'localhost:25';
+
+基于Web页面的配置(Debain)
+cd /var/lib/roundcube/public_html
+ln -s /usr/share/roundcube/installer .
+在/etc/roundcube/config.inc.php 增加或修改：
+$config['enable_installer'] = true;
+
+基于Web页面的配置(CentOS)
+cd /var/www/html/roundcube-VERSION/public_html(CentOS)
+ln -s ../installer .
+
+配置完成后:
+rm installer
+$config['enable_installer'] = false;
+
+Roundcube plugins:
+sudo apt install roundcube-plugins roundcube-plugins-extra
+Enigma PHP GunPG module:
+sudo pear install Crypt_GPG
+Edit: /etc/roundcube/plugins/enigma/config.inc.php, Add:
+$config['enigma_pgp_homedir'] = '/usr/share/roundcube/keyfiles';
+Create dir:
+mkdir /usr/share/roundcube/keyfiles,
+sudo chown -R www-data:www-data /usr/share/roundcube/keyfiles;
+如果/var/lib/roundcube/plugins/enigma/openpgp.min.js不存在，如下下载:
+wget https://www.zjk.pl/roundcube/plugins/enigma/openpgp.min.js
+mv openpgp.min.js /var/lib/roundcube/plugins/enigma/
+
+(Debian)
+chown -R www-data:www-data public_html
+chown -R www-data:www-data plugins
+chown -R www-data:www-data skins
+
+(CentOS)
+chown -R apache:apache public_html
+chown -R apache:apache plugins
+chown -R apache:apache skins
+
+配置spf, dmarc, dkim, list-unsubscribe
+见setup_spf.txt, setup_dmarc.txt, setup_dkim_for_postfix.sh, setup_list-unsubscirbe.txt
+1) 测试分数: www.mail-tester.com
+2) 发送邮件到check@dmarcly.com
+
+邮件文档加密存储
+将/etc/postfix/main.cf、/etc/dovecot/dovecot.conf和/etc/dovecot/conf.d/10-mail.conf中相关/home/vmail代替为/home/vmail/maildir
+见https://github.com/iveteran/helloworld/encryption/luks_for_encrypted_file_manual.txt
+见https://github.com/iveteran/helloworld/email/vmail_scripts

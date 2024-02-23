@@ -1,0 +1,15 @@
+[Unit]
+Description=Email vmail mount volume service
+# Copy this file to /etc/systemd/system/
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/home/vmail/bin/vmail_mount_volume.sh
+
+[Install]
+WantedBy=multi-user.target

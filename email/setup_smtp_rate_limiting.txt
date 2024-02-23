@@ -1,0 +1,61 @@
+SMTP Rate Limiting
+(refer: https://www.linuxbabe.com/mail-server/how-to-stop-your-emails-being-marked-as-spam)
+
+We can use a Postfix policy daemon called policyd-rate-limit.
+
+sudo apt install policyd-rate-limit
+
+Edit the configuration file.
+sudo vim /etc/policyd-rate-limit.yaml
+
+Find the following lines.
+limits:
+    - [10, 60] # limit to 10 mails by minutes
+    - [150, 86400] # limits to 150 mails by days
+
+The default limits are too restrictive. I use the following setting, so my Postfix SMTP server can send up to 20,000 emails per hour.
+limits:
+    - [333, 60] # limit to 333 mails per minute
+
+Also, find the following two lines.
+limit_by_sender: False
+limit_by_ip: False
+
+And change the value to True.
+limit_by_sender: True
+limit_by_ip: True
+
+Save and close the file. Next, edit the utils.py file.
+sudo nano /usr/lib/python3/dist-packages/policyd_rate_limit/utils.py
+
+Find the following line. (Line 88)
+self._config = yaml.load(f)
+
+In Python 3, calling the yaml.load() fucntion without Loader=... is deprecated, so we need to replace it with:
+self._config = yaml.load(f, Loader=yaml.SafeLoader)
+
+Save and close the file. Then edit Postfix main configuration file.
+sudo nano /etc/postfix/main.cf
+
+Tell Postfix to use the rate-limiting service with the following setting. The check_policy_service should be the first restriction.
+smtpd_recipient_restrictions =
+    check_policy_service { unix:ratelimit/policy, default_action=DUNNO },
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    ...
+    ...
+
+Save and close the file. Then edit the Postfix master.cf file.
+sudo nano /etc/postfix/master.cf
+
+Find the submission and smtps section. Change
+-o smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
+to
+-o smtpd_sender_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
+
+Save and close the file. Then restart Postfix and the policy server.
+sudo systemctl restart postfix policyd-rate-limit
+
+Now send a test email from your email client, and check the log of policy daemon.
+sudo journalctl -eu policyd-rate-limit
+If everything is working, you should see that policd-rate-limit found the sasl_username and insert an id for the sasl_username.
