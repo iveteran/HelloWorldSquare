@@ -6,3 +6,6 @@ lsblk # show disk info
 date -d @1657074760  # unix timestamp to date string
 date +%s  # show current unix timestamp
 date -d '2008-12-18 12:34:00' +%s
+
+# echo shows flash word
+echo -e "\033[1;5;31mWarning\033[0m" change the password.

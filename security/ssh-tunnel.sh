@@ -1,1 +1,1 @@
-ssh -D 1081 -N -f yuu@jp.iveteran.me
+ssh -p24 -i ~/.ssh/iv.id_rsa -D 1081 -E ssh.log -N -f yuu@vpn.iveteran.me

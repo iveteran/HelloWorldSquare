@@ -1,0 +1,328 @@
+15 SELinux chcon Command Examples to Change Security Context
+(refer: https://www.thegeekstuff.com/2017/07/chcon-command-examples/)
+
+by RAMESH NATARAJAN on JULY 17, 2017
+
+SELinux chconIn SELinux, one of the frequent task that you may do is to change the security context of an object. For this, you’ll use chcon command.
+chcon stands for Change Context.
+This command is used to change the SELinux security context of a file.
+This tutorial explains the following chcon command examples:
+
+Change the Full SELinux Context
+Change Context Using Another File as a Reference
+Change Only the User in SELinux Context
+Change Only the Role in SELinux Context
+Change Only the Type in SELinux Context
+Change Only the Range (Level) in SELinux Context
+Combine User, Role, Type, Level in chcon
+Default Behavior of Chcon on Symbolic Link
+Force Change SELinux Context of Symbolic Link
+Change SELinux Context Recursively
+Display Verbose Details of chcon Operation
+Chcon Default Behavior on Symbolic links for Recursive
+Force chcon to Traverse Specified Symbolic links for Recursive
+Force chcon to Traverse ALL Symbolic links for Recursive
+Chcon Behavior on / root directory for Systemwide Change
+
+1. Change the Full SELinux Context
+To view security context of a file, use -Z (uppercase Z) option in the ls command as shown below.
+
+# ls -lZ httpd.conf
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 httpd.conf
+In the above example, the security context of the httpd.conf file is the following:
+
+unconfined_u:object_r:admin_home_t:s0
+That is a wrong SELinux context for the httpd.conf file that is under /etc/httpd/conf directory.
+
+So, to change the security context, use the following chcon command.
+
+# chcon system_u:object_r:httpd_config_t:s0 httpd.conf
+In the above example, we have changed the security context of httpd.conf file to the following, which is the correct one.
+
+system_u:object_r:httpd_config_t:s0
+We can verify this by using the following ls -lZ command.
+
+# ls -lZ httpd.conf
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 httpd.conf
+Note: In the above example, we are giving the full SELinux context of a file (i.e user, role, type and range) in the format of user:role:type:range without breaking it any further.
+
+Anytime you are faced with some SELinux related issues, you may be tempted to just Disable SELinux as we explained earlier. But, in many situations, you may find-out that it is just that the file in question is having a wrong security context, which can be changed using chcon command.
+
+2. Change Context Using Another File as a Reference
+Sometimes you might not know what SELinux context you should be setting for a file.
+
+In that case, you can use the security context of another file as a reference, and use that to assign it to your file.
+
+Basically, instead of specifying the full SELinux context for the file, you are just using another file’s context for your file.
+
+In the following example, we see that both ssl.conf and httpd.conf has different SELinux context.
+
+# ls -lZ
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 ssl.conf
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 httpd.conf
+In this case, we know that the ssl.conf file has the correct security context. But, the httpd.conf has incorrect one.
+
+So, we’ll change the security context of httpd.conf file, but we’ll use the context of ssl.conf as a reference for this change as shown below.
+
+# chcon --reference=ssl.conf httpd.conf
+After the above change, you can see that the httpd.conf file has the same security context as the ssl.conf file.
+
+# ls -lZ
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 ssl.conf
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 httpd.conf
+On a related note, to view the current status of SELinux use sestatus command. It is important that you understand the output of sestatus command as explained here: 3 SELinux sestatus Command Output Explained with Examples
+
+3. Change Only the USER in SELinux Context
+Instead of changing the whole SELinux security context, we can also change only partial value of it.
+
+The following is the current security context of the httpd.conf file.
+
+# ls -lZ httpd.conf 
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 httpd.conf
+In the above example, “unconfined_u” is the USER part of the security context.
+
+Using chcon -u option, we can change only the user part of the security context.
+
+In the following example, we are setting the user part of the security context to system_u for the httpd.conf file.
+
+# chcon -u system_u httpd.conf
+As you see from the following output, only the USER part of the security context is changed for the httpd.conf file.
+
+# ls -lZ httpd.conf
+-rw-r--r--. root root system_u:object_r:admin_home_t:s0 httpd.conf
+You can also use –user instead of -u. Both of the following commands are exactly the same.
+
+# chcon --user system_u httpd.conf
+# chcon -u system_u httpd.conf
+
+4. Change Only the ROLE in SELinux Context
+Using chcon -r option, we can change only the ROLE part of the security context.
+
+In the following example, we are setting the role part of the security context to object_r for the httpd.conf file.
+
+# chcon -r object_r httpd.conf
+As you see from the following output, only the ROLE part of the security context is changed for the httpd.conf file.
+
+# ls -lZ httpd.conf
+-rw-r--r--. root root system_u:object_r:admin_home_t:s0 httpd.conf
+When you give a role that is not recognized by SELinux, you’ll get the following invalid argument error. In this example, there is no such role as “identity_r”.
+
+# chcon -r identity_r httpd.conf
+chcon: failed to change context of ‘httpd.conf’ to ‘system_u:identity_r:admin_home_t:s0’: Invalid argument
+You can also use –role instead of -r. Both of the following commands are exactly the same.
+
+# chcon --role object_r httpd.conf
+# chcon -r object_r httpd.conf
+
+5. Change Only the TYPE in SELinux Context
+This is probably what you’ll use mostly, as TYPE is what we are concerned with most of the time in a typical SELinux setup.
+
+The following is the current security context of the httpd.conf file.
+
+# ls -lZ httpd.conf 
+-rw-r--r--. root root system_u:object_r:admin_home_t:s0 httpd.conf
+In the above example, “admin_home_t” is the TYPE part of the security context.
+
+Using chcon -t option, we can change only the type part of the security context.
+
+In the following example, we are setting the type part of the security context to httpd_config_t for the httpd.conf file.
+
+# chcon -t httpd_config_t httpd.conf
+As you see from the following output, only the TYPE part of the security context is changed for the httpd.conf file.
+
+# ls -lZ httpd.conf
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 httpd.conf
+You can also use –type instead of -t. Both of the following commands are exactly the same.
+
+# chcon -t httpd_config_t httpd.conf
+# chcon --type httpd_config_t httpd.conf
+
+6. Change Only the RANGE (Level) in SELinux Context
+Using chcon -l option, we can change only the RANGE part (which is also called as level) of the security context. Range is used only in MLS and in a typical situation, we might not change the range.
+
+In the following example, we are setting the range part of the security context to “s0” for the httpd.conf file.
+
+# chcon -l s0 httpd.conf
+As you see from the following output, only the ROLE part of the security context is changed for the httpd.conf file.
+
+# ls -lZ httpd.conf
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 httpd.conf
+You can also use –range instead of -l. Both of the following commands are exactly the same.
+
+# chcon -l s0 httpd.conf
+# chcon --range s0 httpd.conf
+
+7. Combine User, Role, Type, Level in chcon
+You can combine the user (-u), role (-r), type (-t), or level (-l) option in chcon.
+For example, the following will change all four of them as shown below.
+# chcon -u system_u -r object_r  -t httpd_config_t -l s0 httpd.conf
+
+Or, you can mix and match and change only few of them at a time. For example, in the following example, we are changing only the USER and TYPE of the httpd.conf file.
+# chcon -u system_u -t httpd_config_t httpd.conf
+
+8. Default Behavior of Chcon on Symbolic Link
+In the following example, apache.conf is a symbolic link to the httpd.conf file. Both of them has the wrong security context.
+# ls -lZ
+lrwxrwxrwx. unconfined_u:object_r:admin_home_t:s0 apache.conf -> httpd.conf
+-rw-r--r--. unconfined_u:object_r:admin_home_t:s0 httpd.conf
+In the following example, I’m changing the USER and TYPE for the apache.conf symbolic link.
+
+# chcon -u system_u -t httpd_config_t apache.conf
+BUT, as you see here, this has really changed the SELinux context for the file it is pointing to instead of changing it for the symbolic link.
+
+# ls -lZ
+lrwxrwxrwx. unconfined_u:object_r:admin_home_t:s0 apache.conf -> httpd.conf
+-rw-r--r--. system_u:object_r:httpd_config_t:s0 httpd.conf
+This is the default behavior of chcon command. i.e It will change the context of the file it is pointing to instead of the symbolic link itself.
+This behavior is called as de-referencing. Chcon has an option called –dereference which will change the file instead of the symbolic link.
+
+Both of the following example as exactly the same.
+# chcon -u system_u -t httpd_config_t apache.conf
+# chcon --dereference -u system_u -t httpd_config_t apache.conf
+
+9. Force Change SELinux Context of Symbolic Link
+Instead of changing security context of the file that is referenced by a symbolic link, you can also force chcon to change the context of the symbolic link itself.
+In the following example, apache.conf is a symbolic link to the httpd.conf file. Both of them has the wrong security context.
+
+# ls -lZ
+lrwxrwxrwx. unconfined_u:object_r:admin_home_t:s0 apache.conf -> httpd.conf
+-rw-r--r--. unconfined_u:object_r:admin_home_t:s0 httpd.conf
+When we specify –no-dereference option in chcon, it will change the context of the symbolic link and not the file it is pointing to.
+So, the following example will change the USER and TYPE for apache.conf symbolic link (and not the httpd.conf file).
+# chcon --no-dereference -u system_u -t httpd_config_t apache.conf
+
+As you see from the following, only the SELinux context of apache.conf symbolic link is changed to the one we specified above.
+# ls -lZ
+lrwxrwxrwx. system_u:object_r:httpd_config_t:s0 apache.conf -> httpd.conf
+-rw-r--r--. unconfined_u:object_r:admin_home_t:s0 httpd.conf
+Instead of –no-dereference, we can also specify ‘-h’ option as shown below.
+Both of the following command are exactly the same.
+
+# chcon -h -u system_u -t httpd_config_t apache.conf
+# chcon --no-dereference -u system_u -t httpd_config_t apache.conf
+
+10. Change SELinux Context Recursively
+In this example, the following the current security linux context of all the files under conf.d
+
+# ls -lZ conf.d/
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 autoindex.conf
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 nss.conf
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 README
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 userdir.conf
+-rw-r--r--. root root unconfined_u:object_r:admin_home_t:s0 welcome.conf
+Using the chcon -R recursive option, we can change recursively all the files in the conf.d to the give security context as shown below.
+
+# chcon -R system_u:object_r:httpd_config_t:s0 conf.d
+As you see below, the context is recursively changed for all the files in the conf.d
+
+# ls -lZ conf.d
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 autoindex.conf
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 nss.conf
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 README
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 userdir.conf
+-rw-r--r--. root root system_u:object_r:httpd_config_t:s0 welcome.conf
+Note: If there are other sub-directories inside conf.d, all of those sub-directories and the files underneath them will also be affected by the -R option.
+
+You can also use –recursive option. Both of the following command are exactly the same.
+
+# chcon --recursive system_u:object_r:httpd_config_t:s0 conf.d
+# chcon -R system_u:object_r:httpd_config_t:s0 conf.d
+
+11. Display Verbose Details of chcon Operation
+Using -v option, you can display the details of what chcon is doing.
+
+-v stands for verbose, which will display the name of the file that is currently getting processed by the chcon command as shown below.
+
+This is very helpful when you are combining with -R recursive option, where you may be changing the context of lot of file, and you like to see what chcon is currently doing as shown below.
+
+# chcon -Rv system_u:object_r:httpd_config_t:s0 conf.d
+changing security context of ‘conf.d/README’
+changing security context of ‘conf.d/autoindex.conf’
+changing security context of ‘conf.d/userdir.conf’
+changing security context of ‘conf.d/welcome.conf’
+changing security context of ‘conf.d/nss.conf’
+changing security context of ‘conf.d’
+12. Chcon Default Behavior on Symbolic links for Recursive
+In this example, “config” is a symbolic link to conf.d directory as shown below.
+
+# ls -lZ
+drwxr-xr-x. system_u:object_r:httpd_config_t:s0 conf.d
+lrwxrwxrwx. unconfined_u:object_r:admin_home_t:s0 config -> conf.d
+By default when you do a recursive operation on a symbolic link, it will not traverse the directory structure.
+
+You can see this by combining -v option with -R, which doesn’t show any file names in the output. This indicates that it is not traversing through the “config” symbolic link.
+
+# chcon -Rv -t httpd_config_t config
+changing security context of ‘configuration’
+This default behavior is also referenced by the -P (uppercase P) option.
+
+So, both of the following command are exactly the same. Both will not traverse symbolic links.
+
+# chcon -Rv -t httpd_config_t config
+# chcon -RPv -t httpd_config_t configuration
+
+13. Force chcon to Traverse Specified Symbolic links for Recursive
+In this example, “config” is a symbolic link to conf.d directory as shown below.
+
+# ls -lZ
+drwxr-xr-x. system_u:object_r:httpd_config_t:s0 conf.d
+lrwxrwxrwx. unconfined_u:object_r:admin_home_t:s0 config -> conf.d
+When you specify a symbolic in the chcon command, you can force chcon to traverse it using the -H option as shown below.
+
+As you see from the following output, chcon is traversing through the config symbolic link and processing all the files when we specified “-H” option along with “-R” option.
+
+# chcon -RHv -t httpd_config_t config
+changing security context of ‘config/README’
+changing security context of ‘config/autoindex.conf’
+changing security context of ‘config/userdir.conf’
+changing security context of ‘config/welcome.conf’
+changing security context of ‘config/nss.conf’
+changing security context of ‘config/ndd’
+changing security context of ‘config’
+
+14. Force chcon to Traverse ALL Symbolic links for Recursive
+In this example, “config” is a symbolic link to conf.d directory as shown below.
+
+# ls -lZ
+drwxr-xr-x. system_u:object_r:httpd_config_t:s0 conf.d
+lrwxrwxrwx. unconfined_u:object_r:admin_home_t:s0 config -> conf.d
+In the following example, inside the config directory, we have “ndd” directory, which is a symbolic link.
+
+# ls -l configuration/ndd
+lrwxrwxrwx. 1 root root 6 Jul  8 00:13 configuration/ndd -> ../ndd
+If you want chcon command to traverse all the symbolic link it encounters during the recursive operation, you should specify -L option.
+
+The following option has combined -L option with -R option. This will traverse every symbolic link it encounters. For example, as you see below, this has traversed the “ndd” symbolic link and processed all the files accordingly.
+
+# chcon -RLv -t httpd_config_t configuration
+changing security context of ‘configuration/README’
+changing security context of ‘configuration/autoindex.conf’
+changing security context of ‘configuration/userdir.conf’
+changing security context of ‘configuration/welcome.conf’
+changing security context of ‘configuration/nss.conf’
+changing security context of ‘configuration/ndd/nd1-conf’
+changing security context of ‘configuration/ndd/nd2-conf’
+changing security context of ‘configuration/ndd/nd3-conf’
+changing security context of ‘configuration/ndd/nd-main.conf’
+changing security context of ‘configuration/ndd’
+changing security context of ‘configuration’
+Note: When you are specifying -P, or -H, or -L option (along with -R), if for some reason, you’ve combined them, then whatever is specified as the last option will take into effect.
+
+15. Chcon Behavior on / root directory for System wide Change
+By default, you can use chcon to recursively change SELinux context on all the files under your root filesystem as shown below.
+
+This is called don’t preserve the root option (i.e –no-preserve-root is the default behavior)
+
+WARNING: Don’t execute this command on your system. You’ll end-up having an unusable system. Both of the following command will behave exactly the same.
+
+chcon -Rv system_u:object_r:httpd_config_t:s0 /
+
+chcon -Rv --no-preserve-root system_u:object_r:httpd_config_t:s0 /
+But, it is not recommended, unless you know what you doing, as you don’t want the SELinux context for all the files on your system to be same. If you made a mistake and set a wrong context to a file, you may want to understand how to use restorecon command to restore the SELinux context
+
+When you specify –no-preserve-root option, it will not traverse through the root, when you specify it as a command line option as shown below.
+
+# chcon -Rv --preserve-root system_u:object_r:httpd_config_t:s0 /
+chcon: it is dangerous to operate recursively on `/'
+chcon: use --no-preserve-root to override this failsafe
+Since the default behavior is dangerous, to avoid any accidental mistakes, anytime you are doing -R recursive option on a huge directory (especially from inside a shell script), I recommend that you use –preserve-root. This way by mistake if you give / at the end of the chcon command, it will not accidentally change all the files in your system.
