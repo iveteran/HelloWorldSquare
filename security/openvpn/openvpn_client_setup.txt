@@ -1,0 +1,42 @@
+Ref: https://openvpn.net/community-resources/how-to/
+
+# On host mwx001
+$ sudo apt install openvpn
+$ sudo tree /etc/openvpn
+/etc/openvpn/
+├── client
+├── server
+└── update-resolv-conf
+
+$ sudo scp VPN-SERVER-HOST:~/easy-rsa-dir/ta.key /etc/openvpn/client/
+$ sudo scp VPN-SERVER-HOST:~/easy-rsa-dir/pki/ca.crt /etc/openvpn/client/
+$ sudo scp VPN-SERVER-HOST:~/easy-rsa-dir/pki/issued/client-mwx001.crt /etc/openvpn/client/
+$ sudo scp VPN-SERVER-HOST:~/easy-rsa-dir/pki/private/client-mwx001.key /etc/openvpn/client/
+
+# Generate/Copy sample configure to /etc/openvpn/client/
+$ sudo cp ./conf/client.conf /etc/openvpn/client/
+$ tree /etc/openvpn/
+/etc/openvpn/
+├── client
+│   ├── ca.crt
+│   ├── client.conf
+│   ├── client-mwx001.crt
+│   |── client-mwx001.key
+│   └── ta.key
+├── server
+└── update-resolv-conf
+
+# Start openvpn client manually
+$ sudo openvpn /etc/openvpn/client/client.conf
+
+$ ip a
+...
+4: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 500
+    link/none
+    inet 10.8.0.6 peer 10.8.0.5/32 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e24e:5014:cf3f:28c8/64 scope link stable-privacy
+       valid_lft forever preferred_lft foreve
+...
+
+$ ping 10.8.0.1

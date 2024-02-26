@@ -1,0 +1,126 @@
+Ref: https://openvpn.net/community-resources/how-to/
+     https://zhuanlan.zhihu.com/p/199176752
+
+$ sudo apt install openvpn
+$ sudo tree /etc/openvpn
+/etc/openvpn/
+├── client
+├── server
+└── update-resolv-conf
+$ systemctl status openvpn
+
+# Generate the master Certificate Authority (CA) certificate & key
+$ sudo apt search easy-rsa
+$ dpkg -L easy-ras
+...
+/usr/bin/make-cadir
+...
+/usr/share/easy-rsa/easyrsa
+/usr/share/easy-rsa/openssl-easyrsa.cnf
+/usr/share/easy-rsa/vars.example
+...
+
+$ make-cadir easy-rsa-dir
+$ cd easy-rsa-dir
+$ ./easyrsa help
+$ ./easyrsa init-pki  # 初始化PKI目录
+$ ls -l
+total 24
+lrwxrwxrwx 1 yuu yuu   30 Feb 24 22:30 x509-types -> /usr/share/easy-rsa/x509-types
+-rw-r--r-- 1 yuu yuu 9425 Feb 24 22:30 vars
+-rw-r--r-- 1 yuu yuu 4935 Feb 24 22:30 openssl-easyrsa.cnf
+lrwxrwxrwx 1 yuu yuu   27 Feb 24 22:30 easyrsa -> /usr/share/easy-rsa/easyrsa
+drwx------ 7 yuu yuu 4096 Feb 24 22:51 pki
+
+# Generate certificate & key for server
+$ ./easyrsa build-ca                                    # 建立CA证书
+$ ./easyrsa build-server-full server-HOSTNAME nopass    # 创建服务器证书和密钥
+$ ./easyrsa sign-req server server-HOSTNAME             # 用CA证书签署服务器证书
+# Generate certificates & keys for 2 clients
+$ ./easyrsa build-client-full client-mwx001 nopass      # 创建客户端证书和密钥
+$ ./easyrsa sign-req client client-mwx001               # 用CA证书签署客户端证书
+$ # ./easyrsa build-client-full client-mwx002 nopass
+$ # ./easyrsa sign-req client client-mwx002
+
+$ ./easyrsa gen-dh      # 创建DH密钥
+$ ./easyrsa gen-crl     # 生成证书撤销列表(CRL)密钥，使用./easyrsa revoke NAME 命令可撤销客户端证书
+
+# Additional, Hardening OpenVPN Security
+# The tls-auth directive adds an additional HMAC signature to all SSL/TLS handshake packets for integrity verification
+$ openvpn --genkey secret ta.key
+
+$ tree pki/
+pki/
+├── ca.crt
+├── certs_by_serial
+│   ├── 6A3359EB88DA7A47A2A1D863D5804869.pem
+│   └── D4C9B28337C2EF0E287363CACFE30BC4.pem
+├── crl.pem
+├── dh.pem
+├── index.txt
+├── index.txt.attr
+├── index.txt.attr.old
+├── index.txt.old
+├── issued
+│   ├── client-mwx001.crt
+│   └── server.crt
+├── openssl-easyrsa.cnf
+├── private
+│   ├── ca.key
+│   ├── client-mwx001.key
+│   └── server.key
+├── reqs
+│   ├── client-mwx001.req
+│   └── server.req
+├── revoked
+│   ├── certs_by_serial
+│   ├── private_by_serial
+│   └── reqs_by_serial
+├── safessl-easyrsa.cnf
+├── serial
+├── serial.old
+└── vars.example
+
+$ sudo cp ta.key pki/ca.crt pki/dh.pem pki/private/server.key pki/issued/server.crt /etc/openvpn/server/
+# Generate/Copy sample configure to /etc/openvpn/server/
+$ sudo cp ./conf/server.conf /etc/openvpn/server/
+$ tree /etc/openvpn/
+/etc/openvpn/
+├── client
+├── server
+│   ├── ca.crt
+│   ├── crl.pem
+│   ├── dh.pem
+│   ├── server.conf
+│   ├── server.crt
+│   ├── server.key
+│   └── ta.key
+└── update-resolv-conf
+
+# Start openvpn server manually
+$ sudo openvpn /etc/openvpn/server/server.conf
+
+$ sudo tail -f /var/log/openvpn/openvpn.log
+$ ip a
+...
+5: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 500
+    link/none 
+    inet 10.10.0.1 peer 10.10.0.2/32 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e109:5869:d2f0:e427/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
+...
+
+# Management console
+$ telnet localhost 7505
+
+# Firewall setup
+$ sudo ufw status
+$ sudo ufw allow openvpn comment 'OpenVPN'
+$ sudo ufw reload
+
+(Debian 12)
+$ sudo systemctl start openvpn-server@server
+$ sudo systemctl status openvpn-server@server
+$ sudo systemctl enable openvpn-server@server
+$ sudo journalctl -u openvpn-server@server
