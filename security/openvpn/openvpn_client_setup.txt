@@ -38,5 +38,6 @@ $ ip a
     inet6 fe80::e24e:5014:cf3f:28c8/64 scope link stable-privacy
        valid_lft forever preferred_lft foreve
 ...
+$ route -n OR routel  # Show route table
 
 $ ping 10.8.0.1

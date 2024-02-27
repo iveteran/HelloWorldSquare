@@ -1,4 +1,5 @@
 Ref: https://openvpn.net/community-resources/how-to/
+     https://openvpn.net/community-resources/reference-manual-for-openvpn-2-4/
      https://zhuanlan.zhihu.com/p/199176752
 
 $ sudo apt install openvpn
@@ -110,6 +111,8 @@ $ ip a
     inet6 fe80::e109:5869:d2f0:e427/64 scope link stable-privacy 
        valid_lft forever preferred_lft forever
 ...
+# Show route table
+$ route -n OR routel
 
 # Management console
 $ telnet localhost 7505
