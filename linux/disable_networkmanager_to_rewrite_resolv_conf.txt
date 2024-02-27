@@ -1,0 +1,6 @@
+If your system uses NetworkManager to manage the network, then it is likely configured to automatically override your /etc/resolv.conf file every time the network changes. Meaning, that when you connect to a wireless network, NetworkManager will rewrite /etc/resolv.conf to use the DHCP supplied name servers rather than your local Unbound server. To stop that from happening, create the file /etc/NetworkManager/conf.d/dns.conf that contains:
+[main]
+    dns=none
+
+Then restart NetworkManager (this restart only needs to be done once):
+    systemctl restart NetworkManager

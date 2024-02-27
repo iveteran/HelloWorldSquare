@@ -1,0 +1,53 @@
+Systemd Essentials: Working with Services, Units, and the Journal
+
+Ref: https://www.digitalocean.com/community/tutorials/systemd-essentials-working-with-services-units-and-the-journal
+     https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
+
+sudo systemctl start sshd.service
+sudo systemctl stop sshd.service
+sudo systemctl restart sshd.service
+sudo systemctl reload sshd.service
+sudo systemctl reload-or-restart sshd.service
+
+systemctl status sshd.service
+systemctl is-active sshd.service
+systemctl is-enabled sshd.service
+systemctl is-failed sshd.service
+
+sudo systemctl enable nginx.service
+sudo systemctl disable nginx.service
+
+sudo systemctl mask nginx.service
+sudo systemctl unmask nginx.service
+
+systemctl list-units
+systemctl list-units --all
+systemctl list-units --all --state=inactive
+systemctl list-units --type=service
+systemctl list-unit-files
+
+journalctl
+journalctl -b  # journal entries from the current boot
+journalctl -k  # typically represented by dmesg
+journalctl -u nginx.service
+
+systemctl cat nginx.service
+systemctl list-dependencies nginx.service
+systemctl list-dependencies --all nginx.service
+systemctl show nginx.service
+
+sudo systemctl edit nginx.service
+sudo systemctl edit --full nginx.service
+
+sudo systemctl daemon-reload
+
+systemctl list-unit-files --type=target
+systemctl get-default
+sudo systemctl set-default multi-user.target
+
+systemctl list-dependencies multi-user.target
+sudo systemctl isolate multi-user.target
+
+sudo systemctl poweroff
+sudo systemctl reboot
+sudo systemctl rescue
