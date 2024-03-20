@@ -1,0 +1,7 @@
+# Combine multiple GIFs into one
+$ convert -delay 120 -loop 0 *.gif cutekids_crying.gif
+
+# Create GIF from a list of images
+$ convert -delay 120 -loop 0 *.jpg linux.gif
+  -delay 120 : The GIF animation speed
+  -loop 0 : Infinite loops of the animation.
