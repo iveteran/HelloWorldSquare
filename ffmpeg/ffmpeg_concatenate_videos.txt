@@ -1,0 +1,30 @@
+How to Concatenate mp4 Files Using FFmpeg Easily in 3 Different Ways!
+
+Refer: https://ottverse.com/3-easy-ways-to-concatenate-mp4-files-using-ffmpeg/
+
+1. Concatenate some videos
+1) generate the file that contains videos
+$ cat fileList.txt
+file '/home/file1.mp4'
+file '/home/file1.mp4'
+2) concatenate
+$ ffmpeg -f concat -safe 0 -i fileList.txt -c copy mergedVideo.mp4
+
+2. Concatenate all videos in a directory
+$ for f in *.mp4 ; do echo file \'$f\' >> fileList.txt;
+$ ffmpeg -f concat -safe 0 -i fileList.txt -c copy mergedVideo.mp4
+
+3. Concatenate videos of Different Codecs, Resolutions
+ffmpeg -i file1.mp4 -i file2.mp4 -i file3.mp4 \
+  -filter_complex "[0:v] [0:a] [1:v] [1:a] [2:v] [2:a] concat=n=3:v=1:a=1 [vv] [aa]" \
+  -map "[vv]" -map "[aa]" mergedVideo.mp4
+
+-filter_complex [0:v][0:a] means FFmpeg needs to take the video and audio from the 0th video (file1.mp4).
+concat=n=3 - concat three files (n=3).
+v=1:a=1 - implies that there is one stream for the audio and one stream for the video.
+[vv] [aa] - the names that we have chosen for the output video and audio.
+
+4. Concatenate mp4 Files Using Intermediate File Formats
+$ ffmpeg -i file1.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts fileIntermediate1.ts
+$ cat fileIntermediate1.ts fileIntermediate2.ts > output.ts
+OR ffmpeg -i "concat:fileIntermediate1.ts|fileIntermediate2.ts" -c copy -bsf:a aac_adtstoasc mergedVideo.mp4

@@ -1,0 +1,7 @@
+Reverse a Video using FFmpeg
+
+# Reverse video only
+ffmpeg -i originalVideo.mp4 -vf reverse reversedVideo.mp4
+
+# Reverse video and audio
+ffmpeg -i originalVideo.mp4 -vf reverse -af areverse reversedVideo.mp4

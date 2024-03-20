@@ -1,0 +1,11 @@
+How to Crop a Video with FFmpeg’s crop filter
+Ref: https://ottverse.com/crop-a-video-with-ffmpeg-crop-filter/
+
+# Crop a Video using Pixel Coordinates
+ffmpeg -i input.mp4 -filter_complex "[0:v]crop=200:200:300:100[cropped]" -map "[cropped]" output.mp4
+
+# Crop a Video in FFmpeg with Variables
+ffmpeg -i input.mp4 -filter_complex "[0:v]crop=in_w/2:in_h/2[cropped]" -map "[cropped]" output.mp4
+
+# Crop A Video using FFmpeg from the Bottom Only
+ffmpeg -i input.mp4 -filter_complex "[0:v]crop=in_w:in_h-10:0:0[cropped]" -map "[cropped]" output.mp4

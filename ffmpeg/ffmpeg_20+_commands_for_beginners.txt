@@ -1,0 +1,207 @@
+20+ FFmpeg Commands For Beginners
+Ref: https://ostechnix.com/20-ffmpeg-commands-beginners/
+
+Parameters description:
+-i: input
+-o: output
+-a: audio
+-v: video
+-c: codec
+-q: quality
+-f: format
+-af: audio filter
+-vf: video filter
+-ar: audio rate
+-ab: audio bitrate
+-an: audio none
+-c:a - codec audio
+-c:v - codec video
+
+1. Getting Audio/Video File Information
+ffmpeg -i video.mp4
+ffmpeg -i video.mp4 -hide_banner
+
+2. Converting Video Files To Different Formats
+ffmpeg -i video.mp4 video.avi
+ffmpeg -i video.flv video.mpeg
+
+# preserve the quality of your source video file, use '-qscale 0' parameter
+# 保留原视频质量
+ffmpeg -i input.webm -qscale 0 output.mp4
+
+# get list of supported formats
+ffmpeg -formats
+
+3. Converting Video Files To Audio Files
+ffmpeg -i input.mp4 -vn output.mp3
+
+ffmpeg -i input.mp4 -vn -ar 44100 -ac 2 -ab 320 -f mp3 output.mp3
+  -vn - Indicates that we have disabled video recording in the output file.
+  -ar - Set the audio frequency of the output file. The common values used are  22050, 44100, 48000 Hz.
+  -ac - Set the number of audio channels.
+  -ab - Indicates the audio bitrate.
+  -f - Output file format. In our case, it's mp3 format.
+
+4. Change The Volume Of Audio Files
+ffmpeg -i input.mp3 -af 'volume=0.5' output.mp3
+ffmpeg -i input.mp3 -af 'volume=1.5' output.mp3
+
+5. Change Resolution Of Video Files
+ffmpeg -i input.mp4 -filter:v scale=1280:720 -c:a copy output.mp4
+ffmpeg -i input.mp4 -s 1280x720 -c:a copy output.mp4  # same as above
+
+ffmpeg -i input.mp4 -filter:v scale=640:480 -c:a copy output.mp4
+ffmpeg -i input.mp4 -s 640x480 -c:a copy output.mp4
+
+6. Compressing Video Files
+ffmpeg -i input.mp4 -vf scale=1280:-1 -c:v libx264 -preset veryslow -crf 24 output.mp4
+
+7. Compressing Audio Files
+ffmpeg -i input.mp3 -ab 128 output.mp3
+The list of various available audio bitrates are:
+  96kbps
+  112kbps
+  128kbps
+  160kbps
+  192kbps
+  256kbps
+  320kbps
+
+8. Removing Audio Stream From A Video File
+ffmpeg -i input.mp4 -an output.mp4
+
+9. Removing Video Stream From A Media File
+ffmpeg -i input.mp4 -vn output.mp3
+ffmpeg -i input.mp4 -vn -ab 320 output.mp3
+
+10. Extracting Images From The Video
+ffmpeg -i input.mp4 -r 1 -f image2 image-%2d.png
+  -r - Set the frame rate. I.e the number of frames to be extracted into images per second. The default value is 25.
+  -f - Indicates the output format i.e image format in our case.
+  image-%2d.png - Indicates how we want to name the extracted images.
+                  In this case, the names should start like image-01.png, image-02.png, image-03.png and so on.
+                  If you use %3d, then the name of images will start like image-001.png, image-002.png and so on.
+
+11. Cropping Videos
+ffmpeg -i input.mp4 -filter:v "crop=w:h:x:y" output.mp4
+  input.mp4 - source video file.
+  -filter:v - Indicates the video filter.
+  crop - Indicates crop filter.
+  w - Width of the rectangle that we want to crop from the source video.
+  h - Height of the rectangle.
+  x - x coordinate of the rectangle that we want to crop from the source video.
+  y - y coordinate of the rectangle.
+
+e.g.
+ffmpeg -i input.mp4 -filter:v "crop=640:480:200:150" output.mp4
+
+12. Convert A Specific Portion Of A Video
+# Convert the first 10 seconds of given video.mp4 file to video.avi format
+ffmpeg -i input.mp4 -t 10 output.avi
+
+13. Set The Aspect Ratio To Video
+ffmpeg -i input.mp4 -aspect 16:9 output.mp4
+The commonly used aspect ratios are:
+  16:9
+  4:3
+  16:10
+  5:4
+  2:21:1
+  2:35:1
+  2:39:1
+
+14. Adding Poster Image To Media Files
+ffmpeg -loop 1 -i inputimage.jpg -i inputaudio.mp3 -c:v libx264 -c:a aac -strict experimental -b:a 192k -shortest output.mp4
+
+15. Trim A Media File Using Start And Stop Times
+ffmpeg -i input.mp4 -ss 00:00:50 -codec copy -t 50 output.mp4
+  -ss - Indicates the starting time of the video clip. In our example, starting time is the 50th second.
+  -t  - Indicates the total time duration.
+
+ffmpeg -i audio.mp3 -ss 00:01:54 -to 00:06:53 -c copy output.mp3
+
+16. Split Audio/Video Files Into Multiple Parts
+$ ffmpeg -i input.mp4 -t 00:00:30 -c copy part1.mp4 -ss 00:00:30 -codec copy part2.mp4
+Here:
+-t 00:00:30 indicates a part that is created from the start of the video to the 30th second of video.
+-ss 00:00:30 shows the starting time stamp for the next part of video.
+    It means that the 2nd part will start from the 30th second and will continue up to the end of the original video file.
+
+17. Merge Audio And Video Files
+$ ffmpeg -i inputvideo.mp4 -i inputaudio.mp3 -c:v copy -c:a aac output.mp4
+- With audio re-encoding to acc
+- Assume the audio and video files are same length and the video file doesn't has any audio stream
+
+$ ffmpeg -i inputvideo.mp4 -i inputaudio.mp3 -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
+- The -map option makes ffmpeg only use the first video stream from the first input and the first audio stream from the second input for the output file.
+
+$ ffmpeg -i inputvideo.mp4 -i inputaudio.mp3 -c copy output.mkv
+- without audio re-encoding
+
+18. Joining Or Merging Multiple Audio/Video Parts Into One
+- join.txt file:
+file /home/sk/myvideos/part1.mp4
+file /home/sk/myvideos/part2.mp4
+file /home/sk/myvideos/part3.mp4
+file /home/sk/myvideos/part4.mp4
+$ ffmpeg -f concat -safe 0 -i join.txt -c copy output.mp4
+
+$ ffmpeg -i "concat:audio1.mp3|audio2.mp3|audio3.mp3" -c copy output.mp3
+
+19. Add Subtitles To A Video File
+$ fmpeg -i input.mp4 -i subtitle.srt -map 0 -map 1 -c copy -c:v libx264 -crf 23 -preset veryfast output.mp4
+
+20. Preview Or Test Video Or Audio Files
+$ ffplay video.mp4
+$ ffplay audio.mp3
+
+21. Increase/Decrease Video Playback Speed
+# To increase the video playback speed
+$ ffmpeg -i input.mp4 -vf "setpts=0.5*PTS" output.mp4
+
+# To slow down your video, you need to use a multiplier greater than 1
+$ ffmpeg -i input.mp4 -vf "setpts=4.0*PTS" output.mp4
+
+22. Increase/Decrease Audio Playback Speed
+$ ffmpeg -i input.mp4 -filter:a "atempo=2.0" -vn output.mp4
+- You can use any value between 0.5 and 2.0 for audio.
+
+23. Create Animated GIF
+$ ffmpeg -i sample.mp4 -ss 00:00:20 -to 10 -r 10 -vf scale=200:-1 cutekid_cry.gif
+ -i  : input file sample.mp4
+ -ss : indicates the starting point of GIF
+ -to : End position of the GIF file
+ -r  : frame rate. You can increase the value to get more quality GIF file
+ -vf : filter graph. To scale the GIF image in the desired size.
+
+24. Create Videos From PDF Files
+$ convert -density 400 input.pdf picture.png  # convert PDF to picture using ImageMagick
+$ ffmpeg -r 1/10 -i picture-%01d.png -c:v libx264 -r 30 -pix_fmt yuv420p video.mp4
+  -r 1/10 : Display each image for 10 seconds.
+  -i picture-%01d.png : Reads all pictures that starts with name "picture-", following with 1 digit (%01d) and ending with .png.
+     If the images name comes with 2 digits (I.e picture-10.png, picture11.png etc), use (%02d) in the above command.
+  -c:v libx264 : Output video codec (i.e h264).
+  -r 30 : framerate of output video
+  -pix_fmt yuv420p : Output video resolution
+
+$ ffmpeg -i input.mp4 -vf "transpose=1" output.mp4
+$ ffmpeg -i input.mp4 -vf "transpose=clock" output.mp4
+Here, transpose=1 parameter instructs FFmpeg to transposition the given video by 90 degrees clockwise.
+Here is the list of available parameters for transpose feature.
+  0 - Rotate by 90 degrees counter-clockwise and flip vertically. This is the default.
+  1 - Rotate by 90 degrees clockwise.
+  2 - Rotate by 90 degrees counter-clockwise.
+  3 - Rotate by 90 degrees clockwise and flip vertically.
+
+25. Rotate Videos
+# To rotate videos by 180 degrees clockwise
+$ ffmpeg -i input.mp4 -vf "transpose=2,transpose=2" output.mp4
+
+# Don't want to re-encode the video and change the rotation in the metadata only
+$ ffmpeg -i input.mp4 -c copy -metadata:s:v:0 rotate=90 output.mp4
+
+# Even better, you can copy all the global metadata (such as date, camera details) of the input file to output file
+$ ffmpeg -i input.mp4 -map_metadata 0 -metadata:s:v rotate="90" -codec copy output.mp4
+
+26. Zoom In And Zoom Out Videos
+ffmpeg -i input.mp4 -vf "zoompan=z='if(lte(mod(time,10),3),2,1)':d=1:x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):fps=30" output.mp4

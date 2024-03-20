@@ -1,0 +1,38 @@
+FFmpeg - Overlay one video onto another video
+Ref: https://stackoverflow.com/questions/35269387/ffmpeg-overlay-one-video-onto-another-video
+     https://creatomate.com/blog/how-to-add-a-transparent-overlay-on-a-video-using-ffmpeg
+     https://copyprogramming.com/howto/ffmpeg-overlay-video-on-another-video
+
+Example 1:
+ffmpeg -i input.mov -i overlay.mov \
+-filter_complex "[1:v]setpts=PTS-10/TB[a]; \
+                 [0:v][a]overlay=50:50:enable=gte(t\,5):shortest=1[out]" \
+-map [out] -map 0:a \
+-c:v libx264 -crf 18 -pix_fmt yuv420p \
+-c:a copy \
+output.mov
+
+This starts the overlay at 5 seconds with the overlaid video start point being 00:15.
+
+overlay=50:50 is means we want to position the image 25px to the right and 25px down, originating from the top left corner (0:0)
+setpts=PTS-10/TB is setpts=PTS+(overlay_delay-video_trim_in)/TB
+enable=gte(t\,5) is enable=gte(t\,overlay_delay)
+
+
+Example 2(image overlay video):
+Ref: https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg
+ffmpeg -i input.mp4 -i image.png \
+-filter_complex "[0:v][1:v] overlay=25:25:enable='between(t,0,20)'" \
+-pix_fmt yuv420p -c:a copy \
+output.mp4
+
+overlay=25:25 means we want to position the image 25px to the right and 25px down, originating from the top left corner (0:0).
+enable='between(t,0,20)' means we want the image to show between second 0 and 20.
+
+[0:v][1:v] means that we want the first video file we import with -i, in our case input.mp4 or how ffmpeg sees it, video input file number 0, to be under video input file 1, in our case image.png. :v just means we want the video track from these file sources. [0:a] would mean we want the first imported audio track. Which would also come from input.mp4 but would point to the audio track instead of the video track in the mp4 file.
+
+If you want a certain image quality/settings and not the settings ffmpeg chooses, add the image and or audio encoding options you want to use. The default video encoder will be x264. Check the H.264 encoding guide for possible settings.
+
+The -acodec copy / -c:a copy that you have in your command f.e. would simply re-use the audio from the source file. Though you can't do that with the video of course (in this case), that has to be transcoded because we are creating a new video source.
+
+If you want to transcode audio, remove the -c:a copy part. You may have to explicitly specify an encoder, e.g. -c:a aac -strict experimental. See the AAC encoding guide for more info.

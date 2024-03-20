@@ -1,0 +1,49 @@
+ffmpeg scale down video dynamically (squeeze-back) or zoompan out to smaller than original
+Ref: https://stackoverflow.com/questions/62845459/ffmpeg-scale-down-video-dynamically-squeeze-back-or-zoompan-out-to-smaller-tha
+
+ffmpeg -i bg.mov -i top.mov \
+-filter_complex "[0:v]scale=1920x1080,setpts=PTS-STARTPTS[bg]; [1:v]setpts=PTS-STARTPTS+2/TB, scale=-1:'480+600*abs(sin((t-2)*2*PI/8))':eval=frame[top]; [bg][top]overlay" \
+-vcodec libx264 \
+out.mp4
+
+
+How to Zoom Images and Videos using FFmpeg
+Ref: https://creatomate.com/blog/how-to-zoom-images-and-videos-using-ffmpeg
+
+# Zooming an image
+ffmpeg -loop 1 -framerate 60 -i image.jpg \
+-vf "scale=8000:-1,zoompan=z='zoom+0.001':x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):d=5*60:s=1920x1280:fps=60" \
+-t 5 -c:v libx264 -pix_fmt yuv420p \
+output.mp4
+
+Description:
+1) We begin by scaling the image to 8.000 pixels wide. This gives us a higher resolution for the zoompan filter to produce a smooth zoom effect.
+2) The zoompan filter accepts an expression of the form of z='zoom+0.001' that is evaluated every frame. In this case, we're increasing the zoom factor every frame, creating the zoom-in effect we're looking for.
+3) The x=iw/2-(iw/zoom/2) and y=ih/2-(ih/zoom/2) expressions define the top-left corner of the zoom window within the input image. Keeping the zoom window centered using the iw, ih and zoom variables gives the appearance that the image is zoomed-in to the center.
+4) In order to zoom for 5 seconds at 60 fps with the expression being evaluated each frame, we are setting d=5*60. When this is set to a shorter duration than the total video duration, the zoom effect simply repeats.
+5) s=1920x1280 is the output resolution. It defaults to 1280x720 if we don't specify it.
+6) fps=60 is the output frame rate. It defaults to 25 if we don't specify it.
+7) With -t 5, we specify the total length of the video.
+8) With -c:v libx264 -pix_fmt yuv420p, the video codec is set to H.264 and the pixel format to 4:2:0 subsampling, which is widely supported and makes the video playable on most devices.
+
+# Zooming to another point
+1) Zooming to the top-left corner:
+ffmpeg -loop 1 -framerate 60 -i image.jpg -vf "scale=8000:-1,zoompan=z='zoom+0.001':x=0:y=0:d=5*60:s=1920x1280:fps=60" -t 5 -c:v libx264 -pix_fmt yuv420p output.mp4
+2) Zooming to the top-right corner:
+ffmpeg -loop 1 -framerate 60 -i image.jpg -vf "scale=8000:-1,zoompan=z='zoom+0.001':x=iw-(iw/zoom):y=0:d=5*60:s=1920x1280:fps=60" -t 5 -c:v libx264 -pix_fmt yuv420p output.mp4
+3) Zooming to the bottom-left corner:
+ffmpeg -loop 1 -framerate 60 -i image.jpg -vf "scale=8000:-1,zoompan=z='zoom+0.001':x=0:y=ih-(ih/zoom):d=5*60:s=1920x1280:fps=60" -t 5 -c:v libx264 -pix_fmt yuv420p output.mp4
+4) Zooming to the bottom-right corner:
+ffmpeg -loop 1 -framerate 60 -i image.jpg -vf "scale=8000:-1,zoompan=z='zoom+0.001':x=iw-(iw/zoom):y=ih-(ih/zoom):d=5*60:s=1920x1280:fps=60" -t 5 -c:v libx264 -pix_fmt yuv420p output.mp4
+
+# Zooming out
+ffmpeg -loop 1 -framerate 60 -i image.jpg -vf "scale=8000:-1,zoompan=z='if(lte(zoom,1.0),1.5,max(1.001,zoom-0.0015))':x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):d=5*60:s=1920x1280:fps=60" -t 5 -c:v libx264 -pix_fmt yuv420p output.mp4
+
+# Zooming in a video
+ffmpeg -i video.mp4 -vf "fps=60,scale=8000:-1,zoompan=z='pzoom+0.001':x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):d=1:s=1920x1280:fps=60" -t 5 -c:v libx264 -pix_fmt yuv420p output.mp4
+
+Description:
+1) Using fps=60, we make sure the video is converted to the specified frame rate.
+2) Next, scale=8000:-1 increases the resolution of each frame to increase the smoothness of the zoom effect.
+3) As compared to zooming a still image, the d=1 is the main difference. It tells the zoompan effect to apply to all frames of the video instead of just the first frame. This requires using pzoom instead of zoom in the z='pzoom+0.001' expression in order to work.
+

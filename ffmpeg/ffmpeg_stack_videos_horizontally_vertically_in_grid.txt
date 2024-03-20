@@ -1,0 +1,45 @@
+Stack Videos Horizontally, Vertically, in a Grid With FFmpeg
+
+Refer: https://ottverse.com/stack-videos-horizontally-vertically-grid-with-ffmpeg/
+
+NOTE:
+  The videos that you want to stack need to have the same height.
+  The videos need to have the same pixel format.
+
+
+1. Stack Videos Horizontally
+ffmpeg -i input0.mp4 -i input1.mp4 -filter_complex hstack=inputs=2 horizontal-stacked-output.mp4
+
+2. Stacking Videos Vertically
+ffmpeg -i input0.mp4 -i input1.mp4 -filter_complex vstack=inputs=2 vertical-stack-output.mp4
+
+3. Stacking Videos of Different Lengths
+ffmpeg -i input0.mp4 -i input1.mp4 -filter_complex hstack=inputs=2:shortest=1 shortest-output.mp4
+
+4. 2×2 Grid of Videos
+ffmpeg \
+-i input0.mp4 -i input1.mp4 -i input2.mp4 -i input3.mp4 \
+-filter_complex \
+"[0:v][1:v]hstack=inputs=2[top]; \
+[2:v][3:v]hstack=inputs=2[bottom]; \
+[top][bottom]vstack=inputs=2[v]" \
+-map "[v]" \
+finalOutput.mp4
+
+  firstly, you need to provide 4 input videos with the same height and width
+  next, you stack the first two videos horizontally and call it “top” i.e. [0:v][1:v]hstack=inputs=2[top]
+  then, you you stack the next two videos horizontally and call it “bottom” i.e. [2:v][3:v]hstack=inputs=2[bottom]
+  then, you stack top and bottom vertically to create a 2×2 grid. — [top][bottom]vstack=inputs=2[v]
+  then using the map command, we can extract and push the video track to the output container.
+
+5. 3×2 Grid of Videos
+ffmpeg \
+-i input0.mp4 -i input1.mp4 \
+-i input2.mp4 -i input3.mp4 \
+-i input4.mp4 -i input5.mp4 \
+-filter_complex \
+"[0:v][1:v][2:v]hstack=inputs=3[top];\
+[3:v][4:v][5:v]hstack=inputs=3[bottom];\
+[top][bottom]vstack=inputs=2[v]" \
+-map "[v]" \
+finalOutput.mp4

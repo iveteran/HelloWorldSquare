@@ -1,0 +1,17 @@
+FFMPEG : How to overlay an image on a video
+Ref: https://www.abyssale.com/generate-video/ffmpeg-overlay-image-on-video
+     https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/issues/1154
+
+# Overlay a transparent PNG on a video
+ffmpeg -i video.mp4 -i overlay.png \
+	-filter_complex "[0:v][1:v] overlay=0:0" \
+	-c:a copy \
+	output.mp4
+
+-i video.mp4 is our source video
+-i overlay.png is our PNG overlay
+-filter_complex "[0:v][1:v] overlay=0:0"
+• With [0:v][1:v] we are telling to FFMPEG put the input file with index 0 (the video) under the input file with index 1 (the overlay)
+• With overlay=0:0 we are setting the position of our overlay (in this case, top-left corner as our video and overlay have the exact same width/height)
+-c:a copy  → we want to re-use the audio from the source file
+output.mp4  is the name of the output file

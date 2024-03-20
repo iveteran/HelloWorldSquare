@@ -1,0 +1,11 @@
+Ref: https://ottverse.com/how-to-speed-up-slow-down-video-playback-using-ffmpeg/
+
+# Slow Down Video with FFmpeg
+ffmpeg -i input.mp4 -vf "setpts=2.0*PTS" output.mp4
+
+# Speed Up Video with FFmpeg
+ffmpeg -i input.mp4 -vf "setpts=0.5*PTS" output.mp4
+
+NOTE:
+SetPts will Re-encode your videos
+Just as a cautionary note, when you use setpts in FFmpeg, it will drop frames to achieve the requested speed-up. And, this will force FFmpeg to re-encode your content. Always remember that you can set the video quality you need using CBR, Capped VBR, or CRF techniques while speeding up or slowing down your videos.

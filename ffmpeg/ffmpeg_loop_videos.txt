@@ -1,0 +1,6 @@
+$ ffmpeg -i input.mp4 -stream_loop <loop_count> -c copy output.mp4
+-stream_loop: This option specifies the number of times you want to loop the input video.
+              To loop the video infinitely, use -1 as the loop count.
+              If you want to loop the video a specific number of times (e.g., three times), use 3.
+<loop_count>: Replace this with how many times you want to loop the video.
+              If you want to loop the video indefinitely, use -1.

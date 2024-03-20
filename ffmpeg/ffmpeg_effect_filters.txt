@@ -1,0 +1,47 @@
+CrossFade, Dissolve, and other Effects using FFmpeg’s xfade Filter
+
+Refer: https://ottverse.com/crossfade-between-videos-ffmpeg-xfade-filter/
+       https://ffmpeg.org/ffmpeg-filters.html#xfade
+
+1. Add a CrossFade
+ffmpeg -i video1.mp4 -i video2.mp4 \
+-filter_complex xfade=transition=<FADE_TYPE>:\
+duration=<TRANSITION_DURATION_IN_SECONDS>:\
+offset=<OFFSET_RELATIVE_TO_FIRST_STREAM_IN_SECONDS> \
+outputVideo.mp4
+--
+  <FADE_TYPE> – here, you can choose from a wide range of transitions that the xfade filter supports (fade, dissolve, wipeleft, wiperight, etc.)
+  <TRANSITION_DURATION_IN_SECONDS> – here, you specify how long you want the transition to last
+  <OFFSET_RELATIVE_TO_FIRST_STREAM_IN_SECONDS> – here, you can specify (in seconds)after how many seconds you want the transition to begin relative to the first video
+
+2. Dissolve / 溶解
+ffmpeg -i inputVideo1.mp4 -i inputVideo2.mp4 \
+-filter_complex xfade=transition=dissolve:duration=3:offset=3 \
+dissolveVideo.mp4
+
+3. Radial / 雷达
+ffmpeg -i inputVideo1.mp4 -i inputVideo2.mp4 \
+-filter_complex xfade=transition=radial:duration=5:offset=0 \
+radialVideo.mp4
+
+4. circleopen   / 圆环开启
+5. circleclose  / 圆环关闭
+6. pixelize     / 像素化
+7. hlslice      / Horizontally to Left, 从左到右栅栏式
+8. hrslice      / Horizontally to Right, 从右到左栅栏式
+9. vuslice      / Vertically to Up
+10. vdslice     / Vertically to Down
+11. hblur       / Horizontally Blur
+12. fadegrays   / 灰色过渡
+13. fadeblack   / 黑色过渡
+14. fadewhite   / 白色过渡
+15. rectcrop    / 矩形裁减过渡
+16. circlecrop  / 圆形裁减过渡
+17. wipeleft    / 向左滑过渡
+18. wiperight   / 向右滑过渡
+19. slidedown   / 向下滑过渡
+20. slideup     / 向上滑过渡
+21. slideleft   / 向左滑过渡
+22. slideright  / 向右滑过渡
+23. distance    / 从上向下？从远到近？
+24. diagtl      / 从右下角开始过渡

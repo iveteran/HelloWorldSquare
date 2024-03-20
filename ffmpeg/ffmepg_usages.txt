@@ -1,0 +1,21 @@
+Create Vintage Videos Using FFmpeg in 4 Simple Steps
+Ref: https://ottverse.com/create-vintage-videos-using-ffmpeg/
+
+1. Changing the Frame Rate using FFmpeg
+ffmpeg -i td-10sec.mp4 -filter:v fps=fps=10 td-fast.mp4
+
+2. Give The Video a Vintage Look using FFmpeg’s filters
+ffmpeg -i td-fast.mp4 -vf curves=vintage td-vintage-fast.mp4
+
+3. Getting a Film Grain Overlay and Resizing It
+ffmpeg -i old-film-grain.wmv -vf scale=1920:1080,setsar=1:1 oldFilm1080.mp4
+
+4. Add the Overlay To Your Video
+ffmpeg -i oldFilm1080.mp4 -i td-vintage-fast.mp4 \
+-filter_complex "[0]format=rgba,colorchannelmixer=aa=0.25[fg]; [1][fg]overlay[out]" ] \
+-map [out] \
+-pix_fmt yuv420p -c:v libx264 -crf 18 \
+touchdown-vintage.mp4
+
+5. Extract Last 10 seconds Without Stream Copy Enabled
+ffmpeg -i input.mp4 -sseof -10 output.mp4

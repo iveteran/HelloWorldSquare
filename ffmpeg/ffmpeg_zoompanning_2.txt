@@ -1,0 +1,18 @@
+How To Zoom In And Zoom Out Videos Using FFmpeg
+Ref: https://ostechnix.com/zoom-in-and-zoom-out-videos-using-ffmpeg/
+
+# Zoom in toward the center of the video to 2x zoom for the first 3 seconds of every 10 second block of time
+ffmpeg -i input.mp4 -vf "zoompan=z='if(lte(mod(time,10),3),2,1)':d=1:x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):fps=30" output.mp4
+
+
+# Zoom in up to 1.5x and pan at same time to some spot near center of picture:
+zoompan=z='min(zoom+0.0015,1.5)':d=700:x='if(gte(zoom,1.5),x,x+1/a)':y='if(gte(zoom,1.5),y,y+1)':s=640x360
+
+# Zoom in up to 1.5x and pan always at center of picture:
+zoompan=z='min(zoom+0.0015,1.5)':d=700:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'
+
+# Same as above but without pausing:
+zoompan=z='min(max(zoom,pzoom)+0.0015,1.5)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'
+
+# Zoom in 2x into center of picture only for the first second of the input video:
+zoompan=z='if(between(in_time,0,1),2,1)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'
