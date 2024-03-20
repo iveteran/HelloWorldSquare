@@ -1,0 +1,25 @@
+Debian, goe.works:
+Edit: /etc/apache2/conf-enabled/postfixadmin.conf, Add follow lines:
+<Location "/postfixadmin">
+    Order deny,allow
+    Deny from all
+    # MUST via VPN to access this location
+    Allow From 10.10.0.0/24
+</Location>
+
+Edit /etc/hosts, add:
+# Via VPN(on goe.works) to access admin.goe.works
+10.10.0.1       admin.goe.works
+
+CentOS, matrix.works:
+Add: /etc/httpd/conf.d/postfixadmin.conf, Add follow lines:
+<Location "/postfixadmin">
+    Order deny,allow
+    Deny from all
+    # MUST via VPN to access this location
+    Allow From 10.10.0.0/24
+</Location>
+
+Edit /etc/hosts, add:
+# Via VPN(on matrix.works) to access admin.matrix.works
+10.10.0.2       admin.matrix.works

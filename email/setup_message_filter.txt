@@ -1,0 +1,15 @@
+Pigeonhole ManageSieve Server
+Ref: https://doc.dovecot.org/admin_manual/pigeonhole_managesieve_server/
+
+Install
+(CentOS)
+yum install dovecot-pigeonhole
+
+(Debian)
+apt-get install dovecot-sieve dovecot-managesieved
+
+Configuration
+(CentOS)
+/etc/dovecot/conf.d/20-managesieve.conf, uncomment below line
+protocols = $protocols sieve
+
