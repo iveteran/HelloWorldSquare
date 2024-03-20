@@ -1,0 +1,60 @@
+Golang 借鉴CSP(communicating sequential processes)模型的一些概念作为并发模型的理论支持
+
+1. 不要通过共享内存来通信，而要通过通信来实现内存共享
+  在Golang中，goroutine作为独立的并发实体，channel作为不同实体间数据通信的管道
+
+2. 缓冲类型
+  channel主要分为有缓冲和无缓冲的两种channel
+  两种channel最大的区别是, 有缓冲的channel是非阻塞模型，无缓冲的channel是阻塞模型
+  1) 有缓冲的channel，缓冲大小为1
+     ch := make(chan int, 1)
+  2) 无缓冲的channel
+     ch := make(chan int)
+
+3. Go中channel可以是只读、只写、同时可读写的。
+  1) 定义只读的channel
+  read_only := make (<-chan int)
+  2) 定义只写的channel
+  write_only := make (chan<- int)
+  3) 可同时读写
+  read_write := make (chan int)
+
+4. channel的零值可以为nil 。对这样的channel发送或接收会永远阻塞
+
+5. 创建channel
+  几个关键点
+  1) 如果channel元素类型不包含指针类型，会在堆上分配一段连续的内存，同时sudog会引用该hchan，该hchan不会被gc回收
+  2) 如果channel元素类型不包含指针类型，会为buf和hchan分配内存
+  3) channel的内存分配涉及到内存对齐的计算
+
+5. channel发送数据流程
+  使用ch <- data 往channel里推数据，最终会调用runtinme.chansend方法
+  主要做了三个事情:
+  1) 当recvq存在等待者时，直接进入send方法。
+  2) 当缓冲区存在空余空间时，将发送的数据写入channel的缓冲区。
+  3) 当不存在缓冲区或者缓冲区已满时，等待其他goroutine从channel 接收数据。
+
+7. channel接收数据流程
+  使用data <- channel 从channel里接收数据，会被转换成runtime.chanrecv1和runtime.chanrecv2。 他们最终会调用runtinme.chanrecv方法，主要流程如下:
+  1) 如果channel为空，那么会直接调用 gopark 挂起当前goroutine
+  2) 如果channel已经关闭并且缓冲区没有任何数据，直接返回
+  3) 如果channel的 sendq 队列中存在挂起的 goroutine，会将 recvx 索引所在的数据拷贝到接收变量所在的内存空间上并将 sendq 队列中 goroutine 的数据拷贝到缓冲区
+  4) 如果channel的缓冲区中包含数据，那么直接读取 recvx索引对应的数据
+  5) 挂起当前的goroutine，同时将sudog结构推入recvq队列并进入休眠状态，等待发送者向channel发送数据，从而唤醒当前goroutine。
+
+8. channel使用中的几种异常情况
+  1) 有缓冲的channel
+    操作         | 已关闭无数据 | 已关闭有数据    | 未关闭无数据 | 未关闭有数据
+    -------------+--------------+-----------------+--------------+---------------
+    读           | 零值         | channel中的数据 | panic        | channel中的数据
+    写(缓冲已满) | panic        | panic           | success      | success
+    写(缓冲未满) | panic        | panic           | success      | pending
+
+  2) 无缓冲的channel
+    无缓冲的channel是阻塞模型，写入的数据需要被读取之后， channel才能再次被写入
+    操作       | 已关闭无数据 | 已关闭有数据    | 未关闭无数据 | 未关闭有数据
+    -----------+--------------+-----------------+--------------+---------------
+    读(主协程) | 零值         | panic           | panic        | channel中的数据
+    读(子协程) | 零值         | panic           | pending      | channel中的数据
+    写(主协程) | panic        | panic           | panic        | panic(deadlock)
+    写(子协程) | panic        | panic           | pending      | panic(deadlock)
