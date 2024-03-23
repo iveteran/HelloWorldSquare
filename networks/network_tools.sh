@@ -16,3 +16,7 @@ nmcli device
 
 # networks traffic/speed monitor
 iftop, bmon
+
+# whois, DNS info querier
+# apt install whois
+whois example.com

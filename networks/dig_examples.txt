@@ -1,3 +1,9 @@
+Ref: https://phoenixnap.com/kb/linux-dig-command-examples
+
+Install:
+sudo apt-get install dnsutils
+sudo yum install bind-utils
+
 dig @1.1.1.1 iveteran.me  # 指定域名服务器(1.1.1.1)查询
 dig a iveteran.me       # 查询域名的ip地址，a参数可省略
 dig aaaa iveteran.me    # 查询域名的ip v6地址
@@ -5,6 +11,9 @@ dig mx iveteran.me      # 查询email的MX记录
 dig ns iveteran.me      # 查询域名的域名服务地址(name service)
 dig +trace iveteran.me  # 查询DNS查询链
 dig -x 172.105.241.213  # 根据IP反向查询域名
+dig any iveteran.me     # To return all of the results of the query
+dig google.com +short   # Short Answer Option
+dig google.com +noall +answer   # Detailed Answer Option
 
 dig txt iveteran.me                     # 查询DNS的txt记录，txt记录可用于邮件服务器的spf设置
 dig txt default._domainkey.iveteran.me  # 查询email服务的DKIM，其中"default"是根据DKIM服务器设置而定
@@ -12,3 +21,27 @@ dig txt _dmarc.iveteran.me              # 查询email服务的DMARC
 
 host iveteran.me
 host 172.105.241.213
+
+Response flags:
+  QR specifies whether this message is a query (0), or a response (1)
+  AA Authoritative Answer
+  TC TrunCation (truncated due to length greater than that permitted on the transmission channel)
+  RD Recursion Desired
+  RA Recursion Available
+  Z Reserved for future use. Must be zero
+  CD (Checking Disabled): indicates a security-aware resolver should disable signature validation (that is, not check DNSSEC records)
+  AD (Authentic Data): indicates the resolver believes the responses to be authentic - that is, validated by DNSSEC
+
+Response code:
+  0 = NOERR, no error
+  1 = FORMERR, format error (unable to understand the query)
+  2 = SERVFAIL, name server problem
+  3 = NXDOMAIN, domain name does not exist
+  4 = NOTIMPL, not implemented
+  5 = REFUSED (e.g., refused zone transfer requests)
+
+The OPT PSEUDOSECTION displays advanced data:
+  EDNS – Extension system for DNS, if used
+    version - Only 0 is defined currently
+    flags – only defined is DNSSEC OK (DO) currently
+    udp – UDP packet size
