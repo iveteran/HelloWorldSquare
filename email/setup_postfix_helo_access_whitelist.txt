@@ -1,0 +1,21 @@
+Refer: https://stackoverflow.com/questions/69369625/postfix-whitelist-not-working-as-it-should
+
+In your smtpd_helo_restrictions you show check_helo_access pcre:/etc/postfix/helo_access, however you do not show the contents of /etc/postfix/helo_access, do you have such a file? you are showing the contents of "sender_whitlist" if your /etc/postfix/helo_access file is similar you do not need to use "pcre" just use;
+
+in main.cf check_helo_access hash:/etc/postfix/helo_access, make sure you have the domain/ip in /etc/postfix/helo_access file and run postmap /etc/postfix/helo_access then reload postfix.
+
+(if you do use regex in your etc/postfix/helo_access obviously use pcre: instead of hash:)
+
+----------
+
+1) Edit main.cf:
+smtpd_helo_restrictions =
+    ...
+    check_helo_access hash:/etc/postfix/helo_access_whitelist
+    ...
+
+2) File helo_access_whitelist, add line:
+example.com OK
+
+3) Generate database file:
+$ postmap /etc/postfix/helo_access_whitelist

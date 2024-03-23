@@ -87,3 +87,12 @@ chgrp apache /var/log/php-fpm/www-error.log
 ;php_admin_value[error_log] = /var/log/php-fpm/www-error.log
 参考:
 https://github.com/postfixadmin/postfixadmin/issues/601
+
+问题：
+$ doveadm pw -u user@example.com
+doveconf: Error: ssl enabled, but ssl_dh not set
+解决：
+1) Edid /etc/dovecot/conf.d/10-ssl.conf, uncomment below line:
+ssl_dh = </etc/dovecot/ssh/dh.pem
+2) Generate DH key:
+sudo openssl dhparam -out /etc/dovecot/ssl/dh.pem 4096
