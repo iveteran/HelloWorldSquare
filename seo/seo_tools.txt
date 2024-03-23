@@ -1,0 +1,18 @@
+1. Google Search Console
+  1) Google Search Console删除链接
+    refer: https://blog.naibabiji.com/google-seo/removals.html
+
+2. Google Analytics
+  1) 自己建网站怎么添加Google Analytics统计代码查看每日流量
+    refers: https://blog.naibabiji.com/tutorial/google-analytics.html
+            https://zhuanlan.zhihu.com/p/134682010
+            https://www.sdwebseo.com/google-analytics-tutorial/
+            https://www.yundianseo.com/how-to-use-google-analytics/
+
+3. Spider Analyser - SEO蜘蛛日志分析帮手
+是一款用于跟踪WordPress网站各种搜索引擎蜘蛛爬行日志，并进行详细的蜘蛛爬行数据统计、蜘蛛行为分析、蜘蛛爬取分析及伪蜘蛛拦截等
+refer: https://blog.naibabiji.com/files/wordpress-plugins/spider-analyser.html
+
+4. Smart Keywords Tool - 关键词推荐插件
+是一款集即时关键词推荐、关键词选词工具及文章智能标签功能于一体的WordPress网站SEO优化插件
+refer: https://blog.naibabiji.com/files/wordpress-plugins/smart-keywords-tool.html
