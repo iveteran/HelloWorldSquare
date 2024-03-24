@@ -18,10 +18,10 @@ $ docker start b750bbbcfd88
 后台运行
 在大部分的场景下，我们希望 docker 的服务是在后台运行的，我们可以过 -d
 指定容器的运行模式。
-
 $ docker run -itd --name ubuntu-test ubuntu /bin/bash
 注：加了 -d 参数默认不会进入容器，想要进入容器需要使用指令 docker
 exec（下面会介绍到）。
+--name ubuntu-test 容器命名为ubuntu-test
 
 停止一个容器
 停止容器的命令如下：
@@ -77,7 +77,6 @@ $ docker container prune
 接下来让我们尝试使用 docker 构建一个 web 应用程序。
 
 我们将在docker容器中运行一个 Python Flask 应用来运行一个web应用。
-
 $ docker pull training/webapp  # 载入镜像
 $ docker run -d -P training/webapp python app.py
 
@@ -90,6 +89,8 @@ $ docker run -d -P training/webapp python app.py
 
 我们也可以通过 -p 参数来设置不一样的端口：
 $ docker run -d -p 5000:5000 training/webapp python app.py
+$ docker run -d -p 127.0.0.1:5001:5000 training/webapp python app.py
+$ docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
 
 docker ps查看正在运行的容器
 $ docker ps
@@ -97,6 +98,7 @@ $ docker ps
 docker ps查看所有容器
 $ docker ps -a
 
+docker port 命令查看端口的绑定情况
 $ docker port bf08b7f2cd89
 $ docker port wizardly_chandrasekhar
 

@@ -1,0 +1,22 @@
+Configure Docker to use a proxy server
+Refer: https://docs.docker.com/network/proxy/
+
+Configure proxy settings per daemon
+The following example configures both a default proxy config, and a no-proxy override for the Docker daemon on address tcp://docker-daemon1.example.com
+~/.docker/config.json
+{
+ "proxies": {
+   "default": {
+     "httpProxy": "http://proxy.example.com:3128",
+     "httpsProxy": "https://proxy.example.com:3129",
+     "noProxy": "*.test.example.com,.example.org,127.0.0.0/8"
+   },
+   "tcp://docker-daemon1.example.com": {
+     "noProxy": "*.internal.example.net"
+   }
+ }
+}
+
+Set proxy using the CLI
+docker build --build-arg HTTP_PROXY="http://proxy.example.com:3128" .
+docker run --env HTTP_PROXY="http://proxy.example.com:3128" redis

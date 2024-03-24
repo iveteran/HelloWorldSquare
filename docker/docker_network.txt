@@ -1,0 +1,33 @@
+Refer: https://www.runoob.com/docker/docker-container-connection.html
+
+新建网络
+$ docker network create -d bridge test-net
+-d：参数指定 Docker 网络类型，有 bridge、overlay
+
+连接容器
+运行一个容器并连接到新建的 test-net 网络:
+$ docker run -itd --name test1 --network test-net ubuntu /bin/bash
+
+再运行一个容器并加入到 test-net 网络:
+$ docker run -itd --name test2 --network test-net ubuntu /bin/bash
+
+配置 DNS
+宿主机/etc/docker/daemon.json
+{
+  "dns" : [
+    "1.1.1.1",
+    "8.8.8.8"
+  ]
+}
+
+查看容器的 DNS 是否生效
+$ docker run -it --rm test1  cat /etc/resolv.conf
+
+手动指定容器的配置
+$ docker run -it --rm -h host_ubuntu  --dns=114.114.114.114 --dns-search=test.com ubuntu
+参数说明：
+--rm：容器退出时自动清理容器内部的文件系统。
+-h HOSTNAME 或者 --hostname=HOSTNAME： 设定容器的主机名，它会被写到容器内的 /etc/hostname 和 /etc/hosts。
+--dns=IP_ADDRESS： 添加 DNS 服务器到容器的 /etc/resolv.conf 中，让容器用这个服务器来解析所有不在 /etc/hosts 中的主机名。
+--dns-search=DOMAIN： 设定容器的搜索域，当设定搜索域为 .example.com 时，在搜索一个名为 host 的主机时，DNS 不仅搜索 host，还会搜索 host.example.com。
+

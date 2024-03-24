@@ -1,0 +1,15 @@
+Docker Volume
+Refer: https://loocode.com/post/docker-volume-ru-men-yong-fa-xiang-jie
+
+列出所有数据卷
+docker volume ls
+
+创建一个数据卷
+docker volume create www-data
+
+删除所有不被使用的数据卷
+$ docker volume prune
+
+docker run --rm --name webserver -p 80:80 -v /var/www:/usr/share/nginx/html:ro -d nginx
+前面的/var/www为宿主机上的绝对路径，/usr/share/nginx/html为容器上的绝对路径，ro指定只读挂载。 在本机上创建一个index.html,然后就可以直接通过浏览器访问了，修改index.html文件，刷新浏览器，可以马上看到文件的更新。
+
