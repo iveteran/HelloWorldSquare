@@ -1,0 +1,111 @@
+Set Up Your Own WireGuard VPN Server
+Ref: https://www.linuxbabe.com/debian/wireguard-vpn-server-debian
+
+Step 1: Install WireGuard
+sudo apt install wireguard
+
+Step 2: Generate Public/Private Keypair
+Server:
+wg genkey | sudo tee /etc/wireguard/server_private.key | wg pubkey | sudo tee /etc/wireguard/server_public.key
+
+Client:
+wg genkey | sudo tee /etc/wireguard/client_private.key | wg pubkey | sudo tee /etc/wireguard/client_public.key
+
+Step 3: Create WireGuard Configuration File
+Server:
+sudo vim /etc/wireguard/wg0.conf
+[Interface]
+Address = 10.10.10.1/24
+ListenPort = 51820
+PrivateKey = cD+ZjXiVIX+0iSX1PNijl4a+88lCbDgw7kO78oXXLEc=
+
+[Peer]
+PublicKey = AYQJf6HbkQ0X0Xyt+cTMTuJe3RFwbuCMF46LKgTwzz4=
+AllowedIPs = 10.10.10.2/32
+
+[Peer]
+PublicKey = <Another Client Public Key>
+AllowedIPs = 10.10.10.3/32
+
+Address: Specify the private IP address of the VPN server. Here I’m using the 10.10.10.0/24 network range, so it won’t conflict with your home network range.
+         (Most home routers use 192.168.0.0/24 or 192.168.1.0/24). 10.10.10.1 is the private IP address for the VPN server.
+PrivateKey: The private key of VPN server, which can be found in the /etc/wireguard/server_private.key file on the server.
+ListenPort: WireGuard VPN server will be listening on UDP port 51820, which is the default.
+PublicKey: The public key of VPN client, which can be found in the /etc/wireguard/client_public.key file on the client computer.
+AllowedIPs: IP addresses the VPN client is allowed to use. In this example, the client can only use the 10.10.10.2 IP address inside the VPN tunnel.
+
+Client:
+sudo vim /etc/wireguard/wg-client0.conf
+[Interface]
+Address = 10.10.10.2/24
+DNS = 10.10.10.1
+PrivateKey = cOFA+x5UvHF+a3xJ6enLatG+DoE3I5PhMgKrMKkUyXI=
+
+[Peer]
+PublicKey = kQvxOJI5Km4S1c7WXu2UZFpB8mHGuf3Gz8mmgTIF2U0=
+AllowedIPs = 0.0.0.0/0
+Endpoint = SERVER_IP_OR_DOMAIN:51820
+PersistentKeepalive = 25
+
+
+Address: Specify the private IP address of the VPN client.
+DNS: specify 10.10.10.1 (the VPN server) as the DNS server. It will be configured via the resolvconf command.
+     You can also specify multiple DNS servers for redundancy like this: DNS = 10.10.10.1 8.8.8.8
+PrivateKey: The client’s private key, which can be found in the /etc/wireguard/client_private.key file on the client computer.
+PublicKey: The server’s public key, which can be found in the /etc/wireguard/server_public.key file on the server.
+AllowedIPs: 0.0.0.0/0 represents the whole Internet, which means all traffic to the Internet should be routed via the VPN.
+Endpoint: The public IP address and port number of VPN server. Replace 12.34.56.78 with your server’s real public IP address.
+PersistentKeepalive: Send an authenticated empty packet to the peer every 25 seconds to keep the connection alive.
+                     If PersistentKeepalive isn’t enabled, the VPN server might not be able to ping the VPN client.
+
+Step 4: Enable IP Forwarding on the Server
+sudo vim /etc/sysctl.conf
+net.ipv4.ip_forward = 1
+sudo sysctl -p
+
+Step 5: Configure IP Masquerading on the Server
+sudo vim /etc/ufw/before.rules
+# NAT table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -o ens3 -j MASQUERADE
+
+# End each table with the 'COMMIT' line or these rules won't be processed
+COMMIT
+
+# allow forwarding for trusted network
+-A ufw-before-forward -s 10.10.10.0/24 -j ACCEPT
+-A ufw-before-forward -d 10.10.10.0/24 -j ACCEPT
+
+# Show rules
+sudo iptables -t nat -L POSTROUTING
+
+Step 6: Install a DNS Resolver on the Server
+**Ignore if clients do not use DNS server on the WireGuard server**
+
+Step 7: Open WireGuard Port in Firewall
+sudo ufw allow 51820/udp comment "WireGuard"
+
+Step 8: Start WireGuard
+Server:
+sudo wg-quick up /etc/wireguard/wg0.conf        # start
+sudo wg-quick down /etc/wireguard/wg0.conf      # stop
+sudo wg-quick down wg0                          # stop with interface name
+
+sudo systemctl start wg-quick@wg0.service       # start with systemd
+sudo systemctl enable wg-quick@wg0.service      # stop with systemd
+
+Client:
+sudo wg-quick up /etc/wireguard/wg-client0.conf        # start
+sudo wg-quick down /etc/wireguard/wg-client0.conf      # stop
+sudo wg-quick down wg-client0                          # stop with interface name
+
+sudo systemctl start wg-quick@wg-client0.service    # start with systemd
+sudo systemctl enable wg-quick@wg-client0.service   # stop with systemd
+
+Step 9: Test result
+ip a
+sudo wg show
+ping 10.10.10.1
+curl ipinfo.io
+traceroute google.com

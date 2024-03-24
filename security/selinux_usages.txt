@@ -1,0 +1,11 @@
+# Show selinux status
+sestatus
+
+# Dnable selinux
+setenforce 1
+
+# Disable selinux
+setenforce 0
+
+# get selinux enabled or disabled
+getenforce
