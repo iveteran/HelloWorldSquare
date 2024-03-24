@@ -1,0 +1,8 @@
+Delete Text in Vim Insert Mode
+
+While you can delete characters or several words at once in ex mode (i.e. dw to delete a word), you can also do so in Insert mode as follows:
+    Ctrl + h: delete the previous character to the place where the cursor is currently located.
+    Ctrl + w: delete the previous word to the place where the cursor is currently located.
+              For this to work correctly, the cursor must be placed in an empty space after the word that you need to delete.
+    Ctrl + u: delete the current line beginning at the character immediately to the left of the place where the cursor is.
+
