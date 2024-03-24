@@ -1,0 +1,5 @@
+Flowcharts:
+http://flowchart.js.org/
+
+Mermaid:
+https://mermaid.js.org/intro/
