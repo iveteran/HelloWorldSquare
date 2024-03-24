@@ -1,0 +1,9 @@
+Ref: https://www.digitalocean.com/community/tutorials/how-to-use-the-htaccess-file
+
+/etc/httpd/conf/httpd.conf(CentOS) or
+/etc/apache2/sites-available/your_domain.conf(Debian)
+<Directory /var/www/your_domain>
+    ...
+    AllowOverride All
+    ...
+</Directory> 

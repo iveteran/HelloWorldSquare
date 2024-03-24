@@ -1,0 +1,6 @@
+# configure test
+sudo apachectl configtest
+sudo apachectl -t
+
+# reload
+apachectl -k graceful

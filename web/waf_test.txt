@@ -1,0 +1,15 @@
+Test and evaluate your WAF before hackers via GoTestWAF
+Refer: https://lab.wallarm.com/test-your-waf-before-hackers/
+       https://github.com/wallarm/gotestwaf
+
+Method 1) Online https://www.wallarm.com/gotestwaf/overview
+
+Method 2) Use online docker repo
+$ docker pull wallarm/gotestwaf
+$ docker run --rm -it -v "$(pwd)/reports:/app/reports" wallarm/gotestwaf --url=http://the-waf-you-wanna-test/
+
+Method 3) Download source and build it by oneself
+$ git clone https://github.com/wallarm/gotestwaf
+$ cd gotestwaf
+$ make gotestwaf
+$ docker run --rm -it -v "$(pwd)/reports:/app/reports" gotestwaf --url=http://the-waf-you-wanna-test/

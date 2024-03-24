@@ -1,0 +1,84 @@
+Securing Nginx With ModSecurity (For self compiled Nginx)
+Refer: https://www.linode.com/docs/guides/securing-nginx-with-modsecurity/
+
+0) Prepare
+Install dependencies
+sudo apt-get install libtool
+
+Assuming your self compiled Nginx in the directory /opt/nginx
+NGINX_HOME=/opt/nginx
+cd $NGINX_HOME
+
+1) Install ModSecurity
+$ git clone https://github.com/SpiderLabs/ModSecurity
+$ cd ModSecurity
+$ sudo git submodule init
+$ sudo git submodule update
+$ ./build.sh
+$ ./configure --prefix=$NGINX_HOME
+$ sudo make
+$ sudo make install  # will be installed to /usr/local/modsecurity
+
+2) Get ModSecurity-nginx
+$ git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx
+
+3) Show configure arguments used of exist Nginx
+$ nginx -V
+...
+configure arguments: <Configure Arguments>
+
+4) Download Nginx & Compile it with ModSecurity
+$ wget http://nginx.org/download/nginx-<VERSION>.tar.gz
+$ tar xvf nginx-<VERSION>.tar.gz
+$ cd nginx-<VERSION>
+$ nginx -V
+$ ./configure --prefix=$NGINX_HOME --add-dynamic-module=../ModSecurity-nginx <Configure Arguments>
+$ make modules
+$ make install
+
+5) Edit $NGINX_HOME/nginx-<VERSION>/nginx.conf, add:
+load_module $NGINX_HOME/nginx-<VERSION>/modules/ngx_http_modsecurity_module.so;
+
+6) Setting Up OWASP-CRS
+$ git clone https://github.com/coreruleset/coreruleset
+$ ln -s coreruleset modsecurity-crs
+$ cd $NGINX_HOME/modsecurity-crs
+$ cp crs-setup.conf.example crs-setup.conf
+$ cd $NGINX_HOME/modsecurity-crs/rules
+$ cp REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
+$ cd $NGINX_HOME
+
+7) Configuring ModSecurity
+$ mkdir $NGINX_HOME/nginx-<VERSION>/modsec
+$ cp $NGINX_HOME/ModSecurity/unicode.mapping $NGINX_HOME/nginx-<VERSION>/modsec
+$ cp $NGINX_HOME/ModSecurity/modsecurity.conf-recommended $NGINX_HOME/nginx-<VERSION>/modsec/modsecurity.conf
+
+8) Edit $NGINX_HOME/nginx-<VERSION>/modsec/modsecurity.conf, ensure the file has below setting:
+...
+SecRuleEngine On
+...
+
+9) Create file $NGINX_HOME/nginx-<VERSION>/modsec/main.conf, add following lines:
+Include $NGINX_HOME/nginx-<VERSION>/modsec/modsecurity.conf
+Include $NGINX_HOME/modsecurity-crs/crs-setup.conf
+Include $NGINX_HOME/modsecurity-crs/rules/*.conf
+
+10) Configuring Nginx, $NGINX_HOME/nginx-<VERSION>/conf/nginx.conf
+http {
+    ...
+    modsecurity on;
+    modsecurity_rules_file $NGINX_HOME/nginx-<VERSION>/modsec/main.conf;
+    ...
+}
+
+Restart and Testing ModSecurity
+$ sudo $NGINX_HOME/nginx-<VERSION>/sbin/nginx -s reload OR $NGINX_HOME/nginx-<VERSION>/sbin/nginx -c $NGINX_HOME/nginx-<VERSION>/conf/nginx.conf
+$ curl https://<SERVER-IP/DOMAIN>/index.html?exec=/bin/bash
+Output:
+<html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>

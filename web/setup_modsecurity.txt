@@ -1,0 +1,5 @@
+Apache:
+https://docs.rockylinux.org/guides/web/apache_hardened_webserver/modsecurity/
+
+Nginx:
+refer: https://www.linode.com/docs/guides/securing-nginx-with-modsecurity/

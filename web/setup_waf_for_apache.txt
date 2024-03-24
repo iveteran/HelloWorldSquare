@@ -1,0 +1,55 @@
+Securing Apache 2 With ModSecurity (Debian 12)
+Refer: https://www.linode.com/docs/guides/securing-apache2-with-modsecurity/
+
+1) Install
+sudo apt install libapache2-mod-security2
+
+2) Enable ModSecurity module
+sudo a2enmod headers
+
+3) Configure
+sudo cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
+Edit /etc/modsecurity/modsecurity.conf, make sure has following line:
+SecRuleEngine On
+
+4) Download the latest CRS from Github
+cd /usr/share
+sudo mv modsecurity-crs modsecurity-crs.origin
+sudo git clone https://github.com/coreruleset/coreruleset modsecurity-crs.git
+sudo ln -s modsecurity-crs.git modsecurity-crs
+
+5) Copy CRS configure files from example files
+sudo cp /usr/share/modsecurity-crs/crs-setup.conf.example /usr/share/modsecurity-crs/crs-setup.conf
+sudo cp /usr/share/modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example /usr/share/modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf
+
+6) Create rules loading file /usr/share/modsecurity-crs/owasp-crs.load, add following lines:
+# /etc/apache2/mods-available/security2.conf will load this file
+Include /usr/share/modsecurity-crs/crs-setup.conf
+Include /usr/share/modsecurity-crs/rules/*.conf
+
+7) Enable in Apache
+/etc/apache2/sites-enabled/example.com.conf, add following two lines:
+# Enable WAF(Web Application Firewall) via ModSecurity
+SecRuleEngine On
+
+8) Restart
+$ sudo systemctl restart apache2
+
+9) Verify
+$ curl https://<SERVER-IP/DOMAIN>/index.html?exec=/bin/bash
+Output:
+<html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+Problem:
+Mar 13 20:16:06 mail.goe.works apachectl[908756]: AH00526: Syntax error on line 76 of /usr/share/modsecurity-crs/rules/REQUEST-922-MULTIPART-ATTACK.conf:
+Mar 13 20:16:06 mail.goe.works apachectl[908756]: Error creating rule: Error compiling pattern (offset 167): (null)
+Mar 13 20:16:06 mail.goe.works apachectl[908748]: Action 'start' failed.
+Fix:
+https://unix.stackexchange.com/questions/735873/apache2-not-starting-ah00526-syntax-error-on-line-43-of-etc-modsecurity-rules
+https://modsecurity.digitalwave.hu/

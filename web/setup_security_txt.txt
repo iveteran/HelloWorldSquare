@@ -1,0 +1,29 @@
+Ref: https://pieterbakker.com/implementing-security-txt/
+
+1) mkdir .well-known
+2) touch .well-known/security.txt
+3) chown -R www-data:www-data .well-known/  # or user/group apache
+4) vi .well-known/security.txt, Add:
+Contact: https://example.com/contact/
+Expires: 2023-11-09T23:00:00.000Z
+
+5) gpg --gen-key
+Real name: example.com
+Email address: info@example.com
+
+6) gpg --export -a --output gpg.asc info@example.com
+7) chown -R www-data. gpg.asc
+
+8) vi .well-knwon/security.txt
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Contact: https://example.com/contact/
+Expires: 2024-02-12T23:00:00.000Z
+Canonical: https://example.com/.well-known/security.txt
+Encryption: https://example.com/gpg.asc
+
+9) gpg -u info@example.com --output security.txt.sig --armor --detach-sig security.txt
+   gpg --verify security.txt.sig security.txt
+
+10) cat security.txt.sig >> .well-known/security.txt
