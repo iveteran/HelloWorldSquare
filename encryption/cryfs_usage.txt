@@ -4,3 +4,14 @@ Refer: https://www.cryfs.org/tutorial
 cryfs dropbox/basedir mountdir  # if the directory does not exist will be create
 echo "My secret file content" > mountdir/my_secret_file
 cryfs-unmount mountdir
+
+Depend on fuse:
+dnf install fuse
+
+------------
+
+Idiom:
+mkdir ~/.cryfs_encrypted_basedir
+mkdir ~/vault
+cryfs .cryfs_encryped_basedir/ vault/
+umount vault

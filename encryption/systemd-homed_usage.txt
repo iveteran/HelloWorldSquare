@@ -1,0 +1,53 @@
+Refer: https://wiki.archlinux.org/title/Systemd-homed
+
+# 安装
+$ apt install systemd-homed
+$ systemctl status systemd-homed
+
+# 创建用户
+$ homectl create <USERNAME> --storage=luks       $ Default
+$ homectl create <USERNAME> --storage=fscrypt    # fscrypt directory
+$ homectl create <USERNAME> --storage=subvolume  # Directory or Btrfs subvolume
+$ homectl create <USERNAME> --storage=cifs       # CIFS (via Samba)
+
+# 创建用户高级用法
+$ homectl create <USERNAME> --shell=/usr/bin/zsh --uid=60100 --member-of=wheel,adm,uucp --image-path=/opt/<USERNAME>.home
+
+# 检查用户
+$ userdbctl user <USERNAME>
+$ homectl inspect <USERNAME>
+
+# 更新用户
+$ homectl update <USERNAME> --property=VALUE
+
+# 删除用户
+$ homectl remove <USERNAME> <USERNAME2>
+
+# 列出用户
+$ homectl list
+
+# 更改home大小
+$ homectl resize <USERNAME> <SIZE>
+
+# 救援模式
+$ losetup -fP --show <USERNAME>.home
+$ cryptsetup open /dev/loopXpY mappername
+$ mount /dev/mapper/mappername /mnt/mountpoint
+
+# 列出luks设备
+$ losetup -l
+
+# 列出块设备
+$ lsblk
+$ blkid
+
+# 支持SSH登入
+/etc/ssh/sshd_config
+PasswordAuthentication yes
+PubkeyAuthentication yes
+AuthenticationMethods publickey,password
+AuthorizedKeysCommand /usr/bin/userdbctl ssh-authorized-keys %u
+AuthorizedKeysCommandUser root
+
+# Update your user record with your authorized keys while the user is unlocked using:
+$ homectl update username --ssh-authorized-keys=@/path/to/mounted/home/.ssh/authorized_keys

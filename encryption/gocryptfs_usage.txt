@@ -1,0 +1,21 @@
+# Refers: https://github.com/rfjakob/gocryptfs
+          https://nuetzlich.net/gocryptfs/quickstart/
+
+# Install
+$ apt install gocryptfs
+
+# Create and Mount Filesystem
+$ mkdir cipher plain   # cipher: encrypted dir, plain: mount point
+$ gocryptfs -init cipher
+$ gocryptfs cipher plain
+
+# Reverse Mode
+$ mkdir cipher plain
+$ gocryptfs -reverse -init plain
+$ gocryptfs -reverse plain cipher
+
+# Cloud Storage
+$ mkdir ~/Dropbox/cipher
+$ mkdir ~/plain
+$ gocryptfs -init ~/Dropbox/cipher
+$ gocryptfs ~/Dropbox/cipher ~/plain

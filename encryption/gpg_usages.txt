@@ -30,3 +30,9 @@ gpg --edit-key bob@example.com
 Command> trust
 ...
 Command> quit
+
+# Encrypting/decrypting a directory can be done with gpgtar
+# Encrypt:
+$ gpgtar -c -o dir.gpg dir
+# Decrypt:
+$ gpgtar -d dir.gpg

@@ -1,0 +1,28 @@
+Refers: https://github.com/google/fscrypt
+        https://wiki.archlinux.org/title/Fscrypt
+
+# Install
+$ sudo apt install fscrypt
+$ sudo tune2fs -O encrypt "/dev/<DEVICE>"
+
+# 基本用法
+$ fscrypt setup [MOUNT_POINT]
+$ fscrypt encrypt <DIR>
+$ fscrypt unlock <DIR>
+$ fscrypt lock <DIR>
+$ fscrypt status <DIR>
+
+# 加密Home目录
+
+# Setting up for login protectors
+# Securing your login passphrase
+/etc/pam.d/passwd
+password	required	pam_unix.so sha512 shadow nullok rounds=1000000
+
+# Enable PAM module (Debian or Ubuntu)
+$ sudo apt install libpam-fscrypt
+
+$ mkdir /home/newhome
+$ chown user:user /home/newhome
+$ fscrypt encrypt /home/newhome --user=user
+$ cp -a -T /home/user /home/newhome OR mv -T /home/user /home/newhome
