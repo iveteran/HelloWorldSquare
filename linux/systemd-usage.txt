@@ -25,6 +25,7 @@ systemctl list-units --all
 systemctl list-units --all --state=inactive
 systemctl list-units --type=service
 systemctl list-unit-files
+systemctl -f
 
 journalctl
 journalctl -b  # journal entries from the current boot

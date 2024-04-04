@@ -3,4 +3,4 @@ openssl rand -hex 12
 
 keepassxc-cli generate  # apt install keepassxc
 
-pass generate <pass-name>  # apt install pass
+pass generate one-time  # apt install pass

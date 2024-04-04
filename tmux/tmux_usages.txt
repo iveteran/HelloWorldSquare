@@ -16,3 +16,6 @@ $ tmux ls
 
 5. 列出Window
 $ tmux lsw
+
+6. Bind a key to launch shell command
+$ tmux bind-key "$KEY" run-shell "/path/to/script.sh"

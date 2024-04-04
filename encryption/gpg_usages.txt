@@ -1,8 +1,26 @@
+Refer: https://wiki.archlinux.org/title/GnuPG
+
 gpgconf OR gpgconf --list-components
 gpgconf --list-options gpg-agent
 
 # clear cached key
 gpg-connect-agent reloadagent /bye
+
+# Cache passwords
+~/gnupg/gpg-agent.conf
+max-cache-ttl 60480000
+default-cache-ttl 60480000
+
+# Unattended passphrase
+# Reload the agent if it is running to let the change take effect.
+~/.gnupg/gpg-agent.conf
+allow-loopback-pinentry
+
+$ gpg --pinentry-mode loopback ...
+...or if this is not possible, add the option to the configuration:
+~/.gnupg/gpg.conf
+pinentry-mode loopback
+
 
 # disables the entry prompt
   --pinentry-mode=loopback
@@ -23,7 +41,19 @@ export GPG_TTY=$(tty)
 export GPGKEY="xxxxxx"
 
 # upload public key to openpgp
-gpg --export YOU@example.com | curl -T - https://keys.openpgp.org
+$ gpg --export YOU@example.com | curl -T - https://keys.openpgp.org
+
+# Use a keyserver
+$ gpg --send-keys key-id
+$ gpg --search-keys user-id
+$ gpg --receive-keys key-id
+$ gpg --refresh-keys
+
+# Key servers
+~/.gnupg/dirmngr.conf
+keyserver hkps://keyserver.ubuntu.com
+
+$ gpg --keyserver hkps://keys.openpgp.org/ --search-keys user-id
 
 # Trust in a key's owner
 gpg --edit-key bob@example.com
@@ -36,3 +66,12 @@ Command> quit
 $ gpgtar -c -o dir.gpg dir
 # Decrypt:
 $ gpgtar -d dir.gpg
+
+# Signature
+$ gpg --output mydoc.sig --sign mydoc
+$ gpg --output mydoc.sig --clearsign mydoc
+$ gpg --output mydoc-detached.sig --detach-sig doc
+# Verify a signature
+$ gpg --verify mydoc.sig
+$ gpg --verify mydoc-detached.sig  # Must put mydoc-detached.sig and mydoc-detatched on the same directory
+$ gpg --verify mydoc-detached.sig /path/to/mydoc

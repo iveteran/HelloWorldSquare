@@ -1,0 +1,16 @@
+
+# Run TypeScript script
+Method 1)
+npm i typescript -g
+tsc demo.ts
+node demo.js
+
+Method 2)
+npm i tsx -g
+tsx demo.ts
+
+# TSX as a loader 
+node --loader tsx index.ts
+
+# TSX watch a file
+tsx watch <file>

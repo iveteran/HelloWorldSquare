@@ -20,4 +20,17 @@ $a -ne $b $a is not equal to $b
 -L $FILE  $FILE exists and is a soft link.
 $STRING1 = $STRING2 $STRING1 is equal to $STRING2
 $STRING1 != $STRING2  $STRING1 is not equal to $STRING2
--z $STRING1 $STRING1 is empty
+-z "$STRING1" $STRING1 is empty
+-n "$STRING1" $STRING1 is not empty
+
+The -n option is essentially the opposite of the -z option. While -z checks if a string is null or empty, -n checks if a string is not null. Here’s an example:
+name="John"
+if [ -n "$name" ]
+then
+  echo "Name is not empty"
+else
+  echo "Name is empty"
+fi
+
+# Output:
+# Name is not empty

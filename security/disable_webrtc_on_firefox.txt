@@ -1,0 +1,7 @@
+How to disable WebRTC on Firefox 
+
+Refer: https://www.ipvanish.com/blog/webrtc/
+
+Mozilla enables WebRTC by default in its Firefox browser on desktop and mobile, but disabling the protocol is a piece of cake. 
+
+In the address bar, type about:config and set media.peerconnection.enabled to False.

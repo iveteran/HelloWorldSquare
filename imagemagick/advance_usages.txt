@@ -74,3 +74,7 @@ east：右边中间
 
 15. 旋转 -rotate
 convert image.png -rotate 45 rotate.png
+
+16. 列出委托(外部应用调用)
+convert -list delegate
+e.g.: convert -list delegate | grep -i svg
