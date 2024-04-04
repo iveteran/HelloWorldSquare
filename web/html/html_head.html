@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Refer: https://web.dev/learn/html/metadata?hl=zh-cn -->
+
+    <!-- encode -->
+    <meta charset="utf-8" />
+
+    <!-- Title -->
+    <title>Machine Learning Workshop</title>
+
+    <!-- Description -->
+    <meta name="description" content="Register for a machine learning workshop at our school for machines who can't learn good and want to do other stuff good too" />
+
+    <!-- 定时刷新页面, 不建议使用 -->
+    <meta http-equiv="refresh" content="60; https://machinelearningworkshop.com/regTimeout" />
+
+    <!-- CSP, 指定允许的服务器源和脚本端点，这有助于防范跨站脚本攻击 -->
+    <meta http-equiv="content-security-policy" content="default-src https:" />
+
+    <!-- Search Engine Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- 主题颜色 -->
+    <meta name="theme-color" content="#226DAA" />
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Machine Learning Workshop" />
+    <meta property="og:description" content="School for Machines Who Can't Learn Good and Want to Do Other Stuff Good Too" />
+    <meta property="og:image" content="http://www.machinelearningworkshop.com/image/all.png" />
+    <meta property="og:image:alt" content="Black and white line drawing of refrigerator, french door refrigerator, range, washer, fan, microwave, vaccuum, space heater and air conditioner" />
+
+    <!-- icon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <!--
+      “在 16px、32px 或 48px 合理的场景中使用 mlwicon.png 作为图标。”
+      size 属性接受可缩放图标的 any 值或以空格分隔的方形 widthXheight 值列表；如果宽度值和高度值在相应几何序列中不低于 16、32、48，像素单位会被省略
+    -->
+    <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="/images/mlwicon.png" />
+    <!--
+      apple-touch-icon 用于 iOS 设备
+      仅当用户将网站添加到主屏幕时，系统才会应用 apple-touch-icon：您可以为不同的设备指定多个具有不同 sizes 的图标。
+    -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/mlwicon.png" />
+    <!--
+      mask-icon 用于 macOS 上的固定标签页
+      仅当用户在桌面版 Safari 中固定标签页时才会使用 mask-icon：图标本身应该是单色 SVG，并且 color 属性会在图标中填充所需的颜色。
+    -->
+    <link rel="mask-icon" href="/images/mlwicon.svg" color="#226DAA" />
+
+    <!--
+      如果有人将您的网站加入书签、将其添加到他们的主屏幕，或者如果您的网站是渐进式 Web 应用，或以其他方式离线运行或不显示浏览器 Chrome 功能，那么您可以为移动设备的主屏幕提供应用图标。
+    -->
+    <link rel="apple-touch-startup-image" href="icons/ios-portrait.png" media="orientation: portrait" />
+    <link rel="apple-touch-startup-image" href="icons/ios-landscape.png" media="orientation: landscape" />
+
+    <!--
+      如果您的网站或应用支持 Web 应用，即网站可以独立运行，且界面极小（例如没有返回按钮），您也可以使用元标记告知浏览器：
+    -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!--
+      如果有人要将您的图标保存到其小型设备的主屏幕上，您应为操作系统提供一个简称，该名称不会占用小型设备的主屏幕上的空间。
+      您可以通过添加元标记或使用网络清单文件执行此操作。以下演示了元标记方法：
+      注：可以更加简单简洁地在 webmanifest 文件中添加 short_name: MLW，而不是添加这两个额外的元标记
+    -->
+    <meta name="apple-mobile-web-app-title" content="MLW" />
+    <meta name="application-name" content="MLW" />
+
+    <!--
+      清单文件可以防止充满 <link> 和 <meta> 标记的异常标头。我们可以创建一个清单文件，通常称为 manifest.webmanifest 或 manifest.json。
+      然后，我们使用方便的 <link> 标记，将 rel 属性设置为 manifest，将 href 属性设置为清单文件的网址：
+    -->
+    <link rel="manifest" href="/mlw.webmanifest" />
+
+    <!-- 备用版本 -->
+    <link rel="alternate" href="https://www.machinelearningworkshop.com/fr/" hreflang="fr-FR" />
+    <link rel="alternate" href="https://www.machinelearningworkshop.com/pt/" hreflang="pt-BR" />
+
+    <!-- 权威/首选网址 -->
+    <link rel="canonical" href="https://www.machinelearning.com" />
+
+    <!-- License -->
+    <link rel="license" href="http://www.opensource.org/licenses/mit-license.php" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" src="css/styles.css" />
+    <style>
+      @import "styles.css" layer(firstLayer);
+    </style>
+    <style>
+      :root {
+        --theme-color: #226DAA;
+      }
+    </style>
+
+    <!-- 内联脚本 -->
+    <script>
+      document.getElementById('switch').addEventListener('click', function() {
+        document.body.classList.toggle('black');
+      });
+    </script>
+
+    <!--
+      外部脚本
+      有两个属性可以降低 JavaScript 下载和执行的阻塞性：defer 和 async。
+      使用 defer 时，系统不会在下载过程中阻止 HTML 呈现，而且 JavaScript 只会在文档呈现完毕后才执行。
+      使用 async 时，下载期间也不会阻止呈现，但脚本下载完成后，系统会在执行 JavaScript 时暂停呈现。
+      添加 defer 属性会将脚本的执行推迟到所有内容呈现完毕后，从而防止脚本影响性能。async 和 defer 属性仅对外部脚本有效。
+    -->
+    <script src="js/switch.js" defer></script>
+
+    <!--
+      Others: https://html.spec.whatwg.org/multipage/links.html#linkTypes
+    -->
+
+  </head>
+  <body>
+    <!-- <script defer src="scripts/lightswitch.js"></script>-->
+  </body>
+</html>

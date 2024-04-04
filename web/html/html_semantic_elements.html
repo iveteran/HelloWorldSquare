@@ -1,0 +1,49 @@
+<!--
+Refer:
+  https://web.dev/learn/html/semantic-html?hl=zh-cn
+  https://developer.mozilla.org/zh-CN/docs/Web/Accessibility/ARIA/Roles
+-->
+
+<body>
+  <header>
+    <h1>Three words</h1>
+    <nav>
+      <a>one word</a>
+      <a>one word</a>
+      <a>one word</a>
+      <a>one word</a>
+    </nav>
+  </header>
+  <main>
+    <header>
+      <h1>five words</h1>
+    </header>
+    <section>
+      <h2>three words</h2>
+      <p>forty-six words</p>
+      <p>forty-four words</p>
+    </section>
+    <section>
+      <h2>seven words</h2>
+      <p>sixty-eight words</p>
+      <p>forty-four words</p>
+    </section>
+  </main>
+  <aside>Aside</aside>
+  <footer>
+    <p>five words</p>
+  </footer>
+</body>
+
+<!--
+使用 role 属性，您可以为任何元素分配角色，包括不同于标记所暗示的角色。例如，<button> 具有 button 的隐式角色。借助 role="button"，您可以在语义上将任何元素转换为按钮：<p role="button">Click Me</p>。
+-->
+<div role="banner">
+  <span role="heading" aria-level="1">Three words</span>
+  <div role="navigation">
+    <a>one word</a>
+    <a>one word</a>
+    <a>one word</a>
+    <a>one word</a>
+  </div>
+</div>
