@@ -36,8 +36,8 @@ alias tcoding='tmux attach -t Coding || tmux new -s Coding'
 alias tmatrix='tmux attach -t Matrix || tmux new -s Matrix'
 
 # Aliases to open Tmux popup window, Tmux version >= 3.2
-alias p='tmux popup -w 80% -h 80%'
-alias pp='tmux popup -w 80% -h 80%  "tmux attach -t popup || tmux new -s popup"'
+alias p='tmux popup -w 70% -h 70%'
+alias pp='tmux popup -w 80% -h 80% "tmux attach -t popup || tmux new -s popup"'
 
 # Tmuxifier
 # git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
@@ -54,6 +54,7 @@ export HISTTIMEFORMAT='[%F %T] '
 #export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth # both ignore space and dups
 
+export SYSTEMD_EDITOR='vim'
 export PSQL_EDITOR="vim -c 'set syntax=sql'"
 
 set -o vi
@@ -99,3 +100,7 @@ export GOPROXY=https://jp.iveteran.me:4433,direct
 
 #
 export GPG_TTY=$(tty)
+
+# Install: apt install keychian
+keychain $HOME/.ssh/iv.id_rsa
+source $HOME/.keychain/$HOSTNAME-sh

@@ -24,7 +24,7 @@
 [http]
     #proxy = socks5://127.0.0.1:1081
     #[https://github.com]  # only github.com
-        #proxy = socks5://127.0.0.1:1081
+    #proxy = socks5://127.0.0.1:1081
 [https]
     #proxy = socks5://127.0.0.1:1081
 [git]

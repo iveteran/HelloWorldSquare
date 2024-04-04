@@ -42,9 +42,9 @@ map Q gq
 inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
+"if has('mouse')
+"  set mouse=a
+"endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -123,10 +123,14 @@ set smartindent
 set smarttab
 set expandtab
 "set cuc
+"set paste
+set formatoptions-=cro " help fo-table
+set iskeyword-=/,.,@  " make /.@ not be part of word
 
 " set tags file
 set tags=tags;,TAGS;
 set autochdir
+set omnifunc=syntaxcomplete#Complete
 
 "set path+=~/projects/iDirect/Core_Libs
 
@@ -136,3 +140,20 @@ set autochdir
 
 set laststatus=2
 so ~/.vimrc.statusline
+
+" -- begin: vim-plug --
+" Install vim-plug:
+"   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" Install all plugins:
+"   PlugInstall
+" Refer: https://github.com/junegunn/vim-plug
+call plug#begin()
+ " Your vim plugins here
+ " Plug 'wuelnerdotexe/vim-astro'
+call plug#end()
+" -- end: vim-plug --
+
+" Enable vim-astro
+let g:astro_typescript = 'enable'
+"let g:astro_stylus = 'enable'
