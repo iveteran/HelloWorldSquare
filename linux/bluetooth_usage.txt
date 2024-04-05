@@ -1,0 +1,55 @@
+Connect to a Bluetooth Device via the Terminal
+
+Refer: https://www.baeldung.com/linux/bluetooth-via-terminal
+
+# Install
+$ apt install bluez
+
+# Systemd service: bluetoothd
+$ sudo systemctl status bluetooth
+$ sudo journalctl -r -u bluetooth
+
+# Manaully to run (Debug)
+$ bluetoothd -n -d
+
+# Controller
+$ bluetoothctl
+> help
+> list
+> show
+> info
+> devices
+> connect <ADDRESS>
+> disconnect [ADDRESS]
+> scan
+
+# Hardware controller
+hciconfig -a
+sudo hciconfig hci0 up
+
+# Problems to fix:
+1) Error:
+`
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: profiles/audio/vcp.c:vcp_init() D-Bus experimental not enabled
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: src/plugin.c:plugin_init() Failed to init vcp plugin
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: profiles/audio/mcp.c:mcp_init() D-Bus experimental not enabled
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: src/plugin.c:plugin_init() Failed to init mcp plugin
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: profiles/audio/bap.c:bap_init() D-Bus experimental not enabled
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: src/plugin.c:plugin_init() Failed to init bap plugin
+Mar 09 17:11:41 mwx001 systemd[1]: Started bluetooth.service - Bluetooth service.
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: Bluetooth management interface 1.22 initialized
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: profiles/sap/server.c:sap_server_register() Sap driver initialization failed.
+Mar 09 17:11:41 mwx001 bluetoothd[1134]: sap-server: Operation not permitted (1)
+Mar 17 12:58:23 mwx001 bluetoothd[1134]: src/adv_monitor.c:btd_adv_monitor_power_down() Unexpected NULL btd_adv_monitor_manager object upon power down
+Mar 20 21:32:32 mwx001 bluetoothd[1134]: src/service.c:btd_service_connect() a2dp-sink profile connect failed for 9E:A6:08:1E:CE:8C: Protocol not available
+`
+Solution:
+Edit /etc/systemd/system/bluetooth.target.wants/bluetooth.service, add "--noplugin=sap":
+ExecStart=/usr/libexec/bluetooth/bluetoothd --noplugin=sap
+systemctl restart bluetooth
+Refer: https://raspberrypi.stackexchange.com/questions/40839/sap-error-on-bluetooth-service-status
+
+2) Error: displayed is: br-connection-profile-unavailable
+Solution: 1st removed pulseaudio-module-bluetooth. Then installed libspa-0.2-bluetooth. Restartred system.
+Refer: https://askubuntu.com/questions/1479606/bluetooth-br-connection-profile-unavailable-issue-on-upgrade-to-xubuntu-23-04
+       https://forums.debian.net/viewtopic.php?t=155520
