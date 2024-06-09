@@ -1,0 +1,46 @@
+Refers:
+https://en.wikipedia.org/wiki/Emoji#Unicode_blocks
+https://stackoverflow.com/questions/602912/how-do-you-echo-a-4-digit-unicode-character-in-bash
+
+1. In UTF-8 it's actually 6 digits (or 3 bytes).
+$ printf '\xE2\x98\xA0'
+☠
+
+2. To check how it's encoded by the console, use hexdump:
+$ printf ☠ | hexdump -C
+0000000 98e2 00a0                              
+0000003
+
+3.
+$ echo -e '\u2620'     # \u takes four hexadecimal digits
+☠
+% echo -e '\U0001f602' # \U takes eight hexadecimal digits
+😂
+
+4.
+$ echo -e "\U01F47D"
+👽
+$ printf "\U01F47D"
+👽
+$ printf 👽 | hexdump
+0000000 9ff0 bd91
+0000004
+$ printf 👽 | hexdump -C
+00000000  f0 9f 91 bd                                       |....|
+00000004
+$ echo -e "\xf0\x9f\x91\xbd"
+👽
+
+5 Bash color table
+Black        0;30     Dark Gray     1;30
+Red          0;31     Light Red     1;31
+Green        0;32     Light Green   1;32
+Brown/Orange 0;33     Yellow        1;33
+Blue         0;34     Light Blue    1;34
+Purple       0;35     Light Purple  1;35
+Cyan         0;36     Light Cyan    1;36
+Light Gray   0;37     White         1;37
+
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+printf "I ${RED}👽${NC} Stack Overflow\n"
