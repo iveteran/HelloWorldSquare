@@ -1,0 +1,11 @@
+Refer: https://stackoverflow.com/questions/42901942/how-do-we-download-a-blob-url-video
+
+ffmpeg -i 'https://url/to/some/file.m3u8' \
+-bsf:a aac_adtstoasc -vcodec copy -c copy -crf 50 \
+output.mp4
+
+ffmpeg -i "https://url/to/some/file.m3u8" \
+-codec copy \
+output.mkv
+
+ffplay -i "https://url/to/some/file.m3u8"

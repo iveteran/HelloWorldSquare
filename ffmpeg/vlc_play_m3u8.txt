@@ -1,0 +1,6 @@
+Play:
+vlc https://video.twimg.com/amplify_video/1783966929440460800/pl/WjQ4jKooUjyyPC7t.m3u8
+
+Download:
+Open: VLC -> Media -> 'Convert/Save...' -> Network -> 'Convert/Save' -> Convert
+-> fill: 1) source url 2) profile: mp4, 3) destination file
