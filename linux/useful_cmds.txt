@@ -6,3 +6,6 @@ $ xrandr
 
 4) Reload a Linux user's group assignments without logging out
   su - $USER
+
+5) qmv - batch rename files
+6) rename.ul -- FROM_STR TO_STR *.png  # debain 12
