@@ -1,0 +1,13 @@
+# Temporarily setting
+$ setfont /usr/share/consolefonts/Lat15-TerminusBold24x12
+
+# Permanently settings
+Edit /etc/default/console-setup, change or add below:
+CHARMAP="UTF-8"
+CODESET="Lat15"
+#FONTFACE="Fixed"
+#FONTSIZE="8x16"
+FONTFACE="TerminusBold"
+FONTSIZE="12x24"
+
+# refer: https://www.baeldung.com/linux/font-change-virtual-console

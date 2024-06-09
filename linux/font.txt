@@ -1,0 +1,7 @@
+Commands:
+fc-list
+fc-match <keyword>
+fc-cache -f -v
+
+User's font directory:
+~/.local/share/fonts
