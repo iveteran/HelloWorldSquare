@@ -1,0 +1,1 @@
+go env -w GOPATH=/opt/go_pkg
