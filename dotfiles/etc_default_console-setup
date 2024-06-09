@@ -1,0 +1,34 @@
+# For Debian, file: /etc/system/console-setup
+#
+# CONFIGURATION FILE FOR SETUPCON
+
+# Consult the console-setup(5) manual page.
+
+ACTIVE_CONSOLES="/dev/tty[1-6]"
+
+CHARMAP="UTF-8"
+
+CODESET="Lat15"
+#FONTFACE="Fixed"
+#FONTSIZE="8x16"
+FONTFACE="TerminusBold"
+FONTSIZE="12x24"
+
+VIDEOMODE=
+
+# The following is an example how to use a braille font
+# FONT='lat9w-08.psf.gz brl-8x8.psf'
+
+
+#####################################
+# Apply the changes with:
+# 1) sudo update-initramfs -u
+# 2) setupcon (open a TTY and run it, only for current TTY)
+#    OR reboot (system wide)
+#
+# Temporarily setting:
+# setfont /usr/share/consolefonts/Lat15-TerminusBold32x16
+#
+# font files: /usr/share/consolefonts
+# Refers: https://askubuntu.com/questions/173220/how-do-i-change-the-font-or-the-font-size-in-the-tty-console
+#         https://www.baeldung.com/linux/font-change-virtual-console
