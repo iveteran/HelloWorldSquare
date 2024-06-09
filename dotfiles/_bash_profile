@@ -10,7 +10,14 @@ fi
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin:/snap/bin
+
+# Golang environment
+[ -d /opt/go/bin ] && PATH=$PATH:/opt/go/bin
+export GOPATH=/opt/yuu/go
+[ -d $GOPATH ] && PATH=$PATH:"$GOPATH/bin"
+
+PATH=$PATH:/opt/AppImage
 
 export PATH
 
@@ -28,6 +35,11 @@ alias sudo='sudo env PATH=$PATH'
 alias bat='batcat'
 alias apt-search="apt search --names-only"
 alias chrome-proxy="google-chrome --proxy-server='127.0.0.1:7891'"
+alias jf="python3 -mjson.tool --indent 2 --no-ensure-ascii"
+jf_bat() {
+  local file=$1
+  jf $file | bat -l json
+}
 
 # Aliases to optn Tmux with session name
 alias tls='tmux ls'
@@ -68,17 +80,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-git_branch() {
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-  if [ $branch ]
-  then
-    echo "($branch)"
-  fi
-}
-
-#export PS1="\u@\h \W [\$(git symbolic-ref --short HEAD 2>/dev/null)]\$ " # 显示原来的颜色
-#export PS1="\[\033[95m\]\u@\h \[\033[32m\]\W\[\033[33m\] (\$(git symbolic-ref --short HEAD 2>/dev/null))\[\033[00m\]\$ " # 加了颜色,但不在git的目录中会显示空括号
-export PS1="[\[\033[95m\]\u@\h \[\033[32m\]\W\[\033[33m\] \$(git_branch)\[\033[00m\]]\$ "
+source ~/.bash_prompt
 
 # Enable use GUI apps on WSL by VcXsrv for Windows 10
 # Refers:
@@ -87,18 +89,19 @@ export PS1="[\[\033[95m\]\u@\h \[\033[32m\]\W\[\033[33m\] \$(git_branch)\[\033[0
 #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
 export DISPLAY=":0"
 
-if [ -f "$HOME/.cargo/env" ]; then
-  . "$HOME/.cargo/env"
-fi
+# Rust environment
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 
 # 配置 GOPROXY 环境变量
 #export GOPROXY=https://proxy.golang.com.cn,direct
-export GOPROXY=https://jp.iveteran.me:4433,direct
+#export GOPROXY=https://jp.iveteran.me:4433,direct
 # # 还可以设置不走 proxy 的私有仓库或组，多个用逗号相隔（可选）
 # export GOPRIVATE=git.mycompany.com,github.com/my/private
 
-#
+#source ~/.profile_proxy
+
+# GnuPG
 export GPG_TTY=$(tty)
 
 # Install: apt install keychian

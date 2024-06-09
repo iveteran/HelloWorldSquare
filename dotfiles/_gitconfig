@@ -22,10 +22,12 @@
     clean = git-media-clean %f
     smudge = git-media-smudge %f
 [http]
+    version = "HTTP/1.1"  # downgrade, fix error: RPC failed; curl 92 HTTP/2 stream 5 was not closed cleanly
     #proxy = socks5://127.0.0.1:1081
     #[https://github.com]  # only github.com
     #proxy = socks5://127.0.0.1:1081
 [https]
+    version = "HTTP/1.1"
     #proxy = socks5://127.0.0.1:1081
 [git]
     proxy = socks5://127.0.0.1:7891

@@ -17,10 +17,14 @@
 "   PlugDiff	                        Examine changes from the previous update and the pending changes
 "   PlugSnapshot[!] [output path]	    Generate script for restoring the current snapshot of the plugins
 "
+" Install all plugins:
+"   PlugInstall
+"
 " -- begin: vim-plug --
 call plug#begin()
  " Your vim plugins here
   Plug 'wuelnerdotexe/vim-astro'
+  Plug 'phelipetls/vim-hugo'
 call plug#end()
 " -- end: vim-plug --
 
