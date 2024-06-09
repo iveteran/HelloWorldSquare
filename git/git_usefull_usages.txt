@@ -3,3 +3,11 @@ git commit --amend -m "New commit message"
 
 2) Git Pull with Submodule
 git pull --recurse-submodules
+
+3) create remote branch
+git checkout -b <branch-name>
+and one of below:
+git push <remote-name> <branch-name>
+git push <remote-name> <local-branch-name>:<remote-branch-name>
+git push --set-upstream <remote-name> <local-branch-name>
+git push -u origin <branch-name>
