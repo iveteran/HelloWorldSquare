@@ -3,16 +3,29 @@
 #      https://stackoverflow.com/questions/41959355/how-can-i-combine-these-commands-to-achieve-circular-crop-in-imagemagick
 
 demo_in_0() {
+    local radius=200
+    local center_x=400
+    local center_y=200
+    local x1=`expr $center_x+$radius`
+    local y1=$center_y
+    # NOTE: x1,y1 is any point in the circle
+
     convert logo: -alpha set -background none -fill white \
-       \( +clone -channel A -evaluate set 0 +channel -draw "circle 400,200 400,100" \) \
+       \( +clone -channel A -evaluate set 0 +channel -draw "circle $center_x,$center_y $x1,$y1" \) \
        -compose dstin -composite crop_circle_in.png
 
     display crop_circle_in.png
 }
 
 demo_in() {
+    local ox=153      # Offset X, distance from the center of the ellipse till the left border of the image
+    local oy=128      # Offset Y, distance from the center of the ellipse till the top of the image
+    local rx=57       # X radius
+    local ry=57       # Y radius
+    local start=0     # Starting angle in degrees.
+    local end=360     # End angle in degrees.
     convert logo: -alpha on -background none -fill white \
-       \( +clone -channel A -evaluate multiply 0 +channel -draw "ellipse 153,128 57,57 0,360" \) \
+       \( +clone -channel A -evaluate multiply 0 +channel -draw "ellipse $ox,$oy $rx,$ry $start,$end" \) \
        -compose DstIn -composite circle_in.png
 
     display circle_in.png
