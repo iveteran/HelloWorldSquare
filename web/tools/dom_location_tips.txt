@@ -5,3 +5,59 @@
 2. XPath 和 CSS 选择器可以绑定到 DOM 结构或实现。当 DOM 结构发生变化时，这些选择器可能会中断。
 3. 建议优先考虑 用户可见的定位器（如文本或可访问角色），而不是使用与实现相关且可能在页面更改时中断的 CSS。
 4. 推荐 通过标签文本定位，而不是依赖标签到控制的重定向。
+
+
+Refer: https://bugbug.io/blog/testing-frameworks/playwright-locators/
+
+5. 根据id获取
+const sameElement = page.locator("#element-id")
+const sameElement = page.locator('id=element-id');
+
+6. 根据CSS class name获取
+const locator = page.locator(".class-name")
+const button = page.locator('button.submit');
+
+7. 根据element包含某个class
+const locator = page.locator("div").evaluate(el => el.classList.contains("class-name"));
+
+8. 获取element的父节点
+const locator = page.locator("#element-id").locator("..")
+
+9. 根据属性获取
+const input = page.locator('input[type="text"]');
+const element = page.locator('[data-test-id="unique-element"]');
+const button = page.locator('.component-class [data-action="save"]');
+
+10. 组合选择器
+const loginButton = page.locator('#login-section .login-button');
+const loginButton = page.locator('text="Login" >> css=button');
+
+11. 伪类、伪元素选择器(Pseudo-classes and Pseudo-elements):
+const firstItem = page.locator('ul > li:first-child');
+const hoverButton = page.locator('button:hover');
+
+12. 多元素定位
+const itemCount = page.locator('ul > li').count();
+
+13. 根据文本定位
+const heading = page.locator('text="Welcome to Our Site"');
+const heading = page.locator('text="/keyword/"');
+
+14. XPath定位
+const listItem = page.locator('//ul/li[3]');
+
+15. 父子关系定位
+const parentLocator = page.locator('div.parent');
+const childLocator = parentLocator.locator('div.child');
+
+page.getByRole('listitem')
+    .filter({ has: page.getByRole('heading', { name: 'Product 2' }) })
+    .getByRole('button', { name: 'Add to cart' })
+    .click();
+
+16. 获取element文本
+const text = locator.textContent();
+
+17. get outer html
+html_content = locator.evaluate("(el) => el.outerHTML") # python
+html_content = locator.evaluate((el) => el.outerHTML) # javascript
