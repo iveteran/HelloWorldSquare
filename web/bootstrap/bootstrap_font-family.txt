@@ -1,0 +1,7 @@
+1) import it in CSS file like this:
+@import url("http://fonts.googleapis.com/css?family=Oswald:400,300,700");
+
+2) Then, in your css, you can edit the body's font-family:
+body {
+  font-family: 'Oswald', sans-serif !important;
+}
