@@ -1,0 +1,5 @@
+# To check if any module in a project is 'old':
+npm outdated
+
+# To update package.json version numbers, append the --save flag:
+npm update --save
