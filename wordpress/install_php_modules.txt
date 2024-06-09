@@ -1,0 +1,24 @@
+https://matrix.works/blog/wp-admin/site-health.php
+
+Site Health Status
+The site health check shows information about your WordPress configuration and items that may need your attention.
+
+1 critical issue
+Critical issues are items that may have a high impact on your sites performance or security, and resolving these issues should be prioritized.
+
+
+One or more required modules are missing
+Performance
+PHP modules perform most of the tasks on the server that make your site run. Any changes to these must be made by your server administrator.
+
+The WordPress Hosting Team maintains a list of those modules, both recommended and required, in the team handbook(opens in a new tab).
+
+Warning The optional module, imagick, is not installed, or has been disabled.
+Warning The optional module, zip, is not installed, or has been disabled.
+Error The required module, gd, is not installed, or has been disabled.
+
+-----------------
+
+CentOS:
+sudo dnf install php-pecl-zip
+sudo dnf install php-gd
