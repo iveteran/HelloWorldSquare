@@ -1,0 +1,2 @@
+apt install tidy
+tidy -i input.html > output.html
