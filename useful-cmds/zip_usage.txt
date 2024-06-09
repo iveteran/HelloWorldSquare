@@ -1,0 +1,2 @@
+zip -P <PASSWORD> -r output.zip <DIR>
+unzip
