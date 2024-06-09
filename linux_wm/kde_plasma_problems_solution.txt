@@ -1,0 +1,4 @@
+# Plasma Taskbar disappeared
+$ killall plasmashell
+$ rm ~/.config/plasma-org.kde.plasma.desktop-applets
+$ plasmashell &
