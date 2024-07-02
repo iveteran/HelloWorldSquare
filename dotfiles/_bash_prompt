@@ -113,7 +113,7 @@ end_color_change() {
 #PS1="\[\e[95m\]\u@\h \[\e[32m\]\W\[\e[33m\] (\$(git symbolic-ref --short HEAD 2>/dev/null))\[\e[0m\]\$ " # 加了颜色,但不在git的目录中会显示空括号
 #PS1="[\[\e[95m\]\u@\h \[\e[32m\]\W\[\e[33m\]\$(git_branch)\[\e[0m\]]\$ "
 #PS1="[\[\e[95m\]\u\[\e[1;30m\]@\[\e[95m\]\h \[\e[32m\]\W\[\e[33m\] \$(git_branch)\[\e[0m\]]\$ "
-PS1="[$(show_time) $(show_user_at_host) $(show_short_cwd)$(show_git_branch)$(end_color_change)] \$ "
+PS1="[$(show_time) $(show_user_at_host) $(show_short_cwd)$(show_git_branch)$(end_color_change)]\$ "
 #
 #PS1='\[[left$(column_remain_spaces 11)\]right]\n > '  # 11 means length of '[left' and 'right]'
 #PS1="`printf -vch "%${COLUMNS}s" "${TEXT}"; printf "%s" "${ch// /-}"`$PS1"
