@@ -1,4 +1,5 @@
 # set timezone
+timedatectl list-timezone
 timedatectl set-timezone Asia/Shanghai
 # set hostname
 hostname HOSTNAME
@@ -12,21 +13,36 @@ apt udpate
 apt upgrade
 
 # install top tools
+apt install keychain
 apt install tmux
 apt install vim
 apt install git
+apt install fzf
+apt install ripgrep
+apt install htop btop bmon iftop iptraf iotop
+apt install jq tidy bat  # json formatter, html formatter and text viewer
 
 # clone dot files
 su - yuu
 git clone https://github.com/iveteran/helloworld
-cp helloworld/myconfig/_gitconfig .gitconfig
+cp helloworld/dotfiles/_gitconfig .gitconfig
 cp helloworld/tmux/gpakosz_tmux.conf .tmux.conf
 cp helloworld/tmux/gpakosz_tmux.conf.local .tmux.conf.local
-cp helloworld/myconfig/_vimrc .vimrc
-cp helloworld/myconfig/_vimrc.statusline .vimrc.statusline
-cp helloworld/myconfig/_inputrc .inputrc
-cp helloworld/myconfig/_bash_profile .bash_profile
+cp helloworld/dotfiles/_vimrc .vimrc
+cp helloworld/dotfiles/_vimrc.statusline .vimrc.statusline
+cp helloworld/dotfiles/_vimrc.vim-plug .vimrc.vim-plug
+cp helloworld/dotfiles/_vimrc.vundle .vimrc.vundle
+cp helloworld/dotfiles/_vimrc.ycm .vimrc.ycm
+cp helloworld/dotfiles/_inputrc .inputrc
+cp helloworld/dotfiles/_bash_profile .bash_profile
+cp helloworld/dotfiles/_bash_prompt .bash_prompt
 source ~/.bash_profile
+
+# Install vim plugin managers
+# vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # ssh client setup - passwordless login, NOTE: on client machine
 ssh-copy-id -i ~/.ssh/iv.id_rsa.pub HOST
@@ -51,6 +67,8 @@ ssh_port_t                     tcp      24, 22
 # firewall (ufw)
 sudo apt install ufw
 sudo ufw allow 24/tcp comment 'replacement port of sshd'
+sudo ufw status
+sudo ufw enable
 
 # CentOS (firewalld)
 firewall-cmd --permanent --zone=public --add-port=24/tcp 
