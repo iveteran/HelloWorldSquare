@@ -1,0 +1,12 @@
+# add more tty
+sudo systemctl start getty@ttyN
+
+# configure file
+/etc/systemd/logind.conf
+[Login]
+NAutoVTs=6  # auto open 6 ttys
+
+# command
+stty
+
+# Refer: https://wiki.archlinux.org/title/Getty

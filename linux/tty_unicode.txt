@@ -1,0 +1,25 @@
+
+------------
+
+# kmscon - an unicode supported TTY, but can not to run startx on it
+apt install kmscon
+
+------------
+
+# fbterm - an unicode supported TTY, configure file: ~/.fbtermrc
+# Debian 12
+$ apt install fbterm
+$ apt install fcitx fcitx-frontend-fbterm
+$ fbterm -s 20  # with font size 20
+
+FAQ
+1). 第一次運行，出現下面的錯誤信息提示並且輸入法不能啟動（或者只有 root 用戶正常）
+[input] can't change kernel keymap table, all shortcuts will NOT work, see SECURITY NOTES section of man page for solution.
+
+解法 1) setuid (適用一般狀況)
+chmod u+s /usr/bin/fbterm
+
+解法 2) setcap (適用於 Kernel>= 2.6.27 )
+sudo setcap 'cap_sys_tty_config+ep' /usr/bin/fbterm
+
+Refer: https://my.oschina.net/innovation/blog/1643792

@@ -1,5 +1,5 @@
 # Temporarily setting
-$ setfont /usr/share/consolefonts/Lat15-TerminusBold24x12
+$ sudo setfont /usr/share/consolefonts/Lat15-TerminusBold24x12
 
 # Permanently settings
 Edit /etc/default/console-setup, change or add below:
