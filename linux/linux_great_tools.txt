@@ -1,0 +1,26 @@
+Bash
+
+Vim
+ YouCompleteMe
+ vim-plug
+ vundle
+
+Tmux
+ TPM
+ tmuxifier
+
+Zellij
+
+FZF
+
+Ripgrep
+
+fbterm / kmscon
+
+ffmpeg
+imagemagick
+
+mutt
+
+bmon
+btop
