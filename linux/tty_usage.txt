@@ -10,3 +10,40 @@ NAutoVTs=6  # auto open 6 ttys
 stty
 
 # Refer: https://wiki.archlinux.org/title/Getty
+
+---------
+Font settings
+sudo setfont /usr/share/consolefonts/Lat15-TerminusBold24x12
+OR: change /etc/default/console-setup
+
+---------
+Unicode supports
+
+fbterm, kmscon, cjktty, zhcon
+
+---------
+Chinese input
+
+fictx, fcitx-frontend-fbterm
+
+
+---------
+Make screenshot on TTY
+$ apt install fbcat
+
+1) fbcat
+$ fbcat > output_image.ppm
+$ ppmtojpg output_image.ppm > output_image.jpg
+
+2) fbgrab
+$ fbgrab -d /dev/fb0 output_image.png  # capture framebuffer device
+$ sudo fbgrab -c 2 output_image.png    # capture screenshot of tty2, using command w to show all logged in ttys
+
+# Refer: https://github.com/jwilk/fbcat
+
+--------
+Image viewer
+w3m (N/A)
+
+Video player
+mpv (N/A)
