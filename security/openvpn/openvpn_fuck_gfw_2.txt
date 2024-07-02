@@ -1,0 +1,28 @@
+
+There are two parts into the solution:
+
+1. Redirect all the traffic into the tunnel
+The easiest solution - use OpenVPN's --redirect-gateway autolocal option (or put it in the config file as redirect-gateway autolocal.
+
+2. Handle the traffic on the OpenVPN server
+Now that the tunnel is up all the traffic goes into the tunnel and pops up at the server's end from tun0 interface.
+You need to configure two things to make it work:
+
+a. Enable packet forwarding
+By default in most distributions the packet forwarding is disabled, hence packets from the tunnel interface never make it to the public interface. You must enable forwarding with:
+~ # sysctl net.ipv4.ip_forward=1
+net.ipv4.ip_forward = 1
+
+Once tested make the change permanent in /etc/sysctl.conf
+Also make sure that iptables are not blocking the forwarded traffic:
+~ # iptables -I FORWARD -j ACCEPT
+This is good enough for testing - in production you'll want to make the firewall rules a bit more specific, but that's out of scope here.
+
+b. NAT the outgoing packets from the tunnel
+With forwarding enabled the packets are by default forwarded with their source address unchanged, that is in your case 10.8.0.6 - such packets are either dropped on the ISP gateway or even if they make it to the destination the reply never finds the way back. These private addresses are not routable on the internet.
+The solution is to NAT the egress traffic, i.e. replace the private 10.8.0.6 address with the VPN server's public IP. That will ensure that the replies reach the VPN server and there they will get forwarded back into the tunnel.
+~ # iptables -t nat -I POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
+
+3. Test it
+Now try ping 8.8.4.4 from your VPN client. You should see a reply. Let us know if not :)
+

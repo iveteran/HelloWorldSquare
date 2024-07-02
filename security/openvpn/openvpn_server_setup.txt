@@ -127,3 +127,23 @@ $ sudo systemctl start openvpn-server@server
 $ sudo systemctl status openvpn-server@server
 $ sudo systemctl enable openvpn-server@server
 $ sudo journalctl -u openvpn-server@server
+
+
+# NAT table rules and allow forwarding for trusted networks
+sudo vim /etc/ufw/before.rules, Add following lines:
+
+# allow forwarding for trusted network
+-A ufw-before-forward -s 10.10.0.0/24 -j ACCEPT
+-A ufw-before-forward -d 10.10.0.0/24 -j ACCEPT
+
+# NAT table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -s 10.10.0.0/24 -o eth0 -j MASQUERADE
+
+# End each table with the 'COMMIT' line or these rules won't be processed
+COMMIT
+
+Check results:
+sudo systemctl restart ufw
+sudo iptables -t nat -L POSTROUTING
