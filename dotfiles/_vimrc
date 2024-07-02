@@ -143,6 +143,7 @@ so ~/.vimrc.statusline
 
 so ~/.vimrc.vim-plug
 so ~/.vimrc.vundle
+so ~/.vimrc.ycm
 
 " NOTE: Put below option at the end of this file
 set shortmess-=S  " show search results count on statusline(bottom right)
