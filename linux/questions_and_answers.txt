@@ -1,0 +1,13 @@
+Q:
+sudo vim /etc/hosts
+sudo: unable to resolve host YOUR_HOST_NAME: Temporary failure in name resolution
+
+A:
+It seems likely that your computer's hostname is not configured correctly. There are two files you should check; /etc/hostname contains just your computer's name, and /etc/hosts will have a line that maps the IP address 127.0.1.1 to your hostname. For example, those files might look like:
+
+username@ubuntu ~ $ cat /etc/hostname
+ubuntu
+
+username@ubuntu ~ $ cat /etc/hosts
+127.0.0.1       localhost
+127.0.1.1       ubuntu
