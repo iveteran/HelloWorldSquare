@@ -1,0 +1,19 @@
+Refer: https://thevaluable.dev/fzf-shell-integration/
+
+0) Install FZF (Debian)
+$ apt install fzf
+
+1) Make effect
+source /usr/share/doc/fzf/examples/key-bindings.bash
+source /usr/share/bash-completion/completions/fzf
+
+2) Keybinding
+Keystroke	Description
+CTRL-t	    Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT.
+ALT-c	    Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
+CTRL-r	    Fuzzy find through your shell history, and output the selection to STDOUT.
+
+3) Completion Using fzf
+$ vim **<TAB>
+$ cd **<TAB>
+$ cd public**<TAB>
