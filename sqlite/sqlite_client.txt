@@ -1,0 +1,4 @@
+Refer: https://litecli.com/
+
+$ pip install litecli
+$ litecli <db_name>
