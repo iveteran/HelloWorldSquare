@@ -35,8 +35,10 @@ set statusline+=%= " Separation point between left and right aligned items
 "set statusline+=%5*
 "set statusline+=[ascii=\%03.3b]
 "set statusline+=[hex=\%02.2B]
-set statusline+=%#User2#
-set statusline+=\ %y\ 
+if (&filetype != '')
+    set statusline+=%#User2#
+    set statusline+=\ %y\ 
+endif
 set statusline+=%#User3#
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}[%{&ff}]\  " filetype encoding[format]
 "set statusline+=%4*  " equal to below line
