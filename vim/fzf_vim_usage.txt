@@ -1,0 +1,41 @@
+1) Install (vim-plug)
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+2) Usage:
+:FZF [options] [path]
+
+" Look for files under your home directory
+:FZF ~
+
+" With fzf command-line options
+:FZF --reverse --info=inline /tmp
+
+" Bang version starts fzf in fullscreen mode (add ! to behind of commands)
+:FZF!
+
+" Other usefull commands
+:Files [Dir]    Search through all files
+:Buffers	Search through all open buffers.
+:Lines	    Search through the content of all open buffers.
+:BLines	    Search through the content of the current buffer.
+:History:	Search through your Ex command history.
+:History/	Search through your search history.
+:Maps	    Search through all NORMAL mode mapping.
+:GFiles     Populate fzf with the filenames of all the files added to Git (using the shell command git ls-files under the hood).
+
+" Keystroke
+Keystroke	Description
+ENTER	    Open the file in the current window.
+CTRL-x	    Open the file in a new horizontal split.
+CTRL-v	    Open the file in a new vertical split.
+CTRL-t	    Open the file in a new tab.
+
+3) Search files content with Ripgrep, apt install ripgrep
+:Rg [partten]
+
+Keystroke	Description
+ALT-a	    Select all files.
+ALT-d	    De-select all files.
+
+# refer: https://thevaluable.dev/fzf-vim-integration/
