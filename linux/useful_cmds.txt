@@ -9,3 +9,6 @@ $ xrandr
 
 5) qmv - batch rename files
 6) rename.ul -- FROM_STR TO_STR *.png  # debain 12
+
+7) iostat -d -m
+   watch -n 1 'iostat -d -m'
