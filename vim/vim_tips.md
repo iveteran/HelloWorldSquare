@@ -12,3 +12,12 @@ at: a <tag> </tag> block (with tags)
 it: inner <tag> </tag> block
 
 Refer: https://stackoverflow.com/questions/6270396/navigating-html-tags-in-vim
+
+## Add a string to the end of each line in Vim
+Even shorter than the :search command:
+:%norm A*
+
+This is what it means:
+ %       = for every line
+ norm    = type the following commands
+ A*      = append '*' to the end of current line
