@@ -3,8 +3,8 @@
 *.swo
 
 # image files
-*.png
-*.jpg
+#*.png
+#*.jpg
 
 # video files
 *.mkv
