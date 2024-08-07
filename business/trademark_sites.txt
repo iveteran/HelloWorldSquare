@@ -1,0 +1,5 @@
+USPTO
+https://tmsearch.uspto.gov/search/search-information
+
+WIPO
+https://branddb.wipo.int/en/similarname?sort=score%20desc&start=0&rows=30&asStructure=%7B%22boolean%22:%22AND%22,%22bricks%22:%5B%5D%7D&_=1720604289256

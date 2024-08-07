@@ -1,0 +1,27 @@
+Libs:
+
+TUI:
+ratatui - A Rust crate for cooking up Terminal User Interfaces
+
+GUI:
+egui - gui (pronounced "e-gooey") is a simple, fast, and highly portable immediate mode GUI library for Rust. egui runs on the web, natively, and in your favorite game engine.
+iced - A cross-platform GUI library for Rust focused on simplicity and type-safety. Inspired by Elm.
+
+tabled - An easy to use library for pretty print tables of Rust structs and enums
+Plotters - A Rust drawing library focusing on data plotting for both WASM and native applications
+Bevy - A refreshingly simple data-driven game engine built in Rust 
+
+Tools:
+buttom(btm) - A customizable cross-platform graphical process/system monitor for the terminal
+bat(batcat) - More human friendly cat replacement (syntax highlighting, automatic paging, etc.) 
+fd - better find
+ripgrep - better grep
+exa(eza) - a great ls alternative!
+Helix - A Kakoune / Neovim inspired editor, written in Rust.
+Zellij - A workspace aimed at developers, ops-oriented people and anyone who loves the terminal. Similar programs are sometimes called "Terminal Multiplexers"
+Alacritty - A fast, cross-platform, OpenGL terminal emulator
+Wezterm - A GPU-accelerated cross-platform terminal emulator and multiplexer written by @wez and implemented in Rust
+
+Refers:
+https://www.reddit.com/r/rust/comments/16g38gp/what_are_your_favorite_simple_open_source_tools/
+https://github.com/rust-unofficial/awesome-rust

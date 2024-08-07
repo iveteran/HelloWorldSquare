@@ -1,0 +1,12 @@
+1. Add host folder to share
+1) By command
+VBoxManage sharedfolder add "VM name" --name sharename --hostpath "C:\test"
+
+2) By GUI menu
+Menu -> Devices -> Shared Folders -> Shared Folders Settings...
+Path: <Host machine folder>     # Host folder that to share
+Name: <sharename>               # name of this share
+Mount: <vboxshare_mnt>          # Guest machine folder
+
+2. Mount host shared folder to guest
+sudo mount -t vboxsf sharename vboxshare_mnt

@@ -1,0 +1,40 @@
+LXC Getting started
+
+Refers: https://linuxcontainers.org/lxc/getting-started/
+        https://www.cnblogs.com/onestarlearner/p/17605214.html
+
+# Install
+sudo apt install lxc lxc-templates lxcfs
+sudo dnf install lxc lxc-templates lxcfs
+
+# Check environment
+lxc-checkconfig
+
+# Create Unprivileged Containers as a User
+cp /etc/lxc/default.conf .config/lxc/default.conf
+Add below lines:
+lxc.idmap = u 0 100000 65536
+lxc.idmap = g 0 100000 65536
+
+# Create
+lxc-create --name mycontainer --template download
+lxc-create --name mycontainer --template download -- --dist debian --release 3.19 --arch amd64
+
+# Start
+lxc-start --name mycontainer
+
+# Info
+lxc-info --name mycontainer
+lxc-ls --fancy
+
+# Start shell
+lxc-attach --name mycontainer
+
+# Stop
+lxc-stop --name mycontainer
+
+# Destory
+lxc-destroy --name mycontainer
+
+# Autostart
+echo "lxc.start.auto = 1" >>/var/lib/lxc/mycontainer/config
