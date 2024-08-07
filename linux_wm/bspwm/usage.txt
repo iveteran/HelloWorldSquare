@@ -1,0 +1,23 @@
+1. Open termnal
+Super + Enter
+
+2. Fullscreen
+Super + F
+
+3. Move window to another desktop
+Super + Shit + <Desktop Num>
+
+
+Super + Alt + Q         Quit BSPWM (better use XFCE logout button!)
+Super + Alt + R         Restart BSPWM
+Super + Shift + Q       Kill selected window
+Super + M               Toggle between monocle and tiled layout
+Super + Y               Switch newest marked node to newest preselected node (node = window)
+Super + G               Switch current node with the biggest window
+Super + T               Set window tiled
+Super + Shift + T       Set window pseudo-tiled
+Super + S               Set window floating
+Super + F               Set window fullscreen
+Super + Shift + F       Toggle window fullscreen
+Super + Shift + (1-0)   Send window to desktop (1-10)
+
