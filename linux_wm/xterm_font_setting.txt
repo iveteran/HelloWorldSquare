@@ -5,3 +5,7 @@
 
 2) run below command
   xrdb -merge ~/.Xresources
+
+Refers:
+  https://askubuntu.com/questions/161652/how-to-change-the-default-font-size-of-xterm
+  https://www.oreilly.com/library/view/x-window-system/9780937175149/Chapter05.html
