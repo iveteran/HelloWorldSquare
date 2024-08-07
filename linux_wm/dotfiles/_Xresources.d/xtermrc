@@ -1,6 +1,20 @@
-! Binding Ctrl+Shift_C/V to copy & paste text
 ! Refer: https://unix.stackexchange.com/questions/225062/how-can-i-copy-text-from-xterm-awesome-debian-virtualbox
-XTerm*VT100.Translations: #override \
+!        https://wiki.archlinux.org/title/Xterm#Configuration
+
+XTerm.termName: xterm-256color
+XTerm.vt100.locale: false
+XTerm.vt100.utf8: true
+
+! Font settings, Search fonts: fc-match mono
+XTerm.vt100.faceName: DejaVu Sans Mono:style=Book:antialias=false
+XTerm.vt100.faceNameDoublesize: WenQuanYi WenQuanYi Bitmap Song
+XTerm.vt100.faceSize: 8
+
+! Adjust line spacing
+XTerm.vt100.scaleHeight: 1.01
+
+! Binding Ctrl+Shift_C/V to copy & paste text
+XTerm*vt100.translations: #override \
       Shift <KeyPress> Insert: insert-selection(CLIPBOARD) \n\
       Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
       Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
@@ -16,3 +30,6 @@ XTerm*rightScrollBar: false
 XTerm*ScrollBar: true
 XTerm*foreground: rgb:ff/e5/c3
 XTerm*background: rgb:2b/2b/2b
+
+! If you prefer to not having duplicate entries in the configuration file, wildcard matching can be used:
+*.vt100.reverseVideo: true

@@ -7,3 +7,6 @@
 ! xrdb -query -all
 !
 ! Refer: https://wiki.archlinux.org/title/x_resources
+!
+! Peek at the X root window's properties
+! xprop -root
