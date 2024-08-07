@@ -1,5 +1,32 @@
+
+Refer: https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
+
+0) Basic usage
 sudo ufw status numbered verbose
+sudo ufw show added
 sudo ufw delete NUM
+sudo ufw delete allow from 203.0.113.101
+
+sudo ufw disable
+sudo ufw enable
+sudo ufw reset
+
+sudo ufw deny from 203.0.113.100
+sudo ufw deny from 203.0.113.0/24
+sudo ufw deny in on eth0 from 203.0.113.100
+
+sudo ufw allow from 203.0.113.101
+sudo ufw allow in on eth0 from 203.0.113.102
+sudo ufw allow from 203.0.113.103 proto tcp to any port 22
+sudo ufw allow from 203.0.113.0/24 proto tcp to any port 22
+
+sudo ufw app list
+sudo ufw allow “OpenSSH”
+sudo ufw allow "Nginx HTTPS"
+sudo ufw delete allow "Nginx Full"
+sudo ufw allow OpenSSH
+sudo ufw allow http
+sudo ufw allow https
 
 1) Block an IP
 sudo ufw insert 1 deny from 178.137.80.191 comment 'block spammer'

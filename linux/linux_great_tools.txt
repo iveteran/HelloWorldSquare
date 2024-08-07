@@ -24,3 +24,8 @@ mutt
 
 bmon
 btop
+
+taskwarrior - Task Manager
+timewarrior - Time Manager
+
+khal - Calendar

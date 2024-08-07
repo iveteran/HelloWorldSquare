@@ -1,6 +1,9 @@
 # add more tty
 sudo systemctl start getty@ttyN
 
+# get ttys status
+sudo systemctl status systemd-logind
+
 # configure file
 /etc/systemd/logind.conf
 [Login]

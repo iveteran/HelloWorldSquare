@@ -36,6 +36,7 @@ cp helloworld/dotfiles/_vimrc.ycm .vimrc.ycm
 cp helloworld/dotfiles/_inputrc .inputrc
 cp helloworld/dotfiles/_bash_profile .bash_profile
 cp helloworld/dotfiles/_bash_prompt .bash_prompt
+cp helloworld/dotfiles/_profile_proxy .profile_proxy
 source ~/.bash_profile
 
 # Install vim plugin managers
