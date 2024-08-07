@@ -1,4 +1,23 @@
-export http_proxy="127.0.0.1:7890"
-export https_proxy="127.0.0.1:7890"
-export socks_proxy="127.0.0.1:7891"
-export no_proxy="localhost, 127.0.0.1, 163.com, 192.168.1.0/24, 192.168.8.0/24"
+export no_proxy="localhost, 127.0.0.1, 163.com, 172.20.10.11/28, 192.168.8.0/24"
+
+proxy_on() {
+    export http_proxy="http://127.0.0.1:7890"
+    export https_proxy="http://127.0.0.1:7890"
+    export socks_proxy="127.0.0.1:7891"
+
+    proxy_show
+}
+
+# clear proxies
+proxy_off() {
+    unset http_proxy
+    unset https_proxy
+    unset socks_proxy
+
+    proxy_show
+}
+
+proxy_show() {
+    # show proxy settings
+    export | grep -i proxy
+}

@@ -5,9 +5,9 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
-if [[ "$TERM" = "linux" && -e `which fbterm` ]]; then
-    fbterm
-fi
+#if [[ "$TERM" = "linux" && -e `which fbterm` ]]; then
+#    fbterm
+#fi
 
 # User specific environment and startup programs
 
@@ -26,7 +26,7 @@ PATH=$PATH:/opt/AppImage
 export PATH
 
 alias ls='ls --color=auto'
-alias ll='ls -l -rt'
+alias ll='ls -lh -rt'
 alias la='ls -a'
 alias l.='ls -ld .?*'
 alias lf.='find . -maxdepth 1 -type f -name ".*"'
@@ -94,7 +94,7 @@ fi
 #   1) https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242
 #   2) https://sourceforge.net/projects/vcxsrv/
 #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
-export DISPLAY=":0"
+#export DISPLAY=":0"
 
 # Rust environment
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
@@ -115,7 +115,10 @@ if [ -f $HOME/.ssh/iv.id_rsa ]; then
     source $HOME/.keychain/$HOSTNAME-sh
 fi
 
-#source ~/.profile_proxy
+# khal
+eval "$(_KHAL_COMPLETE=bash_source khal)"
+
+source ~/.profile_proxy
 source ~/.bash_prompt
 source ~/.fzfrc.sh
 

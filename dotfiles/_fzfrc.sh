@@ -54,6 +54,27 @@ fzf-dir() {
     find_files $target_dir | fzf_file_preview_and_edit_on_new_tmux_window
 }
 
+fzf-jobs() {
+    # depend on pcregrep, apt install pcregrep
+    #
+    #kill -STOP $FG_PID  # suspend foreground process
+    # fg `jobs | fzf --height=30% --header=*Jobs* --bind='enter:become(echo {} | pcregrep -o1 "\[([0-9])\]")'`
+    job_id=`jobs | fzf --height=30% --header=*Jobs* --bind='enter:become(echo {} | pcregrep -o1 "\[([0-9])\]")'`
+    if [ $? == 0 ]; then
+        fg $job_id
+    fi
+}
+
+fzf-ripgrep() {
+    # $(echo {} | cut -d: -f 1) -> get filename
+    # $(echo {} | cut -d: -f 2) -> get line number of matched for searching keyword
+    rg -n . | fzf --preview 'batcat --color=always -H $(echo {} | cut -d: -f 2) $(echo {} | cut -d: -f 1)' --bind 'enter:become(batcat $(echo {} | cut -d: -f 1))'
+}
+
+#bind '"\e[24~":"fzf-jobs\n"'  # bind F12 to run fzf-jobs
+bind -x '"\C-j":fzf-jobs'  # bind Ctrl-j to run fzf-jobs
+bind -x '"\C-f":fzf-ripgrep'  # bind Ctrl-f to run fzf-ripgrep, that search file content of current directory
+
 # Shell Integration
 #  refer: https://thevaluable.dev/fzf-shell-integration/
 source /usr/share/doc/fzf/examples/key-bindings.bash
