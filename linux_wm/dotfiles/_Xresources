@@ -1,0 +1,9 @@
+#include ".Xresources.d/uxtermrc"
+
+! NOTE: To run below command to make changes effect
+! xrdb -merge ~/.Xresources
+!
+! Query:
+! xrdb -query -all
+!
+! Refer: https://wiki.archlinux.org/title/x_resources

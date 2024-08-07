@@ -1,0 +1,2 @@
+! Run: uxterm -ls -xrm 'XTerm*selectToClipboard: true'
+!XTerm*selectToClipboard: true

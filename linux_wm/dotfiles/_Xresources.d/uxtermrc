@@ -1,0 +1,18 @@
+! Binding Ctrl+Shift_C/V to copy & paste text
+! Refer: https://unix.stackexchange.com/questions/225062/how-can-i-copy-text-from-xterm-awesome-debian-virtualbox
+UXTerm*VT100.Translations: #override \
+      Shift <KeyPress> Insert: insert-selection(CLIPBOARD) \n\
+      Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
+      Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
+
+! Run: uxterm -ls -xrm 'UXTerm*selectToClipboard: true'
+UXTerm*selectToClipboard: true
+
+! character width x character height + pixel from left + pixel from top
+! Refer: https://askubuntu.com/a/541730
+UXTerm*geometry: 255x50+10+10
+UXTerm*savelines: 20000
+UXTerm*rightScrollBar: false
+UXTerm*ScrollBar: false
+UXTerm*foreground: rgb:ff/e5/c3
+UXTerm*background: rgb:00/00/00
