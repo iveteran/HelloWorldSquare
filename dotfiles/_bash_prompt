@@ -83,14 +83,16 @@ column_remain_spaces() {
 BEGIN_CHANGE="\["
 END_CHANGE="\]"
 BEGIN_COLOR="\e["
-color_gray="1;30m"
+BOLD_PREFIX="1;"
+#color_gray="30m" # for Konsole
+color_gray="39m"    # for Alacritty
 color_purple="95m"
 color_green="32m"
 color_brown="33m"
 color_reset="00m"
 show_time() {
   #echo "\[\e[1;30m\]\t"
-  echo "${BEGIN_CHANGE}${BEGIN_COLOR}${color_gray}${END_CHANGE}\t" # same as above
+  echo "${BEGIN_CHANGE}${BEGIN_COLOR}${BOLD_PREFIX}${color_gray}${END_CHANGE}\t" # same as above
 }
 show_user_at_host() {
   #echo "\[\e[95m\]\u@\h"
