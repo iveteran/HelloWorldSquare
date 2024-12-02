@@ -20,3 +20,8 @@ iftop, bmon
 # whois, DNS info querier
 # apt install whois
 whois example.com
+
+# systemd-networkd
+systemctl status systemd-networkd
+networkctl list
+networkctl status
