@@ -1,0 +1,25 @@
+[general]
+import = [
+    # Themes: https://github.com/alacritty/alacritty-theme
+    #   git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+    "~/.config/alacritty/themes/themes/ayu_mirage.toml"
+]
+
+[font]
+normal = { family = "NotoMono Nerd Font Mono", style = "Regular" }
+size = 15
+
+[window]
+startup_mode = "Maximized"
+padding = { x = 5, y = 5 }
+#opacity = 0.8
+
+[selection]
+save_to_clipboard = true
+
+[mouse]
+hide_when_typing = true
+
+[terminal.shell]
+program = "/usr/bin/bash"
+args = ["--login"]
