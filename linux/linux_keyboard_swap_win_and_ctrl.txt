@@ -27,3 +27,7 @@ Instructions
 restart your computer. It worked for me after this.
 
 Hope it helps, good luck!
+
+5) Tools to show pressed key
+xev(X11)
+sudo showkey(Console)
