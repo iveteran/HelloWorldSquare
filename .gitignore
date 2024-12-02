@@ -13,3 +13,11 @@
 # audio files
 *.wav
 *.pcm
+
+# misc files or directires
+networks/netcat_http_server/tailwind_demo.html
+security/ssh-tunnel.log
+tmp
+
+# python bytes files
+*.pyc
