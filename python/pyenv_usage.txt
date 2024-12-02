@@ -1,0 +1,64 @@
+Python多环境管理神器（pyenv）
+
+Refer: https://cnblogs.com/doublexi/p/15786911.html
+
+1. 安装pyenv
+脚本一键安装：
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+更新：
+pyenv update
+
+删除：
+rm -fr ~/.pyenv
+
+2. python环境管理
+使用pyenv安装指定python版本
+pyenv install 2.7.8
+pyenv rehash
+
+查看当前版本：
+# 查看当前版本
+pyenv version
+# 查看 pyenv 已经托管了哪些 python 版本
+pyenv versions
+
+切换当前目录的python版本为2.7.8
+pyenv local 2.7.8
+
+查看所有可安装的软件版本
+pyenv install -l
+
+三种解释器版本控制方法比较（global、shell、local）
+1) 首先是pyenv shell会话设置：（只影响当前会话）
+pyenv shell 3.3.3
+2) pyenv local本地设置（只影响当前目录）
+它会在当前目录创建一个.python-version文件，里面记录着版本内容
+pyenv local 3.3.3
+3) pyenv global 全局设置
+如果使用此命令，可以看到所有受到pyenv控制的窗口都受到了影响， 所以尽可能不要用root用户来安装pyenv，否则会影响到之前的系统
+该命令执行后会在 $(pyenv root) 目录(默认为 ~/.pyenv )中创建一个名为 version 的文件(如果该文件已存在，则修改该文件的内容)，里面记录着系统全局的Python版本号
+pyenv global 2.7.8
+
+优先级比较： shell > local > global
+
+3. 虚拟环境管理（pyenv-virtualenv）
+
+# 直接创建虚拟环境myproj3，它不需要指定目录，不会在当前目录生成myproj3目录文件
+pyenv virtualenv 3.3.3 myproj3
+
+# 查看虚拟环境列表：
+pyenv virtualenvs
+
+# 激活虚拟环境：
+pyenv activate myproj3
+# 检查
+python3 -V
+which python3
+which pip3
+
+# 退出虚拟环境
+pyenv deactivate
+
+# 删除虚拟环境：
+pyenv uninstall myproj3
