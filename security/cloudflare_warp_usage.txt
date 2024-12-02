@@ -1,0 +1,4 @@
+apt search cloudflare-warp
+systemctl status warp-svc
+sudo journalctl -r -u warp-svc
+warp-cli status
