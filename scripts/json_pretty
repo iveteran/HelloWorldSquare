@@ -1,6 +1,6 @@
 #!/bin/sh
 
-python -m json.tool $1
+python -m json.tool --indent 2 --no-ensure-ascii $1
 
 # NOTE:
 # vi /usr/lib64/pythonX.X/json/tool.py
