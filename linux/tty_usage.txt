@@ -1,3 +1,9 @@
+# show used tty
+# pts means you are using terminal from GUI or through SSH
+$ who am i
+$ tty
+$ ps hotty $$
+
 # add more tty
 sudo systemctl start getty@ttyN
 
