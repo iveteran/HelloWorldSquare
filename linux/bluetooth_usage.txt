@@ -53,3 +53,25 @@ Refer: https://raspberrypi.stackexchange.com/questions/40839/sap-error-on-blueto
 Solution: 1st removed pulseaudio-module-bluetooth. Then installed libspa-0.2-bluetooth. Restartred system.
 Refer: https://askubuntu.com/questions/1479606/bluetooth-br-connection-profile-unavailable-issue-on-upgrade-to-xubuntu-23-04
        https://forums.debian.net/viewtopic.php?t=155520
+
+# Show Bluetooth device version
+hciconfig -a | grep -i version
+
+btmgmt info | grep -i version
+# Mapping of version number
+| hex | dec |Bluetooth|
+|-----|-----|---------|
+| 0x0 |   0 | 1.0b    |
+| 0x1 |   1 | 1.1     |
+| 0x2 |   2 | 1.2     |
+| 0x3 |   3 | 2.0+EDR |
+| 0x4 |   4 | 2.1+EDR |
+| 0x5 |   5 | 3.0+HS  |
+| 0x6 |   6 | 4.0     |
+| 0x7 |   7 | 4.1     |
+| 0x8 |   8 | 4.2     |
+| 0x9 |   9 | 5.0     |
+| 0xa |  10 | 5.1     |
+| 0xb |  11 | 5.2     |
+| 0xc |  12 | 5.3     |
+| 0xd |  13 | 5.4     |
