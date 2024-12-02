@@ -1,0 +1,4 @@
+mkdir my-project
+cd my-project
+go mod init my-project
+go mod tidy
