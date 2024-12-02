@@ -1,0 +1,39 @@
+# Filter by file name
+lsof /sys
+lsof /dev/tty*
+
+# Filter by command
+lsof -c [command]
+lsof -c ^[command]  # except command
+
+# Filter by user
+lsof -u [username]
+lsof -u ^[username]  # except user
+
+
+# Filter by pid
+lsof -p 407
+
+# Show Files Under a Directory
+sudo lsof +D [directory]
+
+# Show Files Accessed by Network Connections
+sudo lsof -i
+sudo lsof -i [4/6]      # filter by IP version
+sudo lsof -i [udp/tcp]  # filter by TCP or UDP
+
+sudo lsof -i :[port_number/name]    # filter by port or name
+sudo lsof -i :[range]               # filter by port range
+
+# List IDs of Processes Holding Open Files
+lsof -t [file_name]
+
+# Print All Memory-Mapped Files
+lsof -d mem | more
+
+# Display Locked Deleted Files
+sudo lsof / | grep deleted
+
+# Combine Multiple Options
+sudo lsof -u [username] -c [process]        # OR operation
+sudo lsof -u [username] -c [process] -a     # AND operation
