@@ -9,5 +9,6 @@ Kontrast: 颜色对比度检查工具
 KGeoTag: 地理标签管理程序
 digiKam: 数字照片管理程序
 Krita: 数字(矢量)绘画工作室软件
+Kid3: KDE audio tag editor
 
 Ref: https://apps.kde.org/zh-cn/categories/graphics/
