@@ -1,0 +1,8 @@
+# Refer: https://journalxtra.com/multiple-desktops-on-one-linux-pc-now-thats-greedy/
+
+0) show xorg process: ps -ef | grep -i xorg, or ps -ef | grep -i xinit
+1) switch to tty2: CTRL + ALT + F2
+2)
+  a) startx -- :1  # :1 means the second desktop, start with :0
+  or
+  b) startx /usr/bin/xdm -- :1  # with desktop manager: xdm/gdm/kdm/...
