@@ -1,23 +1,45 @@
 1. Open termnal
 Super + Enter
 
-2. Fullscreen
-Super + F
+2. Open Menu (Rofi/DMenu)
+Super + Space
 
-3. Move window to another desktop
-Super + Shit + <Desktop Num>
+3. Set window
+Super + t               Set window tiled
+Super + Shift + t       Set window pseudo-tiled
+Super + s               Set window floating(stack)
+Super + f               Set window fullscreen
+Super + Shift + f       Toggle window fullscreen
+Super + m               Toggle between monocle and tiled layout
+Super + w               Close window
 
+4. Move cursor/focus to window
+Super + {h,j,k,l}       Switch to Left/Down/Up/Right window
+Super + [Shift +] c     Switch in all window cyclic
 
-Super + Alt + Q         Quit BSPWM (better use XFCE logout button!)
-Super + Alt + R         Restart BSPWM
-Super + Shift + Q       Kill selected window
-Super + M               Toggle between monocle and tiled layout
-Super + Y               Switch newest marked node to newest preselected node (node = window)
-Super + G               Switch current node with the biggest window
-Super + T               Set window tiled
-Super + Shift + T       Set window pseudo-tiled
-Super + S               Set window floating
-Super + F               Set window fullscreen
-Super + Shift + F       Toggle window fullscreen
-Super + Shift + (1-0)   Send window to desktop (1-10)
+5. Move/Swap window in current desktop
+Super + Shift + {h,j,k,l}
 
+6. Move window to another desktop
+Super + Shift + <Desktop Num>
+
+7. Goto desktop
+Super + <Tab>           Switch current and previous active desktop
+Super + {[,]}           Goto previous/next desktop
+Super + {o,i}           Goto older/newer desktop
+Super + <Desktop Num>   Goto Num desktop
+
+8. Reload/Exit
+Super + Alt + q         Quit BSPWM (better use XFCE logout button!)
+Super + Alt + r         Restart BSPWM
+Super + Shift + q       Kill selected window
+
+Super + y               Switch newest marked node to newest preselected node (node = window)
+Super + g               Switch current node with the biggest window
+
+super + ctrl + {1-9}    根据数字比例预选则节点区域
+super + ctrl + space    取消预选则当前焦点节点区域
+
+super + alt + {h,j,k,l}             扩大窗口范围
+super + alt + shift + {h,j,k,l}     缩小窗口大小
+super + ctrl + alt + {h,j,k,l}      移动悬浮窗口
