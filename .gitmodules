@@ -1,0 +1,3 @@
+[submodule "wm_dotfiles"]
+	path = wm_dotfiles
+	url = https://github.com/iveteran/wm_dotfiles.git
