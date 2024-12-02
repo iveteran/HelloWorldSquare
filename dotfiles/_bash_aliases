@@ -1,0 +1,51 @@
+# Basic aliases
+alias ls='ls --color=auto'
+alias ll='ls -lh -rt'
+#alias ls='lsd'              # for lsd, apt install lsd
+alias ls='exa --icons'      # for exa, apt install exa
+alias ll='ls -lh --sort new --git'    # for exa
+alias lT='ls -T'           # for exa
+alias llT='ls -l -T'       # for exa
+alias la='ls -a'
+alias l.='ls -ld .?*'
+alias lf.='find . -maxdepth 1 -type f -name ".*"'
+#alias cd='z'  # use zoxide instead of cd
+alias grep='grep --color=auto --exclude-dir=".git"'
+alias diff='diff --color'
+alias man='man -P less'
+alias tree='tree -C'  # colorization
+alias tree-with-time-size='tree -stD'  # show time and size, order by time
+alias cat='cat -v'
+#alias rsync='rsync -avzP'
+alias rsync='rsync -az --info=progress2'
+alias pls='sudo $(fc -ln -1)'
+alias sudo='sudo env PATH=$PATH'
+alias bat='batcat'
+alias apt-search="apt search --names-only"
+alias chrome-proxy="google-chrome --proxy-server='127.0.0.1:7891'"
+alias jf="python3 -m json.tool --indent 2 --no-ensure-ascii"
+
+# Aliases to optn Tmux with session name
+alias tls='tmux ls'
+alias tmain='tmux attach -t Main || tmux new -s Main'
+alias tcoding='tmux attach -t Coding || tmux new -s Coding'
+alias tmatrix='tmux attach -t Matrix || tmux new -s Matrix'
+alias ttty='tmux attach -t TTY || tmux new -s TTY'
+# Aliases to open Tmux popup window, Tmux version >= 3.2
+#alias p='tmux popup -w 70% -h 70%'
+#alias pp='tmux popup -w 80% -h 80% "tmux attach -t popup || tmux new -s popup"'
+
+# trans aliases
+alias tr_en2zh="trans -x 127.0.0.1:7890 -p en:zh-CN"  # -p: play audio
+alias tr_zh2en="trans -x 127.0.0.1:7890 -p zh-CN:en"  # -p: play audio
+
+# bc aliases
+#   refer: https://www.networkworld.com/article/971677/converting-numbers-on-linux-among-decimal-hexadecimal-octal-and-binary.html
+# convert from decimal
+alias dec2hex='f() { echo "obase=16; ibase=10; $1" | bc; unset -f f; }; f'
+alias dec2oct='f() { echo "obase=8; ibase=10; $1" | bc; unset -f f; }; f'
+alias dec2bin='f() { echo "obase=2; ibase=10; $1" | bc; unset -f f; }; f'
+# convert to decimal
+alias hex2dec='f() { echo "obase=10; ibase=16; `echo $1 | tr "a-z" "A-Z"`" | bc; unset -f f; }; f'
+alias oct2dec='f() { echo "obase=10; ibase=8; $1" | bc; unset -f f; }; f'
+alias bin2dec='f() { echo "obase=10; ibase=2; $1" | bc; unset -f f; }; f'
