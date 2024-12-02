@@ -1,0 +1,20 @@
+Linux Terminal: typing feedback gone, line breaks not displayed
+
+executing reset -c will only reset the control characters responsible for your problem:
+  tset, reset - terminal initialization
+
+Usage: tset [options] [terminal]
+Options:
+  -c          set control characters
+  -e ch       erase character
+  -I          no initialization strings
+  -i ch       interrupt character
+  -k ch       kill character
+  -m mapping  map identifier to type
+  -Q          do not output control key settings
+  -r          display term on stderr
+  -s          output TERM set command
+  -V          print curses-version
+  -w          set window-size
+
+Refer: https://stackoverflow.com/questions/17682934/linux-terminal-typing-feedback-gone-line-breaks-not-displayed
