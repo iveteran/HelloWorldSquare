@@ -1,0 +1,53 @@
+MPD (Music Player Daemon)
+
+# Refers:
+  https://mpd.readthedocs.io/en/stable/user.html
+  https://wiki.archlinux.org/title/Music_Player_Daemon
+
+sudo apt install mpd mpc
+
+# System-wide mode
+Config: /etc/mpd.conf
+Data dir: /var/lib/mpd
+Run: sudo systemctl start mpd
+     sudo systemctl status mpd
+Stop: sudo systemctl stop mpd
+
+# Per-user mode
+mkdir ~/.config/mpd
+cp /usr/share/doc/mpd/mpdconf.example.gz ~/.config/mpd/mpd.conf.gz
+cd ~/.config/mpd && gunzip mpd.conf.gz
+mkdir -p ~/.mpd/playlists
+Config: ~/.config/mpd/mpd.conf, edit/uncomment/add:
+###
+music_directory		"~/Music"
+playlist_directory	"~/.mpd/playlists"
+db_file			    "~/.mpd/database"
+log_file			"~/.mpd/log"
+state_file          "~/.mpd/state"
+sticker_file        "~/.mpd/sticker.sql"
+restore_paused "yes"
+auto_update "yes"
+audio_output {
+    type            "pipewire"
+    name            "PipeWire Sound Server"
+}
+###
+Data dir: ~/.mpd
+Run: mpd
+Stop: mpd --kill
+
+~/.xinitrc(or ~/.xinitrc_bspwm) adds below lines:
+# MPD daemon start (if no other user instance exists)
+[ ! -s ~/.mpd/pid ] && mpd
+
+# Client: mpc (or ncmpc)
+mpc help
+mpc status
+mpc update          # update music library
+mpc ls / listall    # list music in library
+mpc add <music location in the library>  # create playlist, the location can be file or directory
+mpc playlist        # show playlist
+mpc play
+mpc save <name>     # save playlist to ~/.mpd/playlists
+mpc lsplaylist      # list saved playlist
