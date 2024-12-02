@@ -1,4 +1,17 @@
+Method 1:
 1) $ PAGER=most man ls
 OR
 2) alias man='man -P most'
 man yes
+
+Method 2:
+1) apt install less
+2) export PAGER=less
+3) Add below lines to ~/.less_termcap
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
