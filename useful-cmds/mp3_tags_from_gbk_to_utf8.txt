@@ -1,0 +1,14 @@
+How to convert MP3 ID3 tag encodings on Linux
+# Refer: https://www.xmodulo.com/convert-mp3-id3-tag-encodings-linux.html
+
+# Install tool
+sudo apt install python3-mutagen
+
+# Convert
+mid3iconv -e <source-encoding> -d input.mp3
+
+# Convert - batch
+find . -name "*mp3" -print0 | xargs -0 mid3iconv -e GBK -d
+
+# Mp3 ID/Tag Editor
+kid(KDE)/kid-cli
