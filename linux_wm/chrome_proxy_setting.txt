@@ -1,0 +1,3 @@
+change file: /usr/share/applications/google-chrome.desktop
+add below line options to item: Exec
+ --proxy-server="http://127.0.0.1:8080", like: /usr/bin/google-chrome-stable --proxy-server="http://example.com:8080"

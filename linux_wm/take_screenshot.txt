@@ -1,0 +1,12 @@
+1. Use ImageMagick
+import -window root screenshot.png  # take fullscreen
+import screenshot.png  # using mouse to select rectangle
+
+2. Use Scrot
+apt install scrot
+scrot [my_screenshot.png]
+DISPLAY=:0 scrot
+
+3. Flameshot
+
+4. gnome-screenshot (Gnome: Ctrl + Alt + T)

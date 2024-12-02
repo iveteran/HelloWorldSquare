@@ -1,0 +1,17 @@
+Refer:
+  https://www.baeldung.com/linux/view-images-from-terminal
+
+1. Use feh
+feh my_image.png
+
+2. Use ImageMagick 
+display my_image.png
+
+3. Use Xdg-open
+xdg-open my_image.png
+
+3. View image in termainal
+a) catimg, apt install catimg
+b) https://github.com/stolk/imcat
+c) https://github.com/stefanhaustein/TerminalImageViewer.git
+d) https://github.com/danielgatis/imgcat

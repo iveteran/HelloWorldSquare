@@ -1,0 +1,7 @@
+1) show locale environment:
+locale
+locale -a
+localectl status
+
+2) to add zh_CN.UTF8 if it does exist
+dpkg-reconfigure locales
