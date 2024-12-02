@@ -38,11 +38,11 @@ alias fzf_file_preview_and_edit_on_new_tmux_window='fzf --preview "batcat --colo
 alias fzf_file_edit='fzf --bind "enter:become(vim {})"'
 alias fzf_dir_preview='fzf --preview "tree -C {}"'
 
-alias fpf='find_project_files | fzf_file_preview_and_edit_on_new_tmux_window'
-alias fcf='find_cwd_files | fzf_file_preview_and_edit_on_new_tmux_window'
-alias tfpf='tmux popup -w 60% -h 60% "find_project_files | fzf_file_edit"'
-alias fpd='cd $(find_project_dirs | fzf_dir_preview)'
-alias fcd='cd $(find_cwd_dirs | fzf_dir_preview)'
+alias fzf_project_files='find_project_files | fzf_file_preview_and_edit_on_new_tmux_window'
+alias fzf_cwd_files='find_cwd_files | fzf_file_preview_and_edit_on_new_tmux_window'
+alias fzf_project_files_tmux='tmux popup -w 60% -h 60% "find_project_files | fzf_file_edit"'
+alias fzf_project_dir='cd $(find_project_dirs | fzf_dir_preview)'
+alias fzf_cwd_dir='cd $(find_cwd_dirs | fzf_dir_preview)'
 alias vim-find='vim $(fzf-tmux -p 60%,60%)'
 alias vim-find-bt='vim $(fzf-tmux)'
 
@@ -68,7 +68,8 @@ fzf-jobs() {
 fzf-ripgrep() {
     # $(echo {} | cut -d: -f 1) -> get filename
     # $(echo {} | cut -d: -f 2) -> get line number of matched for searching keyword
-    rg -n . | fzf --preview 'batcat --color=always -H $(echo {} | cut -d: -f 2) $(echo {} | cut -d: -f 1)' --bind 'enter:become(batcat $(echo {} | cut -d: -f 1))'
+    rg -n . | fzf --preview 'batcat --color=always -H $(echo {} | cut -d: -f 2) $(echo {} | cut -d: -f 1)' \
+        --bind 'enter:become(batcat $(echo {} | cut -d: -f 1)),ctrl-e:become(vim $(echo {} | cut -d: -f 1))'
 }
 
 #bind '"\e[24~":"fzf-jobs\n"'  # bind F12 to run fzf-jobs

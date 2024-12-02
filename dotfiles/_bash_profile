@@ -14,6 +14,14 @@ fi
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
+#[[ -f /usr/bin/starship || -f ~/.local/bin/starship ]] && eval "$(starship init bash)"
+
+[[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
+[[ -f ~/.less_termcap ]] && source ~/.less_termcap
+[[ -f ~/.profile_proxy ]] && source ~/.profile_proxy
+[[ -f ~/.fzfrc.sh ]] && source ~/.fzfrc.sh
+
 PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin:/snap/bin
 
 # Golang environment
@@ -24,41 +32,6 @@ export GOPATH=/opt/yuu/go
 PATH=$PATH:/opt/AppImage
 
 export PATH
-
-alias ls='ls --color=auto'
-alias ll='ls -lh -rt'
-alias la='ls -a'
-alias l.='ls -ld .?*'
-alias lf.='find . -maxdepth 1 -type f -name ".*"'
-alias grep='grep --color=auto --exclude-dir=".git"'
-alias diff='diff --color'
-alias man='man -P less'
-alias tree='tree -C'  # colorization
-alias tree-with-time-size='tree -stD'  # show time and size, order by time
-alias cat='cat -v'
-#alias rsync='rsync -avzP'
-alias rsync='rsync -az --info=progress2'
-alias pls='sudo $(fc -ln -1)'
-alias sudo='sudo env PATH=$PATH'
-alias bat='batcat'
-alias apt-search="apt search --names-only"
-alias chrome-proxy="google-chrome --proxy-server='127.0.0.1:7891'"
-alias jf="python3 -mjson.tool --indent 2 --no-ensure-ascii"
-jf_bat() {
-  local file=$1
-  jf $file | bat -l json
-}
-
-# Aliases to optn Tmux with session name
-alias tls='tmux ls'
-alias tmain='tmux attach -t Main || tmux new -s Main'
-alias tcoding='tmux attach -t Coding || tmux new -s Coding'
-alias tmatrix='tmux attach -t Matrix || tmux new -s Matrix'
-alias ttty='tmux attach -t TTY || tmux new -s TTY'
-
-# Aliases to open Tmux popup window, Tmux version >= 3.2
-#alias p='tmux popup -w 70% -h 70%'
-#alias pp='tmux popup -w 80% -h 80% "tmux attach -t popup || tmux new -s popup"'
 
 # Tmuxifier
 ## git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
@@ -89,6 +62,11 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+jf_bat() {
+  local file=$1
+  jf $file | bat -l json
+}
+
 # Enable use GUI apps on WSL by VcXsrv for Windows 10
 # Refers:
 #   1) https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242
@@ -118,11 +96,18 @@ fi
 # khal
 eval "$(_KHAL_COMPLETE=bash_source khal)"
 
-source ~/.profile_proxy
-source ~/.bash_prompt
-source ~/.fzfrc.sh
-
 # x-cmd
 # Repo: https://github.com/x-cmd/x-cmd
 # Install: eval "$(curl https://get.x-cmd.com)"
-#[ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
+x_on() {
+    [ -f "$HOME/.x-cmd.root/X" ] && . "$HOME/.x-cmd.root/X" # boot up x-cmd.
+    #source ~/.bash_prompt
+}
+#x_on  # Enable x-cmd
+
+# Enable zoxide - A smarter cd command
+# Install: cargo install zoxide
+[ -f $HOME/.cargo/bin/zoxide ] && eval "$(zoxide init bash)"
+
+# MPD daemon start (if no other user instance exists)
+[ ! -s ~/.mpd/pid ] && mpd

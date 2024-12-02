@@ -9,6 +9,7 @@
     st = status
     br = branch
     df = diff
+    pr = "pull --rebase"
     dfc = "diff --cached"
     lg = "log --stat --graph"
 [diff]
@@ -35,3 +36,12 @@
     rebase = false
 [core]
     quotepath = false
+    #pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    side-by-side = true
+    line-numbers = true
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    #syntax-theme = "Dracula"
