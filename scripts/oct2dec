@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# oct2dec
+
+echo -n "Type a octal number> "
+read number
+echo "obase=10; ibase=8; $number" | bc

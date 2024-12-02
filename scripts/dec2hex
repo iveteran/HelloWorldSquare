@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# dec2hex
+
+echo -n "Enter a decimal number> "
+read number
+printf '%x\n' $number

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# hex2dec
+
+echo -n "Type a hex number> "
+read number
+echo "obase=10; ibase=16; $number" | bc

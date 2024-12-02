@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# bin2dec
+
+echo -n "Type a binary number> "
+read number
+echo "obase=10; ibase=16; $number" | bc
