@@ -1,0 +1,21 @@
+Refer: https://stackoverflow.com/questions/179123/how-to-modify-existing-unpushed-commit-messages
+
+To amend the previous commit, make the changes you want and stage those changes, and then run:
+git commit --amend
+
+This will open a file in your text editor representing your new commit message. It starts out populated with the text from your old commit message. Change the commit message as you want, then save the file and quit your editor to finish.
+
+To amend the previous commit and keep the same log message, run:
+git commit --amend -C HEAD
+
+To fix the previous commit by removing it entirely, run:
+git reset --hard HEAD^
+
+If you want to edit more than one commit message, run:
+git rebase -i HEAD~commit_count
+(Replace commit_count with number of commits that you want to edit.) This command launches your editor.
+
+Mark the first commit (the one that you want to change) as “edit” instead of “pick”, then save and exit your editor.
+Make the change you want to commit and then run:
+git commit --amend
+git rebase --continue

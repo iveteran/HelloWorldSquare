@@ -11,3 +11,7 @@ git push <remote-name> <branch-name>
 git push <remote-name> <local-branch-name>:<remote-branch-name>
 git push --set-upstream <remote-name> <local-branch-name>
 git push -u origin <branch-name>
+
+4) create patch files from commit log
+git format-patch        # get the patch of latest commit
+git format-patch -4     # get patches of latest 4 commits

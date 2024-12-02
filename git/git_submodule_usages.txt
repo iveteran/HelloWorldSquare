@@ -8,6 +8,9 @@ Ref: https://git-scm.com/book/en/v2/Git-Tools-Submodules
   $ git submodule update
   OR:
   $ git clone --recurse-submodules https://github.com/chaconinc/MainProject
+  OR:
+  Git 1.8.2 features a new option --remote
+  $ git submodule update --remote --merge
 
 The DbConnector directory is there, but empty. You must run two commands: git
 submodule init to initialize your local configuration file, and git submodule
@@ -21,3 +24,25 @@ If you already cloned the project and forgot --recurse-submodules, you can
 combine the git submodule init and git submodule update steps by running git
 submodule update --init. To also initialize, fetch and checkout any nested
 submodules, you can use the foolproof git submodule update --init --recursive.
+
+# Add a submodule to a repository
+git submodule add <url>
+
+# Remove a submodule
+git rm -f path/to/my_submodule
+rm -rf .git/modules/path/to/my_submodule
+Delete the relevant section from .git/config.
+
+To remove a submodule you need to:
+    Delete the relevant section from the .gitmodules file.
+    Stage the .gitmodules changes:
+    git add .gitmodules
+    Delete the relevant section from .git/config.
+    Remove the submodule files from the working tree and index:
+    git rm --cached path_to_submodule (no trailing slash).
+    Remove the submodule's .git directory:
+    rm -rf .git/modules/path_to_submodule
+    Commit the changes:
+    git commit -m "Removed submodule <name>"
+    Delete the now untracked submodule files:
+    rm -rf path_to_submodule
