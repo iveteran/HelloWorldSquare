@@ -1,0 +1,18 @@
+OpenLLM Guide
+
+1. Repo:
+https://github.com/bentoml/OpenLLM
+
+2. Setup Python virtual env:
+pyenv virtualenv openllm
+pyenv activate openllm
+
+3. Install:
+pip install openllm  # or pip3 install openllm
+
+4. Run:
+openllm hello
+openllm run llama3:8b
+
+openllm model list
+openllm repo update
