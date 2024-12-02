@@ -1,0 +1,19 @@
+Commands:
+fc-list
+fc-match <keyword>
+fc-cache -f -v
+
+User's font directory:
+~/.local/share/fonts
+
+Install font:
+cp your-fonts/<font-name>.ttf ~/.local/share/fonts
+fc-cache -f -v
+
+Uninstall font:
+rm ~/.local/share/fonts/<font-name>.ttf
+fc-cache
+
+# Google Fonts Official Site
+https://www.nerdfonts.com/font-downloads
+frequently-used font: Noto Nerd Font -- with many unicode emoji icons
