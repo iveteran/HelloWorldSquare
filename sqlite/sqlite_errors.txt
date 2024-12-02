@@ -1,0 +1,32 @@
+Problem: "sqlite3.OperationalError: database or disk is full"
+
+Solution 1:
+PRAGMA max_page_count = 2147483646
+
+In my case the value was 1073741823, which meant that in combination with a page size of 1024 Bytes the database maxed out at 1 TB and returned the "database or disk is full" error.
+The good news is that you can raise the limit; for example double it by issuing PRAGMA max_page_count = 2147483646;.
+The limit doesn't seem to be saved in the database file, though, so you have to run it in your application every time you open the database.
+Refer: https://stackoverflow.com/questions/16685016/sqlite3-operationalerror-database-or-disk-is-full-on-lustre
+
+Solution 2:
+export SQLITE_TMPDIR=<The directory that disk has enough space>
+
+Temporary File Storage Locations
+The directory or folder in which temporary files are created is determined by the OS-specific VFS.
+On unix-like systems, directories are searched in the following order:
+    The directory set by PRAGMA temp_store_directory or by the sqlite3_temp_directory global variable
+    The SQLITE_TMPDIR environment variable
+    The TMPDIR environment variable
+    /var/tmp
+    /usr/tmp
+    /tmp
+    The current working directory (".")
+
+The first of the above that is found to exist and have the write and execute bits set is used. The final "." fallback is important for some applications that use SQLite inside of chroot jails that do not have the standard temporary file locations available.
+
+On Windows systems, folders are searched in the following order:
+    The folder set by PRAGMA temp_store_directory or by the sqlite3_temp_directory global variable
+    The folder returned by the GetTempPath() system interface.
+
+SQLite itself does not pay any attention to environment variables in this case, though presumably the GetTempPath() system call does. The search algorithm is different for CYGWIN builds. Check the source code for details.
+Refer: https://sqlite.org/tempfiles.html#temporary_file_storage_locations

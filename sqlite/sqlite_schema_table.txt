@@ -1,0 +1,9 @@
+Refer: https://www.sqlite.org/schematab.html
+
+Schema Table:
+select * from sqlite_schema;
+
+Alternative Names:
+select * from sqlite_master;
+select * from sqlite_temp_schema;
+select * from sqlite_temp_master;

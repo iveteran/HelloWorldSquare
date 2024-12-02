@@ -1,0 +1,19 @@
+PRAGMA Statements
+
+Refer: https://www.sqlite.org/pragma.html
+
+-- show all tables by SQL query
+SELECT name FROM sqlite_master WHERE type = "table"
+
+-- show all databases
+PRAGMA database_list;
+
+PRAGMA table_list;
+PRAGMA schema.table_list;
+PRAGMA table_list(table-name);
+
+PRAGMA schema.table_xinfo(table-name);
+PRAGMA schema.table_info(table-name);
+
+-- list pragma
+PRAGMA pragma_list;
