@@ -1,14 +1,25 @@
 Firefox, Chrome, Thunderbird
 
+xpad: Sticky note application for X
+
 KDE:
 pdf viewer: Okular
 image viewer: Gwenview
 color picker: KColorChoose
 paint(sample image editor): KolourPaint
+
 Kontrast: 颜色对比度检查工具
 KGeoTag: 地理标签管理程序
 digiKam: 数字照片管理程序
 Krita: 数字(矢量)绘画工作室软件
 Kid3: KDE audio tag editor
+Elisa: Music Player
+Kompare: 目录和文件比较工具
+
+Podcast Apps:
+(refer: https://medevel.com/linux-podcast-clients-1721/)
+Poddycast
+Kasts
+MusicPod
 
 Ref: https://apps.kde.org/zh-cn/categories/graphics/
