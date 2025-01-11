@@ -1,0 +1,5 @@
+convert black.png \
+\( -clone 0 -fill red -colorize 100 \) \
+\( -clone 0 -negate \) \
+-compose over -composite \
+black2red.png
