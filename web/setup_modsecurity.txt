@@ -3,3 +3,16 @@ https://docs.rockylinux.org/guides/web/apache_hardened_webserver/modsecurity/
 
 Nginx:
 refer: https://www.linode.com/docs/guides/securing-nginx-with-modsecurity/
+
+Support RESTful API:
+refer: https://stackoverflow.com/questions/48810247/secruleengine-on-seem-to-block-put-and-delete-requests-in-mod-security
+Edit file: modsecurity-crs/crs-setup.conf, uncomment or add:
+SecAction \
+    "id:900200,\
+    phase:1,\
+    pass,\
+    t:none,\
+    nolog,\
+    tag:'OWASP_CRS',\
+    ver:'OWASP_CRS/4.0.1-dev',\
+    setvar:'tx.allowed_methods=GET HEAD POST OPTIONS PUT DELETE PATCH'"
