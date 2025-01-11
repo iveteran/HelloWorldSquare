@@ -1,0 +1,9 @@
+Theming and Customizing Tmux with Catppuccin and Additional Plugins
+
+refer: https://tmuxcheatsheet.com/theming-and-customizing/
+
+# Install the Catppuccin port for tmux
+mkdir -p ~/.config/tmux/plugins/catppuccin
+git clone -b v2.1.0 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+echo "run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux" >> ~/.tmux.conf
+
