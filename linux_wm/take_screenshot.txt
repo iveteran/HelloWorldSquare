@@ -1,6 +1,7 @@
 1. Use ImageMagick
 import -window root screenshot.png  # take fullscreen
 import screenshot.png  # using mouse to select rectangle
+import -window root -crop 512x256-0-0 -gravity northeast -quality 90 screenshot_corner.png
 
 2. Use Scrot
 apt install scrot
