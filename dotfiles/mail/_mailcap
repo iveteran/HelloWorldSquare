@@ -1,0 +1,25 @@
+## Description: View the attachments of mutt.
+## Functions: (1) Convert *.doc to *.html by wvHtml;
+##            (2) Use w3m to read *.doc and *.html in Mutt;
+##            (3) Use xpdf to view *.pdf;
+##            (4) Use display to view images;
+##            (5) Use mplayer to enjoy the audio and video.
+## Author: Joshua Liu
+## Last Update: 26-03-2016
+
+# Microsoft word
+application/msword; wvHtml %s - | w3m -dump; nametemplate=%s.html; copiousoutput
+# pdf
+application/pdf; xpdf %s > /dev/null
+# html
+text/html; w3m -dump -I %{charset} -T text/html %s; copiousoutput
+# image
+image/*; display %s; /dev/null
+# audio
+audio/*; mplayer %s > /dev/null
+# video
+video/*; mplayer %s > /dev/null
+
+# 著作权归作者所有。
+# 商业转载请联系作者获得授权,非商业转载请注明出处。
+# 原文: https://fooyou.github.io/document/2016/03/29/mailclient-mutt-fetchmail-procmail-msmtp.html

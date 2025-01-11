@@ -1,0 +1,28 @@
+## Description: ~/.procmailrc of procmail
+##            处理邮件
+## Author: Joshua Liu
+## Setting: chmod 600 .procmailrc
+## LastUpdate: 24-03-16
+
+SHELL=/bin/bash
+PATH=/bin:/usr/bin:/usr/local/bin
+MAILDIR=$HOME/.mail
+DEFAULT=$MAILDIR/inbox
+LOGFILE=$MAILDIR/log/procmail.log
+LOG=""
+VERBOSE=yes
+
+## 丢弃垃圾邮件
+#reason to return these
+#:0:
+#*^From:.*(noreply\@tcl\.com)
+#/dev/null
+
+## 所有经过查看后的邮件存储在 $MAILDIR/inbox 信箱中
+:0
+* .* inbox
+default
+
+#著作权归作者所有。
+#商业转载请联系作者获得授权,非商业转载请注明出处。
+#原文: https://fooyou.github.io/document/2016/03/29/mailclient-mutt-fetchmail-procmail-msmtp.html
