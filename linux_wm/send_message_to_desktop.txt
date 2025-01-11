@@ -1,0 +1,23 @@
+Sending notifications from the Linux terminal
+
+## notify-send
+1. Install:
+apt install libnotify-bin
+
+2. Usage
+notify-send "Dinner ready!"
+notify-send "Tip of the Day" "How about a nap?"
+
+notify-send -u critical \
+  "Build failed!" \
+  "There were <b>123</b> errors. Click here to see the results: http://buildserver/latest"
+
+echo "notify-send 'Stop it and go home now?' 'Enough work for today.' -u critical" | at now
+
+
+## Dunst
+1. Install
+apt install dunst
+
+2. Usage
+dunstify "Hello world"
