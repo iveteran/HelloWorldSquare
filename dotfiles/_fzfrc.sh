@@ -23,7 +23,14 @@ find_dirs() {
 
 #export FZF_DEFAULT_COMMAND='find_in_dir .'
 #export FZF_DEFAULT_OPTS='--margin=3% --border=double --color="dark,fg:magenta"'
-export FZF_DEFAULT_OPTS='--margin=3% --border --color="dark,fg:magenta"'
+export FZF_DEFAULT_OPTS="\
+    --bind='alt-p:toggle-preview' \
+    --bind='ctrl-j:preview-down' \
+    --bind='ctrl-k:preview-up' \
+    --margin=3% \
+    --border \
+    --color='dark,fg:magenta' \
+    "
 
 # Set FZF_ALT_C_COMMAND to override the default command
 #export FZF_ALT_C_COMMAND='cd'
@@ -72,8 +79,10 @@ fzf-ripgrep() {
         --bind 'enter:become(batcat $(echo {} | cut -d: -f 1)),ctrl-e:become(vim $(echo {} | cut -d: -f 1))'
 }
 
+# NOTE: Ctrl-j already has been binded to Bash 'accept-line'
+#       Ctrl-i already has been binded to Bash 'completion'
 #bind '"\e[24~":"fzf-jobs\n"'  # bind F12 to run fzf-jobs
-bind -x '"\C-j":fzf-jobs'  # bind Ctrl-j to run fzf-jobs
+bind -x '"\C-o":fzf-jobs'     # bind Ctrl-o to run fzf-jobs
 bind -x '"\C-f":fzf-ripgrep'  # bind Ctrl-f to run fzf-ripgrep, that search file content of current directory
 
 # Shell Integration
