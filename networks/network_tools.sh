@@ -25,3 +25,6 @@ whois example.com
 systemctl status systemd-networkd
 networkctl list
 networkctl status
+
+# My Trace Route
+mtr -t -b matrix.works
