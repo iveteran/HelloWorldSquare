@@ -1,1 +1,5 @@
+# show short log
 git log --abbrev-commit --pretty=oneline
+
+# compare two directories
+git diff --no-index dir1/ dir2/
