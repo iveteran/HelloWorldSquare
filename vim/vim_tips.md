@@ -21,3 +21,19 @@ This is what it means:
  %       = for every line
  norm    = type the following commands
  A*      = append '*' to the end of current line
+
+
+## Search and replace in all opened files(buffers)
+bufdo! %s/string/replacement/g
+
+bufdo : action on all buffers .
+! : force
+s : replacing
+g : global
+
+Related commands:
+:tabdo (all tabs)
+:windo (all windows in the current tab)
+:bufdo (all buffers, i.e. all those listed with the :ls command)
+:argdo (all files in argument list)
+:cdo (all files listed in the quickfix list)
