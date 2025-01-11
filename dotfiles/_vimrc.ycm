@@ -10,3 +10,9 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>rn :exec ":YcmCompleter RefactorRename ".input("New name: ")<CR>
 nnoremap <C-]> :YcmCompleter GoTo<CR>
 nnoremap <C-t> <C-o>
+
+" Disable syntax checker
+let g:ycm_show_diagnostics_ui = 0
+
+" Disable hint popup
+let g:ycm_auto_hover=''

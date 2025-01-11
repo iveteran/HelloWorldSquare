@@ -148,3 +148,15 @@ so ~/.vimrc.ycm
 " NOTE: Put below option at the end of this file
 set shortmess-=S  " show search results count on statusline(bottom right)
 set showcmd	      " display incomplete commands
+
+augroup FileTypeSpecificAutocommands
+    autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType htm setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType rs setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType svelte setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
