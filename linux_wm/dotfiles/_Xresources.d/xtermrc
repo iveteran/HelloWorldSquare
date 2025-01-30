@@ -6,28 +6,30 @@ XTerm.vt100.locale: false
 XTerm.vt100.utf8: true
 
 ! Font settings, Search fonts: fc-match mono
-XTerm.vt100.faceName: DejaVu Sans Mono:style=Book:antialias=false
-XTerm.vt100.faceNameDoublesize: WenQuanYi WenQuanYi Bitmap Song
-XTerm.vt100.faceSize: 8
+!XTerm.vt100.faceName: DejaVu Sans Mono:style=Book:antialias=false
+!XTerm.vt100.faceNameDoublesize: WenQuanYi WenQuanYi Bitmap Song
+!XTerm.vt100.faceSize: 8
+XTerm.vt100.faceName: Monospace
+XTerm.vt100.faceSize: 14
 
 ! Adjust line spacing
-XTerm.vt100.scaleHeight: 1.01
+XTerm.vt100.scaleHeight: 1.02
 
 ! Binding Ctrl+Shift_C/V to copy & paste text
-XTerm*vt100.translations: #override \
+XTerm.vt100.translations: #override \
       Shift <KeyPress> Insert: insert-selection(CLIPBOARD) \n\
       Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
       Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
 
-! Run: uxterm -ls -xrm 'XTerm*selectToClipboard: true'
+! Run: xterm -ls -xrm 'XTerm*selectToClipboard: true'
 XTerm*selectToClipboard: true
 
 ! character width x character height + pixel from left + pixel from top
 ! Refer: https://askubuntu.com/a/541730
 XTerm*geometry: 255x50+10+10
 XTerm*savelines: 20000
-XTerm*rightScrollBar: false
-XTerm*ScrollBar: true
+XTerm*rightScrollBar: true
+!XTerm*ScrollBar: true
 XTerm*foreground: rgb:ff/e5/c3
 XTerm*background: rgb:2b/2b/2b
 

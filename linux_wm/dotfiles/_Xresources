@@ -1,4 +1,7 @@
-#include ".Xresources.d/uxtermrc"
+#include ".Xresources.d/xtermrc"
+
+!xterm*faceName: Monospace
+!xterm*faceSize: 14
 
 ! NOTE: To run below command to make changes effect
 ! xrdb -merge ~/.Xresources
