@@ -1,0 +1,3 @@
+host github.com
+#LogLevel DEBUG3
+ProxyCommand ssh -i ~/.ssh/iv.id_rsa -p24 yuu@mail.iveteran.me exec /usr/bin/nc %h %p
