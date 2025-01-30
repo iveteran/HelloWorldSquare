@@ -1,5 +1,5 @@
 1) $ sudo apt install i3  # install window manager i3, or instead of lxde/lxqt etc.
-2) $ sudo apt install i3blocks rofi feh xss-lock/xautolock i3lock-fancy
+2) $ sudo apt install i3blocks rofi feh xss-lock/xautolock i3lock-fancy picom
 3) Setup
   a) cp /etc/i3/config ~/.config/i3/config
      vim ~/.config/i3/config # to change mod key, font of i3bar
@@ -13,3 +13,6 @@
   #sudo apt install xfonts-efont-unicode
   sudo apt install fonts-symbola
   #sudo apt install ttf-ancient-fonts-symbola
+
+5) Optional tools
+sudo apt install alacritty flameshot midori

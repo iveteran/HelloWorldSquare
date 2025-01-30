@@ -218,10 +218,10 @@ bar {
         # position top
 
         # the font size can be to set bar height
-        font pango:Noto Sans Mono 13
+        font pango:Noto Sans Mono 12
 
         #workspace_buttons yes|no
-        workspace_min_width 40
+        workspace_min_width 30
         #separator_symbol ":|:"
         #strip_workspace_numbers yes|no
         #strip_workspace_name yes|no
