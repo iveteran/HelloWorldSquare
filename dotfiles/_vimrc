@@ -139,11 +139,19 @@ set omnifunc=syntaxcomplete#Complete
 ":let Grep_OpenQuickfixWindow = 0
 
 set laststatus=2
-so ~/.vimrc.statusline
+if filereadable(expand("~/.vimrc.statusline"))
+  so ~/.vimrc.statusline
+endif
 
-so ~/.vimrc.vim-plug
-so ~/.vimrc.vundle
-so ~/.vimrc.ycm
+if filereadable(expand("~/.vimrc.vim-plug"))
+  so ~/.vimrc.vim-plug
+endif
+if filereadable(expand("~/.vimrc.vundle"))
+  so ~/.vimrc.vundle
+endif
+if filereadable(expand("~/.vimrc.ycm"))
+  so ~/.vimrc.ycm
+endif
 
 " NOTE: Put below option at the end of this file
 set shortmess-=S  " show search results count on statusline(bottom right)
