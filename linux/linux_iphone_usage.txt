@@ -1,0 +1,17 @@
+Access iPhone photos/videos on Linux
+
+Refer: https://ounapuu.ee/posts/2024/09/02/iphone-media-recovery/
+
+# install tools
+sudo apt install ifuse libimobiledevice libimobiledevice-utils
+
+# pair iphone
+idevicepair pair
+idevicepair validate
+
+# mount
+mkdir ~/my-iphone
+ifuse ~/my-iphone
+
+# unmount
+umount ~/my-iphone
