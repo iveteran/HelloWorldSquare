@@ -1,5 +1,10 @@
 Disable/Enable X server(Display Manager) autostart (Debian)
 
+Show settings:
+systemctl get-default
+
+systemctl status display-manager
+
 Method #1:
 systemctl set-default multi-user.target  <-- disable
 systemctl set-default graphical.target   <-- enable

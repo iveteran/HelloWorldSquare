@@ -73,3 +73,6 @@ sudo ufw enable
 
 # CentOS (firewalld)
 firewall-cmd --permanent --zone=public --add-port=24/tcp 
+
+# TTY console setup
+sudo dpkg-reconfigure console-setup
