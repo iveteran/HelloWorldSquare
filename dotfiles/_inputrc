@@ -4,3 +4,7 @@ set show-mode-in-prompt on
 set vi-ins-mode-string +
 set vi-cmd-mode-string :
 set completion-ignore-case on
+
+# Enable auto suggestion
+#set show-all-if-ambiguous on
+#TAB:menu-complete
