@@ -1,0 +1,22 @@
+Default shortcuts of Bash Bind (vi mode)
+
+alt + v:    Open editor
+alt + x:    Delete current charactor
+alt + j:    Previous history command
+alt + k:    Next history command
+alt + h:    Move to previous charactor
+alt + l:    Move to next charactor
+alt + p:    Paste
+alt + w:    Move to next word
+alt + b:    Move to previous word
+
+ctrl + w:   Cut/Delete previous word
+ctrl + k:   Cut/Delete to end (vi normal mode)
+ctrl + u:   Cut/Delete to begin
+ctrl + j:   Same as Enter
+ctrl + m:   Same as Enter
+ctrl + y:   Paste
+ctrl + r:   Search history forward
+ctrl + s:   Search history backward
+ctrl + f:   Use auto-suggestion, like Fish, example: https://litecli.com/autocompletion/
+ctrl + l:   Clear screen (vi normal node)
