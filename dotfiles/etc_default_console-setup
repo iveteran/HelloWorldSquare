@@ -3,6 +3,8 @@
 # CONFIGURATION FILE FOR SETUPCON
 
 # Consult the console-setup(5) manual page.
+#
+# NOTE: Also can use 'sudo dpkg-reconfigure console-setup' to setup
 
 ACTIVE_CONSOLES="/dev/tty[1-6]"
 
