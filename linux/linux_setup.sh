@@ -13,6 +13,7 @@ apt udpate
 apt upgrade
 
 # install top tools
+apt install bash-completion
 apt install keychain
 apt install tmux
 apt install vim

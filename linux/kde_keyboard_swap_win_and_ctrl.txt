@@ -5,8 +5,7 @@ To remap the keyboard in KDE Plasma,
    Open the application the icon titled "Keyboard"
    Switch to the "Advanced" tab
    Look for "Ctrl position"
-   Open the drop down menu and select "Swap Left Win with
-   Left Ctrl"
+   Open the drop down menu and select "Swap Left Win with Left Ctrl"
    Click Apply
 
    This might work. I don't use that keyboard but

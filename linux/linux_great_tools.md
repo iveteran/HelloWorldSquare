@@ -125,3 +125,4 @@
 - ueberzugpp - image viewer on terminal
 - ncdu, dua-cli(tui), baobab(gui) - disk space usage analyzer
 - tldr, https://github.com/tldr-pages/tldr
+- graphicsmagick, svg and gif view
