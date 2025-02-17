@@ -1,0 +1,21 @@
+# NOTE: Put this file on C:/Users/<windows_user_profile>/.wslconfig
+# Refer: https://superuser.com/questions/1679757/accessing-windows-localhost-from-wsl2
+#
+# Settings apply across all Linux distros running on WSL 2
+[wsl2]
+
+# Limits VM memory to use no more than 4 GB, this can be set as whole numbers using GB or MB
+memory = 4GB 
+
+# Sets the VM to use two virtual processors
+processors = 2
+
+#[experimental]
+
+# Network settings
+#networkingMode = bridged
+#vmSwitch = Bridge
+networkingMode = mirrored
+#dnsTunneling = true
+#firewall = true
+#autoProxy = true
