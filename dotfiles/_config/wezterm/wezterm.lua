@@ -15,6 +15,8 @@ config.window_decorations = "RESIZE"
 config.scrollback_lines = 5000
 config.tab_bar_at_bottom = true
 config.hide_tab_bar_if_only_one_tab = true
+--config.font = wezterm.font 'JetBrains Mono'  -- Default is 'JetBrains Mono'
+config.font = wezterm.font 'JetBrainsMono Nerd Font Mono'  -- With small icon of lsd
 config.font_size = 15
 config.background = {
   {
