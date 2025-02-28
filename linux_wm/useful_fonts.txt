@@ -3,5 +3,10 @@ apt install fonts-wqy-microhei
 apt install fonts-noto-color-emoji
 fc-cache -f
 
+# list fonts family
+fc-list : family
+# list fonts
+fc-list
+
 # Google Noto Nerd fonts:
 https://www.nerdfonts.com/cheat-sheet
