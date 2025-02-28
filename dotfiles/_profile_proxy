@@ -1,9 +1,11 @@
 export no_proxy="localhost, 127.0.0.1, 163.com, 172.20.10.11/28, 192.168.8.0/24"
 
+HOST=127.0.0.1
+
 proxy_on() {
-    export http_proxy="http://127.0.0.1:7890"
-    export https_proxy="http://127.0.0.1:7890"
-    export socks_proxy="127.0.0.1:7891"
+    export http_proxy="http://${HOST}:7890"
+    export https_proxy="http://${HOST}:7890"
+    export socks_proxy="${HOST}:7891"
 
     proxy_show
 }

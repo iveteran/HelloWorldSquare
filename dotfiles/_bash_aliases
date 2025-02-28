@@ -1,11 +1,19 @@
 # Basic aliases
 alias ls='ls --color=auto'
 alias ll='ls -lh -rt'
-#alias ls='lsd'              # for lsd, apt install lsd
-alias ls='exa --icons'      # for exa, apt install exa
-alias ll='ls -lh --sort new --git'    # for exa
-alias lT='ls -T'           # for exa
-alias llT='ls -l -T'       # for exa
+alias lT='tree'        # apt install tree
+alias llT='tree -lpsug'
+if [ -f /usr/bin/lsd ]; then
+  alias ls='lsd'              # for lsd, apt install lsd
+  alias ll='lsd -l'           # for lsd
+  alias lT='ls --tree'        # for lsd
+  alias llT='ll --tree'       # for lsd
+elif [ -f /usr/bin/exa ]; then
+  alias ls='exa --icons'      # for exa, apt install exa
+  alias ll='ls -lh --sort new --git'    # for exa
+  alias lT='ls -T'           # for exa
+  alias llT='ls -l -T'       # for exa
+fi
 alias la='ls -a'
 alias l.='ls -ld .?*'
 alias lf.='find . -maxdepth 1 -type f -name ".*"'
@@ -49,3 +57,6 @@ alias dec2bin='f() { echo "obase=2; ibase=10; $1" | bc; unset -f f; }; f'
 alias hex2dec='f() { echo "obase=10; ibase=16; `echo $1 | tr "a-z" "A-Z"`" | bc; unset -f f; }; f'
 alias oct2dec='f() { echo "obase=10; ibase=8; $1" | bc; unset -f f; }; f'
 alias bin2dec='f() { echo "obase=10; ibase=2; $1" | bc; unset -f f; }; f'
+
+# tabiew - csv file viewer
+alias tw_tsv="tw --separator $'\t'"

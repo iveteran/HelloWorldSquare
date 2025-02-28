@@ -29,7 +29,16 @@ PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin:/snap/bin
 export GOPATH=/opt/yuu/go
 [ -d $GOPATH ] && PATH=$PATH:"$GOPATH/bin"
 
-PATH=$PATH:/opt/AppImage
+# AppImage path
+[ -d /opt/AppImage ] && PATH=$PATH:/opt/AppImage
+
+# Node manager(fnm) environment
+# Refer: https://nodejs.org/en/download
+FNM_PATH="/home/yuu/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
 
 export PATH
 
@@ -38,6 +47,7 @@ export PATH
 ##export PATH=$PATH:$HOME/.tmuxifier/bin
 #export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 #eval "$(tmuxifier init -)"
+#export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
 
 export EDITOR='vim'
 export PAGER='less'
@@ -88,13 +98,13 @@ jf_bat() {
 export GPG_TTY=$(tty)
 
 # Install: apt install keychian
-if [ -f $HOME/.ssh/iv.id_rsa ]; then
+if [[ -f $HOME/.ssh/iv.id_rsa && -x /usr/bin/keychian ]]; then
     keychain $HOME/.ssh/iv.id_rsa
     source $HOME/.keychain/$HOSTNAME-sh
 fi
 
 # khal
-eval "$(_KHAL_COMPLETE=bash_source khal)"
+[ -x /usr/bin/khal ] && eval "$(_KHAL_COMPLETE=bash_source khal)"
 
 # x-cmd
 # Repo: https://github.com/x-cmd/x-cmd
@@ -106,8 +116,14 @@ x_on() {
 #x_on  # Enable x-cmd
 
 # Enable zoxide - A smarter cd command
-# Install: cargo install zoxide
-[ -f $HOME/.cargo/bin/zoxide ] && eval "$(zoxide init bash)"
+# Install: cargo install zoxide OR apt install zoxide
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
 
 # MPD daemon start (if no other user instance exists)
-[ ! -s ~/.mpd/pid ] && mpd
+if command -v mpd >/dev/null 2>&1
+then
+  [! -s ~/.mpd/pid ] && mpd
+fi
+
+# Conda environment
+[ -f /opt/conda/etc/profile.d/conda.sh ] && source /opt/conda/etc/profile.d/conda.sh
