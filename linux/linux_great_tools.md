@@ -62,6 +62,7 @@
 - pipewire - New multimedia frameworks for Linux
 - Cava - Cross-platform Audio Visualizer
 - YesPlayMusic - Music client on Linux of NetEase Cloud Music
+- go-musicfox - TUI music client on Linux/MacOS of NetEase Cloud Music
 
 ## Shotcut
 - Flameshot

@@ -19,6 +19,7 @@ apt install tmux
 apt install vim
 apt install git
 apt install fzf
+apt install fd-find
 apt install ripgrep
 apt install htop btop bmon iftop iptraf iotop
 apt install jq tidy bat  # json formatter, html formatter and text viewer
