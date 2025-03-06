@@ -1,0 +1,23 @@
+1) 订阅链接:
+从机场服务商拷贝订阅URL, 例:
+https://yrnkumbg.catnetconfig.com/api/v1/client/subscribe?token=74f42604cd2882aaeaa63854d17d44e8
+
+2) 打开此网站转换订阅链接为clash配置文件下载url:
+https://nexconvert.com/
+或: https://sub-web.netlify.app/
+将机场服务商的订阅URL拷贝至此网站生成clash的配置文件的URL
+
+3) 下载配置文件(转换后的url)，例:
+wget -O clash.yaml 'https://api.nexconvert.com/sub?target=clash&url=https%3A%2F%2Fezpskvgf.catnetconfig.com%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D74f42604cd2882aaeaa63854d17d44e8&insert=false'
+
+4) 拷贝Clash的配置文件(clash.yaml)到~/.config/clash/config.yaml
+如果需要可以打开clash.yaml修改端口等设置
+
+5) 启动Clash
+
+6) Web UI settings (Optional)
+在~/.config/clash/config.yaml添加或修改如下：
+# git clone https://github.com/ramuses/clash-dashboard.git ~/.config/clash/
+# http://localhost:9090/ui
+external-controller: 127.0.0.1:9090
+external-ui: "/home/yuu/.config/clash/clash-dashboard"

@@ -1,8 +1,0 @@
-打开此网站转换订阅链接为clash配置文件下载url:
-https://nexconvert.com/
-
-订阅链接:
-https://yrnkumbg.catnetconfig.com/api/v1/client/subscribe?token=74f42604cd2882aaeaa63854d17d44e8
-
-下载配置文件(转换后的url):
-wget -o clash.yaml 'https://api.nexconvert.com/sub?target=clash&url=https%3A%2F%2Fezpskvgf.catnetconfig.com%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D74f42604cd2882aaeaa63854d17d44e8&insert=false'
