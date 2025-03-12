@@ -1,0 +1,4 @@
+# https://github.com/pdfjam/pdfjam
+
+sudo apt install texlive-extra-utils
+pdfjam input.pdf --no-landscape --scale 0.6 --angle 90 --nup 2x1 --suffix 2up
