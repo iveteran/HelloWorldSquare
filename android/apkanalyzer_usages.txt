@@ -1,0 +1,8 @@
+# Refer: https://developer.android.google.cn/tools/apkanalyzer?hl=zh-cn
+
+apkanalyzer [global-options] subject verb [options] apk-file [apk-file2]
+
+e.g.
+apkanalyzer -h apk file-size myapk.apk
+apkanalyzer -h apk summary myapk.apk
+apkanalyzer -h files list myapk.apk

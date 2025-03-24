@@ -1,0 +1,10 @@
+# Refer: https://developer.android.google.cn/tools/sdkmanager?hl=zh-cn
+
+sdkmanager --list --sdk_root=/opt/Android/SDK
+sdkmanager --list_installed --sdk_root=/opt/Android/SDK
+sdkmanager "platform-tools" "platforms;android-33" --sdk_root=/opt/Android/SDK/cmdline-tools/latest
+sdkmanager packages [options]
+sdkmanager --uninstall packages [options]
+sdkmanager --uninstall --package_file=package_file [options]
+sdkmanager --update [options]
+sdkmanager --licenses

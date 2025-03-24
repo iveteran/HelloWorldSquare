@@ -1,0 +1,3 @@
+# Refer: https://developer.android.google.cn/tools/avdmanager?hl=zh-cn
+
+avdmanager [global options] command [command options]

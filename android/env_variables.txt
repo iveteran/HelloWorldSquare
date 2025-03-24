@@ -1,0 +1,10 @@
+https://developer.android.google.cn/tools/variables?hl=zh-cn
+
+export ANDROID_HOME=/opt/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+
+Android SDK 环境变量:
+ANDROID_HOME	    设置 SDK 安装目录的路径。设置后，该值通常不会更改，并且可以由同一台计算机上的多个用户共享。ANDROID_SDK_ROOT 也指向 SDK 安装目录，但已废弃。如果您继续使用它，Android Studio 和 Android Gradle 插件将检查旧变量和新变量是否一致。
+ANDROID_USER_HOME	为 Android SDK 中包含的工具设置用户偏好设置目录的路径。 默认为 $HOME/.android/。
+某些较旧的工具（例如 Android Studio 4.3 及更低版本）不会读取 ANDROID_USER_HOME。如需替换这些旧工具的用户偏好设置位置，请将 ANDROID_SDK_HOME 设置为要在其下创建 .android 目录的父目录。
+REPO_OS_OVERRIDE	当您使用 sdkmanager 为与当前计算机不同的操作系统下载软件包时，请将此变量设置为 windows、macosx 或 linux。

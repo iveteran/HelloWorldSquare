@@ -1,0 +1,291 @@
+# Refers: 
+  https://developer.android.google.cn/tools/adb?hl=zh-cn
+  https://www.cnblogs.com/wutou/p/17930583.html
+
+adb version
+adb help
+adb devices
+adb get-serialno        # 查看设备序列号
+adb root                # 获取root权限
+adb reboot recovery     # 重启进入Recovery模式
+adb reboot bootloader   # 重启进入Bootloader模式
+adb shell               # 登录设备shell
+adb kill-server
+
+# 指定设备安装
+adb [-d | -e | -s serial_number] command
+
+# 安装/卸载APK
+adb install app.apk
+adb uninstall com.example.app
+
+# 文件传输
+adb pull /sdcard/Download/file.txt ~/Desktop/
+adb push ~/Documents/image.jpg /sdcard/Pictures/
+
+# 设置端口转发
+adb forward tcp:6100 tcp:7100
+adb forward tcp:6100 local:logd
+
+# 发出 shell 命令
+adb shell                   # 进入shell
+adb shell ls /system/bin
+adb shell dmesg             # 查看内核日志
+adb shell ps                # 查看进程
+adb shell top
+adb shell top -n 1 | grep com.example.app
+
+# 截屏
+adb shell screencap -p /sdcard/screen.png
+adb pull /sdcard/screen.png ~/Desktop/
+
+# 录屏
+# 按Ctrl+C停止录制后拉取文件
+adb shell screenrecord --bit-rate 4000000 /sdcard/demo.mp4
+
+# 输入模拟
+# 点击屏幕坐标
+adb shell input tap 500 1000
+# 滑动操作
+adb shell input swipe 100 500 1000 500 200  # 从(100,500)滑动到(1000,500)，耗时200ms
+# 文本输入
+adb shell input text "Hello_World"  # 注意：空格需用下划线代替
+# 按键输入
+adb shell input keyevent 3      # HOME 键
+adb shell input keyevent 4      # 返回键
+adb shell input keyevent 24     # 增加音量
+adb shell input keyevent 25     # 降低音量
+adb shell input keyevent 26     # 电源键
+adb shell input keyevent 82     # 菜单键
+adb shell input keyevent 85     # 播放/暂停
+adb shell input keyevent 86     # 停止播放
+adb shell input keyevent 87     # 播放下一首
+adb shell input keyevent 88     # 播放上一首
+adb shell input keyevent 126    # 恢复播放
+adb shell input keyevent 127    # 暂停播放
+adb shell input keyevent 164    # 静音
+adb shell input keyevent 224    # 点亮屏幕
+adb shell input keyevent 223    # 熄灭屏幕
+
+# Shell的设置相关
+adb shell settings get <subcommand>
+adb shell settings get system screen_off_timeout    # 获取屏幕休眠时间
+adb shell settings get global auto_time             # 获取日期时间选项中通过网络获取时间的状态，1为允许、0为不允许。更改该状态，从1改为0
+adb shell settings get system screen_brightness     # 获取当前屏幕亮度值
+adb shell settings get secure default_input_method io.appium.android.ime/.UnicodeIME        # 默认为Appium使用中文输入时安装的输入法
+adb shell settings get secure default_input_method com.sohu.inputmethod.sogouoem/.SogouIME  # 默认搜狗输入法
+adb shell settings get global http_proxy            # 查看代理是否设置成功
+adb shell settings get global wifi_on               # 查看WiFi 状态。1：开 0：关
+
+adb shell settings put <subcommand>
+adb shell settings put system screen_brightness 150         # 更改亮度值（亮度值在0—255之间）
+adb shell settings put system screen_off_timeout 600000     # 设置屏幕休眠时间（毫秒）
+adb shell settings put system screen_off_timeout 2147483647 # 设置永不锁屏
+adb shell settings put system accelerometer_rotation 0      # 禁用屏幕自动旋转
+adb shell settings put system accelerometer_rotation 1      # 启用屏幕自动旋转
+adb shell settings put system user_rotation 1               # 屏幕旋转到横向模式
+adb shell settings put system user_rotation 3               # 屏幕旋转 270° clockwise
+
+adb shell settings put secure install_non_market_apps 1         # 允许安装来源
+adb shell settings put secure location_providers_allowed +gps   # 开启GPS定位功能
+adb shell settings put secure location_providers_allowed -gps   # 关闭GPS定位功能,或者移除定位服务提供者
+adb shell settings put secure display_density_forced 440
+
+# 设置在所有界面下都同时隐藏状态栏和导航栏
+adb shell settings put global policy_control immersive.full=*
+# 设置在包名为 com.package1 和 com.package2 的应用里隐藏状态栏，在除了包名为 com.package3 的所有应用里隐藏导航栏。
+adb shell settings put global policy_control immersive.status=com.package1,com.package2:immersive.navigation=apps,-com.package3
+# 关闭 USB 调试模式。关闭后，使用命令无法恢复开启USB 调试模式，只能通过屏幕手动操作
+adb shell settings put global adb_enabled 0
+# 关闭系统网络检查服务
+adb shell settings put global captive_portal_detection_enabled 0
+# 开启还原网络检查服务
+adb shell settings put global captive_portal_detection_enabled 1
+# 设置全局代理
+adb shell settings put global http_proxy 127.0.0.1:1984
+adb shell settings put global https_proxy <IP:PORT>
+# 关闭代理(无需重启)，只清空填写的IP和端口
+adb shell settings put global http_proxy :0
+# 同上，关闭代理(因为必须要一个参数，所以写:0和null效果一样)
+adb shell settings put global http_proxy null
+# (旧版) http代理排除 2.3.3.3 和 1.1.1.1（这两个网址不使用代理）
+adb shell settings put global global_http_proxy_exclusion_list 2.3.3.3,1.1.1.1
+# (旧版) http代理排除 baidu.com和jd.com（这两个网址不使用代理）
+adb shell settings put global global_http_proxy_exclusion_list baidu.com,jd.com
+# (旧版)http代理排除列表，清空
+adb shell settings put global global_http_proxy_exclusion_list null
+# (旧版)http代理排除列表，清空
+adb shell settings delete global ProxyExclusionList
+# (新版)设置代理排除列表
+adb shell settings put global ProxyExclusionList 2.2.22.2
+# (新版)获取代理排除列表
+adb shell settings get global ProxyExclusionList
+# 禁止安装非市场应用
+adb shell settings put global install_non_market_apps 0
+# 允许安装非市场应用
+adb shell settings put global install_non_market_apps 1
+# 屏幕关闭时，设置WiFi在屏幕关闭时始终保持连接
+adb shell settings put global wifi_sleep_policy 2
+# 设置NTP服务器为亚洲地区的服务器
+adb shell settings put global ntp_server asia.pool.ntp.org
+# 飞行模式开启后，就可以发送广播，来更改飞行模式的状态
+adb shell settings put global airplane_mode_on 1
+adb shell am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true
+# 飞行模式关闭
+adb shell settings put global airplane_mode_on 0
+adb shell am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false
+# 动画缩放
+adb shell settings put global window_animation_scale 0      # 关闭窗口动画缩放
+adb shell settings put global transition_animation_scale 0  # 关闭过渡动画缩放：
+adb shell settings put global animator_duration_scale 0     # 关闭动画持续时间缩放
+# 删除设置
+adb shell settings delete global http_proxy             # 取消代理
+adb shell settings delete global global_http_proxy_host # 取消代理
+adb shell settings delete global global_http_proxy_port # 取消代理端口
+adb shell settings delete global captive_portal_server  # 开启还原网络检查服务
+# 列出设置
+adb shell settings list <PROP>
+adb shell settings list system
+adb shell settings list secure
+adb shell settings list global
+# 重置设置
+adb shell settings reset <PROP> <ATTR>
+# 运行Linux命令
+adb shell "cat /sys/class/net/wlan0/address"    # 获取 Mac 地址，设备不同可能地址不同
+adb shell "cat /proc/cpuinfo"                   # 获取 CPU 信息
+adb shell "cat /proc/meminfo"                   # 获取 内存信息
+adb shell "cat /system/build.prop"              # 获取 更多硬件与系统属性
+adb shell "cat /data/misc/wifi/*.conf"          # 查看连接过的 WiFi 密码。需要 root 权限
+adb shell "date -s 20190531.131600"             # 将系统日期和时间更改为 2019 年 05 月 31 日 13 点 16 分 00 秒。需要 root 权限。"
+adb shell "cat /proc/net/wireless | grep wlan0 | awk '{print $3}'"      # 获取信号强度
+adb shell "cat /proc/net/wireless | grep wlan0 | awk '{print 5}'"       # 获取信号质量：单位dBm
+adb shell "iwconfig wlan0 | sed 's/ /\n/g' | grep -i Rate | sed 's/=/ /g'|awk '{print $2}'"     # 网口的传输速率：Mb/s = 1000000bps
+
+# 应用包管理(Package Manager)
+adb shell pm <subcommand>
+adb shell pm list packages      # 列出手机装的所有app 的包名
+adb shell pm list packages -s   # 列出系统应用的所有包名
+adb shell pm list packages -3   # 列出除了系统应用的第三方应用包名
+adb shell pm uninstall com.example.MyApp
+adb shell pm clear com.example.app      # 清除应用数据与缓存
+adb shell pm list permission-groups     # 输出所有已知的权限组
+adb shell pm list instrumentation       # 列出所有测试软件包
+adb shell pm list features              # 输出系统的所有功能
+adb shell pm list libraries             # 输出当前设备支持的所有库
+adb shell pm list users                 # 输出系统中的所有用户
+adb shell pm path <package>             # 输出给定 package 的 APK 的路径
+
+# Activity 管理器
+adb shell am <subcommand>
+subcommand 用途:
+start [options] <INTENT> 启动 <INTENT>  # 指定的 Activity
+startservice [options] <INTENT>         # 启动 <INTENT> 指定的 Service
+broadcast [options] <INTENT>            # 发送 <INTENT> 指定的广播
+force-stop <packagename>                # 停止 <packagename> 相关的进程
+
+adb shell am start -n com.test.myapp    # 从命令行启动App
+adb shell am force-stop com.test.myapp  # 强制停止应用
+adb shell am force-stop com.tencent.mm  # 强制停止微信
+# 调起微信的某 Service 界面
+adb shell am startservice -n com.tencent.mm/com.tencent.mm.plugin.accountsync.model.AccountAuthenticatorService
+或
+adb shell am startservice -n com.tencent.mm/.plugin.accountsync.model.AccountAuthenticatorService
+
+# 调用设备政策管理器
+adb shell dpm <subcommand>
+
+# 备份与恢复
+# 全量备份
+adb backup -all -f backup.ab
+# 恢复备份
+adb restore backup.ab
+
+# 设备管理与调试
+adb shell getprop ro.product.model          # 查看设备型号
+adb shell getprop ro.product.brand          # 设备品牌
+adb shell getprop ro.product.board          # 设备处理器型号
+adb shell getprop ro.product.cpu.abi        # 获取CPU架构
+adb shell getprop ro.build.version.release  # 查看Android 系统版本号
+adb shell getprop gsm.network.type          # 驻网类型
+adb shell getprop gsm.operator.alpha        # 运营商类型
+adb shell cat /system/build.prop | grep ro.product.cpu.abi      # 获取CPU架构
+
+# 日志分析
+# 查看全部日志
+adb logcat
+# 按标签过滤日志
+adb logcat -s ActivityManager:V *:S  # 仅显示ActivityManager的Verbose日志
+# 按优先级过滤
+adb logcat *:E          # 仅显示Error级别日志
+# 常用例子
+adb logcat -v <format>  # 指定日志输出格式
+adb logcat -v brief     # 默认格式,<priority>/<tag>(<pid>): <message>
+adb logcat -v process   # <priority>(<pid>) <message>
+adb logcat -v tag       # <priority>/<tag>: <message>
+adb logcat -v raw       # <message>
+adb logcat -v time      # <datetime> <priority>/<tag>(<pid>): <message>
+adb logcat -v threadtime # <datetime> <pid> <tid> <priority> <tag>: <message>
+adb logcat -v long      # [ <datetime> <pid>:<tid> <priority>/<tag>:] <message>
+adb logcat -v long ActivityManager:I *:S    # 指定格式可与上面的过滤同时使用
+
+# 内存使用分析
+adb shell dumpsys
+adb shell dumpsys activity
+adb shell dumpsys battery           # 查看电池状态
+adb shell dumpsys bluetooth_manager # 查看蓝牙信息
+adb shell dumpsys wifi              # 查看Wi-Fi 信息
+adb shell dumpsys input             # 检查输入诊断
+adb shell dumpsys netstats detail   # 检查网络诊断信息
+adb shell dumpsys batterystats options  # 检查电池诊断信息
+adb shell dumpsys procstats --hours 3   # 查看内存分配情况
+adb shell dumpsys meminfo
+adb shell dumpsys meminfo com.example.app
+adb shell dumpsys gfxinfo <package_name> # APP界面的帧率
+adb shell dumpsys SurfaceFlinger | findstr "GLES"     # 设备引擎渲染模式
+adb shell dumpsys window | findstr mCurrentFocus  # 显示当前开启窗口名
+
+
+# 窗口管理(Window Manager)
+adb shell wm size           # 查看屏幕分辨率
+adb shell wm size 480x1024  # 将分辨率修改为 480px * 1024px
+adb shell wm size reset     # 恢复原分辨率
+# 屏幕密度
+adb shell wm density        # 查看屏幕密度
+adb shell wm density reset  # 恢复原屏幕密度
+# 显示区域
+adb shell wm overscan       # 四个数字分别表示距离左、上、右、下边缘的留白像素，以上命令表示将屏幕底部 100px留白
+adb shell wm overscan reset # 恢复显示区域
+# 其它
+adb shell svc wifi enable/disadle   # 开启/关闭WiFi。需要 root 权限。
+adb shell svc data enable/disadle   # 数据开关
+adb shell -c <command>  # 不进入终端的命令行执行命令
+adb shell getevent      # 输出所有event设备的基本信息
+adb shell sendevent     # 设置event设备的基本信息
+adb shell service       # 服务
+adb shell service call phone 3  # 挂断电话
+adb shell setenforce    # selinux 使用 setenforce 命令进行设置
+adb shell content       # 旋转屏幕
+adb shell ip addr show          # 显示网络IP
+adb shell ip addr show wlan0    # 显示无线网卡IP
+adb shell ip addr show eth0     # 显示有线网卡IP
+adb shell recovery      # 恢复出厂设置的操作, 危险!!!
+adb bugreport           # 查看bug 报告
+adb get-serialno        # 获取序列号
+
+
+# 无线调试与多设备管理
+# 通过USB初始化
+adb tcpip 5555                  # 开启设备的TCP端口
+adb connect 127.0.0.1:5555      # 通过IP连接
+adb disconnect 127.0.0.1:5555   # 断开连接
+# 断开USB后继续调试
+adb -s 127.0.0.1:5555 shell     # 指定设备执行命令
+
+命令行切换到root权限
+1.方式一：
+adb comnnect IP:PORT
+adb root
+2.方式二：
+adb comnnect IP:PORT
+adb shell
+$su

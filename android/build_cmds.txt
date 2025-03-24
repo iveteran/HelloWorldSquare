@@ -1,0 +1,40 @@
+#  构建指令
+gradlew task-name (Windows)
+./gradlew task-name (Linux/MacOS)
+
+# 构建调试版APK
+gradlew assembleDebug
+
+# 构建APK并立即在运行的模拟器或连接的设备上安装
+gradlew installDebug
+
+# 将应用部署到模拟器
+
+# 列出可用模拟器
+emulator -list-avds
+
+# 指定AVD来启动模拟器
+emulator -avd avd_name
+
+# 安装、运行APK
+adb install path/to/your_app.apk
+
+# 将您的应用部署到实体设备(USB 调试)
+adb -d install path/to/your_app.apk
+
+# 使用 Gradle 构建 app bundle
+./gradlew :base:bundleDebug
+
+# app bundle 签名
+jarsigner -keystore pathToKeystore app-release.aab keyAlias
+
+# 从命令行对应用签名
+keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
+
+# 从命令行手动为您的应用签名
+# 使用 zipalign 对齐未签名的 APK
+zipalign -v -p 4 my-app-unsigned.apk my-app-unsigned-aligned.apk
+# 通过 apksigner 使用您的私钥为 APK 签名：
+apksigner sign --ks my-release-key.jks --out my-app-release.apk my-app-unsigned-aligned.apk
+# 验证 APK 是否已签名
+apksigner verify my-app-release.apk
