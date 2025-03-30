@@ -1,0 +1,4 @@
+systemctl status systemd-networkd
+
+networkctl status
+networkctl list
