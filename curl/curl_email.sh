@@ -8,6 +8,8 @@ curl --insecure imaps://mail.iveteran.me -u yu@iveteran.me -p
 curl --insecure imaps://mail.iveteran.me/ -u yu@iveteran.me -p --request "EXAMINE INBOX"
 curl --insecure imaps://mail.iveteran.me/ -u yu@iveteran.me -p --request "EXAMINE Sent"
 
+curl -v --url "imaps://mail.goe.works:993" --user "${EMAIL_USER}:${EMAIL_PASS}" --list-only
+
 # Listing Messages ID(UID) of the Folder
 curl --insecure --url "imaps://mail.iveteran.me/INBOX?ALL" -u yu@iveteran.me -p
 
