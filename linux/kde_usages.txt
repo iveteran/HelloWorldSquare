@@ -1,4 +1,35 @@
 xwininfo -root -children | grep $(printf '%x\n' $(xdotool getwindowfocus)) | grep -oEi '"[^"]+"' | head -1
 
-# mount Plasma Vault on console
+# Mount Plasma Vault on console
 cryfs "/home/yuu/.local/share/plasma-vault/[name of vault].enc" "~/Vaults/[name of vault]/"
+
+# Settings avator for KDE Plasma
+~/.face.icon
+/usr/share/sddm/faces/.face.icon
+# Avatar stored by KDE user settings
+/var/lib/AccountsService/icons/<UserName>
+
+# Add desktop menu entry:
+cd ~/.local/share/applications
+Create follow file: YourApp.desktop, content(Example):
+[Desktop Entry]
+Name=Noi
+Comment=Power Your World with AI - Explore, Extend, Empower.
+Exec="/opt/AppImage/Noi_linux_0.4.0.AppImage" %U
+Terminal=false
+Type=Application
+Icon=/opt/AppImage/noi.png
+Categories=Development;Utility
+
+# Desktop menu main Categories. Note that category names are case-sensitive.
+AudioVideo
+Audio
+Video
+Development
+Education
+Game
+Graphics
+Network
+Office
+Settings
+Utility

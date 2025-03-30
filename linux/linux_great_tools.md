@@ -76,6 +76,8 @@
 ## Email client
 - mutt/neomutt
 - Thunderbird
+- aerc - https://git.sr.ht/~rjarry/aerc, *The BEST one for TUI*
+- meli - https://git.meli-email.org/meli/meli
 
 ## System tools
 - bmon, btop, atop - System Monitor
@@ -98,6 +100,7 @@
 - cryfs - crypt fs
 - cryptomator - disk/files encrypt
 - firejail - sandbox
+- unshare - run program in new namespaces
 
 ---
 
@@ -114,6 +117,7 @@
 - ranger - file manager
 - qmv - batch rename files
 - slides - markdown viewer
+- hike - markdown browser
 - navi - An interactive cheatsheet tool for the command-line
 - translate-shell - A Translate, supports Google Translate、Microsoft Translator、Yandex
 - hexyl - A hex viewer for the terminal
@@ -127,3 +131,6 @@
 - ncdu, dua-cli(tui), baobab(gui) - disk space usage analyzer
 - tldr, https://github.com/tldr-pages/tldr
 - graphicsmagick, svg and gif view
+- termpicker, A simple Color Picker Designed for your Terminal, Install: go install github.com/ChausseBenjamin/termpicker@latest
+- tig, A TUI mode git client
+- duf, A disk usage/free utility

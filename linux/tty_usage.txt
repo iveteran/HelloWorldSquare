@@ -4,6 +4,9 @@ $ who am i
 $ tty
 $ ps hotty $$
 
+# reset tty
+$ reset
+
 # add more tty
 sudo systemctl start getty@ttyN
 
