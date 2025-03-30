@@ -1,0 +1,22 @@
+<clientConfig version="1.1">
+  <emailProvider id="matrix.works">
+    <domain>matrix.works</domain>
+    <displayName>Matrixworks</displayName>
+    <displayShortName>MWX</displayShortName>
+    <incomingServer type="imap">
+      <hostname>mail.matrix.works</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.matrix.works</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+    <documentation url="https://matrix.works/supports"/>
+  </emailProvider>
+</clientConfig>

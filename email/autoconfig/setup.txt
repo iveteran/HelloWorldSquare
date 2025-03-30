@@ -1,0 +1,51 @@
+Refers:
+  https://www.bucksch.org/1/projects/thunderbird/autoconfiguration/
+  https://www.bucksch.org/1/projects/thunderbird/autoconfiguration/config-file-format.html
+
+DNS:
+Add CNAME record:
+autoconfig IN CNAME autoconfig.hoster.com.
+
+Apache(Debian):
+Add below to /etc/apache2/sites-enabled/000-default:
+<VirtualHost *:80>
+    DocumentRoot /var/www/autoconfig/
+    ServerName autoconfig.hoster.com
+    <Directory /var/www/autoconfig>
+ 	Order allow,deny
+	allow from all
+    </Directory>
+</VirtualHost>
+
+Add below to /etc/apache2/sites-enabled/ssl-default:
+<VirtualHost *:443>
+    DocumentRoot /var/www/autoconfig/
+    ServerName autoconfig.hoster.com
+    <Directory /var/www/autoconfig>
+ 	Order allow,deny
+	allow from all
+    </Directory>
+</VirtualHost>
+
+Apache(CentOS):
+Add below to /etc/httpd/conf.d/autoconfig.conf
+<VirtualHost *:80>
+    DocumentRoot /var/www/autoconfig/
+    ServerName autoconfig.hoster.com
+    <Directory /var/www/autoconfig>
+ 	Order allow,deny
+	allow from all
+    </Directory>
+</VirtualHost>
+
+Nginx:
+Add below to /etc/nginx/nginx.conf:
+server {
+	listen :80; #again, use your server's public IP here!
+	server_name autoconfig.*;
+	location / {
+		root /var/www/autoconfig;
+	}
+}
+
+cp autoconfig_config-v1.1-matrix.works.xml to /var/www/autoconfig/mail/config-v1.1.xml
