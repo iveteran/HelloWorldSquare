@@ -40,10 +40,13 @@ LUKS(Linux Unified Key System)
 
 7) Add Key to LUKS Volume
   $ sudo cryptsetup luksAddKey /dev/sdb1 /root/volume-key
-  $ sudo cryptsetup luksDump /dev/sdb1
+  $ sudo cryptsetup luksDump /dev/sdb1  # show keys
   $ sudo nano /etc/crypttab
     # Content of the crypttab file
     cryptpart    UUID=<partition_uuid>    /root/volume-key    luks
 
 8) Backup header of LUKS
   $ sudo cryptsetup luksHeaderBackup /dev/sdb1 --header-backup-file luks_header_backup.bin
+
+9) Optional, change passphrase
+  $ sudo cryptsetup luksChangeKey /dev/sdb1
