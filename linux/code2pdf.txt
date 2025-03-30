@@ -1,0 +1,6 @@
+apt install enscript
+
+enscript -o output.pdf main.go
+
+enscript --color -Ejavascript -o output.pdf index.js
+enscript --color -Ecpp -o output.pdf main.cpp

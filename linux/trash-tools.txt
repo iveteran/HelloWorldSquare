@@ -1,0 +1,9 @@
+# Via trash-cli
+sudo apt install trash-cli
+trash-empty
+
+# Via GIO
+gio trash --empty
+
+# Manually
+rm -rf ~/.local/share/Trash/files

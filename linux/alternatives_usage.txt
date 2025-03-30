@@ -1,0 +1,4 @@
+Debian:
+update-alternatives --config <name>
+update-alternatives --list <name>
+update-alternatives --query <name>
