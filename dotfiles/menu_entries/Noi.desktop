@@ -1,0 +1,10 @@
+# ~/.local/share/applications/Noi.desktop
+[Desktop Entry]
+Name=Noi
+Comment=Power Your World with AI - Explore, Extend, Empower.
+Exec="/opt/AppImage/Noi_linux_0.4.0.AppImage" %U
+Path=/opt/AppImage
+Terminal=false
+Type=Application
+Icon=/opt/AppImage/noi.png
+Categories=Development;Utility;

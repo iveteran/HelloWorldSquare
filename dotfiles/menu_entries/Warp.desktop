@@ -1,0 +1,10 @@
+# ~/.local/share/applications/Warp.desktop
+[Desktop Entry]
+Name=Warp
+Comment=The intelligent terminal.
+Exec="/opt/AppImage/Warp-x86_64.AppImage" %U
+Path=/opt/AppImage
+Terminal=false
+Type=Application
+Icon=/opt/AppImage/warp-logo.png
+Categories=Development

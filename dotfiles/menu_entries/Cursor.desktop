@@ -1,0 +1,10 @@
+# ~/.local/share/applications/Cursor.desktop
+[Desktop Entry]
+Name=Cursor
+Comment=The AI Code Editor
+Exec="/opt/AppImage/Cursor-0.47.9-x86_64.AppImage" %U
+Path=/opt/AppImage
+Terminal=false
+Type=Application
+Icon=/opt/AppImage/cursor.png
+Categories=Development

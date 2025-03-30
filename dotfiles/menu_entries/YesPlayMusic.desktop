@@ -1,0 +1,10 @@
+# ~/.local/share/applications/YesPlayMusic.desktop
+[Desktop Entry]
+Name=YesPlayMusic
+Comment=第三方网易云播放器
+Exec="/opt/AppImage/YesPlayMusic-0.4.8.AppImage" %U
+Path=/opt/AppImage
+Terminal=false
+Type=Application
+Icon=/opt/AppImage/yesplaymusic_logo.png
+Categories=Music
