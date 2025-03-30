@@ -66,5 +66,5 @@ $ unbound-control flush www.google.com
 # unbound-control local_data "random-ad-server.com A 0.0.0.0"
 
 3. Verifing by using command: host yahoo.com (OR dig yahoo.com), NOTE: must clear DNS cache:
-1) unused DoT: tcpdump -vv -x -X -s 1500 -i eth0 udp dst port 53   -> will captures plain packets of DNS query
-2) used DoT:   tcpdump -vv -x -X -s 1500 -i eth0 udp dst port 853  -> will captures encrypted packets of DNS query
+1) Without DoT: tcpdump -vv -x -X -s 1500 -i eth0 udp dst port 53   -> will captures plain packets of DNS query
+2) With DoT:    tcpdump -vv -x -X -s 1500 -i eth0 udp dst port 853  -> will captures encrypted packets of DNS query
