@@ -8,3 +8,5 @@ sdkmanager --uninstall packages [options]
 sdkmanager --uninstall --package_file=package_file [options]
 sdkmanager --update [options]
 sdkmanager --licenses
+
+sdkmanager --install "ndk:29.0.13113456"
