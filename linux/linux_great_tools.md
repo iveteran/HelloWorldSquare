@@ -102,6 +102,12 @@
 - firejail - sandbox
 - unshare - run program in new namespaces
 
+## Graph Drawer
+- Drawio
+- Mermaid
+- flowchart.js
+- Excalidraw
+
 ---
 
 ## Utilities
@@ -118,6 +124,7 @@
 - qmv - batch rename files
 - slides - markdown viewer
 - hike - markdown browser
+- frogmouth - markdown browser
 - navi - An interactive cheatsheet tool for the command-line
 - translate-shell - A Translate, supports Google Translate、Microsoft Translator、Yandex
 - hexyl - A hex viewer for the terminal
