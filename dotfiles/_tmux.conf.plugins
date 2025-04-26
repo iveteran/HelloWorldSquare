@@ -12,10 +12,17 @@
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-# Other examples:
-# set -g @plugin 'github_username/plugin_name'
-# set -g @plugin 'git@github.com/user/plugin'
-# set -g @plugin 'git@bitbucket.com/user/plugin'
+# Theme Catppuccin for Tmux
+#set -g @plugin 'catppuccin/tmux#v2.1.3'
+
+# Theme Tokyo Night for Tmux
+# Recommended for full support of all widgets and features:
+#  Font: Noto Sans
+#  Tools: bc coreutils gawk git jq playerctl
+set -g @plugin "janoamaral/tokyo-night-tmux"
+#set -g @tokyo-night-tmux_show_netspeed 1
+#set -g @tokyo-night-tmux_netspeed_iface "enp0s3" # Detected via default route
+#set -g @tokyo-night-tmux_show_hostname 1
 
 set -g @plugin 'jimeh/tmuxifier'
 
@@ -23,6 +30,17 @@ set -g @plugin 'jimeh/tmuxifier'
 #  Key bindings:
 #   prefix + \ - toggle help memu
 set -g @plugin 'jaclu/tmux-menus'
+
+# tmux-fzf
+#  Key bindings:
+#   prefix + F(Shift + f)
+set -g @plugin 'sainnhe/tmux-fzf'
+
+# extrakto for tmux - quickly select, copy/insert/complete text without a mouse
+#  Key bindings:
+#   prefix + tab
+set -g @plugin 'laktak/extrakto'
+set -g @extrakto_popup_size '70%'
 
 # tmux-sidebar
 #  Key bindings:

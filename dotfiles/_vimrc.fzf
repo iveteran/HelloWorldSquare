@@ -1,0 +1,18 @@
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8, 'relative': v:true } }
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-h': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Key bindings
+nmap <C-s>s :Rg<CR>
+nmap <C-s>f :Files<CR>
+nmap <C-s>l :Lines<CR>
+nmap <C-s>b :Buffers<CR>
+nmap <C-s>h :History<CR>
+
+nmap <C-s><C-s> :Rg!<CR>
+nmap <C-s><C-f> :Files!<CR>
+nmap <C-s><C-l> :Lines!<CR>
+nmap <C-s><C-b> :Buffers!<CR>
+nmap <C-s><C-h> :History!<CR>

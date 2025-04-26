@@ -24,6 +24,7 @@ alias man='man -P less'
 alias tree='tree -C'  # colorization
 alias tree-with-time-size='tree -stD'  # show time and size, order by time
 alias cat='cat -v'
+alias dsize='du -h -d 1'
 #alias rsync='rsync -avzP'
 alias rsync='rsync -az --info=progress2'
 alias pls='sudo $(fc -ln -1)'
@@ -40,8 +41,8 @@ alias tcoding='tmux attach -t Coding || tmux new -s Coding'
 alias tmatrix='tmux attach -t Matrix || tmux new -s Matrix'
 alias ttty='tmux attach -t TTY || tmux new -s TTY'
 # Aliases to open Tmux popup window, Tmux version >= 3.2
-#alias p='tmux popup -w 70% -h 70%'
-#alias pp='tmux popup -w 80% -h 80% "tmux attach -t popup || tmux new -s popup"'
+alias tp='tmux popup -w 70% -h 70%'
+alias tpp='tmux popup -w 80% -h 80% "tmux attach -t popup || tmux new -s popup"'
 
 # trans aliases
 alias tr_en2zh="trans -x 127.0.0.1:7890 -p en:zh-CN"  # -p: play audio
@@ -60,3 +61,8 @@ alias bin2dec='f() { echo "obase=10; ibase=2; $1" | bc; unset -f f; }; f'
 
 # tabiew - csv file viewer
 alias tw_tsv="tw --separator $'\t'"
+
+# clipboard
+#   refer: https://unix.stackexchange.com/questions/632947/how-to-copy-into-graphical-clipboard-on-command-line-in-kde
+alias cbcopy='xclip -selection clipboard'
+alias cbpaste='xclip -selection clipboard -o'

@@ -29,9 +29,28 @@ call plug#begin()
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'editorconfig/editorconfig-vim'
+
+  "Plug 'prabirshrestha/async.vim'
+  "Plug 'prabirshrestha/asyncomplete.vim'
+
+  " Vim LSP
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+
+  " LSP for Go language
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+  " LSP For Dart language
+  "  Refer: https://dev.to/tavanarad/vim-as-a-flutter-ide-4p16
+  Plug 'dart-lang/dart-vim-plugin'
+  Plug 'natebosch/vim-lsc'
+  Plug 'natebosch/vim-lsc-dart'
 call plug#end()
 " -- end: vim-plug --
 
 " Enable vim-astro
 let g:astro_typescript = 'enable'
 "let g:astro_stylus = 'enable'
+
+" vim-lsc options
+let g:lsc_auto_map = v:true

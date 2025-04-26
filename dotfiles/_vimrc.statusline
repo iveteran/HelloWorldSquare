@@ -21,10 +21,19 @@ function GitBranch()
     endif
 endfunction
 
-augroup Gitget
+" Initialize b:git_branch
+augroup GitBranchInit
     autocmd!
-    autocmd BufEnter * let b:git_branch = GitBranch()
+    autocmd VimEnter,BufNewFile,BufReadPre * let b:git_branch = GitBranch()
 augroup END
+
+"augroup Gitget
+"    autocmd!
+"    " Run on BufReadPre so it happens before the LSP integration runs
+"    autocmd BufReadPre * let b:git_branch = GitBranch()
+"    " Keep the BufEnter for files that might be created without going through BufRead
+"    autocmd BufEnter * let b:git_branch = GitBranch()
+"augroup END
 
 hi statusline ctermbg=240
 hi statusline ctermfg=232

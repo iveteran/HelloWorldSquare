@@ -152,19 +152,41 @@ endif
 if filereadable(expand("~/.vimrc.ycm"))
   so ~/.vimrc.ycm
 endif
+if filereadable(expand("~/.vimrc.fzf"))
+  so ~/.vimrc.fzf
+endif
 
 " NOTE: Put below option at the end of this file
 set shortmess-=S  " show search results count on statusline(bottom right)
 set showcmd	      " display incomplete commands
 
-augroup FileTypeSpecificAutocommands
-    autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType htm setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType rs setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    autocmd FileType svelte setlocal tabstop=2 softtabstop=2 shiftwidth=2
-augroup END
+" NOTE: To set below options in ~/.editorconfig
+"augroup FileTypeSpecificAutocommands
+"    autocmd!
+"
+"    autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType htm setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType rs setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType svelte setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"    autocmd FileType dart setlocal tabstop=2 softtabstop=2 shiftwidth=2
+"augroup END
+
+if executable('clangd')
+    augroup lsp_clangd
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+                    \ 'name': 'clangd',
+                    \ 'cmd': {server_info->['clangd']},
+                    \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+                    \ })
+        autocmd FileType c setlocal omnifunc=lsp#complete
+        autocmd FileType cpp setlocal omnifunc=lsp#complete
+        autocmd FileType objc setlocal omnifunc=lsp#complete
+        autocmd FileType objcpp setlocal omnifunc=lsp#complete
+    augroup end
+endif
