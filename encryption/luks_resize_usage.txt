@@ -1,0 +1,18 @@
+1. Open the encrypted volume
+cryptsetup luksOpen /dev/sda2 crypt-volume
+
+2. Extend the partition. (Or use cfdisk instead)
+parted /dev/sda
+> resizepart NUMBER END
+
+3. Close the encrypted volume for the next steps
+cryptsetup luksClose crypt-volume
+
+4. Open it again
+cryptsetup [--key-file=/path/to/file] luksOpen /dev/sda2 crypt-volume
+
+5. Automatically resize the LUKS volume to the available space
+cryptsetup [--key-file=/path/to/file] resize crypt-volume
+
+6. Enlarge the filesystem in it
+resize2fs /dev/mapper/crypt-volume
