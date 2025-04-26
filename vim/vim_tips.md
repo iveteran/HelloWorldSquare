@@ -37,3 +37,6 @@ Related commands:
 :bufdo (all buffers, i.e. all those listed with the :ls command)
 :argdo (all files in argument list)
 :cdo (all files listed in the quickfix list)
+
+## Set command window height
+:set cmdheight=2
