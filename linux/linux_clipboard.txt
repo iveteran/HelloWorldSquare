@@ -1,0 +1,28 @@
+There are 3 clipboards usually available to users on Linux.
+
+These clipboards are called "Selections".
+There is:
+    PRIMARY: This is normally used for middle mouse button = copy/paste
+    SECONDARY: Normally not used by much, but it exists. Often as an in-app specific copy and paste.
+    CLIPBOARD: Usually Ctrl+c and Ctrl+v style copy and paste.
+
+
+
+There are two sets of commands that can do this, xclip and xsel, and they can be used interchangeably. In order to use the clipboard used by graphical applications (rather than the terminal selection buffer), an option must be specified.
+
+To copy into the clipboard:
+uptime | xclip -selection clipboard
+# or
+uptime | xclip -sel clip
+# or
+uptime | xsel -ib
+
+To paste from the clipboard on the command line:
+xclip -o -selection clipboard
+# or
+xclip -o -sel clip
+# or
+xsel -ob
+
+If typing on the command line, xsel is faster to type; if assigning to an alias, or including in a script, then the verbose xclip form is more intention-revealing.
+
