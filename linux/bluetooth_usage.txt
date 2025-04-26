@@ -75,3 +75,7 @@ btmgmt info | grep -i version
 | 0xb |  11 | 5.2     |
 | 0xc |  12 | 5.3     |
 | 0xd |  13 | 5.4     |
+
+# Useful tools
+1. bluetui - https://github.com/pythops/bluetui
+2. wpctl
