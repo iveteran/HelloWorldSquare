@@ -33,6 +33,13 @@ config.background = {
     --opacity = 0.8
   }
 }
+config.cursor_blink_rate = 800
+config.default_cursor_style = "BlinkingBlock"
+config.colors = {
+  cursor_bg = '#52ad70',
+  cursor_fg = 'black',
+  --cursor_border = '#52ad70'
+}
 config.window_padding = {
   left = 0,
   right = 0,
