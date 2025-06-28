@@ -58,3 +58,7 @@
 
 16) mrt
   恶意软件扫描程序
+
+17) Show/Set environment variable
+  echo $Env:HTTP_PROXY
+  set HTTP_PROXY=http://127.0.0.1:8080
