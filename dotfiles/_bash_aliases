@@ -30,6 +30,7 @@ alias rsync='rsync -az --info=progress2'
 alias pls='sudo $(fc -ln -1)'
 alias sudo='sudo env PATH=$PATH'
 alias bat='batcat'
+alias fd='fdfind'
 alias apt-search="apt search --names-only"
 alias chrome-proxy="google-chrome --proxy-server='127.0.0.1:7891'"
 alias jf="python3 -m json.tool --indent 2 --no-ensure-ascii"
