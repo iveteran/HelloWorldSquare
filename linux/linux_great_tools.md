@@ -141,3 +141,5 @@
 - termpicker, A simple Color Picker Designed for your Terminal, Install: go install github.com/ChausseBenjamin/termpicker@latest
 - tig, A TUI mode git client
 - duf, A disk usage/free utility
+- kanban-tui, A customizable task manager in the terminal
+- RustDesk, An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer.
