@@ -42,6 +42,7 @@ Alt + Enter       选中文件后，查看文件属性，（Alt+鼠标双击也�
 
 Alt + Space + N   最小化当前窗口
 Alt + Space + X   最大化当前窗口
+Alt + Space + M   打开窗口移动模式
 
 Ctrl + Shift + Esc    打开任务管理器
 Ctrl + Shift + N      新建文件夹 
