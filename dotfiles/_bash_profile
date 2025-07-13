@@ -32,6 +32,11 @@ export GOPATH=/opt/yuu/go
 # AppImage path
 [ -d /opt/AppImage ] && PATH=$PATH:/opt/AppImage
 
+# Dotnet on Windows (For running Dotnet on Bash for Windows)
+dotnet_path=/mnt/c/Program\ Files/dotnet
+[ -d "$dotnet_path" ] && PATH=$PATH:"$dotnet_path"
+#[ -d "$dotnet_path" ] && PATH="$PATH:$dotnet_path"
+
 # Node manager(fnm) environment
 # Refer: https://nodejs.org/en/download
 FNM_PATH="/home/yuu/.local/share/fnm"
@@ -39,6 +44,10 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
+
+# Node environment by manually
+[ -d /opt/node ] && PATH=$PATH:"/opt/node/bin"
+[ -d ~/node_modules/.bin ] && PATH=$PATH:~/node_modules/.bin
 
 export PATH
 
@@ -61,6 +70,7 @@ export HISTCONTROL=ignoreboth # both ignore space and dups
 export SYSTEMD_EDITOR='vim'
 export PSQL_EDITOR="vim -c 'set syntax=sql'"
 
+set -o ignoreeof # Prevent Ctrl-D to exit shell
 set -o vi
 stty -ixon  # Enable searching history in Bash forward after backward with CTRL-S
 
