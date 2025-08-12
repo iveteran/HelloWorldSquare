@@ -1,5 +1,8 @@
 " Ref: https://jdhao.github.io/2019/11/03/vim_custom_statusline/
 
+" 防止光标位置查询污染输出
+set t_RV=
+
 let g:currentmode={
       \ 'n'  : 'NORMAL',
       \ 'v'  : 'VISUAL',
@@ -11,21 +14,43 @@ let g:currentmode={
       \ 'c'  : 'Command',
       \}
 
-function GitBranch()
-    "return trim(system('git branch --show-current 2>/dev/null'))
-    let b:value = trim(system('git branch --show-current 2>/dev/null'))
-    if strlen(b:value) > 0
-        return printf(' [ %s] ', b:value)  " wrap with [ ]
-    else
-        return ''
-    endif
-endfunction
+"function GitBranch()
+"    "return trim(system('git branch --show-current 2>/dev/null'))
+"    "let b:value = trim(system('git branch --show-current 2>/dev/null'))
+"    " 使用环境变量禁用终端提示，并重定向错误输出
+"    let cmd = 'GIT_TERMINAL_PROMPT=0 git branch --show-current 2>/dev/null'
+"    let b:value = trim(system(cmd))
+"    if v:shell_error == 0 && strlen(b:value) > 0
+"        return printf(' [ %s] ', b:value)  " wrap with [ ]
+"    else
+"        return ''
+"    endif
+"endfunction
+"
+"function InitGitBranch()
+"    let b:git_branch = GitBranch()
+"endfunction
+"
+"" Initialize b:git_branch
+"augroup GitBranchInit
+"    autocmd!
+"    "autocmd VimEnter,BufNewFile,BufReadPre * call InitGitBranch()
+"    " 延迟初始化避免终端查询问题
+"    autocmd VimEnter * call timer_start(50, {-> InitGitBranch()})
+"    " 确保所有缓冲区都有这个变量
+"    autocmd BufNewFile,BufReadPost,BufEnter * call InitGitBranch()
+"augroup END
 
-" Initialize b:git_branch
-augroup GitBranchInit
-    autocmd!
-    autocmd VimEnter,BufNewFile,BufReadPre * let b:git_branch = GitBranch()
-augroup END
+" Git branch display for statusline (cached version)
+function! GitBranch()
+  if !exists('b:git_branch')
+    let branch = system("git branch --show-current 2>/dev/null | tr -d '\n'")
+    let b:git_branch = strlen(branch) > 0 ? ' [' . branch . '] ' : ''
+  endif
+  return b:git_branch
+endfunction
+" Refresh git branch when entering buffer
+autocmd BufEnter * unlet! b:git_branch
 
 "augroup Gitget
 "    autocmd!
@@ -55,7 +80,9 @@ set statusline=
 set statusline+=%#User1#
 set statusline+=\ %{g:currentmode[mode()]}\ 
 set statusline+=%#User6#
-set statusline+=%{b:git_branch}
+"set statusline+=%{b:git_branch}
+"set statusline+=%{get(b:,'git_branch','')} " 使用 get() 函数安全地获取变量值
+set statusline+=%{GitBranch()}
 set statusline+=%*
 set statusline+=\ %f%m%r%h%w  " %f: filename, %m: modified flag, %r: readonly flag, %h: help buffer flag, %w: preview window flag
 set statusline+=%= " Separation point between left and right aligned items
