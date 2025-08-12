@@ -1,0 +1,3 @@
+sqlcmd -S HOST -d DB_NAME -U USER -P PASSWORD
+sqlcmd -S HOST -d DB_NAME -E -i myscript.sql  # 运行sql脚本，Windows用户验证
+usql.exe sqlserver://USER:PASSWORD@HOST/DB_NAME # SQL Server 2008不支持
