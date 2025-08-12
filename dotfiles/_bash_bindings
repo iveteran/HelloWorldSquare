@@ -1,0 +1,1 @@
+bind '"\C-x\C-e": edit-and-execute-command'

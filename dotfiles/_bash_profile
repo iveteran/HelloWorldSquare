@@ -18,6 +18,7 @@ export LC_ALL='en_US.UTF-8'
 
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
+[[ -f ~/.bash_bindings ]] && source ~/.bash_bindings
 [[ -f ~/.less_termcap ]] && source ~/.less_termcap
 [[ -f ~/.profile_proxy ]] && source ~/.profile_proxy
 [[ -f ~/.fzfrc.sh ]] && source ~/.fzfrc.sh

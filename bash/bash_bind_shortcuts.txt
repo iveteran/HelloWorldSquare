@@ -20,3 +20,7 @@ ctrl + r:   Search history forward
 ctrl + s:   Search history backward
 ctrl + f:   Use auto-suggestion, like Fish, example: https://litecli.com/autocompletion/
 ctrl + l:   Clear screen (vi normal node)
+
+# 打开编辑器编辑长命令，用命令fc同效
+bind -P | grep edit-and-execute
+bind '"\C-x\C-e": edit-and-execute-command'
