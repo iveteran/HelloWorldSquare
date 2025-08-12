@@ -1,2 +1,5 @@
 # Keep environment variables when using sudo: Edit /etc/sudoers, add follow line:
 Defaults env_keep += "ftp_proxy http_proxy https_proxy no_proxy"
+
+# Use command directly, not alias, use command alias to show all aliases
+$ \command,  # example: \ls

@@ -3,3 +3,14 @@ git log --abbrev-commit --pretty=oneline
 
 # compare two directories
 git diff --no-index dir1/ dir2/
+
+# Git如何永久删除文件(包括历史记录)
+#  Refer: https://www.cnblogs.com/shines77/p/3460274.html
+1) 从你的资料库中清除文件
+  git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch FILE_TO_REMOVE' --prune-empty --tag-name-filter cat -- --all
+2) 推送我们修改后的repo
+  git push origin master --force --all
+3) 清理和回收空间
+  rm -rf .git/refs/original/
+  git reflog expire --expire=now --all
+  git gc --prune=now

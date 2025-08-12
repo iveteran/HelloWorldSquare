@@ -23,12 +23,25 @@ export LC_ALL='en_US.UTF-8'
 [[ -f ~/.profile_proxy ]] && source ~/.profile_proxy
 [[ -f ~/.fzfrc.sh ]] && source ~/.fzfrc.sh
 
+# enable Proxy, the function defined in ~/.profile_proxy
+#proxy_on
+
 PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin:/snap/bin
 
 # Golang environment
 [ -d /opt/go/bin ] && PATH=$PATH:/opt/go/bin
 export GOPATH=/opt/yuu/go
 [ -d $GOPATH ] && PATH=$PATH:"$GOPATH/bin"
+
+[ -d /home/yuu/Flutter/flutter ] && PATH=$PATH:/home/yuu/Flutter/flutter/bin
+[ -d /opt/zig ] && PATH=$PATH:/opt/zig
+
+[ -d /opt/android-studio ] && PATH=$PATH:/opt/android-studio/bin
+[ -d /opt/Android/SDK/emulator ] && PATH=$PATH:/opt/Android/SDK/emulator
+[ -d /opt/Android/SDK/cmdline-tools ] && PATH=$PATH:/opt/Android/SDK/cmdline-tools/latest/bin/
+[ -d /opt/Android/SDK/platform-tools ] && PATH=$PATH:/opt/Android/SDK/platform-tools
+[ -d /opt/Android/SDK/build-tools ] && PATH=$PATH:/opt/Android/SDK/build-tools/34.0.0
+#[ -d /opt/android-cmdline-tools ] && PATH=$PATH:/opt/android-cmdline-tools/bin
 
 # AppImage path
 [ -d /opt/AppImage ] && PATH=$PATH:/opt/AppImage
@@ -57,6 +70,7 @@ export PATH
 ##export PATH=$PATH:$HOME/.tmuxifier/bin
 #export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
 #eval "$(tmuxifier init -)"
+#[[ ! -d ~/.tmux-layouts ]] && mkdir ~/.tmux-layouts
 #export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
 
 export EDITOR='vim'
@@ -133,7 +147,7 @@ command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
 # MPD daemon start (if no other user instance exists)
 if command -v mpd >/dev/null 2>&1
 then
-  [! -s ~/.mpd/pid ] && mpd
+  [ ! -s ~/.mpd/pid ] && mpd
 fi
 
 # Conda environment
