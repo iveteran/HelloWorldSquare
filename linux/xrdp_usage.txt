@@ -1,0 +1,3 @@
+apt install xrdp xorgxrdp pipewire-module-xrdp
+systemctl status xrdp
+systemctl status xrdp-sesman
