@@ -25,6 +25,8 @@ curl -v --url "imaps://mail.goe.works:993" --user "${EMAIL_USER}:${EMAIL_PASS}" 
 # Listing Messages ID(UID) of the Folder
 curl --url "imaps://mail.iveteran.me/INBOX?ALL" -u yu@iveteran.me -p
 curl --url "imaps://mail.matrix.works/IncontrolChat.Notes?ALL" -u test001@matrix.works -p
+# Listing all messages with UID, Message ID and flags
+curl -v --url "imaps://mail.matrix.works/IncontrolChat.Notes" -u test001@matrix.works -p --request "FETCH 1:* (UID FLAGS BODY[HEADER.FIELDS (DATE MESSAGE-ID)])"
 
 # Fetching A Single Message
 curl --url "imaps://mail.iveteran.me/INBOX;UID=1" -u yu@iveteran.me -p
@@ -52,3 +54,23 @@ curl --url "imaps://mail.matrix.works/INBOX" -u test001@matrix.works -p --reques
 curl --url "imaps://mail.matrix.works/INBOX" -u test001@matrix.works -p --request "SEARCH seen"
 # Search the custom flag `Demo` - for IMAP server Dovecot
 curl --url "imaps://mail.matrix.works/INBOX" -u test001@matrix.works -p --request "SEARCH KEYWORD Demo"
+
+# Delete message - move message to Trash
+curl -v --url "imaps://mail.matrix.works/INBOX" -u test001@matrix.works -p --request "UID MOVE 5 Trash"
+
+# Soft delete message - make deleted flag
+curl -v --url "imaps://mail.matrix.works/IncontrolChat.Notes" -u test001@matrix.works -p --request "UID STORE 5 +FLAGS.SILENT (\Deleted)"
+# Soft undelete message - remove deleted flag
+curl -v --url "imaps://mail.matrix.works/IncontrolChat.Notes" -u test001@matrix.works -p --request "UID STORE 5 -FLAGS.SILENT (\Deleted)"
+
+# Get mailbox status
+curl -v --url "imaps://mail.matrix.works/IncontrolChat.Notes" -u test001@matrix.works -p --request "STATUS IncontrolChat.Notes (MESSAGES)"
+
+# Use oauth2 token access Gmail with API
+curl -H "Authorization: Bearer $YOUR_ACCESS_TOKEN" \
+     "https://gmail.googleapis.com/gmail/v1/users/me/labels/INBOX"
+
+# Use oauth2 token access Gmail with IMAP: list all folders
+curl -v -s --url "imaps://imap.gmail.com:993" \
+     --user "$YOUR_EMAIL" \
+     --oauth2-bearer "$YOUR_ACCESS_TOKEN"
