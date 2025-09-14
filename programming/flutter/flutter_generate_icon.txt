@@ -1,0 +1,19 @@
+Refer: https://stackoverflow.com/questions/43928702/how-to-change-the-application-launcher-icon-on-flutter
+
+1) Install tool package
+flutter pub add flutter_launcher_icons
+
+2) creates directory
+mkdir <PROJECT_ROOT>/assets
+cp <YOUR-ICONS> <PROJECT_ROOT>/assets
+
+3) Add below to pubspec.yml:
+flutter_icons:
+  image_path: "assets/icon.png"
+  android: true
+  ios: true
+  # optionally, as transparency is not allowed on app store
+  # remove_alpha_ios: true
+
+4) Run tool to generate icon
+flutter pub run flutter_launcher_icons:main
