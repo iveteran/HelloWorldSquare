@@ -4,8 +4,7 @@
 #
 
 EMAIL="iveteran.yuu@gmail.com"
-#ACCESS_TOKEN="ya29.a0ARrdaM8jxxxx..."   # 你的 OAuth2 Access Token
-ACCESS_TOKEN="ya29.a0AS3H6NxsU2n4aFiXcjBUy354QF76JYEA24vbrxXe12nUrooIKXlJCCvemUcWTn6uDeW0MuoIpih4XDX-WSSLoBwnIh9tPvZneSWDnynnzWdG0EXGeSXxGnxO-aVW2WUWlR_PV09wOnDJv1EbPXRPStn9zV8fNhhV9AvNgl8u8aIWrHtV4TnDyB9bmMkKMB-sY74h7_IaCgYKAfUSARQSFQHGX2MiPDVtOeRQ0NyywLNvwILlWQ0206"
+ACCESS_TOKEN="ya29.a0ARrdaM8jxxxx..."   # 你的 OAuth2 Access Token
 
 IMAP_SERVER="imap.gmail.com"
 IMAP_PORT=993
