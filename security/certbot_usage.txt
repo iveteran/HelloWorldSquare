@@ -1,0 +1,20 @@
+# 安装 Certbot
+sudo apt install certbot python3-certbot-nginx
+
+# 为域名申请证书
+sudo certbot --nginx -d example.com -d www.example.com    # Nginx
+sudo certbot --apache -d example.com -d www.example.com   # Apache
+
+# 生成证书的存放地方
+/etc/letsencrypt/live/example.com/
+
+# 自动续期
+#  系统会自动添加到 cron 或 systemd 定时任务
+sudo certbot renew --dry-run
+
+# 查看自动续期任务
+systemctl status certbot
+
+
+# 手工方式
+sudo certbot certonly --standalone -d example.com -d www.example.com
