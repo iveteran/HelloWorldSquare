@@ -74,3 +74,6 @@ curl -H "Authorization: Bearer $YOUR_ACCESS_TOKEN" \
 curl -v -s --url "imaps://imap.gmail.com:993" \
      --user "$YOUR_EMAIL" \
      --oauth2-bearer "$YOUR_ACCESS_TOKEN"
+
+curl "https://openidconnect.googleapis.com/v1/userinfo" \
+    -H "Authorization: Bearer $YOUR_ACCESS_TOKEN"
