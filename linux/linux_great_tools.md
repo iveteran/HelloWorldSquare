@@ -14,10 +14,12 @@
 - Helix
 
 ## Terminal Multiplexer
+- GNU Screen
 - Tmux
  TPM
  tmuxifier
 - Zellij
+- Byobu - slowly
 
 ## File Find / Search
 - FZF - File Search
@@ -47,6 +49,7 @@
 - WezTerm   - (by Rust/Lua) 默认字体支持彩色emoji, 有空白边框无法去除(可调整字体大小改善)，vim的background全黑了
 - Alacritty - (by Rust) exa/lsd等的unicode icon乱码, 需要安装noto nerd font，不支持多Tab
 - Kitty     - (by Golang/Python) 对tmux的支持有问题，tmux的status bar乱了
+- foot
 
 ## Desktop Manager
 - Ly-DM     - TUI display manager, https://github.com/liweitianux/ly-dm
