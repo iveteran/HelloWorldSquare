@@ -1,3 +1,45 @@
 How To Upgrade To Debian 12 Bookworm From Debian 11 Bullseye
 
 https://ostechnix.com/upgrade-to-debian-12-from-debian-11/
+
+Step 1: Verify Your Current Debian Version
+lsb_release -d
+cat /etc/debian_version
+
+Step 2: Update and Upgrade Your Debian 11 Packages
+sudo apt upgrade
+sudo apt dist-upgrade
+sudo apt --purge autoremove
+sudo apt autoclean
+sudo find /etc -name '.dpkg-' -o -name '.ucf-' -o -name '*.merge-error'
+
+Step 3: Backup your Data
+mkdir ~/apt
+sudo cp /etc/apt/sources.list ~/apt
+sudo cp -rv /etc/apt/sources.list.d/ ~/apt
+And others...
+
+Step 4: Modify the /etc/apt/sources.list File
+sudo sed -i 's/bullseye/bookworm/g' /etc/apt/sources.list
+sudo sed -i 's/bullseye/bookworm/g' /etc/apt/sources.list.d/*
+
+# Additionally
+sudo sed -i 's/non-free/non-free non-free-firmware/g' /etc/apt/sources.list
+sudo sed -i 's/non-free/non-free non-free-firmware/g' /etc/apt/sources.list.d/*
+
+sudo apt update
+
+Step 5: Perform Minimal System Upgrade
+sudo apt upgrade --without-new-pkgs
+
+Step 6: Upgrade to Debian 12
+sudo apt full-upgrade
+
+sudo reboot
+cat /etc/debian_version
+12.0
+lsb_release -a
+sudo apt --purge autoremove
+sudo apt autoclean
+
+Step 7: Verify if Everything Works Fine
