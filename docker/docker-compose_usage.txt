@@ -1,0 +1,29 @@
+# 启动所有服务
+docker-compose up
+
+# 后台启动
+docker-compose up -d
+
+# 构建并启动
+docker-compose up --build
+
+# 停止所有服务
+docker-compose down
+
+# 停止并删除数据卷
+docker-compose down -v
+
+# 查看服务状态
+docker-compose ps
+
+# 查看日志
+docker-compose logs
+
+# 查看特定服务日志
+docker-compose logs web
+
+# 进入容器
+docker-compose exec web bash
+
+# 重启服务
+docker-compose restart web
