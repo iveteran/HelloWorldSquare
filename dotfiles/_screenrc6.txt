@@ -27,7 +27,7 @@
 # escape ^aa  # default
 # escape ^pp  # suggested binding for emacs users
 
-escape ``
+#escape ``
 
 
 # PASSWORD
@@ -356,15 +356,22 @@ escape ``
 #
 #change the hardstatus settings to give an window list at the bottom of the
 ##screen, with the time and date and with the current window highlighted
+# refers:
+#   https://www.kilobitspersecond.com/2014/02/10/understanding-gnu-screens-hardstatus-strings/
+#   https://www.gnu.org/software/screen/manual/html_node/String-Escapes.html
 
 hardstatus alwayslastline
 #hardstatus string '%{= mK}%-Lw%{= KW}%50>%n%f* %t%{= mK}%+Lw%< %{= kG}%-=%D %d %M %Y %c:%s%{-}'
+#hardstatus string '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-}'
+#hardstatus string "%{= KW} %H %{= Kw}|%{-} %-Lw%{= bW}%n%f %t%{-}%+Lw %=%C:%s %A "
+hardstatus string "%{= yk} %S %{= mk} %H %{= Kw} %-Lw%{= bW} %n%f %t %{-}%+Lw%=%{= ck} %D %c:%s "
 
-hardstatus string '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-}'
-
-deflogin off
+#deflogin off
 defutf8 on
 title screen
+
+# the number of window start at 1, not 0
+#bind c screen 1
 
 termcapinfo rxvt-unicode ti@:te@
 termcapinfo rxvt-unicode 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
