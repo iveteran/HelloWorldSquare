@@ -1,0 +1,28 @@
+# List sessions
+screen -ls
+
+# Reattach session
+screen -r [session name]
+
+# Rename session
+screen -S pts-3.mwx01 -X sessionname mySessionName
+C-a :sessionname mySessionName
+
+# Rename window title
+C-a A
+
+# Reload configuration
+C-a :source ~/.screenrc
+
+# Split the screen
+CTRL-a SHIFT-\ (CTRL-a |), vertically
+CTRL-a SHIFT-s (CTRL-a S), horizontally
+CTRL-a TAB to switch between the panes
+CTRL-a c to create a new window with a command prompt in this pane
+
+# Other useful commands
+CTRL-a SHIFT-x (CTRL-a X) will close the pane that has focus
+CTRL-a d will detach screen from the TTY and put it in the background. Resume with screen -r
+CTRL-a n and CTRL-a p shifts input focus to the next & previous window, respectively.
+CTRL-a SHIFT-a (CTRL-a A) will ask you to set the title of the focus window.
+CTRL-” list available windows
