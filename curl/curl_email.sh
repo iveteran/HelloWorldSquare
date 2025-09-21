@@ -77,3 +77,13 @@ curl -v -s --url "imaps://imap.gmail.com:993" \
 
 curl "https://openidconnect.googleapis.com/v1/userinfo" \
     -H "Authorization: Bearer $YOUR_ACCESS_TOKEN"
+# userinfo response:
+#{
+#    sub: 101617646158275192438,
+#    name: Iveteran Yu,
+#    given_name: Iveteran,
+#    family_name: Yu,
+#    picture: https://lh3.googleusercontent.com/a/ACg8ocJ_LOEdvXww0DLfV2KSIhllSPxcUBK-IahZTcVgvDmCEvOU7D3K=s96-c,
+#    email: iveteran.yuu@gmail.com,
+#    email_verified: true
+#}
