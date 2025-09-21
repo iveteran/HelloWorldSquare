@@ -1,0 +1,23 @@
+#!/bin/bash
+# 清除可能冲突的环境变量
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+# 设置X11环境
+export XKL_XMODMAP_DISABLE=1
+export XDG_CURRENT_DESKTOP=KDE
+export XDG_SESSION_DESKTOP=KDE
+export XDG_SESSION_TYPE=x11
+
+# 禁用硬件加速和OpenGL
+export KWIN_COMPOSE=N
+export QT_GRAPHICSSYSTEM=native
+export QT_X11_NO_MITSHM=1
+
+# 启动D-Bus
+if [ -x /usr/bin/dbus-launch ] && [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
+# 启动KDE (使用X11而不是Wayland)
+exec startplasma-x11

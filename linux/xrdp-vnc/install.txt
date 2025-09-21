@@ -1,0 +1,8 @@
+# 1. 安装VNC
+sudo apt install tigervnc-standalone-server
+
+# 2. 设置VNC密码
+vncpasswd
+
+# 3. 创建VNC启动脚本
+nano ~/.vnc/xstartup

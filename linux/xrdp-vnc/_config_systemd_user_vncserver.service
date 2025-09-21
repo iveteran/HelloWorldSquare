@@ -1,0 +1,14 @@
+[Unit]
+Description=TigerVNC Server
+After=graphical-session.target
+
+[Service]
+Type=forking
+ExecStartPre=-/usr/bin/vncserver -kill :1
+ExecStart=/usr/bin/vncserver -geometry 1920x1080 -depth 24 :1
+ExecStop=/usr/bin/vncserver -kill :1
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
