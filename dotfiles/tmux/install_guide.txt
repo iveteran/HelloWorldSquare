@@ -1,0 +1,3 @@
+1. Rename _tmux.conf to .tmux.conf
+2. Rename _tmux to .tmux
+3. Copy .tmux.conf and .tmux to your home diirectory
