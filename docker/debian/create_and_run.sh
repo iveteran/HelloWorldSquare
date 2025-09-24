@@ -1,4 +1,12 @@
-docker run --name my-debian -it debian:latest bash
+docker run -it \
+    --name mydebian \
+    --hostname mydebian \
+    -v /etc/timezone:/etc/timezone:ro \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v "/opt/yuu/docker_vms/mydebian/home:/home" \
+    yuu-debian13 \
+    bash
+    #debian:latest \
 
 # 后台运行
 #docker run -d --name my-debian debian:latest sleep infinity

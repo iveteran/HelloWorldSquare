@@ -1,0 +1,35 @@
+services:
+  debian:
+    #image: debian:latest
+    image: yuu-debian13
+    container_name: mydebian-test
+    hostname: mydebian-test
+
+    # 保持容器运行
+    tty: true
+    stdin_open: true
+
+    environment:
+      RAM_SIZE: "4G"
+      CPU_CORES: "4"
+      - TZ=Asia/Taipei
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+
+      # 用户设置
+      - USER=yuu
+      - HOME=/home/yuu
+      - SHELL=/bin/bash
+    ports:
+      - "2222:22"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro 
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/yuu/docker_vms/mydebian/home:/home
+    restart: always
+
+# 重新创建并启动
+#docker-compose up -d
+#
+# 停止并删除
+#docker-compose down
