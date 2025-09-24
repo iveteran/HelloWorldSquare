@@ -131,7 +131,7 @@ memory_module() {
     fi
 }
 
-# 网络状态模块
+# 网卡状态模块
 network_module() {
     local interface="${1:-eth0}"
     if ip link show "$interface" >/dev/null 2>&1; then
@@ -143,10 +143,12 @@ network_module() {
             *) icon="❔" ;;
         esac
         local t_color=$(color_format "text_title")
-        echo "${t_color}🔗: $icon"
+        local v_color=$(color_format "text_value")
+        echo "${t_color}🔗: ${v_color}$icon"
     fi
 }
 
+# 互联网状态模块
 online_module() {
     local status=$(online_status)
     local icon
@@ -156,18 +158,26 @@ online_module() {
         *) icon="❔" ;;
     esac
     local t_color=$(color_format "text_title")
-    echo "${t_color}🌐: $icon"
+    local v_color=$(color_format "text_value")
+    echo "${t_color}🌐: ${v_color}$icon"
 }
 
+# 网速状态模块
+network_speed_module() {
+    local interface="${1:-eth0}"
+    local speed_info=$(get_network_speed $interface)
+    IFS=":" read -ra parts <<< "$speed_info"
+    local down_speed=${parts[0]}
+    local up_speed=${parts[1]}
+    local t_color=$(color_format "text_title")
+    local v_color=$(color_format "text_value")
+    echo "${t_color}↓ ${v_color}${down_speed} ${t_color}↑ ${v_color}${up_speed}"
+}
+
+# 天气模块
 weather_module() {
     local location="${1:-"深圳"}"
-    local status=$(network_status)
-    local result
-    case "$status" in
-        "UP") result=$(get_weather ${location}) ;;
-        "DOWN") result="🚫" ;;
-        *) result="🚫" ;;
-    esac
+    local result=$(get_weather ${location})
     local t_color=$(color_format "text_title")
     local v_color=$(color_format "text_value")
     echo "${t_color}${location}: ${v_color}$result"
@@ -191,15 +201,16 @@ generate_left_status() {
 # 生成右侧状态栏
 generate_right_status() {
     local modules=()
+    local interface="${1:-eth0}"
 
     modules+=("$(prefix_module)")
     modules+=("$(weather_module)")
+    modules+=("$(network_speed_module $interface)")
     
-    # 添加系统监控模块（如果可用）
-    [[ -n "$(cpu_module)" ]] && modules+=("$(cpu_module)")
-    [[ -n "$(memory_module)" ]] && modules+=("$(memory_module)")
-    [[ -n "$(network_module)" ]] && modules+=("$(network_module)")
-    [[ -n "$(online_module)" ]] && modules+=("$(online_module)")
+    modules+=("$(cpu_module)")
+    modules+=("$(memory_module)")
+    modules+=("$(network_module $interface)")
+    modules+=("$(online_module)")
     
     # 添加时间，用户和主机信息
     modules+=("$(time_module)")
@@ -257,6 +268,7 @@ generate_popup_right_status() {
 
 # 引入外部脚本
 source ~/.tmux/modules/smart_uptime.sh
+source ~/.tmux/modules/network_speed.sh
 
 cpu_usage() {
     echo $(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}' 2>/dev/null)
@@ -312,7 +324,7 @@ main() {
             generate_left_status
             ;;
         "right")
-            generate_right_status
+            generate_right_status "$2"
             ;;
         "simple-right")
             generate_simple_right_status
@@ -343,6 +355,9 @@ main() {
             ;;
         "network")
             network_module "$2"
+            ;;
+        "network_speed")
+            network_speed_module "$2"
             ;;
         *)
             echo "用法: $0 {left|right|session|time|date|git|cpu|memory|network} [参数...]"

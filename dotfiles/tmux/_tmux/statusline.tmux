@@ -20,17 +20,18 @@ setw -g window-status-last-style "fg=blue,bg=#303030"  # bg: gray
 # 设置脚本路径
 #set -g @module_script "~/.config/tmux/modules/status_modules.sh"
 set -g @module_script "~/.tmux/modules/status_modules.sh"
+set -g @ifname "wlp3s0"
 
 # 单行状态栏
 #set -g status on
 #set -g status-left "#(#{@module_script} left)"
-#set -g status-right "#(#{@module_script} right)"
+#set -g status-right "#(#{@module_script} right #{@ifname})"
 
 # 两行状态栏, 全局窗口statusline
 set -g status 2
 #set -g status-format[0] "#[align=centre]#{W:#{E:window-status-format},#{E:window-status-current-format}}"
 #set -g status-format[1] "#[align=left]#(#{@module_script} left)"
-#set -ag status-format[1] "#[align=right]#[bg=black]#{p50: }#(#{@module_script} right)"
+#set -ag status-format[1] "#[align=right]#[bg=black]#{p50: }#(#{@module_script} right #{@ifname})"
 
 # 根据状态栏行数和会话名称动态设置状态栏
 if -F "#{==:#{status},on}" {
@@ -40,12 +41,12 @@ if -F "#{==:#{status},on}" {
         if-shell -F '#{==:#{session_name},popup}' {
             # 设置popup窗口statusline
             set -t popup status-left "#(#{@module_script} popup-left)"
-            set -t popup status-right "#(#{@module_script} popup-right)"
+            set -t popup status-right "#(#{@module_script} popup-right #{@ifname})"
         } {
             # 设置主窗口statusline
             set -w status-left "#(#{@module_script} left)"
             #set -w status-right "#(#{@module_script} right)"
-            set -w status-right "#(#{@module_script} simple-right)"
+            set -w status-right "#(#{@module_script} simple-right #{@ifname})"
         }
     }
 } {
@@ -64,7 +65,7 @@ if -F "#{==:#{status},on}" {
             # 设置主窗口statusline
             set -w status-format[0] "#[align=centre]#{W:#{E:window-status-format},#{E:window-status-current-format}}"
             set -w status-format[1] "#[align=left]#(#{@module_script} left)"
-            set -aw status-format[1] "#[align=right]#[bg=black]#{p50: }#(#{@module_script} right)"
+            set -aw status-format[1] "#[align=right]#[bg=black]#{p50: }#(#{@module_script} right #{@ifname})"
         }
     }
 }
