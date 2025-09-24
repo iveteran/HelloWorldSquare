@@ -4,7 +4,7 @@ method b) Prefix + : source-file ~/.tmux.conf
 
 2. 列出所有快捷键，及其对应的 Tmux 命令
 $ tmux list-keys
-$ tmux lsk
+$ tmux lsk -N
 
 3. 列出所有 Tmux 命令及其参数
 $ tmux list-commands
@@ -19,3 +19,48 @@ $ tmux lsw
 
 6. Bind a key to launch shell command
 $ tmux bind-key "$KEY" run-shell "/path/to/script.sh"
+
+7. 列出Pane
+$ tmux lsp
+
+8. 列出Session
+$ tmux ls
+
+9. 显示设置(show options)
+$ tmux show -s      # server options
+$ tmux show -g      # global options
+$ tmux show -wg     # global window options
+$ tmux show -g status   # show status line
+$ tmux show -g default-size
+
+10. 显示配置或内部变量
+tmux display -p '#{socket_path}'
+tmux display -p '#{status}'
+tmux display -p '#{pane_id}'
+tmux lsw -aF '#{window_id} #{window_name}'
+tmux lsp -t@7 -F '#{pane_id} #{pane_width} #{pane_height}'
+
+11. 显示shell环境变量
+tmux display -p $FOO
+tmux display -p '#{FOO}'
+tmux display -p $SHELL
+tmux display -p $USER
+tmux display -p $PATH
+
+12. 运行shell命令
+:run 'ls'
+:run 'echo window name is #{window_name}'
+支持条件表达式或绑定快捷键
+bind T if -F '#{==:#{pane_mode},copy-mode}' 'send -X history-top'
+bind K {
+	if -F '#{==:#{window_name},ksh}' {
+		kill-window
+	} {
+		display 'not killing window'
+	}
+}
+
+13. 列出别名
+tmux show -s command-alias
+设置别名
+:set -s command-alias[100] 'sv=splitw -v'
