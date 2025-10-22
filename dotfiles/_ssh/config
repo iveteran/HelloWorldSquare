@@ -1,3 +1,55 @@
 host github.com
 #LogLevel DEBUG3
-ProxyCommand ssh -i ~/.ssh/iv.id_rsa -p24 yuu@mail.iveteran.me exec /usr/bin/nc %h %p
+ProxyCommand ssh -i ~/.ssh/iv.id_rsa -p24 yuu@vpn.iveteran.me exec /usr/bin/nc %h %p
+
+Host dev01
+    HostName 192.168.8.240
+
+Host fmx
+    HostName www.matrixworks.cn
+    Port 24
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/iv.id_rsa
+
+Host mwx
+    HostName matrix.works
+    Port 24
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/iv.id_rsa
+
+Host goe
+    HostName goe.works
+    Port 24
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/iv.id_rsa
+
+Host refueler
+    HostName refueler.matrixworks.cn
+    User refueler
+    #PreferredAuthentications publickey
+    #IdentityFile ~/.ssh/id_rsa_lab
+
+Host reverse-ssh-to-host
+    HostName      your_public_host
+    User          your_public_host_user
+    Port          22
+    IdentityFile  ~/.ssh/id_rsa
+    RemoteForward  2200 localhost:22
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+# complete this config and run following command:
+# autossh -M 0 -f -T -N reverse-ssh-to-host
+
+Host socks5-proxy
+    HostName      your_public_host
+    User          your_public_host_user
+    Port          22
+    IdentityFile  ~/.ssh/id_rsa
+    DynamicForward  0.0.0.0:1080
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+# complete this config and run following command:
+# autossh -M 0 -f -T -N socks5-proxy
+
+# NOTE: 1) need change GatewayPorts to yes at /etc/ssh/sshd_config on your_public_host
+#       2) use ssh-copy-id your_public_host to enable login to your_public_host by ssh public key(not by user password)
