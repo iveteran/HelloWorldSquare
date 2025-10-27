@@ -61,12 +61,12 @@ git_module() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         local branch=$(git_branch)
         local status=""
-        
+
         # 检查工作区状态
         if [[ -n $(git_status) ]]; then
             status="*"
         fi
-        
+
         local color=$(color_format "git")
         echo "${color} ${branch}${status}"
     fi
@@ -206,12 +206,12 @@ generate_centre_status() {
     modules+=("$(prefix_module)")
     modules+=("$(weather_module)")
     modules+=("$(network_speed_module $interface)")
-    
+
     modules+=("$(cpu_module)")
     modules+=("$(memory_module)")
     modules+=("$(network_module $interface)")
     modules+=("$(online_module)")
-    
+
     # 添加时间，用户和主机信息
     modules+=("$(time_module)")
     modules+=("$(date_module)")
@@ -237,12 +237,12 @@ generate_simple_right_status() {
     modules+=("$(prefix_module)")
     modules+=("$(weather_module)")
     modules+=("$(online_module)")
-    
+
     # 添加时间，用户和主机信息
     modules+=("$(time_module)")
     modules+=("$(user_module)")
     modules+=("$(host_module)")
-    
+
     # 用分隔符连接所有模块
     local IFS=" | "
     echo "${modules[*]}"
@@ -263,7 +263,7 @@ generate_popup_right_status() {
 
     modules+=("$(prefix_module)")
     modules+=("$(user_module)$space")
-    
+
     # 用分隔符连接所有模块
     local IFS=" | "
     echo "${modules[*]}"
