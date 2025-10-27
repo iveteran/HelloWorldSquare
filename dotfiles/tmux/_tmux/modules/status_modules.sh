@@ -370,12 +370,16 @@ main() {
             network_speed_module "$2"
             ;;
         *)
-            echo "用法: $0 {left|right|session|time|date|git|cpu|memory|network} [参数...]"
+            echo "用法: $0 {left|centre|right|session|time|date|git|cpu|memory|network} [参数...]"
             echo "示例:"
             echo "  $0 left     # 生成左侧状态栏"
-            echo "  $0 right    # 生成右侧状态栏" 
+            echo "  $0 centre   # 生成中间状态栏"
+            echo "  $0 right    # 生成右侧状态栏"
+            echo "  $0 session  # 显示 Session 状态"
             echo "  $0 git      # 显示 Git 状态"
             echo "  $0 cpu      # 显示 CPU 状态"
+            echo "  $0 memory   # 显示 Memory 状态"
+            echo "  $0 network  # 显示 Network 状态"
             ;;
     esac
 }
