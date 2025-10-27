@@ -10,8 +10,8 @@ services:
     stdin_open: true
 
     environment:
-      RAM_SIZE: "4G"
-      CPU_CORES: "4"
+      - RAM_SIZE=4G
+      - CPU_CORES=4
       - TZ=Asia/Taipei
       - LANG=en_US.UTF-8
       - LC_ALL=en_US.UTF-8
