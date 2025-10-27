@@ -29,6 +29,7 @@ alias dsize='du -h -d 1'
 alias rsync='rsync -az --info=progress2'
 alias pls='sudo $(fc -ln -1)'
 alias sudo='sudo env PATH=$PATH'
+#alias gpg='gpg --pinentry-mode curses'
 alias bat='batcat'
 alias fd='fdfind'
 alias apt-search="apt search --names-only"
