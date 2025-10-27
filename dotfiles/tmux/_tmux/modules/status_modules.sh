@@ -198,8 +198,8 @@ generate_left_status() {
     echo "${modules[*]}"
 }
 
-# 生成右侧状态栏
-generate_right_status() {
+# 生成中间状态栏
+generate_centre_status() {
     local modules=()
     local interface="${1:-eth0}"
 
@@ -215,11 +215,18 @@ generate_right_status() {
     # 添加时间，用户和主机信息
     modules+=("$(time_module)")
     modules+=("$(date_module)")
-    modules+=("$(user_module)")
-    modules+=("$(host_module)")
-    
+
     # 用分隔符连接所有模块
     local IFS=" | "
+    echo "${modules[*]}"
+}
+
+# 生成右侧状态栏
+generate_right_status() {
+    local modules=()
+    modules+=("$(user_module)")
+    modules+=("$(host_module)")
+
     echo "${modules[*]}"
 }
 
@@ -323,8 +330,11 @@ main() {
         "left")
             generate_left_status
             ;;
+        "centre")
+            generate_centre_status "$2"
+            ;;
         "right")
-            generate_right_status "$2"
+            generate_right_status
             ;;
         "simple-right")
             generate_simple_right_status

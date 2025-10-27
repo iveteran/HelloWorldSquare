@@ -65,7 +65,9 @@ if -F "#{==:#{status},on}" {
             # 设置主窗口statusline
             set -w status-format[0] "#[align=centre]#{W:#{E:window-status-format},#{E:window-status-current-format}}"
             set -w status-format[1] "#[align=left]#(#{@module_script} left)"
-            set -aw status-format[1] "#[align=right]#[bg=black]#{p50: }#(#{@module_script} right #{@ifname})"
+            #set -aw status-format[1] "#[align=centre]#(#{@module_script} centre #{@ifname})"
+            set -aw status-format[1] "#[align=centre]#[bg=black]#{p50: }#(#{@module_script} centre #{@ifname})#[bg=black]#{p50: }"
+            set -aw status-format[1] "#[align=right]#(#{@module_script} right)"
         }
     }
 }
