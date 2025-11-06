@@ -17,3 +17,9 @@ flutter_icons:
 
 4) Run tool to generate icon
 flutter pub run flutter_launcher_icons:main
+
+PATCH:
+In linux/runner/my_application.cc
+add newline
+gtk_window_set_icon_from_file(GTK_WINDOW(window),"assets/images/logo.png",NULL);
+
