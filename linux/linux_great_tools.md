@@ -82,6 +82,25 @@
 - aerc - https://git.sr.ht/~rjarry/aerc, *The BEST one for TUI*
 - meli - https://git.meli-email.org/meli/meli
 
+## Webmail clients
+- snappymail
+- roundcube
+
+## Email clients - support JMAP
+- aerc: A terminal email client for the discerning hacker.
+- Cypht: (PHP, JS) Lightweight Open Source webmail aggregator
+- Group-Office (Javascript): Open source groupware and collaboration platform
+- JMAP Demo Webmail (JavaScript, MIT): a sophisticated demo webmail client to be used as a base for new projects.
+- JMAP::Tester (Perl, Perl5): a JMAP client made for testing JMAP servers.
+- Ltt.rs (Java, Apache): an email client for Android
+- Mailtemi: a native iOS/Android email client
+- mjmap (Go, MPL-2.0): A sendmail-compatible command line JMAP client.
+- meli (Rust): terminal email client (GPLv3)
+- mujmap (Rust): Synchronize JMAP mail with notmuch
+- Parula: Full email app with chat, video conference and calendar. For Windows, macOS, Linux.
+- Swift Mail: A native macOS client for JMAP
+- Twake Mail Client (Dart): Android, iOS and web client
+
 ## System tools
 - bmon, btop, atop - System Monitor
 
