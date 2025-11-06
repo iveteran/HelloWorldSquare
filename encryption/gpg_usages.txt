@@ -27,6 +27,9 @@ pinentry-mode loopback
 The full command would be:
 gpg --pinentry-mode=loopback --passphrase  "PASSWORD" -d -o "PATH\TO\OUTPUT" "PATH\TO\FILE.gpg"
 
+# specify the entry prompt
+gpg --pinentry-mode curses
+
 # change pin entry (method 1)
 update-alternatives --config pinentry
 
