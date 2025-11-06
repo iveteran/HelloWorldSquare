@@ -38,6 +38,10 @@ color_format() {
     echo "#[bg=${bg},fg=${fg}]"
 }
 
+color_reset=$(color_format "main")
+title_color=$(color_format "text_title")
+value_color=$(color_format "text_value")
+
 # =============================================================================
 # 左侧状态栏模块函数
 # =============================================================================
@@ -46,14 +50,14 @@ color_format() {
 session_module() {
     local session_name="${1:-$(tmux display-message -p '#S')}"
     local color=$(color_format "session")
-    echo "${color} ❐ ${session_name}"
+    echo "${color} ❐ ${session_name} ${color_reset}"
 }
 
 # 开机时间模块
 uptime_module() {
     local uptime_info=$(get_smart_uptime)
     local color=$(color_format "uptime")
-    echo "${color} ↑ ${uptime_info}"
+    echo "${color} ↑ ${uptime_info} ${color_reset}"
 }
 
 # Git 状态模块
@@ -83,30 +87,28 @@ prefix_module() {
 
 # 时间模块
 time_module() {
-    local color=$(color_format "datetime")
     local format="${1:-%H:%M}"
-    echo "${color}⏰ $(date +"${format}")"
+    echo "${title_color}⏰:${value_color}$(date +"${format}")"
 }
 
 # 日期模块
 date_module() {
-    local color=$(color_format "datetime")
     local format="${1:-%m-%d}"
-    echo "${color}📅 $(date +"${format}")"
+    echo "${title_color}📅:${value_color}$(date +"${format}")"
 }
 
 # 用户信息模块
 user_module() {
     local color=$(color_format "user")
     local user="${1:-${USER}}"
-    echo "${color} 👽 ${user}"
+    echo "${color} 👽 ${user}${space}${color_reset}"
 }
 
 # 主机信息模块
 host_module() {
     local color=$(color_format "host")
-    local hostname="${1:-$(hostname -s)}"
-    echo "${color} 🖥️ ${hostname}$space"
+    local hostname="$(hostname -s)"
+    echo "${color} 🖥️ ${hostname}${space}${color_reset}"
 }
 
 # CPU 使用率模块
@@ -114,9 +116,7 @@ cpu_module() {
     if command -v top >/dev/null 2>&1; then
         local cpu_usage=$(cpu_usage)
         if [[ -n "$cpu_usage" ]]; then
-            local t_color=$(color_format "text_title")
-            local v_color=$(color_format "text_value")
-            echo "${t_color}CPU: ${v_color}${cpu_usage}"
+            echo "${title_color}CPU: ${value_color}${cpu_usage}"
         fi
     fi
 }
@@ -125,9 +125,7 @@ cpu_module() {
 memory_module() {
     if command -v free >/dev/null 2>&1; then
         local mem_usage=$(mem_usage)
-        local t_color=$(color_format "text_title")
-        local v_color=$(color_format "text_value")
-        echo "${t_color}MEM: ${v_color}${mem_usage}"
+        echo "${title_color}MEM: ${value_color}${mem_usage}"
     fi
 }
 
@@ -142,9 +140,7 @@ network_module() {
             "DOWN") icon="❌" ;;
             *) icon="❔" ;;
         esac
-        local t_color=$(color_format "text_title")
-        local v_color=$(color_format "text_value")
-        echo "${t_color}🔗: ${v_color}$icon"
+        echo "${title_color}🔗: ${value_color}$icon"
     fi
 }
 
@@ -157,9 +153,7 @@ online_module() {
         "offline") icon="❌" ;;
         *) icon="❔" ;;
     esac
-    local t_color=$(color_format "text_title")
-    local v_color=$(color_format "text_value")
-    echo "${t_color}🌐: ${v_color}$icon"
+    echo "${title_color}🌐: ${value_color}$icon"
 }
 
 # 网速状态模块
@@ -169,18 +163,14 @@ network_speed_module() {
     IFS=":" read -ra parts <<< "$speed_info"
     local down_speed=${parts[0]}
     local up_speed=${parts[1]}
-    local t_color=$(color_format "text_title")
-    local v_color=$(color_format "text_value")
-    echo "${t_color}↓ ${v_color}${down_speed} ${t_color}↑ ${v_color}${up_speed}"
+    echo "${title_color}↓ ${value_color}${down_speed} ${title_color}↑ ${value_color}${up_speed}"
 }
 
 # 天气模块
 weather_module() {
     local location="${1:-"深圳"}"
     local result=$(get_weather ${location})
-    local t_color=$(color_format "text_title")
-    local v_color=$(color_format "text_value")
-    echo "${t_color}${location}: ${v_color}$result"
+    echo "${title_color}${location}: ${value_color}$result"
 }
 
 # =============================================================================
@@ -192,19 +182,23 @@ generate_left_status() {
     local modules=()
 
     modules+=("$(session_module)")
-    modules+=("$(uptime_module)$space")
+    modules+=("$(uptime_module)")
     modules+=($(git_module))
 
+    local IFS=""
     echo "${modules[*]}"
 }
 
 # 生成中间状态栏
 generate_centre_status() {
-    local modules=()
     local interface="${1:-eth0}"
+    local weather_location=$2
 
+    local modules=()
     modules+=("$(prefix_module)")
-    modules+=("$(weather_module)")
+    if [[ -n "$weather_location" ]]; then
+        modules+=("$(weather_module $weather_location)")
+    fi
     modules+=("$(network_speed_module $interface)")
 
     modules+=("$(cpu_module)")
@@ -212,7 +206,7 @@ generate_centre_status() {
     modules+=("$(network_module $interface)")
     modules+=("$(online_module)")
 
-    # 添加时间，用户和主机信息
+    # 添加时间和日期
     modules+=("$(time_module)")
     modules+=("$(date_module)")
 
@@ -224,18 +218,23 @@ generate_centre_status() {
 # 生成右侧状态栏
 generate_right_status() {
     local modules=()
+    # 用户和主机信息
     modules+=("$(user_module)")
     modules+=("$(host_module)")
 
+    local IFS=""
     echo "${modules[*]}"
 }
 
 # 生成简化版右侧状态栏
 generate_simple_right_status() {
+    local weather_location=$1
     local modules=()
 
     modules+=("$(prefix_module)")
-    modules+=("$(weather_module)")
+    if [[ -n "$weather_location" ]]; then
+        modules+=("$(weather_module $weather_location)")
+    fi
     modules+=("$(online_module)")
 
     # 添加时间，用户和主机信息
@@ -305,14 +304,14 @@ git_status() {
 
 get_weather() {
     local location=$1
-    local cache_file="/tmp/tmux_weather"
+    local cache_file="/tmp/tmux_weather_$location"
     local cache_time=600  # 10分钟
 
     local now=$(date +%s)
     local last_update_time=$(stat -c %Y "$cache_file" 2>/dev/null || stat -f %m "$cache_file" 2>/dev/null || echo 0)
 
     # 检查缓存是否存在且未过期
-    if [[ -f "$cache_file" ]] && [[ $($now - $last_update_time) -lt $cache_time ]]; then
+    if [[ -f "$cache_file" ]] && [[ $((now - last_update_time)) -lt $cache_time ]]; then
         cat "$cache_file"
     else
         # 获取新的天气数据
@@ -331,13 +330,13 @@ main() {
             generate_left_status
             ;;
         "centre")
-            generate_centre_status "$2"
+            generate_centre_status $2 $3
             ;;
         "right")
             generate_right_status
             ;;
         "simple-right")
-            generate_simple_right_status
+            generate_simple_right_status $2
             ;;
         "popup-left")
             generate_popup_left_status
