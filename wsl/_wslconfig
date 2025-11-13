@@ -13,9 +13,9 @@ processors = 2
 #[experimental]
 
 # Network settings
-#networkingMode = bridged
+networkingMode = bridged
 #vmSwitch = Bridge
-networkingMode = mirrored
+#networkingMode = mirrored
 #dnsTunneling = true
 #firewall = true
 #autoProxy = true
