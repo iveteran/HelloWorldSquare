@@ -1,0 +1,8 @@
+The methods to get Windows information:
+1. winver
+2. systeminfo
+3. msinfo32
+4. wmic os get Caption
+   wmic os get Version
+5. dxdiag
+6. control system
