@@ -1,0 +1,4 @@
+jwt-decode() {
+  echo 'Usage: jwt-decode `cat FILENAME`'
+  jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
+}
