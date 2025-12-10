@@ -138,6 +138,9 @@ set omnifunc=syntaxcomplete#Complete
 "set foldmethod=syntax
 ":let Grep_OpenQuickfixWindow = 0
 
+" Using OS clipboard
+"set clipboard=unnamedplus
+
 set laststatus=2
 if filereadable(expand("~/.vimrc.statusline"))
   so ~/.vimrc.statusline
@@ -160,7 +163,7 @@ endif
 set shortmess-=S  " show search results count on statusline(bottom right)
 set showcmd	      " display incomplete commands
 
-" NOTE: To set below options in ~/.editorconfig
+" NOTE: Instead of to set below options in ~/.editorconfig
 "augroup FileTypeSpecificAutocommands
 "    autocmd!
 "
