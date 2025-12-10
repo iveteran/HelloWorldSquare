@@ -20,10 +20,10 @@ export LC_ALL='en_US.UTF-8'
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 [[ -f ~/.bash_bindings ]] && source ~/.bash_bindings
 [[ -f ~/.less_termcap ]] && source ~/.less_termcap
-[[ -f ~/.profile_proxy ]] && source ~/.profile_proxy
+[[ -f ~/.bash_proxy ]] && source ~/.bash_proxy
 [[ -f ~/.fzfrc.sh ]] && source ~/.fzfrc.sh
 
-# enable Proxy, the function defined in ~/.profile_proxy
+# enable Proxy, the function defined in ~/.bash_proxy
 #proxy_on
 
 PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin:/snap/bin
