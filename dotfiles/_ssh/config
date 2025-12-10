@@ -23,6 +23,13 @@ Host goe
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/iv.id_rsa
 
+Host icc
+    #HostName incontrol.chat
+    HostName 47.251.101.25
+    Port 24
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/iv.id_rsa
+
 Host refueler
     HostName refueler.matrixworks.cn
     User refueler
