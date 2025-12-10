@@ -1,0 +1,7 @@
+Home:
+https://www.clashverge.dev
+https://github.com/clash-verge-rev/clash-verge-rev
+
+Show status:
+systemctl status clash-verge-service
+sudo ss -nltp | grep verge
