@@ -1,0 +1,89 @@
+nm基本用法命令
+
+　　nm用来列出目标文件的符号清单。下面是nm命令的格式：
+
+　　nm[-a|--debug-syms][-g|--extern-only][-B]
+
+　　[-C|--demangle][-D|--dynamic][-s|--print-armap]
+
+　　[-o|--print-file-name][-n|--numeric-sort]
+
+　　[-p|--no-sort][-r|--reverse-sort][--size-sort]
+
+　　[-u|--undefined-only][-l|--line-numbers][--help]
+
+　　[--version][-tradix|--radix=radix]
+
+　　[-P|--portability][-fformat|--format=format]
+
+　　[--target=bfdname][objfile...]
+
+　　如果没有为nm命令指出目标文件，则nm假定目标文件是a.out。下面列出该命令的任选项，大部分支持“-”开头的短格式和“-“开头的长格式。
+
+　　-A、-o或--print-file-name：在找到的各个符号的名字前加上文件名，而不是在此文件的所有符号前只出现文件名一次。
+
+　　例如nmlibtest.a的输出如下：
+
+　　CPThread.o:
+
+　　00000068TMain__8CPThreadPv
+
+　　00000038TStart__8CPThread
+
+　　00000014T_._8CPThread
+
+　　00000000T__8CPThread
+
+　　00000000?__FRAME_BEGIN__
+
+　　…………………………………
+
+　　则nm-A的输出如下：
+
+　　libtest.a:CPThread.o:00000068TMain__8CPThreadPv
+
+　　libtest.a:CPThread.o:00000038TStart__8CPThread
+
+　　libtest.a:CPThread.o:00000014T_._8CPThread
+
+　　libtest.a:CPThread.o:00000000T__8CPThread
+
+　　libtest.a:CPThread.o:00000000?__FRAME_BEGIN__
+
+　　…………………………………………………………..
+
+　　-a或--debug-syms：显示调试符号。
+
+　　-B：等同于--format=bsd，用来兼容MIPS的nm。
+
+　　-C或--demangle：将低级符号名解码(demangle)成用户级名字。这样可以使得C++函数名具有可读性。
+
+　　-D或--dynamic：显示动态符号。该任选项仅对于动态目标(例如特定类型的共享库)有意义。
+
+　　-fformat：使用format格式输出。format可以选取bsd、sysv或posix，该选项在GNU的nm中有用。默认为bsd。
+
+　　-g或--extern-only：仅显示外部符号。
+
+　　-n、-v或--numeric-sort：按符号对应地址的顺序排序，而非按符号名的字符顺序。
+
+　　-p或--no-sort：按目标文件中遇到的符号顺序显示，不排序。
+
+　　-P或--portability：使用POSIX.2标准输出格式代替默认的输出格式。等同于使用任选项-fposix。
+
+　　-s或--print-armap：当列出库中成员的符号时，包含索引。索引的内容包含：哪些模块包含哪些名字的映射。
+
+　　-r或--reverse-sort：反转排序的顺序(例如，升序变为降序)。
+
+　　--size-sort：按大小排列符号顺序。该大小是按照一个符号的值与它下一个符号的值进行计算的。
+
+　　-tradix或--radix=radix：使用radix进制显示符号值。radix只能为“d”表示十进制、“o”表示八进制或“x”表示十六进制。
+
+　　--target=bfdname：指定一个目标代码的格式，而非使用系统的默认格式。
+
+　　-u或--undefined-only：仅显示没有定义的符号(那些外部符号)。
+
+　　-l或--line-numbers：对每个符号，使用调试信息来试图找到文件名和行号。对于已定义的符号，查找符号地址的行号。对于未定义符号，查找指向符号重定位入口的行号。如果可以找到行号信息，显示在符号信息之后。
+
+　　-V或--version：显示nm的版本号。
+
+　　--help：显示nm的任选项。
