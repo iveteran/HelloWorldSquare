@@ -1,0 +1,11 @@
+# 列出相关信息
+lspci -vv -k -s 05:00.0
+lspci -nn | grep VGA
+sudo dmesg | grep -i amdgpu
+sudo dmesg | grep -i drm
+xrandr
+lsmod | grep amdgpu
+sudo modprobe amdgpu
+
+modinfo amdgpu
+ls /lib/firmware/amdgpu/ | grep renoir

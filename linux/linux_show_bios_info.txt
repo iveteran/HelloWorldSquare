@@ -1,0 +1,9 @@
+sudo dmidecode -t bios
+
+cat /sys/class/dmi/id/bios_vendor
+cat /sys/class/dmi/id/bios_version
+cat /sys/class/dmi/id/bios_date
+
+sudo lshw -class memory -class system
+
+fwupdmgr get-devices
