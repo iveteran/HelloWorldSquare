@@ -1,0 +1,21 @@
+uv 中文文档
+https://uv.doczh.com/
+
+# 创建虚拟环境
+uv venv [VENV_NAME]  # 默认为.venv
+uv venv --python 3.11  # 指定python版本
+
+# 使用虚拟环境
+source [VENV_NAME]/bin/activate
+
+# 停用环境
+deactivate
+
+uv pip install flask
+uv pip install "ruff @ ./projects/ruff"
+uv pip install "git+https://github.com/astral-sh/ruff"
+
+uv pip install -r requirements.txt
+uv pip install -r pyproject.toml
+
+uv pip uninstall flask ruff
