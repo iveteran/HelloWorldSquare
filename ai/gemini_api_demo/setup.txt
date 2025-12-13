@@ -1,0 +1,5 @@
+export GEMINI_API_KEY=$(pass show google/iveteran.yuu@gmail.com/gemini_api_key)
+
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt

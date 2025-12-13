@@ -1,0 +1,14 @@
+Install:
+npm i -g @openai/codex
+
+Settings (Optional):
+export OPENAI_API_KEY=$(pass show openai/iveteran.yuu@gmail.com/matrixworks_api_key)
+codex --config preferred_auth_method="apikey"   # authenticate with api key
+# codex --config preferred_auth_method="chatgpt"  # authenticate with ChatGPT
+
+Run:
+codex
+
+Refer:
+https://developers.openai.com/codex/cli
+https://github.com/openai/codex

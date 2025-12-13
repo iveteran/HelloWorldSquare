@@ -1,0 +1,12 @@
+Install:
+npm i -g @google/gemini_cli
+
+Settings (Optional):
+export GEMINI_API_KEY=$(pass show google/iveteran.yuu@gmail.com/gemini_api_key)
+
+Run:
+gemini
+
+Refer:
+https://github.com/google-gemini/gemini-cli
+https://geminicli.com/docs/get-started/

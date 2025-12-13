@@ -1,0 +1,8 @@
+export OPENAI_API_KEY=$(pass show openai/iveteran.yuu@gmail.com/matrixworks_api_key)
+
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+
+Refer:
+https://platform.openai.com/docs/quickstart
