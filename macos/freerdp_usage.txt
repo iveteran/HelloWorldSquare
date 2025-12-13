@@ -1,0 +1,9 @@
+brew install freerdp
+brew install --cask xquartz  # for x11
+
+# run X11 server
+open -a XQuartz
+
+# Start rdp client
+xfreerdp /v:IP /u:USER
+eg: xfreerdp /v:192.168.8.185 /u:yuu /f /dynamic-resolution /scale:100
