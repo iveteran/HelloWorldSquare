@@ -41,7 +41,7 @@ alias find_project_dirs='find_dirs ~/projects'
 alias find_cwd_files='find_files .'
 alias find_cwd_dirs='find_dirs .'
 
-alias fzf_file_preview_and_edit_on_new_tmux_window='fzf --preview "batcat --color=always {}" --bind "enter:become(tmux neww -n 'fzf-vim' vim {})"'
+alias fzf_file_preview_and_edit_on_new_tmux_window='fzf --preview "bat --color=always {}" --bind "enter:become(tmux neww -n 'fzf-vim' vim {})"'
 alias fzf_file_edit='fzf --bind "enter:become(vim {})"'
 alias fzf_dir_preview='fzf --preview "tree -C {}"'
 
@@ -75,8 +75,8 @@ fzf-jobs() {
 fzf-ripgrep() {
     # $(echo {} | cut -d: -f 1) -> get filename
     # $(echo {} | cut -d: -f 2) -> get line number of matched for searching keyword
-    rg -n . | fzf --preview 'batcat --color=always -H $(echo {} | cut -d: -f 2) $(echo {} | cut -d: -f 1)' \
-        --bind 'enter:become(batcat $(echo {} | cut -d: -f 1)),ctrl-e:become(vim $(echo {} | cut -d: -f 1))'
+    rg -n . | fzf --preview 'bat --color=always -H $(echo {} | cut -d: -f 2) $(echo {} | cut -d: -f 1)' \
+        --bind 'enter:become(bat $(echo {} | cut -d: -f 1)),ctrl-e:become(vim $(echo {} | cut -d: -f 1))'
 }
 
 # NOTE: Ctrl-j already has been binded to Bash 'accept-line'

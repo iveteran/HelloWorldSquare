@@ -63,6 +63,15 @@ fi
 [ -d /opt/node ] && PATH=$PATH:"/opt/node/bin"
 [ -d ~/node_modules/.bin ] && PATH=$PATH:~/node_modules/.bin
 
+# Homebrew path (Mac OS)
+BREW_PATH="/opt/homebrew/bin"
+if [ -d "$BREW_PATH" ]; then
+  PATH=$BREW_PATH:$PATH
+fi
+
+# Bash-completion config for Homebrew (Mac OS)
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+
 export PATH
 
 # Tmuxifier
