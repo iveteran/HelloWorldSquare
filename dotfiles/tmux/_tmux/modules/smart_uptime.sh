@@ -6,7 +6,7 @@ get_smart_uptime() {
         uptime_seconds=$(awk '{print int($1)}' /proc/uptime)
     elif command -v sysctl >/dev/null 2>&1; then
         # macOS 系统
-        boot_time=$(sysctl -n kern.boottime | sed 's/.*sec = \([0-9]*\).*/\1/')
+        boot_time=$(sysctl -n kern.boottime | sed 's/[^=]*sec = \([0-9]*\).*/\1/')
         current_time=$(date +%s)
         uptime_seconds=$((current_time - boot_time))
     else
