@@ -3,3 +3,9 @@ Defaults env_keep += "ftp_proxy http_proxy https_proxy no_proxy"
 
 # Use command directly, not alias, use command alias to show all aliases
 $ \command,  # example: \ls
+
+# Convert file name from GBK to UTF8
+convmv -f gbk -t utf8 --notest *
+
+# Donvert file content from GBK to UTF8
+iconv -f GBK -t UTF-8 input_file.txt -o output_file.txt
