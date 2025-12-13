@@ -60,6 +60,14 @@ wezterm.on('gui-startup', function()
     window:gui_window():maximize()
 end)
 
+config.mouse_bindings = {
+  {
+    -- 鼠标右键单击粘贴
+    event = { Down = { streak = 1, button = "Right" } },
+    mods = "NONE",
+    action = act({ PasteFrom = "Clipboard" }),
+  },
+}
 
 -- and finally, return the configuration to wezterm
 return config
