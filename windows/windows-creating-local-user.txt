@@ -1,0 +1,8 @@
+# 添加本地用户
+net user USERNAME PASSWORD /add
+
+# 加入rdp组
+net localgroup "Remote Desktop Users" USERNAME /add
+
+# 显示用户组成员
+net localgroup "Remote Desktop Users"
