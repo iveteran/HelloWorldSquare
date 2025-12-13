@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 echo "Via ipinfo.io (使用环境变量http_proxy或https_proxy):"
 curl -s ipinfo.io
