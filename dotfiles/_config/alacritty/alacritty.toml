@@ -1,3 +1,5 @@
+# NOTE: location on Windows: C:\Users\<USERNAME>\AppData\Roaming\alacritty\alacritty.toml
+
 [general]
 import = [
     # Themes: https://github.com/alacritty/alacritty-theme
@@ -7,9 +9,12 @@ import = [
 
 [font]
 normal = { family = "NotoMono Nerd Font Mono", style = "Regular" }
+#normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
 size = 15
 
 [window]
+title = "Alacritty" # This is the default static title
+dynamic_title = true # This enables applications/shell to change the title
 startup_mode = "Maximized"
 padding = { x = 5, y = 5 }
 #opacity = 0.8
@@ -26,3 +31,7 @@ bindings = [
 [terminal.shell]
 program = "/usr/bin/bash"
 args = ["--login"]
+
+# for Windows
+#program = "wsl"
+#args = ["~"]
