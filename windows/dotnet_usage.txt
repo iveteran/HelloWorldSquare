@@ -1,0 +1,17 @@
+Dotnet Usage
+
+wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get install -y dotnet-runtime-9.0
+sudo apt-get install -y dotnet-sdk-9.0
+
+dotnet tool install -g microsoft.sqlpackage  # 数据迁移工具
+sudo apt-get install -y dotnet-runtime-8.0   # sqlpackage依赖dotnet 8.0
+
+dotnet --version
+dotnet --list-runtimes
+dotnet --list-sdks
+
+dotnet nuget list source
