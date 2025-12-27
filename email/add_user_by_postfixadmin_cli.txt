@@ -1,0 +1,2 @@
+sudo su -s /bin/sh apache -c "/var/www/mail/postfixadmin-3.3.13/scripts/postfixadmin-cli mailbox help"
+sudo su -s /bin/sh apache -c "/var/www/mail/postfixadmin-3.3.13/scripts/postfixadmin-cli mailbox add"
