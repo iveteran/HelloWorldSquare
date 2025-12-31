@@ -1,0 +1,22 @@
+Timg Usage
+
+Refer: https://github.com/hzeller/timg
+
+# Install
+apt install timg   # Debian based
+brew install timg  # Mac OS
+
+# WezTerm, Alacritty (新版), Foot 等支持 Sixel 的终端
+timg -p s <ImageFile>
+
+# Kitty
+timg -p k <ImageFile>
+
+# iTerm2
+timg -p i <ImageFile>
+
+# Tmux config(version >= 3.3a), 开启透传
+set -g allow-passthrough on
+
+# 支持播放视频
+timg <VideoFile>
