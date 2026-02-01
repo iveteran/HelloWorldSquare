@@ -1,0 +1,6 @@
+新建窗口： ctrl-shift-t
+关闭窗口： ctrl-shift-w
+新建窗格(垂直)： alt-shift-+
+新建窗格(水平)： alt-shift--
+复制窗格： alt-shift-d
+关闭窗格： ctrl-shift-w

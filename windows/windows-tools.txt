@@ -1,0 +1,14 @@
+winget install Chocolatey
+winget install --id Microsoft.PowerShell --source winget
+winget install Microsoft.Edit
+winget install gerardog.gsudo
+winget install wget2
+winget install vim
+winget install git
+winget install sharkdp.fd
+winget install sharkdp.bat
+winget install ripgrep
+winget install eza-community.eza
+winget install --id Rustlang.Rust.MSVC
+# gsudo choco install psmux
+cargo install psmux

@@ -1,0 +1,30 @@
+PowerShell Vim Mode
+
+To enable Vim mode in PowerShell, you can use the PSReadLine module. This module provides a way to use Vim keybindings in PowerShell, similar to how you would in bash or zsh.
+
+Install PSReadLine Module:
+Install-Module PsReadline -Scope CurrentUser
+
+Edit PowerShell Profile:
+notepad $PROFILE
+
+Add the following line to the profile:
+```
+Set-PSReadlineOption -EditMode vi
+```
+
+Reload the profile or restart PowerShell:
+. $PROFILE
+
+Now, you can use Vim keybindings in PowerShell. Press Esc to enter Normal mode or v to use Visual mode.
+
+Important Considerations
+Compatibility: Ensure you are using PowerShell version 3 or higher for the PSReadLine module to work correctly.
+Profile Path: The profile path is typically located at C:\Users\YourUserName\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1.
+Cursor Indicator: You can also set a cursor indicator to show whether you are in Normal or Insert mode by adding
+```
+Set-PSReadLineOption -ViModeIndicator Cursor
+```
+to your profile.
+
+By following these steps, you can enjoy the efficiency of Vim keybindings while working in PowerShell.

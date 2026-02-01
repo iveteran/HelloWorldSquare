@@ -62,3 +62,9 @@
 17) Show/Set environment variable
   echo $Env:HTTP_PROXY
   set HTTP_PROXY=http://127.0.0.1:8080
+
+18) Get-Command <command-name> (or gcm <command-name>)
+  获取命令信息
+
+19 Get-Help <command-name>
+  获取命令帮助

@@ -1,0 +1,22 @@
+1. Install/Open PowerShell
+    > winget install --id Microsoft.PowerShell --source winget
+2. Run:
+    > winget install JanDeDobbeleer.OhMyPosh --source winget
+3. Create profile (If not exists)
+    > New-Item -Path $PROFILE -Type File -Force
+4. Edit $PROFILE
+    > notepad $PROFILE # add below to end of file
+    # oh-my-posh init pwsh | Invoke-Expression
+    oh-my-posh init pwsh --config "https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/1_shell.omp.json" | Invoke-Expression
+5. Make effect:
+    > . $PROFILE
+
+Update oh-my-posh:
+  winget upgrade JanDeDobbeleer.OhMyPosh --source winget
+
+Other usages:
+  oh-my-posh enable reload
+  oh-my-posh disable reload
+  oh-my-posh print preview
+  oh-my-posh font install
+  oh-my-posh font install meslo

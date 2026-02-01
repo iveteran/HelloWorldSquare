@@ -55,3 +55,6 @@
   b) at 06:00 shutdown -s 在六点时关机
 
 23) 在新窗口打开文件夹, Ctrl+鼠标双击或CTRL+Enter
+
+24) Access WSL filesystem
+  ls \\wsl$\<DistroName>
