@@ -1,0 +1,15 @@
+[Unit]
+Description=Headless Sway Session
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/sway -c %h/.config/sway/config-headless
+Restart=always
+Environment=XDG_RUNTIME_DIR=/run/user/%U
+Environment=WLR_BACKENDS=headless
+Environment=WLR_RENDERER=pixman
+#Environment=WLR_HEADLESS_OUTPUTS=1920x1080@60Hz
+Environment=WLR_HEADLESS_OUTPUTS=3840x2160@60Hz
+
+[Install]
+WantedBy=default.target
