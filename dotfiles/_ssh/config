@@ -1,9 +1,12 @@
 host github.com
-#LogLevel DEBUG3
-ProxyCommand ssh -i ~/.ssh/iv.id_rsa -p24 yuu@vpn.iveteran.me exec /usr/bin/nc %h %p
+    #LogLevel DEBUG3
+    ProxyCommand ssh -i ~/.ssh/iv.id_rsa -p24 yuu@vpn.iveteran.me exec /usr/bin/nc %h %p
 
 Host dev01
     HostName 192.168.8.240
+
+Host tp
+    HostName 192.168.8.121
 
 Host fmx
     HostName www.matrixworks.cn
