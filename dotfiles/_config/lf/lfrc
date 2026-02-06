@@ -1,0 +1,45 @@
+# vim:ft=lf
+# lfrc
+# @author nate zhou
+# since 2025
+
+source ~/.config/lf/rifle.conf
+source ~/.config/lf/commands.conf
+source ~/.config/lf/bindings.conf
+source ~/.config/lf/teleport.conf
+source ~/.config/lf/local.conf
+
+set watch true
+set shell /usr/bin/sh
+set shellopts '-eu'
+set ifs "\n"
+set filtermethod regex
+
+set preview true
+set previewer ~/.config/lf/scope.sh
+#set previewer ~/.config/lf/pv.sh
+set preload true
+set icons true
+#set rulerfile true
+
+set promptfmt "\033[106m%u@%h\033[00m \033[40m%d%f\033[0m"
+set numberfmt "\033[90m"
+set borderfmt "\033[90m"
+set cursoractivefmt "\033[37;106m"
+set cursorparentfmt "\033[30;44m"
+set timefmt "2006-01-02 15:04"
+set statfmt "\033[32m%p\033[0m| %c| %u| %g| %S| %t| -> %l"
+set menuheaderfmt "\033[106;1m"
+
+set selectfmt   "\033[7;37m"
+set visualfmt   "\033[7;33m"
+set copyfmt     "\033[7;36m"
+set cutfmt      "\033[7;91m"
+
+set info size:time
+set dircounts true
+set dirfirst true
+set relativenumber true
+set truncatepct 50
+set ratios 1:2:3
+set drawbox

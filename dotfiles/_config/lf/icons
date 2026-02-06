@@ -1,0 +1,286 @@
+# vim:ft=conf
+# lf/icons
+# @author nate zhou
+# @since 2025
+
+ln            # LINK
+di          󰝰  # DIR
+fi            # FILE
+or             # ORPHAN
+tw             # STICKY_OTHER_WRITABLE
+ow             # OTHER_WRITABLE
+st             # STICKY
+pi             # FIFO
+so             # SOCK
+bd             # BLK
+cd             # CHR
+su             # SETUID
+sg             # SETGID
+ex             # EXEC
+
+LICENSE.*   
+*.list      
+*list       
+*lists      
+*mirrorlist 
+*.hook      󰛢
+*.ical      
+.git/       
+*.gitignore 
+*.stow-local-ignore 
+*.mpdignore 
+*.bashrc    
+*.bash_profile 
+*.profile   
+*.inputrc   
+*.config    
+*.rules     
+/etc        
+/home       󰋜
+/mnt        󰋊
+/srv        
+/root       󰴉
+/tmp        󰪺
+/var/tmp    󰪺
+
+~           󰋜
+~/doc       󱧶
+~/doc/git/  
+~/doc/code/ 
+~/doc/note/ 󰠮
+~/mus       󱍙
+~/pic       󰉏
+~/vid       󱜗
+~/dls       󰉍
+~/smb       󰡰
+~/mnt       󰋊
+~/pkg       󱧼
+~/.config   󱂀
+~/.cache    󰪻
+~/.local    󱉮
+
+~/.gnupg    󰢬
+~/.ssh      󰢬
+.gpg/       󰉐
+.gnupg/     󰉐
+
+*.gpg       
+*.key       󰌆
+*.sig       󱜥
+*.asc       󱜥
+*.rev       󰌆
+*.pub       󰌆
+*.sec       󰌆
+*.xcf       
+*.kdenlive  
+*.pdf       
+*.epub      
+*.doc       󰈬
+*.docx      󰈬
+*.odt       󰈬
+*.xls       󰱾
+*.xlsx      󰱾
+*.ods       󰱾
+*.ppt       󰈧
+*.pptx      󰈧
+*.odp       󰈧
+*.qcow2     󰋊
+*.torrent   
+*.iso       󰻂
+
+*.tar       
+*.tgz       
+*.arc       
+*.arj       
+*.taz       
+*.lha       
+*.lz4       
+*.lzh       
+*.lzma      
+*.tlz       
+*.txz       
+*.tzo       
+*.t7z       
+*.zip       
+*.z         
+*.dz        
+*.gz        
+*.lrz       
+*.lz        
+*.lzo       
+*.xz        
+*.zst       
+*.tzst      
+*.bz2       
+*.bz        
+*.tbz       
+*.tbz2      
+*.tz        
+*.deb       
+*.rpm       
+*.war       
+*.ear       
+*.sar       
+*.rar       
+*.alz       
+*.ace       
+*.zoo       
+*.cpio      
+*.7z        
+*.rz        
+*.cab       
+*.wim       
+*.swm       
+*.dwm       
+*.esd       
+
+*.jpg       
+*.jpeg      
+*.mjpg      
+*.mjpeg     
+*.gif       
+*.bmp       
+*.pbm       
+*.pgm       
+*.ppm       
+*.tga       
+*.xbm       
+*.xpm       
+*.tif       
+*.tiff      
+*.png       
+*.svg       
+*.svgz      
+*.mng       
+*.pcx       
+*.heic      
+
+*.mov       󰿎
+*.mpg       󰿎
+*.mpeg      󰿎
+*.m2v       󰿎
+*.mkv       󰿎
+*.webm      󰿎
+*.ogm       󰿎
+*.mp4       󰿎
+*.m4v       󰿎
+*.mp4v      󰿎
+*.vob       󰿎
+*.qt        󰿎
+*.nuv       󰿎
+*.wmv       󰿎
+*.asf       󰿎
+*.rm        󰿎
+*.rmvb      󰿎
+*.flc       󰿎
+*.avi       󰿎
+*.fli       󰿎
+*.flv       󰿎
+
+*.aac       󰎇
+*.au        󰎇
+*.flac      󰎇
+*.m4a       󰎇
+*.mid       󰎇
+*.midi      󰎇
+*.mka       󰎇
+*.mp3       󰎇
+*.mpc       󰎇
+*.ogg       󰎇
+*.ra        󰎇
+*.wav       󰎇
+*.oga       󰎇
+*.opus      󰎇
+*.spx       󰎇
+*.xspf      󰎇
+
+*.html      
+*.css       
+*.json      
+*.conf      
+*conf       
+*config     
+*.local     
+*.ini       
+*.inc       
+*.rc        
+*dunstrc    
+*muttrc     
+*fzfrc      
+*gtkrc      
+*.inputrc   
+*inputrc    
+*lfrc       
+*.muttrc    
+*.neomuttrc 
+*taskrc     
+*wgetrc     
+*.zathurarc 
+*zathurarc  
+*isyncrc    
+*dircolors  
+*.xkb       
+*.yaml      
+*.yml       
+*.toml      
+*.db        
+*.sql       
+*.sqlite    
+*.sqlite2   
+*.sqlite3   
+*.dump      
+*vimrc      
+*.vim       
+
+*GNUmakefile 
+*makefile   
+*Makefile   
+*PKGBUILD   󰣇
+*.js        
+*.mjs       
+*.jsx       
+*.rb        󰅩
+*.gemspec   󰅩
+*.rake      󰅩
+*.php       󰌟
+*.py        
+*.pyc       
+*.pyo       
+*.pyd       
+*.cpp       󰙲
+*.c++       󰙲
+*.cxx       󰙲
+*.cc        󰙲
+*.cp        󰙲
+*.c         󰙱
+*.cs        󰌛
+*.h         󰙱
+*.hh        󰙲
+*.hpp       󰙲
+*.hxx       󰙲
+*.hs        󰲒
+*.lhs       󰲒
+*.nix       
+*.lua       󰢱
+*.java      
+*.jmod      
+*.jar       
+*.class     󰘔
+*.sh        󱆃
+*.fish      󱆃
+*.bash      󱆃
+*.zsh       󱆃
+*.ksh       󱆃
+*.csh       󱆃
+*.awk       
+*.ps1       󰅩
+*.ml        󰅩
+*.mli       󰅩
+*.diff      
+*.patch     
+*.go        
+*.rss       󰑬
+
+*.AppImage  
+*.exe       󰨡
+*.apk       󰀲
