@@ -1,0 +1,60 @@
+# Linux virtual machine manager installtion
+
+## Host
+
+- Core/Deamon packages
+sudo apt install qemu-kvm
+sudo apt install libvirt-daemon libvirt-daemon-system
+
+- Command line management tools(virt-install, virsh)
+sudo apt install virt-install libvirt-clients
+
+- GUI management tools (optional)
+sudo apt install virt-manager
+
+- Configure
+sudo usermod -aG libvirt,kvm $USER
+
+- Show services
+systemctl status libvirtd
+
+- Show OS variant list
+virt-install --osinfo list
+
+- Create custom disk directory
+sudo mkdir -p /opt/virt_vms/images
+sudo chown libvirt-qemu:libvirt /opt/virt_vms/images
+
+- Install guest
+virt-install \
+  --name Debian13 \
+  --memory 4096 \
+  --vcpus 4 \
+  --cpu host-passthrough \
+  --disk path=/opt/virt_vms/images/debian13.qcow2,size=80,bus=virtio \
+  #--cdrom ~/Downloads/os/debian-13.3.0-amd64-netinst.iso \
+  --location ~/Downloads/os/debian-13.3.0-amd64-netinst.iso \
+  --network default,model=virtio \
+  --graphics vnc,listen=127.0.0.1 \
+  #--graphics spice,listen=127.0.0.1 \
+  --extra-args "console=ttyS0" \
+  --os-variant debian13 \
+  --check all=off
+
+- Connect to guest
+  virt-viewer [Debian-13] (vnc client, only used for --graphics vnc/spice)
+
+- Show port of vnc listen
+  virsh vncdisplay debian13
+  假设输出为 :0，则端口是 5900；如果是 :1，则端口是 5901
+
+## SSH连接到虚拟机
+ssh <user>@<ip>
+
+## VNC连接到虚拟机(在宿主机器桌面系统上)
+virt-viewer -c qemu:///system [Debian13]  # 系统级
+virt-viewer -c qemu:///session [Debian13] # 用户级
+
+## Guest
+安装这个插件后，虚拟机的分辨率会自动跟随窗口大小缩放，并且支持主机与虚拟机之间的剪贴板共享
+sudo apt install spice-vdagent

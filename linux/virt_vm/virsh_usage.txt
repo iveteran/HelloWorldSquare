@@ -1,0 +1,53 @@
+日常管理命令 (virsh)
+
+安装完成后，你将使用 virsh 命令来掌控这个虚拟机：
+列出运行中的虚拟机	    virsh list
+列出所有虚拟机	        virsh list --all
+启动虚拟机	            virsh start debian13
+关闭虚拟机	            virsh shutdown debian13
+强制断电	            virsh destroy debian13
+设置开机自启	        virsh autostart debian13
+编辑配置 (XML)	        virsh edit debian13
+
+查看虚拟机文件系统位置
+virsh domblklist debian13
+sudo virsh -c qemu:///session domblklist debian13
+
+销毁定义
+virsh undefine debian13  # 默认不删磁盘文件
+
+虚拟机文件系统默认位置:
+/var/lib/libvirt/images
+~/.local/share/libvirt/images
+
+查看qcow2文件信息
+qemu-img info ~/.local/share/libvirt/images/debian13.qcow2
+
+压缩qcow2文件，当在虚拟机内进行大量的文件删除可进行空间回收
+sudo fstrim -av  # 虚拟机内
+qemu-img convert -O qcow2 -c old_file.qcow2 new_compressed_file.qcow2  # 宿主机
+
+# 配置网络
+sudo virsh net-define default_net.xml
+
+# 检查网络列表
+sudo virsh net-list --all
+
+# 如果 default 状态是 inactive，则启动它
+sudo virsh net-start default
+
+# 设置为开机自启
+sudo virsh net-autostart default
+
+# 查看所有连接到 NAT 网络的虚拟机及其 IP 地址
+sudo virsh net-dhcp-leases default
+
+# 连接到虚拟机
+ssh <user>@<ip>
+
+# VNC连接到虚拟机(在宿主机器桌面系统上)
+virt-viewer -c qemu:///system [Debian13]  # 系统级
+virt-viewer -c qemu:///session [Debian13] # 用户级
+
+# 进入按制台
+sudo virsh console debian13
