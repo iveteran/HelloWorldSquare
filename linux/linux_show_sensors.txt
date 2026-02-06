@@ -1,0 +1,9 @@
+# Install
+$ sudo apt install lm-sensors
+
+# Config
+$ sudo sensors-detect
+
+# Use
+$ sensors
+$ watch -n 1 sensors
