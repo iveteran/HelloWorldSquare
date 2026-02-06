@@ -1,0 +1,22 @@
+include ~/.config/sway/config
+
+# 没有显示器也强制创建输出
+output HEADLESS-1 {
+    #resolution 1920x1080
+    #scale 1
+    resolution 3840x2160
+    #scale 2
+}
+
+# 禁止 idle 睡眠
+exec swayidle -w timeout 0
+
+# 用 headless 后端
+exec_always swaymsg "output HEADLESS-1 enable"
+
+#exec waybar
+#exec foot
+
+# 启动 wayvnc
+exec wayvnc 0.0.0.0 5900
+#exec wayvnc -L debug 0.0.0.0 5900
