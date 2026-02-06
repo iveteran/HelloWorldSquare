@@ -1,0 +1,4 @@
+Get-NetConnectionProfile
+New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+Set-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -Profile Any
+get-netfirewallrule -Name "OpenSSH-Server-In-TCP"
