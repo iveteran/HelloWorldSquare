@@ -1,0 +1,27 @@
+[terminal]
+# The VT to run the greeter on. Can be "next", "current" or a number
+# designating the VT.
+vt = 7
+
+# The default session, also known as the greeter.
+[default_session]
+
+# `agreety` is the bundled agetty/login-lookalike. You can replace `/bin/sh`
+# with whatever you want started, such as `sway`.
+#command = "/usr/sbin/agreety --cmd '${SHELL:-/bin/sh}'"
+# if using wlgreet
+#command = "sway --config /etc/greetd/sway-config"
+
+# Using tuigreet
+# TTY
+#command = "tuigreet --time --remember --cmd '${SHELL:-/bin/sh}'"
+# Plasma-Wayland
+command = "tuigreet --theme 'border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red' --time --remember --cmd 'dbus-run-session sta
+rtplasma-wayland'"
+# Sway
+#command = "tuigreet --time --remember --cmd 'sway'"
+
+# The user to run the command as. The privileges this user must have depends
+# on the greeter. A graphical greeter may for example require the user to be
+# in the `video` group.
+user = "_greetd"
