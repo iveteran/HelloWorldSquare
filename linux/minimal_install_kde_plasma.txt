@@ -1,2 +1,33 @@
 1) minimal to install Debian
-2) install kde-plasma for commands: apt install kde-plasma-desktop plasma-nm slim
+
+2) display/login manager (Optional)
+  sudo apt install greeted tuigreet
+
+  NOTE:
+  If not installed, to run desktop with:
+    startplasma-x11 for X11
+    startplasma-wayland for Wayland
+
+3) kde plasma core/dependency packages
+3.1) X11:
+  sudo apt install --no-install-recommends \
+    xorg \
+    xinit \
+    plasma-desktop \
+    kwin-x11
+
+3.2) Wayland
+  sudo apt install --no-install-recommends \
+    plasma-desktop \
+    kwin-wayland \
+    pipewire \
+    xdg-desktop-portal-kde
+
+4) kde plasma basic useful tools (Optional)
+  sudo apt install --no-install-recommends \
+    plasma-nm \
+    systemsettings \
+    kscreen \
+    konsole \
+    dolphin \
+    kde-spectacle
