@@ -45,9 +45,11 @@ sudo systemctl daemon-reload
 systemctl list-unit-files --type=target
 systemctl get-default
 sudo systemctl set-default multi-user.target
+#sudo systemctl set-default graphical.target
 
 systemctl list-dependencies multi-user.target
 sudo systemctl isolate multi-user.target
+#sudo systemctl isolate graphical.target
 
 sudo systemctl poweroff
 sudo systemctl reboot
