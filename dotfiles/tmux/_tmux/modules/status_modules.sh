@@ -136,7 +136,7 @@ network_module() {
         local status=$(network_status $interface)
         local icon
         case "$status" in
-            "UP") icon="⬆️" ;;
+            "UP") icon="✅" ;;
             "DOWN") icon="❌" ;;
             *) icon="❔" ;;
         esac
