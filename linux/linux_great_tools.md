@@ -33,9 +33,28 @@
 - SuperFile(spf) - (by Golang)
 - nnn
 
+## Text-based / Terminal-based browser
+- w3m       - https://github.com/tats/w3m - w3m supports to show image with sixel,
+                https://apple.stackexchange.com/questions/244930/how-do-i-view-inline-images-in-w3m
+- lynx      - Does not support to show image
+- elinks
+- Brow6el   - Based on Chromium and Sixel, https://www.brow6el.dev/, does not support on Tmux
+- Carbonyl  - Based on Chromium
+- Browsh    - Based on Firefox
+
+## Window Manager
+- Xorg
+  - bspwm/sxhkd
+  - i3
+  - dwm
+- Wayland
+  - sway
+  - river/kwm
+  - niri
+- Text-based
+  - desktop-tui
+
 ## WM tools
-- bspwm
-- sxhkd
 - polybar/lemonbar
 - rofi
 - picom        - picom is a compositor for X
@@ -49,10 +68,20 @@
 - WezTerm   - (by Rust/Lua) 默认字体支持彩色emoji, 有空白边框无法去除(可调整字体大小改善)，vim的background全黑了
 - Alacritty - (by Rust) exa/lsd等的unicode icon乱码, 需要安装noto nerd font，不支持多Tab
 - Kitty     - (by Golang/Python) 对tmux的支持有问题，tmux的status bar乱了
-- foot
+- foot      - A wayland terminal
+- Simple Terminal - st.suckless.org
 
-## Desktop Manager
-- Ly-DM     - TUI display manager, https://github.com/liweitianux/ly-dm
+## Desktop Manager / Login Manager
+- Ly        - TUI, A lightweight TUI (ncurses-like) display manager for Linux and BSD, Depends on Xorg, https://github.com/fairyglade/ly
+- Ly-DM     - TUI, A fork of Ly, https://github.com/liweitianux/ly-dm
+- Lemurs    - TUI, A customizable TUI display/login manager written in Rust, Supports TTY, X11 or Wayland sessions
+- tuigreet/greetd   - tuigreet(UI) with greetd(daemon)
+- wlgreet/greetd    - wlgreet(Wayland UI) with greetd(daemon)
+
+## Remote Desktop Server/Client
+- xrdp      - RDP server for X
+- wayvnc    - VNC server for Wayland
+- freerdp   - RDP client of X/Wayland
 
 ---
 
@@ -75,6 +104,12 @@
 ## Image viewer
 - feh
 - ImageMagick(display)
+
+## Image viewer in terminal/console
+- timg
+- wezterm imgcat
+- chafa
+- catimg
 
 ## Email client
 - mutt/neomutt
