@@ -65,7 +65,7 @@ config.mouse_bindings = {
     -- 鼠标右键单击粘贴
     event = { Down = { streak = 1, button = "Right" } },
     mods = "NONE",
-    action = act({ PasteFrom = "Clipboard" }),
+    action = act.PasteFrom("Clipboard")
   },
 }
 
