@@ -1,0 +1,7 @@
+[interop]
+appendWindowsPath=False
+
+[wsl2]
+networkingMode=bridged
+vmSwitch=WSL
+ipv6=true
