@@ -60,12 +60,33 @@ wezterm.on('gui-startup', function()
     window:gui_window():maximize()
 end)
 
+wezterm.on("rename-tab", function(window, pane)
+    window:perform_action(
+        act.PromptInputLine {
+            description = "Rename Tab:",
+            action = wezterm.action_callback(function(window, pane, line)
+                if line then
+                    local tab = window:active_tab()
+                    tab:set_title(line)
+                end
+            end),
+        },
+        pane
+    )
+end)
+
 config.mouse_bindings = {
   {
     -- 鼠标右键单击粘贴
     event = { Down = { streak = 1, button = "Right" } },
     mods = "NONE",
     action = act.PasteFrom("Clipboard")
+  },
+  {
+      -- 双击重命名Tab，用于Mac OS
+      event = { Down = { streak = 2, button = "Left" } },
+      mods = "NONE",
+      action = act.EmitEvent("rename-tab"),
   },
 }
 
