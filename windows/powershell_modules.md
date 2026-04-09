@@ -25,6 +25,12 @@ Get-InstalledModule
 Get-Module -ListAvailable
 ```
 
+## Get and test PowerShell repository
+```
+Get-PSRepository
+Test-NetConnection -ComputerName www.powershellgallery.com -Port 443
+```
+
 ## Install module
 Install-Module [-Name] <ModuleName>
 
