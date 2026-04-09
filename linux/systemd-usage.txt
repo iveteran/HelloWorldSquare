@@ -54,3 +54,16 @@ sudo systemctl isolate multi-user.target
 sudo systemctl poweroff
 sudo systemctl reboot
 sudo systemctl rescue
+
+# User level systemd service
+Service location: ~/.config/systemd/user/myservice.service
+systemctl --user list-units --type=service
+systemctl --user list-unit-files --type=service
+systemctl --user daemon-reload
+systemctl --user status
+systemctl --user enable myservice
+systemctl --user start myservice
+journalctl --user -u myservice -f
+# 用户不登录也运行
+sudo loginctl enable-linger $USER
+loginctl show-user $USER | grep Linger
