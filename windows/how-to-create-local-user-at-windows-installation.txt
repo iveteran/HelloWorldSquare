@@ -1,0 +1,5 @@
+怎么在安装Windows 10/11时创建本地用户登录
+
+1. 在安装阶段的激活系统时接Shift+F10唤出CMD命令窗口
+2. 在CMD窗口输入：start ms-xch:localonly
+3. 系统会弹出创建用户的窗口
