@@ -1,0 +1,22 @@
+安装sshfs:
+brew tap macos-fuse-t/homebrew-cask
+brew install fuse-t
+brew install fuse-t-sshfs
+
+挂载：
+sshfs 用户名@IP地址:/E:/mydir ~/mnt \
+  -o defer_permissions \
+  -o auto_cache \
+  -o reconnect \
+  -o LocalCodePage=UTF-8 \
+  -o volname=MyWinDir
+
+路径格式： Windows 的 E:\mydir 在 SSH 协议中通常表示为 /E:/mydir。
+-o defer_permissions： 非常重要。这会将权限判断交给远程 Windows 服务器，避免因为 macOS 和 Windows 用户 ID (UID/GID) 不匹配导致无法读写文件。
+-o volname=WinData： 可选。定义在桌面上显示的磁盘图标名称。
+-o follow_symlinks： 如果你的目录里有快捷方式或链接，建议加上这个。
+
+卸载：
+umount ~/mnt
+强制卸载：
+diskutil unmount force ~/mnt
