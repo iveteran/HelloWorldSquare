@@ -34,6 +34,13 @@ brew install --cask drawio
 brew install git
 ```
 
+Install sshfs:
+```
+brew tap macos-fuse-t/homebrew-cask
+brew install fuse-t
+brew install fuse-t-sshfs
+```
+
 App Store:
 Microsoft Outlook
 OneDrive
