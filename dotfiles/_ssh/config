@@ -8,6 +8,17 @@ Host dev01
 Host tp
     HostName 192.168.8.121
 
+Host dev01_fmx
+    HostName www.matrixworks.cn
+    Port 10024
+    PreferredAuthentications publickey
+
+Host macmini
+    HostName 192.168.8.183
+    User yuu
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/iv.id_rsa
+
 Host fmx
     HostName www.matrixworks.cn
     Port 24
