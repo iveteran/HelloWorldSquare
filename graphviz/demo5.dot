@@ -1,0 +1,18 @@
+digraph html_label_Example
+{
+    label = "html_like_label_example";
+    bgcolor="transparent";//背景透明
+
+    html_ex_node[shape=record, margin=0, label=<
+        <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+            <tr>
+                <td rowspan="2">test</td>
+                <td>a</td>                
+                <td rowspan="2">HTML-Like<br/>label</td>
+            </tr>
+            <tr>
+                <td>b</td>
+            </tr>
+        </table>
+    >];
+}

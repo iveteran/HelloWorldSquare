@@ -1,0 +1,5 @@
+digraph G {
+    // 使用 tailport 属性，如下脚本指定 a节点的端点位置为东
+    // 使用:pos语法，如下脚本指定b节点的端点位置为西
+    a -> b:w [tailport = e];
+}

@@ -1,0 +1,31 @@
+digraph _graph_name_ {
+    // 設定 (其實沒有順序，這整個文檔每行亂調輸出都一樣)
+    rankdir=LR; // 順序由左至右(上下是"TD")
+    graph [fontname="DFKai-SB"]; // 此三行是設定字型
+    node [fontname="DFKai-SB"];  // 中文務必指定
+    edge [fontname="DFKai-SB"];  // 不然可能會出現亂碼
+
+    // 這邊是 graph (圖面)
+    label="我是標題";
+    {rank=same A B C } // 同層(強迫上下)
+    {rank=same F G H } // 同層(強迫上下)
+    {rank=same D E }   // 同層(強迫上下) 
+    
+    // 這邊是 node (節點)
+    A[label = "我是開始"]
+    B[label = "label\n是文字", shape=box]
+    C[label = "shape\n指定形狀\n(這是box)", shape=box]
+    D[shape=box] // 不給 label 就會直接用名稱
+    E[label = "diamond\n菱形", shape=diamond]
+    F[label = "\\n\n會換行", shape=box]
+    G[label = "$mathmode$\n要用LaTeX處理", shape=diamond]
+    H[label = "我是結束"]
+    
+    // 這邊是 edge (邊)
+    A->B->C->D->E // 可以一直連
+    E->C [label="否"]
+    E->F [label="是"]
+    F->G
+    G->B [label="是"]
+    G->H [label="否"] 
+}
