@@ -1,7 +1,58 @@
+Clash Verge Headless Usage
+
 Home:
 https://www.clashverge.dev
 https://github.com/clash-verge-rev/clash-verge-rev
 
+Run in terminal:
+verge-mihomo \
+-d ~/.local/share/io.github.clash-verge-rev.clash-verge-rev \
+-f ~/.local/share/io.github.clash-verge-rev.clash-verge-rev/clash-verge.yaml \
+-ext-ctl-unix /tmp/verge/verge-mihomo.sock
+
 Show status:
-systemctl status clash-verge-service
-sudo ss -nltp | grep verge
+#systemctl status clash-verge-service
+#sudo ss -nltp | grep verge
+sudo ss -nltp | grep 7890
+
+Config path:
+~/.local/share/io.github.clash-verge-rev.clash-verge-rev
+
+Enable web api controller:
+Add below two lines to ~/.local/share/io.github.clash-verge-rev.clash-verge-rev/clash-verge.yaml
+external-controller: 127.0.0.1:9090
+secret: ""
+
+Global模式:
+Change mode:
+~/.local/share/io.github.clash-verge-rev.clash-verge-rev/clash-verge.yaml
+mode: global
+
+Show all nodes:
+curl http://127.0.0.1:9090/proxies | jq '.proxies.GLOBAL.all'
+
+Show selected node:
+curl http://127.0.0.1:9090/proxies | jq '.proxies.GLOBAL.now'
+
+Select a node:
+curl -X PUT http://127.0.0.1:9090/proxies/GLOBAL \
+  -H "Content-Type: application/json" \
+  -d '{"name":"节点A"}'
+
+Rule模式:
+Change mode:
+~/.local/share/io.github.clash-verge-rev.clash-verge-rev/clash-verge.yaml
+mode: rule
+
+Show nodes of the rule:
+curl http://127.0.0.1:9090/proxies | jq '.proxies.<Rule名称>'
+如: curl http://127.0.0.1:9090/proxies | jq '.proxies.AnyTLS.all'
+
+Select a node of the rule:
+curl -X PUT http://127.0.0.1:9090/proxies/<Rule名称> \
+  -H "Content-Type: application/json" \
+  -d '{"name":"节点A"}'
+
+Show selected node of rule:
+curl http://127.0.0.1:9090/proxies | jq '.proxies.<Rule名称>'
+如: curl http://127.0.0.1:9090/proxies | jq '.proxies.AnyTLS.now'
