@@ -60,10 +60,13 @@ Service location: ~/.config/systemd/user/myservice.service
 systemctl --user list-units --type=service
 systemctl --user list-unit-files --type=service
 systemctl --user daemon-reload
-systemctl --user status
+systemctl --user status [myservice]
 systemctl --user enable myservice
 systemctl --user start myservice
 journalctl --user -u myservice -f
-# 用户不登录也运行
+# 默认情况下：
+用户 systemd 只在用户登录 session 存在时运行
+如果希望 用户退出登录后服务仍然运行，需要启用 linger：
 sudo loginctl enable-linger $USER
 loginctl show-user $USER | grep Linger
+systemctl status user@$(id -u $USER).service
