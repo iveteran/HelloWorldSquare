@@ -7,3 +7,11 @@
 方法二
 1. 打开网站kms.cx
 2. 按网站提示操作
+
+方法三
+1. 以管理员模式打开Windows终端
+2. irm https://get.activated.win | iex
+选择“1”：采用 HWID 激活方式，数字许可证永久激活Windows！需联网。
+选择“2”：采用 Ohook 激活方式，通过修改一个激活dll文件，实现永久激活Office，无需联网。
+选择“3”：采用 KMS38 激活方式，激活 Windows/Server 到2038年，无需联网。
+选择“4”：采用 Online KMS 激活方式，激活 Windows/Server/Office 一次180天，到期自动续，需要联网。
