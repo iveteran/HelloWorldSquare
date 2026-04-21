@@ -1,0 +1,10 @@
+Enable:
+Settings -> System -> Advanced -> Enable Sudo
+
+Change mode:
+sudo config --enable <normal|forceNewWindow|disableInput>
+
+runas usage:
+runas /user:Administrator "pwsh.exe"
+runas /user:YourAdminUser "pwsh.exe"
+Start-Process pwsh -Verb runAs
