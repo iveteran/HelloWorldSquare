@@ -1,0 +1,21 @@
+from: markdown
+pdf-engine: xelatex
+
+filters:
+  #- filter_graph-easy.lua
+  - filter_graph-easy.py
+  #- filter_codeblock_render_basic.py
+  - filter_codeblock_render_titled.py
+  #- filter_codeblock_render_terminal.py
+  #- filter_codeblock_render_lines.py
+  #- filter_codeblock_render_full.py
+
+variables:
+  title: "我的文档"
+  author: "矩阵工场(深圳)信息技术有限公司"
+  documentclass: article
+  CJKmainfont: "Noto Sans CJK SC"
+  mainfont: "Noto Sans CJK SC"
+  monofont: "Noto Sans Mono CJK SC"   # 等宽字体确保 ASCII 图对齐
+  geometry: "margin=2cm"
+  linestretch: 1.5
