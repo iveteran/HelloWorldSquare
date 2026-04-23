@@ -9,6 +9,7 @@ winget install sharkdp.fd
 winget install sharkdp.bat
 winget install ripgrep
 winget install eza-community.eza
+winget install pstop
 winget install --id Rustlang.Rust.MSVC
 # gsudo choco install psmux
 cargo install psmux
