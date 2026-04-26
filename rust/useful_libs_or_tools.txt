@@ -12,10 +12,13 @@ Plotters - A Rust drawing library focusing on data plotting for both WASM and na
 Bevy - A refreshingly simple data-driven game engine built in Rust 
 
 Tools:
+binstall - Binary installation for Rust projects
+  Install: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 buttom(btm) - A customizable cross-platform graphical process/system monitor for the terminal
 bat(batcat) - More human friendly cat replacement (syntax highlighting, automatic paging, etc.) 
 fd - better find
 ripgrep - better grep
+  Install: cargo binstall ripgrep
 exa(eza) - a great ls alternative!
 Helix - A Kakoune / Neovim inspired editor, written in Rust.
 Zellij - A workspace aimed at developers, ops-oriented people and anyone who loves the terminal. Similar programs are sometimes called "Terminal Multiplexers"
