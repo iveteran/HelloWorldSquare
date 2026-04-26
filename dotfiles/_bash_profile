@@ -161,3 +161,8 @@ fi
 
 # Conda environment
 [ -f /opt/conda/etc/profile.d/conda.sh ] && source /opt/conda/etc/profile.d/conda.sh
+
+# Rust mirror environment
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://ustc.edu.cn
+export CARGO_HTTP_CACHING=false
