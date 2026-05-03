@@ -21,3 +21,6 @@ tmp
 
 # python bytes files
 *.pyc
+
+# MacOS DS Store files
+.DS_Store
