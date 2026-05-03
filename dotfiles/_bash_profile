@@ -9,12 +9,16 @@ fi
 #    fbterm
 #fi
 
+set -o ignoreeof # Prevent Ctrl-D to exit shell
+set -o vi
+stty -ixon  # Enable searching history in Bash forward after backward with CTRL-S
+
 # User specific environment and startup programs
 
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
-#[[ -f /usr/bin/starship || -f ~/.local/bin/starship ]] && eval "$(starship init bash)"
+#command_exists starship && eval "$(starship init bash)"
 
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
@@ -27,66 +31,10 @@ export LC_ALL='en_US.UTF-8'
 # enable Proxy, the function defined in ~/.bash_proxy
 #proxy_on
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin:/snap/bin
-
-# Golang environment
-[ -d /opt/go/bin ] && PATH=$PATH:/opt/go/bin
-export GOPATH=/opt/yuu/go
-[ -d $GOPATH ] && PATH=$PATH:"$GOPATH/bin"
-
-[ -d /home/yuu/Flutter/flutter ] && PATH=$PATH:/home/yuu/Flutter/flutter/bin
-[ -d /opt/zig ] && PATH=$PATH:/opt/zig
-
-[ -d /opt/android-studio ] && PATH=$PATH:/opt/android-studio/bin
-[ -d /opt/Android/SDK/emulator ] && PATH=$PATH:/opt/Android/SDK/emulator
-[ -d /opt/Android/SDK/cmdline-tools ] && PATH=$PATH:/opt/Android/SDK/cmdline-tools/latest/bin/
-[ -d /opt/Android/SDK/platform-tools ] && PATH=$PATH:/opt/Android/SDK/platform-tools
-[ -d /opt/Android/SDK/build-tools ] && PATH=$PATH:/opt/Android/SDK/build-tools/34.0.0
-#[ -d /opt/android-cmdline-tools ] && PATH=$PATH:/opt/android-cmdline-tools/bin
-
-# AppImage path
-[ -d /opt/AppImage ] && PATH=$PATH:/opt/AppImage
-
-# Dotnet on Windows (For running Dotnet on Bash for Windows)
-dotnet_path=/mnt/c/Program\ Files/dotnet
-[ -d "$dotnet_path" ] && PATH=$PATH:"$dotnet_path"
-#[ -d "$dotnet_path" ] && PATH="$PATH:$dotnet_path"
-
-# Node manager(fnm) environment
-# Refer: https://nodejs.org/en/download
-FNM_PATH="/home/yuu/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
-
-# Node environment by manually
-[ -d /opt/node ] && PATH=$PATH:"/opt/node/bin"
-[ -d ~/node_modules/.bin ] && PATH=$PATH:~/node_modules/.bin
-
-# Homebrew path (Mac OS)
-BREW_PATH="/opt/homebrew/bin"
-if [ -d "$BREW_PATH" ]; then
-  PATH=$BREW_PATH:$PATH
-fi
-
-# Bash-completion config for Homebrew (Mac OS)
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-
-export PATH
-
-# Tmuxifier
-## git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
-##export PATH=$PATH:$HOME/.tmuxifier/bin
-#export PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
-#eval "$(tmuxifier init -)"
-#[[ ! -d ~/.tmux-layouts ]] && mkdir ~/.tmux-layouts
-#export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
-
 export EDITOR='vim'
 export PAGER='less'
 #export PAGER='most'
-#
+
 export HISTTIMEFORMAT='[%F %T] '
 #export HISTCONTROL=ignorespace
 #export HISTCONTROL=ignoredups
@@ -95,22 +43,8 @@ export HISTCONTROL=ignoreboth # both ignore space and dups
 export SYSTEMD_EDITOR='vim'
 export PSQL_EDITOR="vim -c 'set syntax=sql'"
 
-set -o ignoreeof # Prevent Ctrl-D to exit shell
-set -o vi
-stty -ixon  # Enable searching history in Bash forward after backward with CTRL-S
-
-if [ -f /usr/bin/virtualenvwrapper.sh ]; then
-    . /usr/bin/virtualenvwrapper.sh
-fi
-
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-jf_bat() {
-  local file=$1
-  jf $file | bat -l json
-}
+# GnuPG
+export GPG_TTY=$(tty)
 
 # Enable use GUI apps on WSL by VcXsrv for Windows 10
 # Refers:
@@ -119,27 +53,22 @@ jf_bat() {
 #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
 #export DISPLAY=":0"
 
+PATH=$PATH:/sbin:/usr/sbin:/snap/bin
+[[ -d $HOME/.local/bin ]] && PATH=$PATH:$HOME/.local/bin
+
+# AppImage
+[ -d /opt/AppImage ] && PATH=$PATH:/opt/AppImage
+
+# Snap
+[[ -d /snap ]] && PATH=$PATH:/snap/bin
+
 # Rust environment
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-
-# 配置 GOPROXY 环境变量
-#export GOPROXY=https://proxy.golang.com.cn,direct
-#export GOPROXY=https://jp.iveteran.me:4433,direct
-# # 还可以设置不走 proxy 的私有仓库或组，多个用逗号相隔（可选）
-# export GOPRIVATE=git.mycompany.com,github.com/my/private
-
-# GnuPG
-export GPG_TTY=$(tty)
-
-# Install: apt install keychian
-if [[ -f $HOME/.ssh/iv.id_rsa && -x /usr/bin/keychian ]]; then
-    keychain $HOME/.ssh/iv.id_rsa
-    source $HOME/.keychain/$HOSTNAME-sh
+# Keychian
+if [[ -f $HOME/.ssh/iv.id_rsa ]] && command_exists keychain; then
+    eval "$(keychain --eval --quiet "$HOME/.ssh/iv.id_rsa")"
 fi
-
-# khal
-[ -x /usr/bin/khal ] && eval "$(_KHAL_COMPLETE=bash_source khal)"
 
 # x-cmd
 # Repo: https://github.com/x-cmd/x-cmd
@@ -152,13 +81,135 @@ x_on() {
 
 # Enable zoxide - A smarter cd command
 # Install: cargo install zoxide OR apt install zoxide
-command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
+command_exists zoxide && eval "$(zoxide init bash)"
+
+# khal
+command_exists khal && eval "$(_KHAL_COMPLETE=bash_source khal)"
 
 # MPD daemon start (if no other user instance exists)
-if command -v mpd >/dev/null 2>&1
-then
-  [ ! -s ~/.mpd/pid ] && mpd
+if command_exists mpd; then
+    [[ ! -s ~/.mpd/pid ]] && mpd
 fi
 
-# Conda environment
+# Tmuxifier
+if [[ -d $HOME/.tmuxifier ]]; then
+    # git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
+    PATH=$PATH:$HOME/.tmuxifier/bin
+elif [[ -d $HOME/.tmux/plugins/tmuxifier ]]; then
+    PATH=$PATH:$HOME/.tmux/plugins/tmuxifier/bin
+fi
+if command_exists tmuxifier; then
+    eval "$(tmuxifier init -)"
+    [[ ! -d ~/.tmux-layouts ]] && mkdir ~/.tmux-layouts
+    export TMUXIFIER_LAYOUT_PATH="$HOME/.tmux-layouts"
+fi
+
+# Node environment by manually
+NODE_ROOT="/opt/node"
+[ -d $NODE_ROOT ] && PATH=$PATH:$NODE_ROOT/bin
+
+# Node 3rd-party modules installation path
+NODE_MODULES_ROOT="$HOME/node_modules"
+[ -d $NODE_MODULES_ROOT ] && PATH=$PATH:$NODE_MODULES_ROOT/.bin
+
+# nvm - Node Version Manager
+NVM_DIR="$HOME/.nvm"
+if [[ -d $NVM_DIR ]]; then
+    export NVM_DIR
+    . $NVM_DIR/nvm.sh  # This loads nvm
+    . $NVM_DIR/bash_completion  # This loads nvm bash_completion
+fi
+
+# fnm - Fast Node Manager, another node version manager
+# fnm - add fnm path (for Linux)
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+    PATH="$FNM_PATH:$PATH"
+fi
+# fnm - env setup
+if command_exists fnm; then
+    eval "$(fnm env --use-on-cd --shell bash)"
+fi
+
+# Flutter
+[ -d $HOME/Flutter/flutter ] && PATH=$PATH:$HOME/Flutter/flutter/bin
+[ -d $HOME/develop/flutter ] && PATH=$PATH:$HOME/develop/flutter/bin
+
+# Zig
+[ -d /opt/zig ] && PATH=$PATH:/opt/zig
+
+# Conda
 [ -f /opt/conda/etc/profile.d/conda.sh ] && source /opt/conda/etc/profile.d/conda.sh
+
+# Golang
+GO_HOME=/opt/go
+if [[ -d $GO_HOME ]]; then
+    PATH=$PATH:$GO_HOME/bin
+    GOPATH=/opt/$USER/go
+    [[ -d $GOPATH ]] && PATH=$PATH:$GOPATH/bin && export GOPATH
+
+    # 配置 GOPROXY 环境变量
+    #export GOPROXY=https://proxy.golang.com.cn,direct
+    #export GOPROXY=https://jp.iveteran.me:4433,direct
+    # # 还可以设置不走 proxy 的私有仓库或组，多个用逗号相隔（可选）
+    # export GOPRIVATE=git.mycompany.com,github.com/my/private
+fi
+
+# Homebrew (Mac OS)
+HOMEBREW_PATH="/opt/homebrew"
+if [ -d "$HOMEBREW_PATH" ]; then
+    PATH=$PATH:$HOMEBREW_PATH/bin:$HOMEBREW_PATH/opt/ruby/bin
+    source "$HOMEBREW_PATH/etc/profile.d/bash_completion.sh"
+
+    # 使用Aliyun Homebrew镜像
+    export HOMEBREW_INSTALL_FROM_API=1
+    export HOMEBREW_API_DOMAIN="https://mirrors.aliyun.com/homebrew-bottles/api"
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.aliyun.com/homebrew/brew.git"
+    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.aliyun.com/homebrew/homebrew-core.git"
+    export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.aliyun.com/homebrew/homebrew-bottles"
+    # using `brew update` to effect settings
+fi
+
+# Android SDK
+ANDROID_SDK_ROOT="/opt/Android/SDK"
+if [[ -d $ANDROID_SDK_ROOT ]]; then
+    export ANDROID_SDK_ROOT
+    PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+    PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/
+    PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+    PATH=$PATH:$ANDROID_SDK_ROOT/build-tools/34.0.0
+
+    NDK_ROOT=$ANDROID_SDK_ROOT/ndk/25.2.9519653
+    if [[ -d $NDK_ROOT ]]; then
+        export NDK_ROOT
+        PATH=$NDK_ROOT:$PATH
+    fi
+fi
+
+# Android command-line tools
+ANDROID_CMDLINE_ROOT="/opt/android-cmdline-tools"
+[ -d $ANDROID_CMDLINE_ROOT ] && PATH=$PATH:$ANDROID_CMDLINE_ROOT/bin
+
+# Android Studio
+ANDROID_STUDIO_ROOT="/opt/android-studio"
+if [[ -d $ANDROID_STUDIO_ROOT ]]; then
+    PATH=$PATH:$ANDROID_STUDIO_ROOT/bin
+    JAVA_HOME="$ANDROID_STUDIO_ROOT/jbr"
+    export JAVA_HOME
+    PATH=$PATH:$JAVA_HOME/bin
+fi
+
+# Pyenv
+PYENV_ROOT="$HOME/.pyenv"
+if [[ -d $PYENV_ROOT ]]; then
+    export PYENV_ROOT
+    PATH=$PATH:$PYENV_ROOT/bin
+    eval "$(pyenv init -)"
+fi
+
+# Dotnet on Windows (For running Dotnet on WSL or Bash for Windows)
+dotnet_path=/mnt/c/Program\ Files/dotnet
+[ -d "$dotnet_path" ] && PATH=$PATH:"$dotnet_path"
+
+# export all PATH
+export PATH
