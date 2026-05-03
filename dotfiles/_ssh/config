@@ -3,10 +3,12 @@ host github.com
     ProxyCommand ssh -i ~/.ssh/iv.id_rsa -p24 yuu@vpn.iveteran.me exec /usr/bin/nc %h %p
 
 Host dev01
-    HostName 192.168.8.240
+    #HostName 192.168.8.240      # wifi
+    HostName 192.168.8.185      # wired
 
 Host tp
     HostName 192.168.8.121
+    User iveteran
 
 Host dev01_fmx
     HostName www.matrixworks.cn
@@ -24,18 +26,25 @@ Host fmx
     Port 24
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/iv.id_rsa
+    ProxyCommand none
 
 Host mwx
     HostName matrix.works
     Port 24
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/iv.id_rsa
+    ProxyCommand none
+    # 每 30 秒发送一个空包给服务器以维持连接
+    ServerAliveInterval 30
+    # 如果服务器连续 3 次没有响应心跳，则自动断开并报错（而不是卡死）
+    ServerAliveCountMax 3
 
 Host goe
     HostName goe.works
     Port 24
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/iv.id_rsa
+    ProxyCommand none
 
 Host icc
     #HostName incontrol.chat
@@ -74,3 +83,23 @@ Host socks5-proxy
 
 # NOTE: 1) need change GatewayPorts to yes at /etc/ssh/sshd_config on your_public_host
 #       2) use ssh-copy-id your_public_host to enable login to your_public_host by ssh public key(not by user password)
+
+Host futu-tunnel
+    # Usage: ssh -fN futu-tunnel
+    HostName www.matrixworks.cn
+    Port 24
+    User yuu
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/iv.id_rsa
+    LocalForward 11111 localhost:11111
+    ServerAliveInterval 60
+
+Host ibkr-tunnel
+    # Usage: ssh -fN ibkr-tunnel
+    HostName www.matrixworks.cn
+    Port 24
+    User yuu
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/iv.id_rsa
+    LocalForward 11112 localhost:11112
+    ServerAliveInterval 60
