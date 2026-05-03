@@ -71,3 +71,16 @@ alias tw_tsv="tw --separator $'\t'"
 #   refer: https://unix.stackexchange.com/questions/632947/how-to-copy-into-graphical-clipboard-on-command-line-in-kde
 alias cbcopy='xclip -selection clipboard'
 alias cbpaste='xclip -selection clipboard -o'
+
+# for Mac OS to instead of netstat
+alias ssa="lsof -nP -i"
+alias sst="lsof -nP -iTCP"
+alias sstl="lsof -nP -iTCP -sTCP:LISTEN"
+alias sste="lsof -nP -iTCP -sTCP:ESTABLISHED"
+alias ssu="lsof -nP -iUDP"
+
+# IBKR/FUTU API gateway tunnel, refer: ~/.ssh/config
+alias ibkr_api_tunnel_on="ssh -fN ibkr-tunnel"
+alias ibkr_api_tunnel_off='lsof -nP -stcp:listen -i tcp:11112 && read -p "Kill? [y/N] " ans && [[ $ans =~ ^[yY]$ ]] && kill $(lsof -t -i tcp:11112 -stcp:listen)'
+alias futu_api_tunnel_on="ssh -fN futu-tunnel"
+alias futu_api_tunnel_off='lsof -nP -stcp:listen -i tcp:11111 && read -p "Kill? [y/N] " ans && [[ $ans =~ ^[yY]$ ]] && kill $(lsof -t -i tcp:11111 -stcp:listen)'
