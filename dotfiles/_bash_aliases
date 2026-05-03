@@ -1,21 +1,24 @@
 # Basic aliases
+# NOTE:
+#   Use '\COMMAND' or 'command COMMAND' to use COMMAND noumenon, not alias of COMMAND
 alias ls='ls --color=auto'
 alias ll='ls -lh -rt'
-alias lT='tree'        # apt install tree
-alias llT='tree -lpsug'
-if [ -f /usr/bin/lsd ]; then
+alias lt='tree'        # apt install tree
+alias llt='tree -lpsug'
+if command -v lsd &> /dev/null; then
   alias ls='lsd'              # for lsd, apt install lsd
   alias ll='lsd -l'           # for lsd
-  alias lT='ls --tree'        # for lsd
-  alias llT='ll --tree'       # for lsd
-elif [ -f /usr/bin/exa ]; then
+  alias lt='ls --tree'        # for lsd
+  alias llt='ll --tree'       # for lsd
+elif command -v exa &> /dev/null; then
   alias ls='exa --icons'      # for exa, apt install exa
   alias ll='ls -lh --sort new --git'    # for exa
-  alias lT='ls -T'           # for exa
-  alias llT='ls -l -T'       # for exa
+  alias lt='ls -T'           # for exa
+  alias llt='ls -l -T'       # for exa
 fi
 alias la='ls -a'
-alias l.='ls -ld .?*'
+alias l.='ls -d .?*'
+alias ll.='l. -l'
 alias lf.='find . -maxdepth 1 -type f -name ".*"'
 #alias cd='z'  # use zoxide instead of cd
 alias grep='grep --color=auto --exclude-dir=".git"'
