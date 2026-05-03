@@ -1,0 +1,11 @@
+# Source - https://stackoverflow.com/a/74208358
+
+# Posted by Ron Wellman
+# Retrieved 2026-04-21, License - CC BY-SA 4.0
+
+sudo apt install pandoc
+pandoc README.md -o README.pdf
+
+# Chinese supports
+sudo apt install texlive-xetex texlive-lang-chinese fonts-noto-cjk
+pandoc --pdf-engine=xelatex README.md -o README.pdf

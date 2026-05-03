@@ -294,6 +294,13 @@
   bind 'O' login off
   bind '}' history
 
+# rebind ',' to rename window
+  #bind A        # unbind key A
+  bind , title
+
+# bind 'R' to reload configuration
+  bind R source ~/.screenrc
+
 # Yet another hack:
 # Prepend/append register [/] to the paste if ^a^] is pressed.
 # This lets me have autoindent mode in vi.

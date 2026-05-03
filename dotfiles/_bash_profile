@@ -64,6 +64,12 @@ PATH=$PATH:/sbin:/usr/sbin:/snap/bin
 
 # Rust environment
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+if command_exists rustup; then
+    # Rust mirror environment
+    export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+    export RUSTUP_UPDATE_ROOT=https://ustc.edu.cn
+    export CARGO_HTTP_CACHING=false
+fi
 
 # Keychian
 if [[ -f $HOME/.ssh/iv.id_rsa ]] && command_exists keychain; then

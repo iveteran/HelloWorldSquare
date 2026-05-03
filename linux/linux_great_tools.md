@@ -24,11 +24,13 @@
 ## File Find / Search
 - FZF - File Search
 - Ripgrep - alternative to Grep
-- fdfind(fd) - alternative to find
+- fdfind(fd) - alternative to find, cargo install fd-find
 
 ## File Manager
 - Ranger - (by Python)
 - Yazi   - (by Rust)
+  cargo binstall yazi-fm
+  OR cargo install --force yazi-build
 - lf     - (by Golang)
 - SuperFile(spf) - (by Golang)
 - nnn
@@ -108,7 +110,7 @@
 ## Image viewer in terminal/console
 - timg
 - wezterm imgcat
-- chafa
+- chafa - Yazi to use it
 - catimg
 
 ## Email client
