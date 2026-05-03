@@ -47,12 +47,22 @@ config.window_padding = {
   bottom = 0,
 }
 
-keys = {
+config.keys = {
   {
     key = 'F11',
     mods = '',
     action = wezterm.action.ToggleFullScreen,
-  }
+  },
+  {
+      key = '`',
+      mods = 'CTRL',
+      action = wezterm.action.ActivateLastTab,
+  },
+  {
+      key = '`',
+      mods = 'SUPER',
+      action = wezterm.action.ActivateLastTab,
+  },
 }
 
 wezterm.on('gui-startup', function()
