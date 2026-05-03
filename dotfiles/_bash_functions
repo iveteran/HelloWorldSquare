@@ -1,4 +1,19 @@
-jwt-decode() {
+jwt_decode() {
   echo 'Usage: jwt-decode `cat FILENAME`'
   jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
+}
+
+jf_bat() {
+  local file=$1
+  jf $file | bat -l json
+}
+
+ss_listening() {
+    if [ $# -eq 0 ]; then
+        lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
 }
