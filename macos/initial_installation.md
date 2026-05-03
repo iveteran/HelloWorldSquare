@@ -30,8 +30,16 @@ brew install bat
 brew install ripgrep
 brew install fd
 brew install zoxide
-brew install --cask drawio
 brew install git
+```
+
+Install extension tools (optional):
+```
+brew install --cask drawio
+brew install timg
+brew install graphviz
+brew install imagemagick
+brew install ffmpeg
 ```
 
 Install sshfs:
