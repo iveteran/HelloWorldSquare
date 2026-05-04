@@ -1,3 +1,10 @@
+# vim: set filetype=sh shiftwidth=2
+
+# 判断命令是否存在
+command_exists() {
+  command -v "$1" &> /dev/null
+}
+
 jwt_decode() {
   echo 'Usage: jwt-decode `cat FILENAME`'
   jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
@@ -9,11 +16,11 @@ jf_bat() {
 }
 
 ss_listening() {
-    if [ $# -eq 0 ]; then
-        lsof -iTCP -sTCP:LISTEN -n -P
-    elif [ $# -eq 1 ]; then
-        lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
-    else
-        echo "Usage: listening [pattern]"
-    fi
+  if [ $# -eq 0 ]; then
+    lsof -iTCP -sTCP:LISTEN -n -P
+  elif [ $# -eq 1 ]; then
+    lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+  else
+    echo "Usage: listening [pattern]"
+  fi
 }
