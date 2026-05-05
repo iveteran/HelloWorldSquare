@@ -193,3 +193,7 @@ if executable('clangd')
         autocmd FileType objcpp setlocal omnifunc=lsp#complete
     augroup end
 endif
+
+" bash profile sub-config files
+autocmd BufRead,BufNewFile .bash_* set filetype=sh
+"autocmd FileType sh setlocal shiftwidth=2

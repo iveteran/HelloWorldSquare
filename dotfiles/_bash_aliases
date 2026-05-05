@@ -79,8 +79,16 @@ alias sstl="lsof -nP -iTCP -sTCP:LISTEN"
 alias sste="lsof -nP -iTCP -sTCP:ESTABLISHED"
 alias ssu="lsof -nP -iUDP"
 
+# postfixadmin server of matrix.works
+#  curl http://localhost:10000/postfixadmin
+alias mwx_web_tunnel_on="ssh -fN mwx-web-tunnel"
+alias mwx_web_tunnel_ls='lsof -nP -a -u $USER -c ssh -stcp:listen -i tcp:10000'
+alias mwx_web_tunnel_off='mwx_web_tunnel_ls && read -p "Kill? [y/N] " ans && [[ $ans =~ ^[yY]$ ]] && kill $(mwx_web_tunnel_ls -t)'
+
 # IBKR/FUTU API gateway tunnel, refer: ~/.ssh/config
 alias ibkr_api_tunnel_on="ssh -fN ibkr-tunnel"
-alias ibkr_api_tunnel_off='lsof -nP -stcp:listen -i tcp:11112 && read -p "Kill? [y/N] " ans && [[ $ans =~ ^[yY]$ ]] && kill $(lsof -t -i tcp:11112 -stcp:listen)'
+alias ibkr_api_tunnel_ls='lsof -nP -a -u $USER -c ssh -stcp:listen -i tcp:11112'
+alias ibkr_api_tunnel_off='ibkr_api_tunnel_ls && read -p "Kill? [y/N] " ans && [[ $ans =~ ^[yY]$ ]] && kill $(ibkr_api_tunnel_ls -t)'
 alias futu_api_tunnel_on="ssh -fN futu-tunnel"
-alias futu_api_tunnel_off='lsof -nP -stcp:listen -i tcp:11111 && read -p "Kill? [y/N] " ans && [[ $ans =~ ^[yY]$ ]] && kill $(lsof -t -i tcp:11111 -stcp:listen)'
+alias futu_api_tunnel_ls='lsof -nP -a -u $USER -c ssh -stcp:listen -i tcp:11111'
+alias futu_api_tunnel_off='futu_api_tunnel_ls && read -p "Kill? [y/N] " ans && [[ $ans =~ ^[yY]$ ]] && kill $(futu_api_tunnel_ls -t)'

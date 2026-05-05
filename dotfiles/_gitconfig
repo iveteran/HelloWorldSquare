@@ -38,6 +38,7 @@
     rebase = false
 [core]
     quotepath = false
+	precomposeunicode = true  # macOS
     #pager = delta
 [interactive]
     diffFilter = delta --color-only
