@@ -112,6 +112,7 @@ colorscheme torte
 hi Normal ctermbg=0  " Make the background color same as terminal's
 set number
 set linebreak
+set textwidth=120
 set autoread
 set nobackup
 set ci
@@ -132,6 +133,10 @@ set tags=tags;,TAGS;
 set autochdir
 set omnifunc=syntaxcomplete#Complete
 
+"set clipboard=unnamedplus
+vmap <leader>y :w! /tmp/vim_clipbroad<CR>
+nmap <leader>p :r! cat /tmp/vim_clipbroad<CR>
+
 "set path+=~/projects/iDirect/Core_Libs
 
 "set foldcolumn=4
@@ -140,6 +145,9 @@ set omnifunc=syntaxcomplete#Complete
 
 " Using OS clipboard
 "set clipboard=unnamedplus
+
+" Use :w!! to save with sudo
+cnoremap w!! w !sudo tee % > /dev/null
 
 set laststatus=2
 if filereadable(expand("~/.vimrc.statusline"))
@@ -193,7 +201,3 @@ if executable('clangd')
         autocmd FileType objcpp setlocal omnifunc=lsp#complete
     augroup end
 endif
-
-" bash profile sub-config files
-autocmd BufRead,BufNewFile .bash_* set filetype=sh
-"autocmd FileType sh setlocal shiftwidth=2
