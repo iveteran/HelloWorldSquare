@@ -1,4 +1,7 @@
-Refer: https://wiki.archlinux.org/title/Systemd-homed
+Refers:
+  https://wiki.archlinux.org/title/Systemd-homed
+  https://ivonblog.com/posts/systemd-homed-usage/
+  https://systemd.io/CONVERTING_TO_HOMED/
 
 # 安装
 $ apt install systemd-homed
