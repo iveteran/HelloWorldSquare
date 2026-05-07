@@ -1,0 +1,32 @@
+MacOS通过X.Org Server运行远程Linux主机下的GUI App
+
+# 1. Install
+brew install --cask xquartz
+
+# 2. 配置权限（关键）
+启动 XQuartz
+点击顶部菜单栏 XQuartz -> 设置 (Settings) -> 安全性 (Security) 选项卡
+勾选 “允许来自网络客户端的连接” (Allow connections from network clients)
+
+# 3. 设置本地的 DISPLAY 变量（macOS 端的路径）
+export DISPLAY=:0
+
+# 4. 授权
+需在安装完xquartz后重启终端，或在Xquartz菜单->Applications->Terminal打开终端
+xhost +localhost
+
+# 5. Remote Linux host
+export DISPLAY=macos_ip:0 (OrbStack: export DISPLAY=host.orb.internal:0)
+test e.g.:
+sudo apt install x11-apps
+xeyes
+
+# 解决“背景黑屏”残留问题
+如果即便运行单程序也有黑屏背景，检查 XQuartz 的设置：
+打开 XQuartz 设置 -> 选项卡：输出 (Output)
+取消勾选 “全屏模式” (Full-screen mode)
+确保 “Colors” 设置为 “From Display”
+重启 XQuartz
+
+# tips:
+隐藏Xquartz: Command + h
