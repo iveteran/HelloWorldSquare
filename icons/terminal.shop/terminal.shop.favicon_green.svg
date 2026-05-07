@@ -1,0 +1,31 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- White glyph subtle edge shadow -->
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0.8" dy="0.8" stdDeviation="0.5"
+        flood-color="#7A7A7A" flood-opacity="0.85"/>
+    </filter>
+
+    <!-- KellyGreen block subtle darker edge -->
+    <filter id="kellyGreenShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0.8" dy="0.8" stdDeviation="0.4"
+        flood-color="#4B5320" flood-opacity="0.75"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="48" height="48" rx="8" fill="#000000"/>
+
+  <!-- "t" : 50% image height (24px), vertically centered -->
+  <g filter="url(#softShadow)"
+     transform="translate(0,0) scale(0.8,0.75) translate(3,7)">
+    <path
+      d="M14 10H18V18H23V22H18V34C18 36.8 19.2 38 21.8 38H23V42H20.5C15 42 14 39 14 34V22H10V18H14V10Z"
+      fill="#F2F2F2"/>
+  </g>
+
+  <!-- KellyGreen rectangle : 80% image height (38.4px), vertically centered -->
+  <g filter="url(#kellyGreenShadow)">
+    <rect x="26" y="4.8" width="14" height="38.4" fill="#4CBB17"/>
+  </g>
+</svg>
