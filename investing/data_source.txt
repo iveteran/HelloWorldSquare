@@ -1,2 +1,14 @@
 Yahoo Finance
 https://massive.com
+
+yfinance
+
+Alpha Vantage
+https://www.alphavantage.co
+
+Finnhub - data rest api
+finnhub.io
+
+https://marketstack.com
+
+https://newsdata.io/blog/best-stock-news-api/
