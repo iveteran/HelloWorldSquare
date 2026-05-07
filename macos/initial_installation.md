@@ -26,20 +26,22 @@ brew install --cask karabiner-elements
 brew install clash-verge-rev
 brew install lsd
 brew install wget
-brew install bat
-brew install ripgrep
-brew install fd
-brew install zoxide
+brew install bat        # better cat
+brew install ripgrep    # fast grep
+brew install fd         # fast find
+brew install zoxide     # smart cd
 brew install git
+brew install chezmoi    # dotfiles manager
 ```
 
 Install extension tools (optional):
 ```
-brew install --cask drawio
-brew install timg
+brew install --cask drawio  # A graph drawer
+brew install timg           # An image viewer on terminal
 brew install graphviz
 brew install imagemagick
 brew install ffmpeg
+brew install xquartz        # X.Org server for macOS, used for running GUI apps on remote Linux hosts
 ```
 
 Install sshfs:
@@ -50,15 +52,22 @@ brew install fuse-t-sshfs
 ```
 
 App Store:
-Microsoft Outlook
+Microsoft Outlook/Word/Excel
 OneDrive
 Windows App (Microsoft Remote Desktop)
 NetEase Music
 YouDao Translate
+VLC
+Picview
 WeChat
 Xcode
-RustDesk
+#RustDesk
 Thincast Remote Desktop Client
+Firefox
+Thunderbird
+ChatGPT
+Codex
+Claude
 
 Others:
 Clash Verge
