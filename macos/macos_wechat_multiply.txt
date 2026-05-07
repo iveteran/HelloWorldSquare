@@ -1,0 +1,19 @@
+MacOS微信多开支持
+
+# 复制应用程序
+sudo cp -R /Applications/WeChat.app /Applications/WeChat2.app
+
+# 修改分身标识(Bundle ID)
+sudo /usr/libexec/PlistBuddy \
+-c "Set :CFBundleIdentifier com.tencent.WeChat2.dual" \
+/Applications/WeChat2.app/Contents/Info.plist
+
+# 签名复制的应用程序
+sudo codesign --force --deep --sign - /Applications/WeChat2.app
+
+# 打开复制应用程序
+open -n -a /Applications/WeChat2.app
+
+# 问题修复
+sudo xattr -cr /Applications/WeChat2.app
+sudo codesign --force --deep --sign - /Applications/WeChat2.app
