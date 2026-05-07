@@ -10,8 +10,8 @@ __prefix_line = .*(?:<__hostname>\s+)?(?:<_daemon><__pid_re>?:?\s+)?(?:<__kernel
 
 2) Edit /etc/fail2ban/jail.local:
 ignoreip = 127.0.0.1/8 ::1 
-destemail = postmaster@goe.works
-sender = fail2ban@goe.works
+destemail = postmaster@matrix.works
+sender = fail2ban@matrix.works
 
 [postfix-sasl]
 

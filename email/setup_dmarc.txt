@@ -25,15 +25,15 @@ sudo dnf install opendmarc (CentOS)
 sudo systemctl status opendmarc
 
 # Check DMARC of domain:
-$ opendmarc-check goe.works
-DMARC record for goe.works:
+$ opendmarc-check matrix.works
+DMARC record for matrix.works:
         Sample percentage: 100
         DKIM alignment: relaxed
         SPF alignment: relaxed
         Domain policy: none
         Subdomain policy: unspecified
         Aggregate report URIs:
-                mailto:yu@goe.works
+                mailto:yu@matrix.works
         Failure report URIs:
                 (none)
 
