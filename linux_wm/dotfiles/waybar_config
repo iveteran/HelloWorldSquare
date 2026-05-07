@@ -1,0 +1,10 @@
+{
+    "layer": "top",
+    "position": "top",
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["network", "cpu", "memory", "clock"],
+    "clock": {
+        "format": "{:%H:%M} 🕒"
+    }
+}

@@ -1,0 +1,42 @@
+# 基础设置
+input * xkb_layout "us"
+
+# 设置一个虚拟输出 (等同于显示器)
+#output HEADLESS-1 mode 1920x1080
+output HEADLESS-1 mode 2560x1440
+#output HEADLESS-1 mode 3840x2160 scale 2
+
+# 启动时自动运行 wayvnc (监听所有地址)
+#exec wayvnc 0.0.0.0 5900
+exec wayvnc 0.0.0.0 5900 --render-cursor
+
+exec waybar
+exec foot
+
+# Modifier: Alt/Option
+set $mod Mod1
+
+bindsym $mod+Shift+q kill
+# swaymsg reload
+bindsym $mod+Shift+c reload
+
+bindsym $mod+Return exec foot
+bindsym $mod+d exec wofi --show drun
+
+# 移动焦点 (使用 $mod + 方向键)
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# 移动窗口位置 (使用 $mod + Shift + 方向键)
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# 切换全屏
+bindsym $mod+f fullscreen toggle
+
+# 切换浮动/平铺状态
+bindsym $mod+Shift+space floating toggle

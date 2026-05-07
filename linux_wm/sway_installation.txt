@@ -1,0 +1,6 @@
+apt install sway
+
+# Optional
+apt install waybar foot
+apt install sway-backgrounds swaylock sway-notification-center wofi wayvnc
+apt install fonts-font-awesome fonts-noto
