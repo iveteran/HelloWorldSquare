@@ -203,3 +203,4 @@
 - kanban-tui, A customizable task manager in the terminal
 - RustDesk, An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer.
 - ticker, Terminal stock & crypto price watcher and position tracker, https://github.com/achannarasappa/ticker
+- chezmoi, dotfiles manager
