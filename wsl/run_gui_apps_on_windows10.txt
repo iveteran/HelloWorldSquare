@@ -1,3 +1,13 @@
 Refs:
 1) https://sourceforge.net/projects/vcxsrv/
 2) https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242
+
+Windows:
+1. Install vcxsrv
+2. Run Xlaunch
+  launch settings: step 3 -> select option: "Disable access control"
+
+WSL:
+1. export DISPLAY=win-host:0
+2. run e.g. app:
+xeyes
