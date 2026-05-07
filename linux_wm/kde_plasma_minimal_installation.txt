@@ -31,3 +31,12 @@
     konsole \
     dolphin \
     kde-spectacle
+
+5) kde remote desktop server of Wayland (Optional), krfb(vnc) or krdp(rdp)
+   krdp supports headless mode (~/.config/krdprc)
+ sudo apt install --no-install-recommends \
+   krdp \
+   #krfb \
+
+# about krdp
+systemctl --user start plasma-krdp_server.service

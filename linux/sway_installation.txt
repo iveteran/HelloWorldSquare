@@ -1,2 +1,0 @@
-apt install sway
-apt install sway-backgrounds swaylock sway-notification-center # Optional
