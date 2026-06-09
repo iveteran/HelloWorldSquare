@@ -176,6 +176,7 @@
 - socat - advanced socket client
 - bat - text viewer
 - jq - json formatter/viewer
+- xq - xml formatter/viewer
 - tabiew(tw) - csv/tsv viewer, https://github.com/shshemi/tabiew
 - tidy - html formatter
 - litecli - SQLite client
