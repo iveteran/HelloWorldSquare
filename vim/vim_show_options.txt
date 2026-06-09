@@ -1,0 +1,9 @@
+Usage:
+:set <Option>?
+:option
+
+Examples:
+:set runtimepath?
+
+# list loaded packages
+:scriptnames
