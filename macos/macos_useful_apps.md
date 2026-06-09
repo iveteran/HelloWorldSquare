@@ -21,6 +21,7 @@ brew install bash
 brew install bash-completion@2
 brew install tmux
 brew install iterm2
+brew install maccy      # a clipboard with history
 brew install --cask wezterm
 brew install --cask karabiner-elements
 brew install clash-verge-rev
