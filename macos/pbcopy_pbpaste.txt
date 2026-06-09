@@ -1,0 +1,2 @@
+echo "Copy this into Mac's clipboard" | pbcopy
+pbpaste > ~/some-file.txt

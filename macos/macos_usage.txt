@@ -1,0 +1,3 @@
+Open Finder in terminal:
+open .
+open /your/path
