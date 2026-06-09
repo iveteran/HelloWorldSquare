@@ -12,12 +12,28 @@ brew install --cask xquartz
 export DISPLAY=:0
 
 # 4. 授权
+1) 基于xauth
 需在安装完xquartz后重启终端，或在Xquartz菜单->Applications->Terminal打开终端
-xhost +localhost
+xhost +remote_ip  # 添加remote IP，如192.168.0.100, 可将此行加入~/.xinitrc使永久生效
+xauth list        # 查看cookies
+2) 基于ssh x11 forwarding
+需要remote的sshd服务开启x11 forwarding
+ssh -Y <user@remote>
 
 # 5. Remote Linux host
+1) 基于xauth
 export DISPLAY=macos_ip:0 (OrbStack: export DISPLAY=host.orb.internal:0)
-test e.g.:
+2) 基于ssh x11 forwarding
+确保/etc/ssh/sshd_config有如下配置:
+```
+X11Forwarding yes
+X11UseLocalhost yes
+```
+ssh会自动配置$DISPLAY
+remote机器上执行: echo $DISPLAY
+会输出: localhost:10.0
+
+# 6. 测试功能
 sudo apt install x11-apps
 xeyes
 
@@ -30,3 +46,12 @@ xeyes
 
 # tips:
 隐藏Xquartz: Command + h
+
+# 支持声音
+1) Local(macOS)
+brew install pulseaudio
+pulseaudio --load="module-native-protocol-tcp auth-anonymous=1" --exit-idle-time=-1
+注意：auth-anonymous=1 在局域网内较方便，但有安全风险。如果在公网请配置 Cookie 认证
+
+2) Remote(Linux)
+export PULSE_SERVER=tcp:macos_ip:4713
