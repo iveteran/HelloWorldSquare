@@ -1,0 +1,22 @@
+# Install
+MacOS: brew install sing-box
+Linux: bash <(curl -fsSL https://sing-box.app/install.sh)
+
+# Check installation
+sing-box version
+
+# Run manually:
+sing-box run -c /etc/sing-box/config.json
+
+# Linux
+systemctl enable sing-box
+systemctl restart sing-box
+
+systemctl status sing-box
+journalctl -u sing-box -f
+
+# Test
+curl --socks5 127.0.0.1:1080 https://ipinfo.io
+
+# Browser settings
+export https_proxy=socks5://127.0.0.1:1080

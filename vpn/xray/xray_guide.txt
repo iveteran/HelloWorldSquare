@@ -1,0 +1,36 @@
+$ sudo bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+
+$ xray version
+$ systemctl status xray
+
+$ systemctl status xray
+$ journalctl -u xray -f
+
+$ xray uuid
+> edd98517-57b5-4588-9026-1da6c47ce1ac
+
+$ xray x25519
+> PrivateKey: wDAZPHWTXbtuSMDGjw9XZPpE8B-r2ckStGDDs2ad_Fg
+> Password (PublicKey): 6F_Q4IdTYgLzzPzl8ErNKfGkrPzRFbVTmCq1RniSCWo
+> Hash32: Lg9p4OxweS0nlMOebNowd3F_c091paRV5_PLSn5aNxM
+
+$ openssl rand -hex 8
+> 829343ee626e277b
+
+$ vim /usr/local/etc/xray/config.json
+将上面输出填到此配置文件中的相关选项中, 参见同目录下的xray.config.json
+
+生成客户端连接地址
+vless://UUID@你的IP:443?security=reality&encryption=none&pbk=PublicKey&fp=chrome&sni=www.bing.com&sid=ShortID&flow=xtls-rprx-vision&type=tcp#my-vps
+vless://edd98517-57b5-4588-9026-1da6c47ce1ac@vpn.iveteran.me:4433?security=reality&encryption=none&pbk=6F_Q4IdTYgLzzPzl8ErNKfGkrPzRFbVTmCq1RniSCWo&fp=chrome&sni=www.bing.com&sid=829343ee626e277b&flow=xtls-rprx-vision&type=tcp#mwx-vps
+客户端
+sing-box
+Hiddify
+v2rayN
+
+性能优化
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+检查结果
+sysctl net.ipv4.tcp_congestion_control

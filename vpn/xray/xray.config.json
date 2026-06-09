@@ -1,0 +1,49 @@
+{
+  "comment": "NOTE: Copy this file to /usr/local/etc/xray/config.json",
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "port": 4433,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "edd98517-57b5-4588-9026-1da6c47ce1ac",
+            "flow": "xtls-rprx-vision"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "www.bing.com:443",
+          "xver": 0,
+          "serverNames": [
+            "www.bing.com"
+          ],
+          "privateKey": "wDAZPHWTXbtuSMDGjw9XZPpE8B-r2ckStGDDs2ad_Fg",
+          "shortIds": [
+            "829343ee626e277b"
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom"
+    }
+  ],
+  "dns": {
+    "servers": [
+      "https+local://1.1.1.1/dns-query",
+      "https+local://8.8.8.8/dns-query"
+    ],
+    "queryStrategy": "UseIPv4"
+  }
+}
