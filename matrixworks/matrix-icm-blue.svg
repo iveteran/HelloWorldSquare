@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   t="1573659165527"
+   class="icon"
+   viewBox="0 0 1024 1024"
+   version="1.1"
+   p-id="27465"
+   width="200"
+   height="200"
+   id="svg8205"
+   sodipodi:docname="matrix-icc-blue.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8207"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.96"
+     inkscape:cx="48.484848"
+     inkscape:cy="100"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8205" />
+  <defs
+     id="defs8199">
+    <style
+       type="text/css"
+       id="style8197" />
+  </defs>
+  <path
+     d="M809.4 487.7h198v46.5h-198zM362.86 52.688l44.914-12.034 51.242 191.248-44.914 12.034zM246.204 107.584l40.269-23.25 99 171.468-40.27 23.25zM147.82 190.84l32.88-32.88 140.005 140.006-32.88 32.88zM74.124 283.627l23.25-40.27 171.468 99-23.25 40.27zM30.49 404.869l12.033-44.915 191.249 51.243-12.035 44.914zM20.7 486.8h198v46.5h-198zM31.556 615.296l191.248-51.243 12.034 44.914L43.59 660.21zM75.244 736.598l171.468-99 23.25 40.27-171.468 99zM148.767 842.497L288.772 702.49l32.88 32.88-140.005 140.006zM247.152 925.69l99-171.467 40.269 23.25-99 171.468zM363.848 980.586l51.242-191.248 44.915 12.034-51.243 191.248zM490.7 805.5h46.5v198h-46.5zM568.054 801.366l44.914-12.035L664.21 980.58l-44.914 12.034zM641.6 777.466l40.27-23.25 99 171.468-40.27 23.25zM706.501 735.445l32.88-32.88L879.387 842.57l-32.88 32.88zM758.172 677.95l23.25-40.27 171.468 99-23.25 40.27zM793.18 609.107l12.034-44.915 191.248 51.243-12.034 44.914zM793.332 412.002l191.248-51.243 12.035 44.914-191.249 51.243zM758.22 343.107l171.468-99 23.25 40.269-171.468 99zM706.447 292.026L846.453 152.02l32.88 32.88-140.006 140.006zM640.541 249.893l99-171.468 40.27 23.25-99 171.468zM567.014 226.03l51.242-191.248 44.915 12.034-51.243 191.248zM489.8 23.9h46.5v198h-46.5z"
+     p-id="27466"
+     id="path8201"
+     style="fill:#37abc8" />
+    <svg xmlns="http://www.w3.org/2000/svg" x="30%" y="30%" width="40%" height="40%" viewBox="0 0 330 330">
+      <style>
+        .dot { fill: #37abc8; }
+      </style>
+      
+      <circle class="dot" cx="8.59" cy="39.53" r="10"/>
+      <circle class="dot" cx="39.53" cy="39.53" r="10"/>
+      <circle class="dot" cx="70.47" cy="39.53" r="10"/>
+      <circle class="dot" cx="101.41" cy="39.53" r="10"/>
+      <circle class="dot" cx="132.34" cy="39.53" r="10"/>
+      <circle class="dot" cx="163.28" cy="39.53" r="10"/>
+      <circle class="dot" cx="194.22" cy="39.53" r="10"/>
+      <circle class="dot" cx="225.16" cy="39.53" r="10"/>
+      <circle class="dot" cx="256.09" cy="39.53" r="10"/>
+      <circle class="dot" cx="287.03" cy="39.53" r="10"/>
+      <circle class="dot" cx="317.97" cy="39.53" r="10"/>
+      <circle class="dot" cx="39.53" cy="70.47" r="10"/>
+      <circle class="dot" cx="70.47" cy="70.47" r="10"/>
+      <circle class="dot" cx="101.41" cy="70.47" r="10"/>
+      <circle class="dot" cx="132.34" cy="70.47" r="10"/>
+      <circle class="dot" cx="163.28" cy="70.47" r="10"/>
+      <circle class="dot" cx="194.22" cy="70.47" r="10"/>
+      <circle class="dot" cx="225.16" cy="70.47" r="10"/>
+      <circle class="dot" cx="256.09" cy="70.47" r="10"/>
+      <circle class="dot" cx="287.03" cy="70.47" r="10"/>
+      <circle class="dot" cx="8.59" cy="101.41" r="10"/>
+      <circle class="dot" cx="70.47" cy="101.41" r="10"/>
+      <circle class="dot" cx="101.41" cy="101.41" r="10"/>
+      <circle class="dot" cx="132.34" cy="101.41" r="10"/>
+      <circle class="dot" cx="163.28" cy="101.41" r="10"/>
+      <circle class="dot" cx="194.22" cy="101.41" r="10"/>
+      <circle class="dot" cx="225.16" cy="101.41" r="10"/>
+      <circle class="dot" cx="256.09" cy="101.41" r="10"/>
+      <circle class="dot" cx="317.97" cy="101.41" r="10"/>
+      <circle class="dot" cx="8.59" cy="132.34" r="10"/>
+      <circle class="dot" cx="39.53" cy="132.34" r="10"/>
+      <circle class="dot" cx="101.41" cy="132.34" r="10"/>
+      <circle class="dot" cx="132.34" cy="132.34" r="10"/>
+      <circle class="dot" cx="163.28" cy="132.34" r="10"/>
+      <circle class="dot" cx="194.22" cy="132.34" r="10"/>
+      <circle class="dot" cx="225.16" cy="132.34" r="10"/>
+      <circle class="dot" cx="287.03" cy="132.34" r="10"/>
+      <circle class="dot" cx="317.97" cy="132.34" r="10"/>
+      <circle class="dot" cx="8.59" cy="163.28" r="10"/>
+      <circle class="dot" cx="39.53" cy="163.28" r="10"/>
+      <circle class="dot" cx="70.47" cy="163.28" r="10"/>
+      <circle class="dot" cx="132.34" cy="163.28" r="10"/>
+      <circle class="dot" cx="163.28" cy="163.28" r="10"/>
+      <circle class="dot" cx="194.22" cy="163.28" r="10"/>
+      <circle class="dot" cx="256.09" cy="163.28" r="10"/>
+      <circle class="dot" cx="287.03" cy="163.28" r="10"/>
+      <circle class="dot" cx="317.97" cy="163.28" r="10"/>
+      <circle class="dot" cx="8.59" cy="194.22" r="10"/>
+      <circle class="dot" cx="39.53" cy="194.22" r="10"/>
+      <circle class="dot" cx="70.47" cy="194.22" r="10"/>
+      <circle class="dot" cx="101.41" cy="194.22" r="10"/>
+      <circle class="dot" cx="225.16" cy="194.22" r="10"/>
+      <circle class="dot" cx="256.09" cy="194.22" r="10"/>
+      <circle class="dot" cx="287.03" cy="194.22" r="10"/>
+      <circle class="dot" cx="317.97" cy="194.22" r="10"/>
+      <circle class="dot" cx="8.59" cy="225.16" r="10"/>
+      <circle class="dot" cx="39.53" cy="225.16" r="10"/>
+      <circle class="dot" cx="70.47" cy="225.16" r="10"/>
+      <circle class="dot" cx="101.41" cy="225.16" r="10"/>
+      <circle class="dot" cx="132.34" cy="225.16" r="10"/>
+      <circle class="dot" cx="163.28" cy="225.16" r="10"/>
+      <circle class="dot" cx="194.22" cy="225.16" r="10"/>
+      <circle class="dot" cx="225.16" cy="225.16" r="10"/>
+      <circle class="dot" cx="256.09" cy="225.16" r="10"/>
+      <circle class="dot" cx="287.03" cy="225.16" r="10"/>
+      <circle class="dot" cx="317.97" cy="225.16" r="10"/>
+      <circle class="dot" cx="8.59" cy="256.09" r="10"/>
+      <circle class="dot" cx="39.53" cy="256.09" r="10"/>
+      <circle class="dot" cx="70.47" cy="256.09" r="10"/>
+      <circle class="dot" cx="101.41" cy="256.09" r="10"/>
+      <circle class="dot" cx="132.34" cy="256.09" r="10"/>
+      <circle class="dot" cx="163.28" cy="256.09" r="10"/>
+      <circle class="dot" cx="194.22" cy="256.09" r="10"/>
+      <circle class="dot" cx="225.16" cy="256.09" r="10"/>
+      <circle class="dot" cx="256.09" cy="256.09" r="10"/>
+      <circle class="dot" cx="287.03" cy="256.09" r="10"/>
+      <circle class="dot" cx="317.97" cy="256.09" r="10"/>
+      <circle class="dot" cx="8.59" cy="287.03" r="10"/>
+      <circle class="dot" cx="39.53" cy="287.03" r="10"/>
+      <circle class="dot" cx="70.47" cy="287.03" r="10"/>
+      <circle class="dot" cx="101.41" cy="287.03" r="10"/>
+      <circle class="dot" cx="132.34" cy="287.03" r="10"/>
+      <circle class="dot" cx="163.28" cy="287.03" r="10"/>
+      <circle class="dot" cx="194.22" cy="287.03" r="10"/>
+      <circle class="dot" cx="225.16" cy="287.03" r="10"/>
+      <circle class="dot" cx="256.09" cy="287.03" r="10"/>
+      <circle class="dot" cx="287.03" cy="287.03" r="10"/>
+      <circle class="dot" cx="317.97" cy="287.03" r="10"/>
+
+    </svg>
+</svg>
