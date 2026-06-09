@@ -1,8 +1,8 @@
 domain="matrix.works"
 host="dav.$domain"
 
-user="test001@matrix.works"
-pass="test2019"
+user="test001@matrix.works"  # NOTE: @根据需要转义为%40
+pass="your-pass"
 
 collection_contacts="contacts"
 collection_calendar="calendar"

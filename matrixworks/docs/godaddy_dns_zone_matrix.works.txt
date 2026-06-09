@@ -1,0 +1,80 @@
+; Domain: matrix.works
+; Exported (y-m-d hh:mm:ss): 2026-06-09 01:50:07
+;
+; This file is intended for use for informational and archival
+; purposes ONLY and MUST be edited before use on a production
+; DNS server.
+;
+; In particular, you must update the SOA record with the correct
+; authoritative name server and contact e-mail address information,
+; and add the correct NS records for the name servers which will
+; be authoritative for this domain.
+;
+; For further information, please consult the BIND documentation
+; located on the following website:
+;
+; http://www.isc.org/
+;
+; And RFC 1035:
+;
+; http://www.ietf.org/rfc/rfc1035.txt
+;
+; Please note that we do NOT offer technical support for any use
+; of this zone data, the BIND name server, or any other third-
+; party DNS software.
+;
+; Use at your own risk.
+
+
+$ORIGIN matrix.works.
+
+; SOA Record
+@	600	 IN 	SOA	ns05.domaincontrol.com.	dns.jomax.net. (
+					2026060805
+					28800
+					7200
+					604800
+					600
+					) 
+
+; A Record
+@	600	 IN 	A	172.234.90.49
+
+; TXT Record
+@	3600	 IN 	TXT	"google-site-verification=6KE9hVU0KU2AwFxMVFDe5iXLtwddanaPDzf1u9DN5F4"
+@	3600	 IN 	TXT	"v=spf1 a mx -all"
+default._domainkey	3600	 IN 	TXT	"v=DKIM1;k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDggriYzcC+MKhGIZRFKA08kh+xjGrWCq+eXmDFS6Ozu5kK5HOJp7NhGSF21IVB7iexbQf/13cKsySVBqnXWdT18YqzdKigHTeX7qS0XGlE1ixc5gtTCXbciLpqCbOqiftd2qx4E4KSHVNrtWJI4aXy4rEBgVXtJrKFmQbSEErGHwIDAQAB"
+_acme-challenge	600	 IN 	TXT	"0A1Xv8CONqMEmZIx-SqMKfZ5GEgEwCxI-MabkK9-qL4"
+_acme-challenge	600	 IN 	TXT	"ejGIMDpwMrAizKzf84O4XAAs7OPVswXxzhspTtHDJec"
+_caldavs._tcp	3600	 IN 	TXT	"path=/.well-known/caldav"
+_carddavs._tcp	3600	 IN 	TXT	"path=/.well-known/carddav"
+_dmarc	3600	 IN 	TXT	"v=DMARC1; p=reject; pct=100; fo=1; rua=mailto:postmaster@matrix.works"
+_mta-sts	3600	 IN 	TXT	"v=STSv1; id=dec3e3b5ec746265f03b6375"
+_smtp._tls	3600	 IN 	TXT	"v=TLSRPTv1; rua=mailto:postmaster@matrix.works"
+
+; AAAA Record
+@	600	 IN 	AAAA	2400:8905::f03c:94ff:fecf:1218
+
+; CNAME Record
+auth	3600	 IN 	CNAME	@
+autoconfig	3600	 IN 	CNAME	@
+blog	3600	 IN 	CNAME	@
+dav	3600	 IN 	CNAME	@
+mail	3600	 IN 	CNAME	@
+mta-sts	3600	 IN 	CNAME	@
+smtp	3600	 IN 	CNAME	mail.matrix.works.
+www	3600	 IN 	CNAME	@
+
+; SRV Record
+_caldav._tcp.@	3600	 IN 	SRV	10	10	80	dav.matrix.works.
+_caldavs._tcp.@	3600	 IN 	SRV	10	20	443	dav.matrix.works.
+_carddav._tcp.@	3600	 IN 	SRV	10	20	80	dav.matrix.works.
+_carddavs._tcp.@	3600	 IN 	SRV	10	20	443	dav.matrix.works.
+
+; NS Record
+@	3600	 IN 	NS	ns05.domaincontrol.com.
+@	3600	 IN 	NS	ns06.domaincontrol.com.
+
+; MX Record
+@	3600	 IN 	MX	8	mail.matrix.works.
+

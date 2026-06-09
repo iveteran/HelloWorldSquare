@@ -1,0 +1,70 @@
+; Domain: iveteran.me
+; Exported (y-m-d hh:mm:ss): 2026-06-09 01:57:19
+;
+; This file is intended for use for informational and archival
+; purposes ONLY and MUST be edited before use on a production
+; DNS server.
+;
+; In particular, you must update the SOA record with the correct
+; authoritative name server and contact e-mail address information,
+; and add the correct NS records for the name servers which will
+; be authoritative for this domain.
+;
+; For further information, please consult the BIND documentation
+; located on the following website:
+;
+; http://www.isc.org/
+;
+; And RFC 1035:
+;
+; http://www.ietf.org/rfc/rfc1035.txt
+;
+; Please note that we do NOT offer technical support for any use
+; of this zone data, the BIND name server, or any other third-
+; party DNS software.
+;
+; Use at your own risk.
+
+
+$ORIGIN iveteran.me.
+
+; SOA Record
+@	600	 IN 	SOA	ns05.domaincontrol.com.	dns.jomax.net. (
+					2025011747
+					28800
+					7200
+					604800
+					600
+					) 
+
+; A Record
+@	600	 IN 	A	172.234.90.49
+jp	600	 IN 	A	172.234.90.49
+
+; TXT Record
+@	3600	 IN 	TXT	"v=spf1 mx ~all"
+default._domainkey	3600	 IN 	TXT	"v=DKIM1;k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8ZU5bDKj69ztGBEcqAYs2AC74EM3vzSKkMajCzbc3TmrbCFmiKMhnKfiHdlXoWmVxE1hsdQyRniD8SQYlBtP8GmNaA6ZbbCJU2F1peIkyf2Xdx0JWagMjMOUiJiTM1KrV3iiu4Uqwm+uN96OdcriSa9It09cPUZN+8JFHXyltEQIDAQAB"
+_acme-challenge	600	 IN 	TXT
+_acme-challenge	600	 IN 	TXT	"5Si6iaDBo6MD8chyOfvYUH2JQwntywAPHRJ-xwuX9pk"
+_acme-challenge	600	 IN 	TXT	"8GuRtWWhfGMpP9OOw3vqozvi85E90PFzQBRyH6d2qPg"
+_dmarc	3600	 IN 	TXT	"v=DMARC1; p=none; pct=100; fo=1; rua=mailto:postmaster@iveteran.me"
+
+; AAAA Record
+@	600	 IN 	AAAA	2400:8905::f03c:94ff:fecf:1218
+
+; CNAME Record
+blog	3600	 IN 	CNAME	@
+im	3600	 IN 	CNAME	@
+irc	3600	 IN 	CNAME	@
+mail	3600	 IN 	CNAME	@
+vpn	3600	 IN 	CNAME	@
+www	3600	 IN 	CNAME	@
+_domainconnect	3600	 IN 	CNAME	_domainconnect.gd.domaincontrol.com.
+
+; NS Record
+@	3600	 IN 	NS	ns05.domaincontrol.com.
+@	3600	 IN 	NS	ns06.domaincontrol.com.
+
+; MX Record
+@	3600	 IN 	MX	10	mail.iveteran.me.
+
