@@ -1,0 +1,15 @@
+0xC2A39FAA15ceee4EE4d715ed64eCc0DC509AfE5D
+https://etherscan.io/address/0xC2A39FAA15ceee4EE4d715ed64eCc0DC509AfE5D
+
+matrixworks.eth
+5$/y
+expiry: January 2, 2029
+https://app.ens.domains/matrixworks.eth
+
+postcoin.eth
+5$/y
+expiry: January 11, 2028
+https://app.ens.domains/postcoin.eth
+
+yuu.eth
+icchat.eth
